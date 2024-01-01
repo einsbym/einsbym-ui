@@ -7,6 +7,8 @@ import { useState } from 'react';
 
 export default function Upload() {
     const router = useRouter();
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
     const [imageFile, setImageFile] = useState<any>();
     const [formData, setFormData] = useState({
         imageName: '',
@@ -23,7 +25,11 @@ export default function Upload() {
     };
 
     const uploadFile = async () => {
+        setErrorMessage('');
+        setSuccessMessage('');
+
         if (!imageFile) {
+            setErrorMessage('You did not load any image. Please, select a file.');
             return;
         }
 
@@ -50,16 +56,19 @@ export default function Upload() {
                     metadata,
                     function (err, objInfo) {
                         if (err) {
+                            setErrorMessage('Something went wrong.');
                             return console.log(err); // err should be null
                         }
-                        console.log('Success', objInfo);
+                        setSuccessMessage('The image was uploaded successfully!');
                     },
                 );
             } else {
+                setErrorMessage('Something went wrong.');
                 console.error('File buffer result is not an ArrayBuffer or is null');
             }
         };
         fileBuffer.onerror = function (error) {
+            setErrorMessage('Something went wrong.');
             console.log('Error: ', error);
         };
     };
@@ -161,6 +170,20 @@ export default function Upload() {
                                         onChange={(data) => setMetadata(data)}
                                     />
                                 </div>
+                                {errorMessage.length !== 0 ? (
+                                    <div className="flex justify-center mt-5">
+                                    <div className="w-fit p-4 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
+                                        {errorMessage}
+                                    </div>
+                                    </div>
+                                ) : null}
+                                {successMessage.length !== 0 ? (
+                                    <div className="flex justify-center mt-5">
+                                    <div className="w-fit p-4 text-[#66ff00] border border-[#66ff00] bg-[#13500036] rounded-lg">
+                                        {successMessage}
+                                    </div>
+                                    </div>
+                                ) : null}
                             </div>
                             <div className="bg-[black] px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button
