@@ -43,6 +43,7 @@ export default function Home() {
 
     useEffect(() => {
         getImages();
+        console.log(images);
     }, []);
 
     return (
@@ -61,6 +62,13 @@ export default function Home() {
                         </div>
                     ))}
             </div>
+            {images.length === 0 ? (
+                <div className="flex justify-center">
+                    <div className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
+                        There's nothing to show here
+                    </div>
+                </div>
+            ) : null}
         </main>
     );
 }
