@@ -163,7 +163,7 @@ export default function Navbar() {
                 id="drawer-navigation"
                 className={`fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto ${
                     isSidebarActive ? null : '-translate-x-full'
-                } transition-transform bg-white dark:bg-gray-800`}
+                } transition-transform bg-white dark:bg-gray-900`}
                 aria-labelledby="drawer-navigation-label"
             >
                 <h5
@@ -174,9 +174,7 @@ export default function Navbar() {
                 </h5>
                 <button
                     type="button"
-                    data-drawer-hide="drawer-navigation"
-                    aria-controls="drawer-navigation"
-                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="text-gray-400 bg-transparent hover:bg-[#cc00ff1e] hover:text-[#cc00ff] rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center"
                     onClick={() => setIsSidebarActive(false)}
                 >
                     <svg
@@ -187,9 +185,9 @@ export default function Navbar() {
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                         ></path>
                     </svg>
                     <span className="sr-only">Close menu</span>
@@ -199,10 +197,10 @@ export default function Navbar() {
                         <li>
                             <a
                                 href="#"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:text-[#cc00ff] hover:bg-[#cc00ff1e] dark:hover:bg-[#cc00ff1e] group"
                             >
                                 <svg
-                                    className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                    className="flex-shrink-0 w-5 h-5 transition duration-75 text-[#cc00ff] dark:text-[#cc00ff]"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="currentColor"
@@ -216,10 +214,10 @@ export default function Navbar() {
                         <li>
                             <a
                                 href="#"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:text-[#cc00ff] hover:bg-[#cc00ff1e] dark:hover:bg-[#cc00ff1e] group"
                             >
                                 <svg
-                                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                    className="w-5 h-5 text-[#cc00ff]"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -227,14 +225,14 @@ export default function Navbar() {
                                 >
                                     <path
                                         stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
                                         d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                                     />
                                 </svg>
                                 <span className="flex-1 ms-3 whitespace-nowrap">Upload</span>
-                                <span className="inline-flex items-center justify-center w-10 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-lg dark:bg-blue-900 dark:text-blue-300">
+                                <span className="inline-flex items-center justify-center w-10 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-lg dark:bg-blue-900 dark:text-white">
                                     new
                                 </span>
                             </a>
