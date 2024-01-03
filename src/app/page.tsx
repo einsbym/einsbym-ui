@@ -1,5 +1,6 @@
 'use client';
 
+import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import { minioClient } from '@/minio-client/minio-client';
 import { BucketItem } from 'minio';
@@ -69,6 +70,8 @@ export default function Home() {
                     </div>
                 </div>
             ) : null}
+
+            <Footer />
         </main>
     );
 }
