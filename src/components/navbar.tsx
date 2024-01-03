@@ -196,7 +196,7 @@ export default function Navbar() {
                     <ul className="space-y-2 font-medium">
                         <li>
                             <a
-                                href="#"
+                                href="/"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:text-[#cc00ff] hover:bg-[#cc00ff1e] dark:hover:bg-[#cc00ff1e] group"
                             >
                                 <svg
@@ -213,7 +213,7 @@ export default function Navbar() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/upload"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:text-[#cc00ff] hover:bg-[#cc00ff1e] dark:hover:bg-[#cc00ff1e] group"
                             >
                                 <svg
