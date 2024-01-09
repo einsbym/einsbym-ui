@@ -119,14 +119,14 @@ export default function Navbar() {
                                     className={
                                         !isMenuOpen
                                             ? 'hidden'
-                                            : 'absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+                                            : 'absolute right-0 z-10 pt-2 pb-2 mt-3 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
                                     }
                                     role="menu"
                                     tabIndex={-1}
                                 >
                                     <a
                                         href="/app"
-                                        className="block px-4 py-2 text-sm text-[#cc00ff69] hover:text-[#cc00ff]"
+                                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
                                         role="menuitem"
                                         tabIndex={-1}
                                         id="user-menu-item-0"
@@ -135,7 +135,7 @@ export default function Navbar() {
                                     </a>
                                     <a
                                         href="#"
-                                        className="block px-4 py-2 text-sm text-[#cc00ff69] hover:text-[#cc00ff]"
+                                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
                                         role="menuitem"
                                         tabIndex={-1}
                                         id="user-menu-item-1"
@@ -144,7 +144,7 @@ export default function Navbar() {
                                     </a>
                                     <a
                                         href="#"
-                                        className="block px-4 py-2 text-sm text-[#cc00ff69] hover:text-[#cc00ff]"
+                                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
                                         role="menuitem"
                                         tabIndex={-1}
                                         id="user-menu-item-2"
