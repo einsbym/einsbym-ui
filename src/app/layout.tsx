@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Linai',
+    title: 'Einsbym',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
