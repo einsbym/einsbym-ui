@@ -1,5 +1,6 @@
 export default function Footer() {
-    const date = new Date();
+    const currentYear = new Date().getFullYear();
+    const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || ""
 
     return (
         <footer className="shadow bg-gray-900 mt-10">
@@ -26,11 +27,11 @@ export default function Footer() {
                 </div>
                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
-                    © {date.getFullYear()}{' '}
+                    © {currentYear}{' '}
                     <a href="/" className="hover:text-[#cc00ff]">
                         Einsbym
                     </a>
-                    . All Rights Reserved.
+                    . All Rights Reserved. Version: {appVersion}
                 </span>
             </div>
         </footer>
