@@ -12,7 +12,7 @@ export default function Slides({ slides }: any) {
     };
 
     return (
-        <div className="relative w-full h-[200px] bg-gray-900 rounded-lg">
+        <div className="relative w-full h-[200px] bg-gray-900 rounded-lg p-5">
             {slides.map((slide: any, index: number) => (
                 <div
                     key={index}
@@ -20,13 +20,13 @@ export default function Slides({ slides }: any) {
                         index !== activeIndex ? 'opacity-0' : ''
                     }`}
                 >
-                    <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
+                    <h2 className="text-2xl font-extrabold text-[#cc00ff] mb-5">{slide.title}</h2>
                     <p>{slide.text}</p>
                 </div>
             ))}
             <button
                 onClick={prevSlide}
-                className="absolute top-1/2 left-5 transform -translate-y-1/2 p-2 rounded-lg"
+                className="absolute bottom-5 left-5 p-2 rounded-lg"
             >
                 <span className="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
                     <svg
@@ -49,7 +49,7 @@ export default function Slides({ slides }: any) {
             </button>
             <button
                 onClick={nextSlide}
-                className="absolute top-1/2 right-5 transform -translate-y-1/2 p-2 rounded-lg"
+                className="absolute bottom-5 right-5 p-2 rounded-lg"
             >
                 <span className="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
                     <svg
