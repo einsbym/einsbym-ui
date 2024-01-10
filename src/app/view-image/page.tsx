@@ -2,7 +2,15 @@
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+import Slides from '@/components/slide-info';
 import { useEffect, useState } from 'react';
+
+const slides = [
+    { title: 'Title 1', text: 'Text 1' },
+    { title: 'Title 2', text: 'Text 2' },
+    { title: 'Title 3', text: 'Text 3' },
+    { title: 'Title 4', text: 'Text 4' },
+];
 
 export default function ViewImage() {
     // Set the value received from the local storage to a local state
@@ -21,7 +29,7 @@ export default function ViewImage() {
             <h2 className="mb-5 text-4xl font-extrabold dark:text-white underline underline-offset-3 decoration-8 decoration-[#cc00ff]">
                 Image title
             </h2>
-            <p className='mb-5'>
+            <p className="mb-5">
                 <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300">
                     Default
                 </span>
@@ -32,7 +40,10 @@ export default function ViewImage() {
                     Red
                 </span>
             </p>
-            <img className="rounded-lg object-cover" src={selectedImage} />
+
+            <div className="flex justify-center">
+                <img className="rounded-lg object-cover" src={selectedImage} />
+            </div>
 
             <div className="flex items-center mt-5 mb-5 p-5 border border-1 border-gray-500 rounded-lg">
                 <div className="flex-shrink-0">
@@ -48,13 +59,15 @@ export default function ViewImage() {
             <h4 className="mb-5 text-2xl font-extrabold dark:text-white underline underline-offset-3 decoration-8 decoration-[#cc00ff]">
                 Details
             </h4>
-            <div className="bg-gray-900 rounded-lg p-5">
+            <div className="bg-gray-900 rounded-lg p-5 mb-5">
                 <p>
                     The paragraph element is one of the most commonly used HTML tags on a document page because it is
                     used to write longer blocks of text separated by a blank line and can massively improve the on-page
                     SEO of the page when used correctly.
                 </p>
             </div>
+
+            <Slides slides={slides} />
 
             <Footer />
         </main>
