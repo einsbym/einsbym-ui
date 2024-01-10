@@ -12,7 +12,7 @@ export default function Slides({ slides }: any) {
     };
 
     return (
-        <div className="relative w-full h-[200px] bg-gray-900 rounded-lg p-5">
+        <div className="relative w-full h-[200px] bg-[#cc00ff1e] rounded-lg p-5">
             {slides.map((slide: any, index: number) => (
                 <div
                     key={index}
@@ -21,7 +21,7 @@ export default function Slides({ slides }: any) {
                     }`}
                 >
                     <h2 className="text-2xl font-extrabold text-[#cc00ff] mb-5">{slide.title}</h2>
-                    <p>{slide.text}</p>
+                    <p className='text-[#cc00ff]'>{slide.text}</p>
                 </div>
             ))}
             <button
