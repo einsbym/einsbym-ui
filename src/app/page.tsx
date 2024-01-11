@@ -2,10 +2,8 @@
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
-import { minioClient } from '@/minio-client/minio-client';
-import { BucketItem } from 'minio';
 import { useRouter } from 'next/navigation';
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -17,36 +15,26 @@ export default function Home() {
         router.push('/view-image');
     };
 
-    const getImages = async () => {
-        const data: BucketItem[] = [];
-        const stream = minioClient.listObjects('stable-diffusion', '', true);
-
-        stream.on('data', function (obj) {
-            data.push(obj);
-        });
-        stream.on('end', function () {
-            const presignedUrls: SetStateAction<string[]> = [];
-
-            data.forEach((obj) => {
-                if (obj.name !== undefined) {
-                    minioClient.presignedUrl('GET', 'stable-diffusion', obj.name, 24 * 60 * 60, (err, presignedUrl) => {
-                        if (err) return console.error(err);
-                        presignedUrls.push(presignedUrl);
-                    });
-                }
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/images', {
+                method: 'GET'
             });
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await response.json();
 
-            setImages(presignedUrls);
+            setImages(data);
             setLoading(false);
-        });
-        stream.on('error', function (err) {
-            console.error(err);
+        } catch (error) {
+            console.error('Error fetching data:', error);
             setLoading(false);
-        });
+        }
     };
 
     useEffect(() => {
-        getImages();
+        fetchData();
     }, []);
 
     return (
