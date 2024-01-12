@@ -17,7 +17,7 @@ export default function Home() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/images', {
+            const response = await fetch('http://192.168.255.112:8080/images', {
                 method: 'GET'
             });
             if (!response.ok) {

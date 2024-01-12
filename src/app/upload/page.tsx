@@ -1,7 +1,6 @@
 'use client';
 
 import Navbar from '@/components/navbar';
-import { minioClient } from '@/minio-client/minio-client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -9,68 +8,49 @@ export default function Upload() {
     const router = useRouter();
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
-    const [imageFile, setImageFile] = useState<any>();
     const [formData, setFormData] = useState({
         imageName: '',
         prompt: '',
         negativePrompt: '',
         aiModelUsed: '',
     });
+    const [file, setFile] = useState<any>(null);
+
+    const handleFileChange = (e: any) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleUpload = async () => {
+        setErrorMessage('');
+        setSuccessMessage('');
+
+        if (!file) {
+            setErrorMessage('You did not load any image. Please, select a file.');
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            await fetch('http://localhost:8080/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            console.log('File uploaded successfully');
+            setSuccessMessage('The image was uploaded successfully!');
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            setErrorMessage('Something went wrong.');
+        }
+    };
 
     const setMetadata = (e: any) => {
         setFormData({
             ...formData,
             [e.target.id]: e.target.value,
         });
-    };
-
-    const uploadFile = async () => {
-        setErrorMessage('');
-        setSuccessMessage('');
-
-        if (!imageFile) {
-            setErrorMessage('You did not load any image. Please, select a file.');
-            return;
-        }
-
-        const fileBuffer = new FileReader();
-
-        fileBuffer.readAsArrayBuffer(imageFile);
-        fileBuffer.onload = async function () {
-            if (fileBuffer.result instanceof ArrayBuffer && fileBuffer.result !== null) {
-                const buffer = Buffer.from(fileBuffer.result); //buffer data
-
-                // Set metadata
-                const metadata = {
-                    imageName: formData.imageName,
-                    prompt: formData.prompt,
-                    negativePrompt: formData.negativePrompt,
-                    modelUsed: formData.aiModelUsed,
-                };
-
-                minioClient.putObject(
-                    'stable-diffusion',
-                    imageFile.name,
-                    buffer,
-                    imageFile.size,
-                    metadata,
-                    function (err, objInfo) {
-                        if (err) {
-                            setErrorMessage('Something went wrong.');
-                            return console.log(err); // err should be null
-                        }
-                        setSuccessMessage('The image was uploaded successfully!');
-                    },
-                );
-            } else {
-                setErrorMessage('Something went wrong.');
-                console.error('File buffer result is not an ArrayBuffer or is null');
-            }
-        };
-        fileBuffer.onerror = function (error) {
-            setErrorMessage('Something went wrong.');
-            console.log('Error: ', error);
-        };
     };
 
     return (
@@ -117,7 +97,7 @@ export default function Upload() {
                                             id="dropzone-file"
                                             type="file"
                                             className="hidden"
-                                            onChange={(e: any) => setImageFile(e.target.files[0])}
+                                            onChange={(e) => handleFileChange(e)}
                                         />
                                     </label>
                                 </div>
@@ -172,16 +152,16 @@ export default function Upload() {
                                 </div>
                                 {errorMessage.length !== 0 ? (
                                     <div className="flex justify-center mt-5">
-                                    <div className="w-fit p-4 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
-                                        {errorMessage}
-                                    </div>
+                                        <div className="w-fit p-4 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
+                                            {errorMessage}
+                                        </div>
                                     </div>
                                 ) : null}
                                 {successMessage.length !== 0 ? (
                                     <div className="flex justify-center mt-5">
-                                    <div className="w-fit p-4 text-[#66ff00] border border-[#66ff00] bg-[#13500036] rounded-lg">
-                                        {successMessage}
-                                    </div>
+                                        <div className="w-fit p-4 text-[#66ff00] border border-[#66ff00] bg-[#13500036] rounded-lg">
+                                            {successMessage}
+                                        </div>
                                     </div>
                                 ) : null}
                             </div>
@@ -189,7 +169,7 @@ export default function Upload() {
                                 <button
                                     type="button"
                                     className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                    onClick={uploadFile}
+                                    onClick={handleUpload}
                                 >
                                     Upload Image
                                 </button>
