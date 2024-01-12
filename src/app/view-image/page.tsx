@@ -46,7 +46,15 @@ export default function ViewImage() {
                     <img className="rounded-lg object-cover" src={selectedImage} />
                 </div>
 
-                <div className="flex items-center mt-5 mb-5 p-5 border border-1 border-gray-500 rounded-lg">
+                <button
+                    type="button"
+                    className="w-full md:w-fit text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-3 mb-3"
+                    onClick={() => console.log(`${selectedImage} should be deleted`)}
+                >
+                    Delete
+                </button>
+
+                <div className="flex items-center mb-5 p-5 border border-1 border-gray-500 rounded-lg">
                     <div className="flex-shrink-0">
                         <img className="w-10 h-10 rounded-full" src="/profpic.jpeg" alt="Bianca Neri" />
                     </div>
