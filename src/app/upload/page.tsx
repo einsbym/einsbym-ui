@@ -33,7 +33,7 @@ export default function Upload() {
             const formData = new FormData();
             formData.append('file', file);
 
-            await fetch('http://localhost:8080/upload', {
+            await fetch('http://192.168.255.112:8080/upload', {
                 method: 'POST',
                 body: formData,
             });
