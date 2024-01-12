@@ -4,6 +4,7 @@ import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { storageServiceHost } from './constants/constants';
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ export default function Home() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://192.168.255.112:8080/images', {
+            const response = await fetch(`${storageServiceHost}/images`, {
                 method: 'GET'
             });
             if (!response.ok) {
