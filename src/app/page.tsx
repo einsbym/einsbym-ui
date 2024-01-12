@@ -19,7 +19,7 @@ export default function Home() {
     const fetchData = async () => {
         try {
             const response = await fetch(`${storageServiceHost}/images`, {
-                method: 'GET'
+                method: 'GET',
             });
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
@@ -44,7 +44,7 @@ export default function Home() {
                 <Navbar />
 
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
-                    {loading ? (
+                    {loading && (
                         <>
                             <div>
                                 <img
@@ -71,7 +71,7 @@ export default function Home() {
                                 />
                             </div>
                         </>
-                    ) : null}
+                    )}
 
                     {images &&
                         images.map((image, index) => (
@@ -85,7 +85,7 @@ export default function Home() {
                         ))}
                 </div>
 
-                {images.length === 0 && !loading ? (
+                {!images && !loading ? (
                     <div className="flex justify-center">
                         <div className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
                             There's nothing to show here
