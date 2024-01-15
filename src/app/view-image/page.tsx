@@ -27,7 +27,7 @@ export default function ViewImage() {
             <main className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
                 <Navbar />
 
-                <h2 className="mb-5 text-4xl font-extrabold dark:text-white underline underline-offset-3 decoration-8 decoration-[#cc00ff]">
+                <h2 className="mb-5 text-4xl font-extrabold text-white underline underline-offset-3 decoration-8 decoration-[#cc00ff]">
                     Image title
                 </h2>
                 <p className="mb-5">
@@ -65,10 +65,10 @@ export default function ViewImage() {
                     <div className="inline-flex text-xs items-center font-semibold text-gray-500">Há dois dias</div>
                 </div>
 
-                <h4 className="mb-5 text-2xl font-extrabold dark:text-white underline underline-offset-3 decoration-6 decoration-[#cc00ff]">
+                <h4 className="mb-5 text-2xl font-extrabold text-white underline underline-offset-3 decoration-6 decoration-[#cc00ff]">
                     Details
                 </h4>
-                <div className="bg-gray-900 rounded-lg p-5 mb-5">
+                <div className="bg-gray-900 rounded-lg p-5 mb-5 text-white">
                     <p>
                         The paragraph element is one of the most commonly used HTML tags on a document page because it
                         is used to write longer blocks of text separated by a blank line and can massively improve the

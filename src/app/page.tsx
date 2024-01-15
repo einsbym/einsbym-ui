@@ -43,36 +43,24 @@ export default function Home() {
             <main className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
                 <Navbar />
 
-                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
-                    {loading && (
-                        <>
-                            <div>
-                                <img
-                                    className={`grid-image w-[500px] h-[500px] cursor-pointer rounded-lg object-cover animate-pulse bg-gray-100`}
-                                    src={''}
-                                />
-                            </div>
-                            <div>
-                                <img
-                                    className={`grid-image w-[500px] h-[500px] cursor-pointer rounded-lg object-cover animate-pulse bg-gray-100`}
-                                    src={''}
-                                />
-                            </div>
-                            <div>
-                                <img
-                                    className={`grid-image w-[500px] h-[500px] cursor-pointer rounded-lg object-cover animate-pulse bg-gray-100`}
-                                    src={''}
-                                />
-                            </div>
-                            <div>
-                                <img
-                                    className={`grid-image w-[500px] h-[500px] cursor-pointer rounded-lg object-cover animate-pulse bg-gray-100`}
-                                    src={''}
-                                />
-                            </div>
-                        </>
-                    )}
+                {loading && (
+                    <div className="flex gap-2 md:grid-cols-2 lg:grid-cols-4">
+                        <div
+                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                        ></div>
+                        <div
+                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                        ></div>
+                        <div
+                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                        ></div>
+                        <div
+                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                        ></div>
+                    </div>
+                )}
 
+                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
                     {images &&
                         images.map((image, index) => (
                             <div key={index}>
