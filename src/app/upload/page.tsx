@@ -3,7 +3,9 @@
 import Navbar from '@/components/navbar';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { storageUrl } from '../constants/constants';
+import { storageServiceUrl } from '../constants/constants';
+import { useMutation } from '@apollo/client';
+import { SAVE_IMAGE_DATA } from '@/graphql/mutations/image';
 
 export default function Upload() {
     const router = useRouter();
@@ -16,6 +18,7 @@ export default function Upload() {
         aiModelUsed: '',
     });
     const [file, setFile] = useState<any>(null);
+    const [saveImageData, { data, loading, error }] = useMutation(SAVE_IMAGE_DATA);
 
     const handleFileChange = (e: any) => {
         setFile(e.target.files[0]);
@@ -34,12 +37,37 @@ export default function Upload() {
             const formData = new FormData();
             formData.append('file', file);
 
-            await fetch(`${storageUrl}/upload`, {
+            const response = await fetch(`${storageServiceUrl}/upload`, {
                 method: 'POST',
                 body: formData,
             });
 
-            console.log('File uploaded successfully');
+            if (response.status !== 200) {
+                throw new Error(response.statusText);
+            }
+
+            // Get response from backend
+            const jsonResponse = await response.json();
+
+            // Save image data
+            const result = await saveImageData({
+                variables: {
+                    createImageInput: {
+                        filename: jsonResponse.filename,
+                        name: 'nova imagem',
+                        description: 'descrição qualquer',
+                        tags: ['imagem', 'png', 'teste'],
+                        userId: '5f478b6d-0dcb-44d9-ac41-b2d981c29223',
+                    },
+                },
+            });
+
+            if (result.errors) {
+                throw new Error('Error when attempting to save image data');
+            }
+
+            console.log('File uploaded successfully', jsonResponse);
+
             setSuccessMessage('The image was uploaded successfully!');
         } catch (error) {
             console.error('Error uploading file:', error);
