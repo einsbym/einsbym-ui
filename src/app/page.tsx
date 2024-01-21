@@ -22,8 +22,6 @@ export default function Home() {
 
     const fetchData = async () => {
         try {
-            console.log(imagesQuery.data.images);
-
             setImages(imagesQuery.data.images);
             setLoading(false);
         } catch (error) {

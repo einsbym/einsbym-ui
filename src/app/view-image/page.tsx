@@ -4,6 +4,8 @@ import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import Slides from '@/components/slide-info';
 import { useEffect, useState } from 'react';
+import { storageUrl } from '../constants/constants';
+import { Image } from '@/interfaces/interfaces';
 
 const slides = [
     { title: 'Title 1', text: 'Text 1' },
@@ -14,12 +16,20 @@ const slides = [
 
 export default function ViewImage() {
     // Set the value received from the local storage to a local state
-    const [selectedImage, setSelectedImage] = useState('');
+    const [selectedImage, setSelectedImage] = useState<Image>({
+        id: '',
+        name: '',
+        filename: '',
+        description: '',
+        tags: [''],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    });
 
     useEffect(() => {
         // Get the value from local storage if it exists
         const value = localStorage.getItem('selectedImage') || '';
-        setSelectedImage(value);
+        setSelectedImage(JSON.parse(value));
     }, []);
 
     return (
@@ -28,22 +38,18 @@ export default function ViewImage() {
                 <Navbar />
 
                 <h2 className="mb-5 text-4xl font-extrabold text-white underline underline-offset-3 decoration-8 decoration-[#cc00ff]">
-                    Image title
+                    {selectedImage.name}
                 </h2>
                 <p className="mb-5">
-                    <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                        Default
-                    </span>
-                    <span className="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                        Dark
-                    </span>
-                    <span className="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-1 rounded-full dark:bg-red-900 dark:text-red-300">
-                        Red
-                    </span>
+                    {selectedImage.tags.map((tag, index) => (
+                        <span key={index} className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                            {tag}
+                        </span>
+                    ))}
                 </p>
 
                 <div className="flex justify-center">
-                    <img className="rounded-lg object-cover" src={selectedImage} />
+                    <img className="rounded-lg object-cover" src={storageUrl + selectedImage.filename} />
                 </div>
 
                 <button
@@ -62,7 +68,7 @@ export default function ViewImage() {
                         <p className="text-sm font-medium truncate text-[#cc00ff]">Bianca Neri</p>
                         <p className="text-sm text-gray-500 truncate">@biancaneri</p>
                     </div>
-                    <div className="inline-flex text-xs items-center font-semibold text-gray-500">Há dois dias</div>
+                    <div className="inline-flex text-xs items-center font-semibold text-gray-500">{selectedImage.createdAt.toString()}</div>
                 </div>
 
                 <h4 className="mb-5 text-2xl font-extrabold text-white underline underline-offset-3 decoration-6 decoration-[#cc00ff]">
@@ -70,9 +76,7 @@ export default function ViewImage() {
                 </h4>
                 <div className="bg-gray-900 rounded-lg p-5 mb-5 text-white">
                     <p>
-                        The paragraph element is one of the most commonly used HTML tags on a document page because it
-                        is used to write longer blocks of text separated by a blank line and can massively improve the
-                        on-page SEO of the page when used correctly.
+                        {selectedImage.description}
                     </p>
                 </div>
 
