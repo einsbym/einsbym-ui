@@ -3,7 +3,7 @@
 import Navbar from '@/components/navbar';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { storageServiceHost } from '../constants/constants';
+import { storageUrl } from '../constants/constants';
 
 export default function Upload() {
     const router = useRouter();
@@ -34,7 +34,7 @@ export default function Upload() {
             const formData = new FormData();
             formData.append('file', file);
 
-            await fetch(`${storageServiceHost}/upload`, {
+            await fetch(`${storageUrl}/upload`, {
                 method: 'POST',
                 body: formData,
             });

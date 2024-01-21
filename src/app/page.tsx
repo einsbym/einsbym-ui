@@ -3,19 +3,11 @@
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import { IMAGES } from '@/graphql/queries/image';
+import { Image } from '@/interfaces/interfaces';
 import { useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
-interface Image {
-    id: string;
-    filename: string;
-    name: string;
-    description: string;
-    tags: string[];
-    createdAt: Date;
-    updatedAt: Date;
-}
+import { storageUrl } from './constants/constants';
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -72,7 +64,7 @@ export default function Home() {
                             <div key={image.id}>
                                 <img
                                     className={`grid-image w-[500px] h-[500px] cursor-pointer rounded-lg object-cover`}
-                                    src={'http://127.0.0.1:9000/stable-diffusion/' + image.filename}
+                                    src={storageUrl + image.filename}
                                     onClick={() => viewImage(image)}
                                 />
                             </div>

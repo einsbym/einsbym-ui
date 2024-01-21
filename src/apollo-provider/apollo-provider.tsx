@@ -1,6 +1,6 @@
 'use client';
 
-import { apiHost } from '@/app/constants/constants';
+import { apiUrl } from '@/app/constants/constants';
 import { ApolloLink, HttpLink } from '@apollo/client';
 import {
     ApolloNextAppProvider,
@@ -11,7 +11,7 @@ import {
 
 function makeClient() {
     const httpLink = new HttpLink({
-        uri: apiHost,
+        uri: apiUrl,
     });
 
     return new NextSSRApolloClient({
