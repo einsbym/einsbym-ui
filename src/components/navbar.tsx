@@ -1,5 +1,6 @@
 'use client';
 
+import useAuth from '@/auth/use-auth';
 import { useState } from 'react';
 
 const menuItems = [
@@ -10,6 +11,7 @@ const menuItems = [
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
+    const { getUser, signOut } = useAuth();
 
     const handleMenu = () => {
         if (isMenuOpen) {
@@ -124,6 +126,15 @@ export default function Navbar() {
                                     role="menu"
                                     tabIndex={-1}
                                 >
+                                                                        <a
+                                        href="/app"
+                                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                                        role="menuitem"
+                                        tabIndex={-1}
+                                        id="user-menu-item-0"
+                                    >
+                                        {getUser()?.firstName} ({getUser()?.username})
+                                    </a>
                                     <a
                                         href="/app"
                                         className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
@@ -148,6 +159,7 @@ export default function Navbar() {
                                         role="menuitem"
                                         tabIndex={-1}
                                         id="user-menu-item-2"
+                                        onClick={signOut}
                                     >
                                         Sign out
                                     </a>

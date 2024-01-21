@@ -1,15 +1,19 @@
 'use client';
 
+import useAuth from '@/auth/use-auth';
 import { SIGN_IN } from '@/graphql/mutations/auth';
 import { SigninInput } from '@/interfaces/interfaces';
 import { useMutation } from '@apollo/client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
     const [signIn, { data, loading, error }] = useMutation(SIGN_IN);
     const [errorMessage, setErrorMessage] = useState<string>('');
+    const router = useRouter();
+    const { setUser } = useAuth();
 
     const handleChange = (target: any) => {
         setSigninInput({
@@ -24,23 +28,26 @@ export default function Login() {
         setErrorMessage('');
 
         try {
-            const result = await signIn({
+            await signIn({
                 variables: {
                     signin: {
                         email: signinInput?.email,
                         password: signinInput?.password,
                     },
                 },
-            }).catch(error => {
-                setErrorMessage(error.message);
-            });
-    
-            console.log(result?.data.signin);
+            })
+                .then((result) => {
+                    localStorage.setItem('accessToken', result?.data.signin.accessToken);
 
-            localStorage.setItem('accessToken', result?.data.signin.accessToken);
-            localStorage.setItem('user', JSON.stringify(result?.data.signin.user));
+                    setUser(result?.data.signin.user);
+
+                    router.push('/');
+                })
+                .catch((error) => {
+                    setErrorMessage(error.message);
+                });
         } catch (error) {
-            setErrorMessage('Something went wrong.')
+            setErrorMessage('Something went wrong.');
         }
     };
 
@@ -49,7 +56,11 @@ export default function Login() {
             <div className="flex items-center justify-center w-full md:w-1/2">
                 <Image src="/bg.svg" alt="Login Image" width={800} height={600} />
             </div>
-            <div className={`${errorMessage.length !== 0 ? 'lg:border lg:border-[#ff0000]' : null} lg:bg-gray-900 p-10 rounded-lg flex flex-col items-center justify-center w-full md:w-1/4`}>
+            <div
+                className={`${
+                    errorMessage.length !== 0 ? 'lg:border lg:border-[#ff0000]' : null
+                } lg:bg-gray-900 p-10 rounded-lg flex flex-col items-center justify-center w-full md:w-1/4`}
+            >
                 <div className="w-full max-w-md space-y-8">
                     <div>
                         <h1 className="text-2xl font-bold">Hi!</h1>
