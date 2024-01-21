@@ -1,14 +1,10 @@
 'use client';
 
 import { SIGN_IN } from '@/graphql/mutations/auth';
+import { SigninInput } from '@/interfaces/interfaces';
 import { useMutation } from '@apollo/client';
 import Image from 'next/image';
-import { MouseEvent, useState } from 'react';
-
-interface SigninInput {
-    email: string;
-    password: string;
-}
+import { useState } from 'react';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });

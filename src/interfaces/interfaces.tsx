@@ -7,3 +7,8 @@ export interface Image {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface SigninInput {
+    email: string;
+    password: string;
+}

@@ -66,8 +66,6 @@ export default function Upload() {
                 throw new Error('Error when attempting to save image data');
             }
 
-            console.log('File uploaded successfully', jsonResponse);
-
             setSuccessMessage('The image was uploaded successfully!');
         } catch (error) {
             console.error('Error uploading file:', error);
