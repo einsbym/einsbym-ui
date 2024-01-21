@@ -2,31 +2,37 @@
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+import { IMAGES } from '@/graphql/queries/image';
+import { useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { storageServiceHost } from './constants/constants';
+
+interface Image {
+    id: string;
+    filename: string;
+    name: string;
+    description: string;
+    tags: string[];
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
-    const [images, setImages] = useState<string[]>([]);
+    const [images, setImages] = useState<Image[]>([]);
     const router = useRouter();
+    const imagesQuery: any = useSuspenseQuery(IMAGES);
 
-    const viewImage = (image: string) => {
-        localStorage.setItem('selectedImage', image);
+    const viewImage = (image: Image) => {
+        localStorage.setItem('selectedImage', JSON.stringify(image));
         router.push('/view-image');
     };
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${storageServiceHost}/images`, {
-                method: 'GET',
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            const data = await response.json();
+            console.log(imagesQuery.data.images);
 
-            setImages(data);
+            setImages(imagesQuery.data.images);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -63,10 +69,10 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
                     {images &&
                         images.map((image, index) => (
-                            <div key={index}>
+                            <div key={image.id}>
                                 <img
                                     className={`grid-image w-[500px] h-[500px] cursor-pointer rounded-lg object-cover`}
-                                    src={image}
+                                    src={'http://127.0.0.1:9000/stable-diffusion/' + image.filename}
                                     onClick={() => viewImage(image)}
                                 />
                             </div>
