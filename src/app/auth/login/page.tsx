@@ -36,6 +36,9 @@ export default function Login() {
             });
     
             console.log(result?.data.signin);
+
+            localStorage.setItem('accessToken', result?.data.signin.accessToken);
+            localStorage.setItem('user', JSON.stringify(result?.data.signin.user));
         } catch (error) {
             setErrorMessage('Something went wrong.')
         }

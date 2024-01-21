@@ -14,6 +14,22 @@ function makeClient() {
         uri: apiUrl,
     });
 
+    const authLink = new ApolloLink((operation, forward) => {
+        if (typeof window !== 'undefined') {
+            // Get the access token from local storage
+            const accessToken = localStorage.getItem('accessToken');
+
+            // Set the access token in the headers
+            operation.setContext({
+                headers: {
+                    Authorization: accessToken ? `Bearer ${accessToken}` : '',
+                },
+            });
+        }
+
+        return forward(operation);
+    });
+
     return new NextSSRApolloClient({
         cache: new NextSSRInMemoryCache(),
         link:
@@ -22,9 +38,10 @@ function makeClient() {
                       new SSRMultipartLink({
                           stripDefer: true,
                       }),
+                      authLink,
                       httpLink,
                   ])
-                : httpLink,
+                : ApolloLink.from([authLink, httpLink]),
     });
 }
 
