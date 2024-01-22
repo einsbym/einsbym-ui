@@ -1,7 +1,9 @@
 'use client';
 
+import { storageUrl } from '@/app/constants/constants';
 import useAuth from '@/auth/use-auth';
-import { useState } from 'react';
+import { User } from '@/interfaces/interfaces';
+import { useEffect, useState } from 'react';
 
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },
@@ -12,6 +14,7 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
     const { getUser, signOut } = useAuth();
+    const [user, setUser] = useState<User>();
 
     const handleMenu = () => {
         if (isMenuOpen) {
@@ -20,6 +23,10 @@ export default function Navbar() {
         }
         setIsMenuOpen(true);
     };
+
+    useEffect(() => {
+        setUser(getUser());
+    }, []);
 
     return (
         <>
@@ -114,7 +121,9 @@ export default function Navbar() {
                                     >
                                         <span className="absolute -inset-1.5"></span>
                                         <span className="sr-only">Open user menu</span>
-                                        <img className="h-8 w-8 rounded-full" src="/profpic.jpeg" alt="" />
+                                        {storageUrl && user && (
+                                            <img className="h-8 w-8 rounded-full" src={storageUrl + user.profilePicture} />
+                                        )}
                                     </button>
                                 </div>
                                 <div
@@ -126,15 +135,17 @@ export default function Navbar() {
                                     role="menu"
                                     tabIndex={-1}
                                 >
-                                                                        <a
-                                        href="/app"
-                                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                                        role="menuitem"
-                                        tabIndex={-1}
-                                        id="user-menu-item-0"
-                                    >
-                                        {getUser()?.firstName} ({getUser()?.username})
-                                    </a>
+                                    {user && (
+                                        <a
+                                            href="#"
+                                            className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                                            role="menuitem"
+                                            tabIndex={-1}
+                                            id="user-menu-item-0"
+                                        >
+                                            {user.firstName} ({user.username})
+                                        </a>
+                                    )}
                                     <a
                                         href="/app"
                                         className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"

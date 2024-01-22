@@ -21,7 +21,7 @@ const useAuth = () => {
             localStorage.removeItem('user');
 
             setIsSignedIn(false);
-            
+
             router.push('/auth/login');
         } catch (error) {
             console.error(error);
@@ -29,14 +29,10 @@ const useAuth = () => {
     };
 
     const getUser = () => {
-        try {
             const userStr = localStorage.getItem('user') || '';
             const user: User = JSON.parse(userStr);
 
             return user;
-        } catch (error) {
-            console.error(error);
-        }
     };
 
     return { setUser, signOut, getUser, isSignedIn };
