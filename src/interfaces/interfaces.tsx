@@ -6,6 +6,7 @@ export interface Image {
     tags: string[];
     createdAt: Date;
     updatedAt: Date;
+    user: User;
 }
 
 export interface SigninInput {

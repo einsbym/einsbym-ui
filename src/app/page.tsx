@@ -16,8 +16,7 @@ export default function Home() {
     const imagesQuery: any = useSuspenseQuery(IMAGES);
 
     const viewImage = (image: Image) => {
-        localStorage.setItem('selectedImage', JSON.stringify(image));
-        router.push('/view-image');
+        router.push(`/view-image?image=${image.id}`);
     };
 
     const fetchData = async () => {
