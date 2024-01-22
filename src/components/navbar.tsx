@@ -25,7 +25,10 @@ export default function Navbar() {
     };
 
     useEffect(() => {
-        setUser(getUser());
+        const currentUser = getUser();
+        if (currentUser) {
+            setUser(currentUser);
+        }
     }, []);
 
     return (
@@ -122,7 +125,10 @@ export default function Navbar() {
                                         <span className="absolute -inset-1.5"></span>
                                         <span className="sr-only">Open user menu</span>
                                         {storageUrl && user && (
-                                            <img className="h-8 w-8 rounded-full" src={storageUrl + user.profilePicture} />
+                                            <img
+                                                className="h-8 w-8 rounded-full"
+                                                src={storageUrl + user.profilePicture}
+                                            />
                                         )}
                                     </button>
                                 </div>

@@ -68,7 +68,7 @@ export default function ViewImage() {
                         <p className="text-sm font-medium truncate text-[#cc00ff]">Bianca Neri</p>
                         <p className="text-sm text-gray-500 truncate">@biancaneri</p>
                     </div>
-                    <div className="inline-flex text-xs items-center font-semibold text-gray-500">{selectedImage.createdAt.toString()}</div>
+                    <div className="inline-flex text-xs items-center font-semibold text-gray-500">a day ago</div>
                 </div>
 
                 <h4 className="mb-5 text-2xl font-extrabold text-white underline underline-offset-3 decoration-6 decoration-[#cc00ff]">

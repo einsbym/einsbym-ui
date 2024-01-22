@@ -29,9 +29,14 @@ const useAuth = () => {
     };
 
     const getUser = () => {
+        let user: User;
             const userStr = localStorage.getItem('user') || '';
-            const user: User = JSON.parse(userStr);
 
+            if (userStr.length === 0) {
+                return null;
+            }
+            
+            user = JSON.parse(userStr);
             return user;
     };
 
