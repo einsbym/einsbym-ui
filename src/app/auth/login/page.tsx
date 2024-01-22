@@ -7,6 +7,10 @@ import { useMutation } from '@apollo/client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { AiFillFire, AiTwotoneSmile } from 'react-icons/ai';
+import { CiLogin } from 'react-icons/ci';
+import { FaBeer } from 'react-icons/fa';
+import { MdError } from 'react-icons/md';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
@@ -95,17 +99,17 @@ export default function Login() {
                         </div>
                         {errorMessage.length !== 0 ? (
                             <div className="flex justify-center mt-5">
-                                <div className="w-fit p-2 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
-                                    {errorMessage}
+                                <div className="flex gap-2 items-center w-fit p-2 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
+                                    <MdError /> {errorMessage}
                                 </div>
                             </div>
                         ) : null}
                         <div>
                             <button
-                                className="w-full px-4 py-3 font-bold text-white bg-[#cc00ff] rounded-md hover:bg-[#cc00ff1e] focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700"
+                                className="flex gap-2 items-center justify-center w-full px-4 py-3 font-bold text-white bg-[#cc00ff] rounded-md hover:bg-[#cc00ff1e] focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700"
                                 onClick={(e) => login(e)}
                             >
-                                Sign In
+                                <CiLogin size={30} /> Sign In
                             </button>
                         </div>
                     </form>

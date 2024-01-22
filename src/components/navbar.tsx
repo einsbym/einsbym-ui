@@ -4,6 +4,7 @@ import { storageUrl } from '@/app/constants/constants';
 import useAuth from '@/auth/use-auth';
 import { User } from '@/interfaces/interfaces';
 import { useEffect, useState } from 'react';
+import { RiLoginCircleLine } from 'react-icons/ri';
 
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },
@@ -116,21 +117,30 @@ export default function Navbar() {
 
                             <div className="relative ml-3">
                                 <div>
-                                    <button
-                                        type="button"
-                                        className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#cc00ff] focus:ring-offset-2 focus:ring-offset-gray-800"
-                                        id="user-menu-button"
-                                        onClick={() => handleMenu()}
-                                    >
-                                        <span className="absolute -inset-1.5"></span>
-                                        <span className="sr-only">Open user menu</span>
-                                        {storageUrl && user && (
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src={storageUrl + user.profilePicture}
-                                            />
-                                        )}
-                                    </button>
+                                    {user && (
+                                        <button
+                                            type="button"
+                                            className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#cc00ff] focus:ring-offset-2 focus:ring-offset-gray-800"
+                                            id="user-menu-button"
+                                            onClick={() => handleMenu()}
+                                        >
+                                            <span className="absolute -inset-1.5"></span>
+                                            <span className="sr-only">Open user menu</span>
+                                            {storageUrl && (
+                                                <img
+                                                    className="h-8 w-8 rounded-full"
+                                                    src={storageUrl + user.profilePicture}
+                                                />
+                                            )}
+                                        </button>
+                                    )}
+                                    {!user && (
+                                        <a href="/auth/login">
+                                            <div className="h-8 w-8 rounded-full cursor-pointer text-[#cc00ff]">
+                                                <RiLoginCircleLine size={32} />
+                                            </div>
+                                        </a>
+                                    )}
                                 </div>
                                 <div
                                     className={
