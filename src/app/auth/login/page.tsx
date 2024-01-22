@@ -7,14 +7,12 @@ import { useMutation } from '@apollo/client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { AiFillFire, AiTwotoneSmile } from 'react-icons/ai';
 import { CiLogin } from 'react-icons/ci';
-import { FaBeer } from 'react-icons/fa';
 import { MdError } from 'react-icons/md';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
-    const [signIn, { data, loading, error }] = useMutation(SIGN_IN);
+    const [signIn] = useMutation(SIGN_IN);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const router = useRouter();
     const { setUser } = useAuth();

@@ -18,9 +18,20 @@ export default function Upload() {
         aiModelUsed: '',
     });
     const [file, setFile] = useState<any>(null);
-    const [saveImageData, { data, loading, error }] = useMutation(SAVE_IMAGE_DATA);
+    const [saveImageData] = useMutation(SAVE_IMAGE_DATA);
+    const [selectedImageUrl, setSelectedImageUrl] = useState<string>();
 
     const handleFileChange = (e: any) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            // Create a blob URL for the selected file
+            const blobUrl = URL.createObjectURL(file);
+
+            // Use blobUrl as needed (e.g., display the image)
+            setSelectedImageUrl(blobUrl);
+        }
+
         setFile(e.target.files[0]);
     };
 
@@ -98,7 +109,8 @@ export default function Upload() {
                                 <div className="flex items-center justify-center w-full mb-4">
                                     <label
                                         htmlFor="dropzone-file"
-                                        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:bg-gray-800 dark:border-gray-600 dark:hover:border-gray-500"
+                                        className="bg-cover bg-center flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:bg-gray-800 dark:border-gray-600 dark:hover:border-gray-500"
+                                        style={{ backgroundImage: `url(${selectedImageUrl})` }}
                                     >
                                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                             <svg
