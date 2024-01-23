@@ -1,25 +1,43 @@
 'use client';
 
+import useAuth from '@/auth/use-auth';
 import Navbar from '@/components/navbar';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { storageServiceUrl } from '../constants/constants';
-import { useMutation } from '@apollo/client';
 import { SAVE_IMAGE_DATA } from '@/graphql/mutations/image';
+import { User } from '@/interfaces/interfaces';
+import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { WithContext as ReactTags } from 'react-tag-input';
+import { storageServiceUrl } from '../constants/constants';
+
+const KeyCodes = {
+    comma: 188,
+    enter: 13,
+};
+
+const delimiters = [KeyCodes.comma, KeyCodes.enter];
+
+// Ugly hack to hide the annoying warning from `react-tag-input` lib.
+// For more: https://github.com/recharts/recharts/issues/3615
+const error = console.error;
+console.error = (...args: any) => {
+    if (/defaultProps/.test(args[0])) return;
+    error(...args);
+};
 
 export default function Upload() {
     const router = useRouter();
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
-    const [formData, setFormData] = useState({
-        imageName: '',
-        prompt: '',
-        negativePrompt: '',
-        aiModelUsed: '',
-    });
     const [file, setFile] = useState<any>(null);
     const [saveImageData] = useMutation(SAVE_IMAGE_DATA);
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>();
+    const [imageData, setImageData] = useState({
+        name: '',
+        description: '',
+    });
+    const { getUser } = useAuth();
+    const [user, setUser] = useState<User>();
 
     const handleFileChange = (e: any) => {
         const file = e.target.files[0];
@@ -35,12 +53,48 @@ export default function Upload() {
         setFile(e.target.files[0]);
     };
 
+    const handleInputChange = (e: any) => {
+        setImageData({
+            ...imageData,
+            [e.id]: e.value
+        })
+    };
+
+    const [tags, setTags] = useState([{ id: '1', text: 'detailed' }]);
+
+    const handleDelete = (i: any) => {
+        setTags(tags.filter((tag, index) => index !== i));
+    };
+
+    const handleAddition = (tag: any) => {
+        setTags([...tags, tag]);
+    };
+
+    const handleDrag = (tag: any, currPos: any, newPos: any) => {
+        const newTags = tags.slice();
+
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+
+        // re-render
+        setTags(newTags);
+    };
+
+    const handleTagClick = (index: any) => {
+        console.log('The tag at index ' + index + ' was clicked');
+    };
+
     const handleUpload = async () => {
         setErrorMessage('');
         setSuccessMessage('');
 
         if (!file) {
             setErrorMessage('You did not load any image. Please, select a file.');
+            return;
+        }
+
+        if (!user) {
+            router.push('/auth/login');
             return;
         }
 
@@ -65,10 +119,10 @@ export default function Upload() {
                 variables: {
                     createImageInput: {
                         filename: jsonResponse.filename,
-                        name: 'nova imagem',
-                        description: 'descrição qualquer',
-                        tags: ['imagem', 'png', 'teste'],
-                        userId: '5f478b6d-0dcb-44d9-ac41-b2d981c29223',
+                        name: imageData.name,
+                        description: imageData.description,
+                        tags: tags.map((tag) => {return tag.text}),
+                        userId: user?.id,
                     },
                 },
             });
@@ -84,12 +138,12 @@ export default function Upload() {
         }
     };
 
-    const setMetadata = (e: any) => {
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value,
-        });
-    };
+    useEffect(() => {
+        const currentUser = getUser();
+        if (currentUser) {
+            setUser(currentUser);
+        }
+    }, []);
 
     return (
         <main className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
@@ -141,52 +195,44 @@ export default function Upload() {
                                     </label>
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imageName">
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                                         Image Name
                                     </label>
                                     <input
                                         className="shadow appearance-none rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
-                                        id="imageName"
+                                        id="name"
                                         type="text"
                                         placeholder="Image Name"
-                                        onChange={(data) => setMetadata(data)}
+                                        onChange={(data) => handleInputChange(data.target)}
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="prompt">
-                                        Prompt
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                                        Description
                                     </label>
                                     <textarea
                                         className="shadow appearance-none rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
-                                        id="prompt"
-                                        placeholder="Prompt"
-                                        onChange={(data) => setMetadata(data)}
+                                        id="description"
+                                        placeholder="Description"
+                                        onChange={(data) => handleInputChange(data.target)}
                                     ></textarea>
                                 </div>
                                 <div className="mb-4">
-                                    <label
-                                        className="block text-gray-700 text-sm font-bold mb-2"
-                                        htmlFor="negativePrompt"
-                                    >
-                                        Negative Prompt
-                                    </label>
-                                    <textarea
-                                        className="shadow appearance-none rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
-                                        id="negativePrompt"
-                                        placeholder="Negative Prompt"
-                                        onChange={(data) => setMetadata(data)}
-                                    ></textarea>
-                                </div>
-                                <div>
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="aiModelUsed">
-                                        AI Model Used
-                                    </label>
-                                    <input
-                                        className="shadow appearance-none rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
-                                        id="aiModelUsed"
-                                        type="text"
-                                        placeholder="AI Model Used"
-                                        onChange={(data) => setMetadata(data)}
+                                    <ReactTags
+                                        classNames={{
+                                            tagInputField:
+                                                'shadow appearance-none rounded w-full py-2 px-3 mt-4 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800',
+                                            tag: 'inline-block w-fit p-2 m-1 text-[#cc00ff] border border-[#cc00ff] rounded-lg',
+                                            remove: 'ml-2 text-[#ff0000]',
+                                        }}
+                                        tags={tags}
+                                        delimiters={delimiters}
+                                        handleDelete={handleDelete}
+                                        handleAddition={handleAddition}
+                                        handleDrag={handleDrag}
+                                        handleTagClick={handleTagClick}
+                                        inputFieldPosition="bottom"
+                                        autocomplete
                                     />
                                 </div>
                                 {errorMessage.length !== 0 ? (
