@@ -164,7 +164,7 @@ export default function Upload() {
                                     <label
                                         htmlFor="dropzone-file"
                                         className="bg-cover bg-center flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:bg-gray-800 dark:border-gray-600 dark:hover:border-gray-500"
-                                        style={{ backgroundImage: `url(${selectedImageUrl})` }}
+                                        style={{ backgroundImage: `${selectedImageUrl !== undefined ? `url(${selectedImageUrl})` : 'none'}` }}
                                     >
                                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                             <svg
