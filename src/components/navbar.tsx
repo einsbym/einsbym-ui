@@ -163,7 +163,7 @@ export default function Navbar() {
                                         </a>
                                     )}
                                     <a
-                                        href="/app"
+                                        href="/profile"
                                         className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
                                         role="menuitem"
                                         tabIndex={-1}

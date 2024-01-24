@@ -3,12 +3,12 @@
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import Slides from '@/components/slide-info';
+import { GET_IMAGE_DATA } from '@/graphql/queries/image';
+import { Image } from '@/interfaces/interfaces';
+import { useSuspenseQuery } from '@apollo/client';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageUrl } from '../constants/constants';
-import { Image } from '@/interfaces/interfaces';
-import { useSearchParams } from 'next/navigation';
-import { useMutation, useQuery, useSuspenseQuery } from '@apollo/client';
-import { GET_IMAGE_DATA } from '@/graphql/queries/image';
 
 const slides = [
     { title: 'Title 1', text: 'Text 1' },
