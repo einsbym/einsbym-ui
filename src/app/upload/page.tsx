@@ -215,7 +215,7 @@ export default function Upload() {
                                         Image Name
                                     </label>
                                     <input
-                                        className="shadow appearance-none rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
+                                        className="shadow appearance-none rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
                                         id="name"
                                         type="text"
                                         placeholder="Image Name"
@@ -227,7 +227,7 @@ export default function Upload() {
                                         Description
                                     </label>
                                     <textarea
-                                        className="shadow appearance-none rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
+                                        className="shadow appearance-none rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800"
                                         id="description"
                                         placeholder="Description"
                                         onChange={(data) => handleInputChange(data.target)}
@@ -237,7 +237,7 @@ export default function Upload() {
                                     <ReactTags
                                         classNames={{
                                             tagInputField:
-                                                'shadow appearance-none rounded w-full py-2 px-3 mt-4 text-gray-100 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800',
+                                                'shadow appearance-none rounded w-full py-2 px-3 mt-4 text-gray-600 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800',
                                             tag: 'inline-block w-fit p-2 m-1 text-[#cc00ff] border border-[#cc00ff] rounded-lg',
                                             remove: 'ml-2 text-[#ff0000]',
                                         }}
