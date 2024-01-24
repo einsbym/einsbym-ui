@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { storageServiceUrl } from '../constants/constants';
+import { FaRegHourglass } from 'react-icons/fa6';
 
 const KeyCodes = {
     comma: 188,
@@ -38,6 +39,7 @@ export default function Upload() {
     });
     const { getUser } = useAuth();
     const [user, setUser] = useState<User>();
+    const [disableButtons, setDisableButtons] = useState<boolean>(false);
 
     const handleFileChange = (e: any) => {
         const file = e.target.files[0];
@@ -80,21 +82,25 @@ export default function Upload() {
         setTags(newTags);
     };
 
-    const handleTagClick = (index: any) => {
-        console.log('The tag at index ' + index + ' was clicked');
-    };
-
     const handleUpload = async () => {
+        setDisableButtons(true);
         setErrorMessage('');
         setSuccessMessage('');
 
-        if (!file) {
-            setErrorMessage('You did not load any image. Please, select a file.');
+        if (!user) {
+            router.push('/auth/login');
             return;
         }
 
-        if (!user) {
-            router.push('/auth/login');
+        if (!file) {
+            setErrorMessage('You did not load any image. Please, select a file.');
+            setDisableButtons(false);
+            return;
+        }
+
+        if (imageData.name.length === 0 || imageData.description.length === 0 || tags.length === 0) {
+            setErrorMessage('You need to provide a name, description and tags for the image.');
+            setDisableButtons(false);
             return;
         }
 
@@ -108,6 +114,7 @@ export default function Upload() {
             });
 
             if (response.status !== 200) {
+                setDisableButtons(false);
                 throw new Error(response.statusText);
             }
 
@@ -130,13 +137,15 @@ export default function Upload() {
             });
 
             if (result.errors) {
+                setDisableButtons(false);
                 throw new Error('Error when attempting to save image data');
             }
 
             setSuccessMessage('The image was uploaded successfully!');
+            setDisableButtons(false);
         } catch (error) {
             console.error('Error uploading file:', error);
-            setErrorMessage('Something went wrong.');
+            setErrorMessage(`${error}`);
         }
     };
 
@@ -237,7 +246,6 @@ export default function Upload() {
                                         handleDelete={handleDelete}
                                         handleAddition={handleAddition}
                                         handleDrag={handleDrag}
-                                        handleTagClick={handleTagClick}
                                         inputFieldPosition="bottom"
                                         autocomplete
                                     />
@@ -260,15 +268,17 @@ export default function Upload() {
                             <div className="bg-[black] px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                 <button
                                     type="button"
-                                    className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                    className="flex gap-2 items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                                     onClick={handleUpload}
+                                    disabled={disableButtons}
                                 >
-                                    Upload Image
+                                    {disableButtons ? <FaRegHourglass /> : null} Upload Image
                                 </button>
                                 <button
                                     type="button"
                                     className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                     onClick={() => router.push('/')}
+                                    disabled={disableButtons}
                                 >
                                     Cancel
                                 </button>
