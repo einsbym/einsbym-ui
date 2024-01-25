@@ -65,35 +65,43 @@ export default function Login() {
             >
                 <div className="w-full max-w-md space-y-8">
                     <div>
-                        <h1 className="text-2xl font-bold">Hi!</h1>
+                        <h1 className="text-2xl text-[#cc00ff] font-bold">Hi!</h1>
                         <p className="mt-2 text-gray-600">Please sign in to your account.</p>
                     </div>
-                    <form className="mt-8 space-y-6">
-                        <div>
-                            <label htmlFor="email" className="block font-bold text-gray-700">
+                    <form className="mt-5 space-y-6">
+                        <div className="relative z-0 w-full mb-5 group">
+                            <input
+                                type="email"
+                                name="floating_email"
+                                id="email"
+                                className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
+                                placeholder=" "
+                                required
+                                onChange={(e) => handleChange(e.target)}
+                            />
+                            <label
+                                htmlFor="email"
+                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-focus:dark:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
                                 Email address
                             </label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="Enter your email"
-                                className="w-full text-gray-900 px-4 py-3 mt-1 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-                                required
-                                onChange={(e) => handleChange(e.target)}
-                            />
                         </div>
-                        <div>
-                            <label htmlFor="password" className="block font-bold text-gray-700">
-                                Password
-                            </label>
+                        <div className="relative z-0 w-full mb-5 group">
                             <input
-                                id="password"
                                 type="password"
-                                placeholder="Enter your password"
-                                className="w-full text-gray-900 px-4 py-3 mt-1 border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                                name="floating_password"
+                                id="password"
+                                className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
+                                placeholder=" "
                                 required
                                 onChange={(e) => handleChange(e.target)}
                             />
+                            <label
+                                htmlFor="password"
+                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-focus:dark:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                                Email address
+                            </label>
                         </div>
                         {errorMessage.length !== 0 ? (
                             <div className="flex justify-center mt-5">
@@ -104,7 +112,7 @@ export default function Login() {
                         ) : null}
                         <div>
                             <button
-                                className="flex gap-2 items-center justify-center w-full px-4 py-3 font-bold text-white bg-[#cc00ff] rounded-md hover:bg-[#cc00ff1e] focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700"
+                                className="flex gap-2 items-center justify-center w-full text-white bg-gradient-to-r from-[#cc00ff] via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
                                 onClick={(e) => login(e)}
                             >
                                 <CiLogin size={30} /> Sign In
