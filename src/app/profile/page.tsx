@@ -82,9 +82,9 @@ export default function ViewImage() {
                 </div>
 
                 {/* User's content */}
-                <div className="grid grid-cols-2 gap-2 lg:w-4/5 border border-yellow-600 mx-auto mt-5">
+                <div className="grid grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                     {/* User's bio and posts */}
-                    <div className="border border-blue-600">
+                    <div>
                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">Bio</h5>
                         <a
                             href="#"
@@ -138,6 +138,41 @@ export default function ViewImage() {
                                 <p className="text-sm font-normal py-2.5 text-white">
                                     That's awesome. I think our users will really appreciate the improvements.
                                 </p>
+                                <div className="flex space-x-2 justify-end">
+                                    <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                                        <FaRegHeart size={13} /> 232
+                                    </button>
+                                    <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                                        <FaRegCommentAlt size={13} /> 1.5k
+                                    </button>
+                                    <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                                        <FaRegShareSquare size={13} /> 0
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Text and image posts */}
+                        <div className="mt-5 flex items-start gap-2.5">
+                            <img
+                                className="w-16 h-14 ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                                src="http://localhost:9000/stable-diffusion/djdjdjnfjfkjnk.jpeg"
+                                alt="Jese image"
+                            />
+                            <div className="flex flex-col w-full leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+                                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                                    <span className="text-sm font-semibold text-white">Bonnie Green</span>
+                                    <span className="text-sm font-normal text-gray-400">11:46</span>
+                                </div>
+                                <p className="text-sm font-normal py-2.5 text-white">
+                                    That's awesome. I think our users will really appreciate the improvements.
+                                </p>
+                                <div className="group relative my-2.5">
+                                    <img
+                                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                                        className="rounded-lg"
+                                    />
+                                </div>
                                 <div className="flex space-x-2 justify-end">
                                     <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
                                         <FaRegHeart size={13} /> 232
