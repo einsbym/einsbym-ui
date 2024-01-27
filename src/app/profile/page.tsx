@@ -2,6 +2,7 @@
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
 import { LuDot } from 'react-icons/lu';
 import { MdPostAdd } from 'react-icons/md';
@@ -17,7 +18,7 @@ export default function ViewImage() {
                 >
                     <div
                         style={{
-                            backgroundImage: `url('http://localhost:9000/stable-diffusion/sjhdhdidj.jpeg')`,
+                            backgroundImage: `url('http://localhost:9000/stable-diffusion/dkkdkkfmfmll.jpeg')`,
                         }}
                         className="absolute transform -translate-x-1/2 -translate-y-[-30px] top-1/2 left-1/2 w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                     ></div>
@@ -96,7 +97,7 @@ export default function ViewImage() {
                         </a>
 
                         {/* Publish post */}
-                        <div className='mt-5'>
+                        <div className="mt-5">
                             <form>
                                 <label htmlFor="search" className="mb-2 text-sm font-medium sr-only text-white">
                                     Search
@@ -120,6 +121,35 @@ export default function ViewImage() {
                                     </button>
                                 </div>
                             </form>
+                        </div>
+
+                        {/* Text only posts */}
+                        <div className="mt-5 flex items-start gap-2.5">
+                            <img
+                                className="w-16 h-14 ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                                src="http://localhost:9000/stable-diffusion/djdjdjnfjfkjnk.jpeg"
+                                alt="Jese image"
+                            />
+                            <div className="flex flex-col w-full leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+                                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                                    <span className="text-sm font-semibold text-white">Bonnie Green</span>
+                                    <span className="text-sm font-normal text-gray-400">11:46</span>
+                                </div>
+                                <p className="text-sm font-normal py-2.5 text-white">
+                                    That's awesome. I think our users will really appreciate the improvements.
+                                </p>
+                                <div className="flex space-x-2 justify-end">
+                                    <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                                        <FaRegHeart size={13} /> 232
+                                    </button>
+                                    <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                                        <FaRegCommentAlt size={13} /> 1.5k
+                                    </button>
+                                    <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                                        <FaRegShareSquare size={13} /> 0
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
