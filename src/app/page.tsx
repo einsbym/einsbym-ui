@@ -41,18 +41,18 @@ export default function Home() {
                 <Navbar />
 
                 {loading && (
-                    <div className="flex gap-2 md:grid-cols-2 lg:grid-cols-4">
+                    <div className="flex flex-wrap gap-2 lg:grid-cols-4">
                         <div
-                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
                         ></div>
                         <div
-                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
                         ></div>
                         <div
-                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
                         ></div>
                         <div
-                            className={`image-grid w-[500px] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
+                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
                         ></div>
                     </div>
                 )}
