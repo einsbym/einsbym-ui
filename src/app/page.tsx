@@ -4,7 +4,7 @@ import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import { IMAGES } from '@/graphql/queries/image';
 import { Image } from '@/interfaces/interfaces';
-import { useSuspenseQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageUrl } from './constants/constants';
@@ -13,7 +13,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const [images, setImages] = useState<Image[]>([]);
     const router = useRouter();
-    const imagesQuery: any = useSuspenseQuery(IMAGES);
+    const imagesQuery = useQuery(IMAGES);
 
     const viewImage = (image: Image) => {
         router.push(`/view-image?image=${image.id}`);
@@ -21,8 +21,10 @@ export default function Home() {
 
     const fetchData = async () => {
         try {
-            setImages(imagesQuery.data.images);
-            setLoading(false);
+            if (imagesQuery.data) {
+                setImages(imagesQuery.data.images);
+                setLoading(false);
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
             setLoading(false);
@@ -31,7 +33,7 @@ export default function Home() {
 
     useEffect(() => {
         fetchData();
-    }, [images]);
+    }, [imagesQuery]);
 
     return (
         <>
