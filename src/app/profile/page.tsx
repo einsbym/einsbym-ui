@@ -2,7 +2,7 @@
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
-import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
+import { FaCamera, FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
 import { LuDot } from 'react-icons/lu';
 import { MdPostAdd } from 'react-icons/md';
@@ -13,15 +13,17 @@ export default function ViewImage() {
             <main className="mx-auto lg:pt-12">
                 <Navbar />
                 <div
-                    style={{ backgroundImage: `url('http://localhost:9000/einsbym-uploads/gvhvmbbjbkb.jpeg')` }}
+                    style={{ backgroundImage: `url('#')` }}
                     className="relative lg:w-4/5 h-[20rem] mx-auto lg:rounded-lg bg-cover bg-center"
                 >
                     <div
                         style={{
-                            backgroundImage: `url('http://localhost:9000/stable-diffusion/dkkdkkfmfmll.jpeg')`,
+                            backgroundImage: `url('#')`,
                         }}
                         className="absolute transform -translate-x-1/2 -translate-y-[-30px] top-1/2 left-1/2 w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
-                    ></div>
+                    >
+                        <div className='absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer' title='Change profile image'><FaCamera size={40} /></div>
+                    </div>
                 </div>
                 <div className="mt-[8rem] text-white font-sans text-center font-semibold text-3xl w-fit mx-auto rounded-lg">
                     Bianca Mendes
@@ -33,7 +35,7 @@ export default function ViewImage() {
                 </div>
 
                 {/* General statistics */}
-                <div className="lg:w-4/5 mx-auto mt-5 border rounded-lg shadow bg-gray-800 border-gray-700">
+                <div className="w-11/12 lg:w-4/5 mx-auto mt-5 border rounded-lg shadow bg-gray-800 border-gray-700">
                     <ul
                         className="text-sm font-medium text-center divide-x divide-gray-200 sm:flex divide-gray-600 text-gray-400 rtl:divide-x-reverse"
                         id="fullWidthTab"
@@ -58,7 +60,7 @@ export default function ViewImage() {
                                 </div>
                                 <div className="flex flex-col items-center justify-center">
                                     <dt className="mb-2 text-3xl font-extrabold">83%</dt>
-                                    <dd className="text-gray-400">Engagement this month</dd>
+                                    <dd className="text-gray-400">Month's engagement</dd>
                                 </div>
                                 <div className="flex flex-col items-center justify-center">
                                     <dt className="mb-2 text-3xl font-extrabold">2k</dt>
@@ -82,7 +84,7 @@ export default function ViewImage() {
                 </div>
 
                 {/* User's content */}
-                <div className="grid grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
+                <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                     {/* User's bio and posts */}
                     <div>
                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">Bio</h5>
@@ -126,8 +128,8 @@ export default function ViewImage() {
                         {/* Text only posts */}
                         <div className="mt-5 flex items-start gap-2.5">
                             <img
-                                className="w-16 h-14 ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                                src="http://localhost:9000/stable-diffusion/djdjdjnfjfkjnk.jpeg"
+                                className="w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                                src="#"
                                 alt="Jese image"
                             />
                             <div className="flex flex-col w-full leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
@@ -155,8 +157,8 @@ export default function ViewImage() {
                         {/* Text and image posts */}
                         <div className="mt-5 flex items-start gap-2.5">
                             <img
-                                className="w-16 h-14 ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                                src="http://localhost:9000/stable-diffusion/djdjdjnfjfkjnk.jpeg"
+                                className="w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                                src="#"
                                 alt="Jese image"
                             />
                             <div className="flex flex-col w-full leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
@@ -169,7 +171,7 @@ export default function ViewImage() {
                                 </p>
                                 <div className="group relative my-2.5">
                                     <img
-                                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                                        src="#"
                                         className="rounded-lg"
                                     />
                                 </div>
@@ -194,42 +196,42 @@ export default function ViewImage() {
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                             <div>
                                 <img
-                                    className="h-auto max-w-full rounded-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                                    className="h-[200px] w-[300px] rounded-lg object-cover"
+                                    src="#"
                                     alt=""
                                 />
                             </div>
                             <div>
                                 <img
-                                    className="h-auto max-w-full rounded-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+                                    className="h-[200px] w-[300px] rounded-lg object-cover"
+                                    src="#"
                                     alt=""
                                 />
                             </div>
                             <div>
                                 <img
-                                    className="h-auto max-w-full rounded-lg"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+                                    className="h-[200px] w-[300px] rounded-lg object-cover"
+                                    src="#"
                                     alt=""
                                 />
                             </div>
                             <div>
                                 <img
-                                    className="h-auto max-w-full rounded-lg"
+                                    className="h-[200px] w-[300px] rounded-lg object-cover"
                                     src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
                                     alt=""
                                 />
                             </div>
                             <div>
                                 <img
-                                    className="h-auto max-w-full rounded-lg"
+                                    className="h-[200px] w-[300px] rounded-lg object-cover"
                                     src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
                                     alt=""
                                 />
                             </div>
                             <div>
                                 <img
-                                    className="h-auto max-w-full rounded-lg"
+                                    className="h-[200px] w-[300px] rounded-lg object-cover"
                                     src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
                                     alt=""
                                 />
