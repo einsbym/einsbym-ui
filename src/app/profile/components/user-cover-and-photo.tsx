@@ -4,18 +4,20 @@ import { LuDot } from 'react-icons/lu';
 interface UserCoverAndPhotoProps {
     firstName: string;
     lastName: string;
+    coverImage: string;
+    profileImage: string;
 }
 
 export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
     return (
         <>
             <div
-                style={{ backgroundImage: `url('#')` }}
+                style={{ backgroundImage: `url('${props.coverImage}')` }}
                 className="relative lg:w-4/5 h-[20rem] mx-auto lg:rounded-lg bg-cover bg-center"
             >
                 <div
                     style={{
-                        backgroundImage: `url('#')`,
+                        backgroundImage: `url('${props.profileImage}')`,
                     }}
                     className="absolute transform -translate-x-1/2 -translate-y-[-30px] top-1/2 left-1/2 w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                 >
