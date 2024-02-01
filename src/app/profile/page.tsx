@@ -7,10 +7,13 @@ import UserGeneralStatistics from './components/user-general-statistics';
 import UserBioAndPost from './components/user-bio-and-post';
 import UserPosts from './components/user-posts';
 import UserGallery from './components/user-gallery';
+import UserBlurredCover from './components/user-blurred-cover';
 
 export default function ViewImage() {
     return (
         <>
+            <UserBlurredCover coverImage="" />
+
             <main className="mx-auto lg:pt-12">
                 <Navbar />
 
