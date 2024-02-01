@@ -15,7 +15,7 @@ export default function ViewImage() {
                 <Navbar />
 
                 {/* User's cover and profile picture */}
-                <UserCoverAndPhoto />
+                <UserCoverAndPhoto firstName='Bruna' lastName='Stenio' />
 
                 {/* General statistics */}
                 <UserGeneralStatistics />

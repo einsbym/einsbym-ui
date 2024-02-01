@@ -1,7 +1,12 @@
-import { FaCamera, FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
+import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
 
-export default function UserCoverAndPhoto() {
+interface UserCoverAndPhotoProps {
+    firstName: string;
+    lastName: string;
+}
+
+export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
     return (
         <>
             <div
@@ -23,7 +28,7 @@ export default function UserCoverAndPhoto() {
                 </div>
             </div>
             <div className="mt-[8rem] text-white font-sans text-center font-semibold text-3xl w-fit mx-auto rounded-lg">
-                Bianca Mendes
+                {props.firstName} {props.lastName}
             </div>
             <div className="flex gap-1 items-center justify-center text-white mt-2 font-sans text-center font-semibold text-md w-fit mx-auto rounded-lg">
                 <span className="text-[#cc00ff]">12k</span> likes <LuDot size={30} />
