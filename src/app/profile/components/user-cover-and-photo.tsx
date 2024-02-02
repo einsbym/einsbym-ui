@@ -1,3 +1,4 @@
+import { storageUrl } from '@/app/constants/constants';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
 
@@ -12,12 +13,12 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
     return (
         <>
             <div
-                style={{ backgroundImage: `url('${props.coverImage}')` }}
+                style={{ backgroundImage: `url('${storageUrl}/${props.coverImage}')` }}
                 className="relative lg:w-4/5 h-[20rem] mx-auto lg:rounded-lg bg-cover bg-center"
             >
                 <div
                     style={{
-                        backgroundImage: `url('${props.profileImage}')`,
+                        backgroundImage: `url('${storageUrl}/${props.profileImage}')`,
                     }}
                     className="absolute transform -translate-x-1/2 -translate-y-[-30px] top-1/2 left-1/2 w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                 >
