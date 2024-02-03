@@ -1,6 +1,5 @@
 'use client';
 
-import useAuth from '@/auth/use-auth';
 import { SIGN_IN } from '@/graphql/mutations/auth';
 import { SigninInput } from '@/interfaces/interfaces';
 import { useMutation } from '@apollo/client';
@@ -15,7 +14,6 @@ export default function Login() {
     const [signIn] = useMutation(SIGN_IN);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const router = useRouter();
-    const { setUser } = useAuth();
 
     const handleChange = (target: any) => {
         setSigninInput({
@@ -40,9 +38,6 @@ export default function Login() {
             })
                 .then((result) => {
                     localStorage.setItem('accessToken', result?.data.signin.accessToken);
-
-                    setUser(result?.data.signin.user);
-
                     router.push('/');
                 })
                 .catch((error) => {

@@ -1,9 +1,8 @@
 'use client';
 
 import { storageUrl } from '@/app/constants/constants';
-import useAuth from '@/auth/use-auth';
 import { User } from '@/interfaces/interfaces';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 
 const menuItems = [
@@ -14,7 +13,6 @@ const menuItems = [
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
-    const { getUser, signOut } = useAuth();
     const [user, setUser] = useState<User>();
 
     const handleMenu = () => {
@@ -24,13 +22,6 @@ export default function Navbar() {
         }
         setIsMenuOpen(true);
     };
-
-    useEffect(() => {
-        const currentUser = getUser();
-        if (currentUser) {
-            setUser(currentUser);
-        }
-    }, []);
 
     return (
         <>
@@ -186,7 +177,6 @@ export default function Navbar() {
                                         role="menuitem"
                                         tabIndex={-1}
                                         id="user-menu-item-2"
-                                        onClick={signOut}
                                     >
                                         Sign out
                                     </a>
