@@ -10,30 +10,24 @@ import { CiLogin } from 'react-icons/ci';
 import { MdError } from 'react-icons/md';
 
 export default function Login() {
-    const [signinInput, setSigninInput] = useState<SigninInput | null>();
+    const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const router = useRouter();
 
     const handleChange = (target: any) => {
-        if (signinInput) {
-            setSigninInput({
-                ...signinInput,
-                [target.type]: target.value,
-            });
-        }
+        setSigninInput({
+            ...signinInput,
+            [target.type]: target.value,
+        });
     };
 
-    const login = async (e: any) => {
-        e.preventDefault();
-
+    const login = async (event: any) => {
+        event.preventDefault();
+        
+        // Clear previous error messages
         setErrorMessage(null);
 
         try {
-            if (!signinInput) {
-                setErrorMessage('Please, provide credentials.');
-                return;
-            }
-
             const data = await new AuthService().getData(signinInput.email, signinInput.password);
 
             if (!data) {
@@ -73,7 +67,7 @@ export default function Login() {
                                 className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
                                 placeholder=""
                                 required
-                                onChange={(e) => handleChange(e.target)}
+                                onChange={(event) => handleChange(event.target)}
                             />
                             <label
                                 htmlFor="email"
@@ -90,7 +84,7 @@ export default function Login() {
                                 className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
                                 placeholder=""
                                 required
-                                onChange={(e) => handleChange(e.target)}
+                                onChange={(event) => handleChange(event.target)}
                             />
                             <label
                                 htmlFor="password"
@@ -109,7 +103,7 @@ export default function Login() {
                         <div>
                             <button
                                 className="flex gap-2 items-center justify-center w-full text-white bg-gradient-to-r from-[#cc00ff] via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
-                                onClick={(e) => login(e)}
+                                onClick={(event) => login(event)}
                             >
                                 <CiLogin size={30} /> Sign In
                             </button>
