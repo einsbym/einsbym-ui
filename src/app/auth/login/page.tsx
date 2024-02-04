@@ -1,8 +1,8 @@
 'use client';
 
-import { SIGN_IN } from '@/graphql/mutations/auth';
-import { SigninInput } from '@/interfaces/interfaces';
-import { useMutation } from '@apollo/client';
+import { createUserCookie } from '@/actions/actions';
+import { SigninInput, User } from '@/interfaces/interfaces';
+import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -11,7 +11,6 @@ import { MdError } from 'react-icons/md';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
-    const [signIn] = useMutation(SIGN_IN);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const router = useRouter();
 
@@ -28,21 +27,16 @@ export default function Login() {
         setErrorMessage('');
 
         try {
-            await signIn({
-                variables: {
-                    signin: {
-                        email: signinInput?.email,
-                        password: signinInput?.password,
-                    },
-                },
-            })
-                .then((result) => {
-                    localStorage.setItem('accessToken', result?.data.signin.accessToken);
-                    router.push('/');
-                })
-                .catch((error) => {
-                    setErrorMessage(error.message);
-                });
+            const data = await new AuthService().login(signinInput?.email, signinInput?.password);
+
+            if (!data) {
+                setErrorMessage('Invalid credentials. Try again.');
+                return;
+            }
+
+            await createUserCookie(data.user);
+
+            router.push(`/profile`);
         } catch (error) {
             setErrorMessage('Something went wrong.');
         }
@@ -70,7 +64,7 @@ export default function Login() {
                                 name="floating_email"
                                 id="email"
                                 className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
-                                placeholder=" "
+                                placeholder=""
                                 required
                                 onChange={(e) => handleChange(e.target)}
                             />
@@ -87,7 +81,7 @@ export default function Login() {
                                 name="floating_password"
                                 id="password"
                                 className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
-                                placeholder=" "
+                                placeholder=""
                                 required
                                 onChange={(e) => handleChange(e.target)}
                             />

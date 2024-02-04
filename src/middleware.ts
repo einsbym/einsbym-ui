@@ -6,8 +6,6 @@ const authRoutes = ["/auth/login"];
 const publicRoutes = ["/about", "/"];
 
 export function middleware(request: NextRequest) {
-    console.log("MIDDLEWARE IS WORKING:", request);
-
     const currentUser = request.cookies.get('currentUser')?.value;
 
     if (
