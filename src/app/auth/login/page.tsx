@@ -5,7 +5,7 @@ import { SigninInput, User } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { CiLogin } from 'react-icons/ci';
 import { MdError } from 'react-icons/md';
 
@@ -27,7 +27,7 @@ export default function Login() {
         setErrorMessage('');
 
         try {
-            const data = await new AuthService().login(signinInput?.email, signinInput?.password);
+            const data = await new AuthService().getData(signinInput?.email, signinInput?.password);
 
             if (!data) {
                 setErrorMessage('Invalid credentials. Try again.');

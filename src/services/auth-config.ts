@@ -11,7 +11,7 @@ export class AuthService {
         });
     }
 
-    login = async (email: string, password: string) => {
+    getData = async (email: string, password: string) => {
         try {
             const result = await this.instance.mutate({
                 mutation: SIGN_IN,
