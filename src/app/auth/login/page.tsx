@@ -1,33 +1,40 @@
 'use client';
 
 import { createUserCookie } from '@/actions/actions';
-import { SigninInput, User } from '@/interfaces/interfaces';
+import { SigninInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { CiLogin } from 'react-icons/ci';
 import { MdError } from 'react-icons/md';
 
 export default function Login() {
-    const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
-    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [signinInput, setSigninInput] = useState<SigninInput | null>();
+    const [errorMessage, setErrorMessage] = useState<string | null>();
     const router = useRouter();
 
     const handleChange = (target: any) => {
-        setSigninInput({
-            ...signinInput,
-            [target.type]: target.value,
-        });
+        if (signinInput) {
+            setSigninInput({
+                ...signinInput,
+                [target.type]: target.value,
+            });
+        }
     };
 
     const login = async (e: any) => {
         e.preventDefault();
 
-        setErrorMessage('');
+        setErrorMessage(null);
 
         try {
-            const data = await new AuthService().getData(signinInput?.email, signinInput?.password);
+            if (!signinInput) {
+                setErrorMessage('Please, provide credentials.');
+                return;
+            }
+
+            const data = await new AuthService().getData(signinInput.email, signinInput.password);
 
             if (!data) {
                 setErrorMessage('Invalid credentials. Try again.');
@@ -49,7 +56,7 @@ export default function Login() {
             </div>
             <div
                 className={`${
-                    errorMessage.length !== 0 ? 'lg:border lg:border-[#ff0000]' : null
+                    errorMessage ? 'lg:border lg:border-[#ff0000]' : null
                 } lg:bg-gray-900 p-10 rounded-lg flex flex-col items-center justify-center w-full md:w-1/4`}
             >
                 <div className="w-full max-w-md space-y-8">
@@ -92,13 +99,13 @@ export default function Login() {
                                 Email address
                             </label>
                         </div>
-                        {errorMessage.length !== 0 ? (
+                        {errorMessage && (
                             <div className="flex justify-center mt-5">
                                 <div className="flex gap-2 items-center w-fit p-2 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
                                     <MdError /> {errorMessage}
                                 </div>
                             </div>
-                        ) : null}
+                        )}
                         <div>
                             <button
                                 className="flex gap-2 items-center justify-center w-full text-white bg-gradient-to-r from-[#cc00ff] via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
