@@ -1,6 +1,6 @@
 'use client';
 
-import { createUserCookie } from '@/actions/actions';
+import { createAccessTokenCookie, createUserCookie } from '@/actions/actions';
 import { SigninInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
@@ -35,6 +35,7 @@ export default function Login() {
                 return;
             }
 
+            await createAccessTokenCookie(data.accessToken);
             await createUserCookie(data.user);
 
             router.push(`/profile`);
