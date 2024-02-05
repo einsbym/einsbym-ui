@@ -22,7 +22,7 @@ function makeClient() {
         return {
             // Make sure to actually set the headers here
             headers: {
-                Authorization: cookie ? `Bearer ${cookie.value}` : '',
+                Authorization: cookie ? `Bearer ${cookie.value.replace(/^"(.*)"$/, '$1')}` : '',
             },
         };
     });
