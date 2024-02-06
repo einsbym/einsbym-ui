@@ -1,8 +1,9 @@
 'use client';
 
+import { getCurrentUserFromCookie } from '@/actions/actions';
 import { storageUrl } from '@/app/constants/constants';
 import { User } from '@/interfaces/interfaces';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 
 const menuItems = [
@@ -13,7 +14,7 @@ const menuItems = [
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
-    const [user, setUser] = useState<User>();
+    const [user, setUser] = useState<User | null>();
 
     const handleMenu = () => {
         if (isMenuOpen) {
@@ -22,6 +23,15 @@ export default function Navbar() {
         }
         setIsMenuOpen(true);
     };
+
+    const fetchUser = async () => {
+        const user = await getCurrentUserFromCookie();
+        setUser(user);
+    };
+
+    useEffect(() => {
+        fetchUser();
+    }, []);
 
     return (
         <>

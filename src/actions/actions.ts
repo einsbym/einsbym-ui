@@ -1,5 +1,6 @@
 'use server';
 
+import { User } from '@/interfaces/interfaces';
 import { cookies } from 'next/headers';
 
 export async function createUserCookie(user: any) {
@@ -15,4 +16,15 @@ export async function getAccessTokenFromCookie() {
     const accessToken = cookieStore.get('accessToken');
 
     return accessToken;
+}
+
+export async function getCurrentUserFromCookie() {
+    const cookieStore = cookies();
+    const currentUser = cookieStore.get('currentUser');
+
+    if (currentUser) {
+        return JSON.parse(currentUser.value) as User;
+    }
+
+    return null;
 }
