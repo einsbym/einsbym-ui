@@ -23,7 +23,7 @@ export default function Login() {
 
     const login = async (event: any) => {
         event.preventDefault();
-        
+
         // Clear previous error messages
         setErrorMessage(null);
 
@@ -67,6 +67,7 @@ export default function Login() {
                                 id="email"
                                 className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
                                 placeholder=""
+                                autoComplete="true"
                                 required
                                 onChange={(event) => handleChange(event.target)}
                             />
