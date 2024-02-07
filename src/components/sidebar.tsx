@@ -1,7 +1,13 @@
 'use client';
 
+import { Dispatch, SetStateAction } from 'react';
 
-export default function Sidebar(props: any) {
+interface SidebarProps {
+    isSidebarActive: boolean;
+    setIsSidebarActive: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Sidebar(props: SidebarProps) {
     return (
         <div
             id="drawer-navigation"
@@ -10,10 +16,7 @@ export default function Sidebar(props: any) {
             } transition-transform bg-gray-900`}
             aria-labelledby="drawer-navigation-label"
         >
-            <h5
-                id="drawer-navigation-label"
-                className="text-base font-semibold uppercase text-gray-400"
-            >
+            <h5 id="drawer-navigation-label" className="text-base font-semibold uppercase text-gray-400">
                 Menu
             </h5>
             <button
