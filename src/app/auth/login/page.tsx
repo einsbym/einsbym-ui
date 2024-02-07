@@ -7,11 +7,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { CiLogin } from 'react-icons/ci';
+import { FaRegHourglass } from 'react-icons/fa';
 import { MdError } from 'react-icons/md';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
     const [errorMessage, setErrorMessage] = useState<string | null>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
     const handleChange = (target: any) => {
@@ -24,6 +26,8 @@ export default function Login() {
     const login = async (event: any) => {
         event.preventDefault();
 
+        setIsLoading(true);
+
         // Clear previous error messages
         setErrorMessage(null);
 
@@ -32,6 +36,7 @@ export default function Login() {
 
             if (!data) {
                 setErrorMessage('Invalid credentials. Try again.');
+                setIsLoading(false);
                 return;
             }
 
@@ -41,6 +46,7 @@ export default function Login() {
             router.push(`/profile`);
         } catch (error) {
             setErrorMessage('Something went wrong.');
+            setIsLoading(false);
         }
     };
 
@@ -67,7 +73,7 @@ export default function Login() {
                                 id="email"
                                 className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
                                 placeholder=""
-                                autoComplete="true"
+                                autoComplete="on"
                                 required
                                 onChange={(event) => handleChange(event.target)}
                             />
@@ -107,7 +113,15 @@ export default function Login() {
                                 className="flex gap-2 items-center justify-center w-full text-white bg-gradient-to-r from-[#cc00ff] via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
                                 onClick={(event) => login(event)}
                             >
-                                <CiLogin size={30} /> Sign In
+                                {isLoading ? (
+                                    <>
+                                        <FaRegHourglass size={30} /> Signing in...
+                                    </>
+                                ) : (
+                                    <>
+                                        <CiLogin size={30} /> Sign In
+                                    </>
+                                )}
                             </button>
                         </div>
                     </form>
