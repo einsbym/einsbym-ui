@@ -28,3 +28,8 @@ export async function getCurrentUserFromCookie() {
 
     return null;
 }
+
+export async function deleteCookies() {
+    cookies().delete('currentUser');
+    cookies().delete('accessToken');
+}

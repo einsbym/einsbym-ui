@@ -9,7 +9,7 @@ import {
     SSRMultipartLink,
 } from '@apollo/experimental-nextjs-app-support/ssr';
 import { setContext } from '@apollo/client/link/context';
-import { getAccessTokenFromCookie } from '@/actions/actions';
+import { getAccessTokenFromCookie } from '@/actions/cookies';
 
 function makeClient() {
     const httpLink = new HttpLink({

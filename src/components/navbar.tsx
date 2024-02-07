@@ -1,11 +1,12 @@
 'use client';
 
-import { getCurrentUserFromCookie } from '@/actions/actions';
 import { storageUrl } from '@/app/constants/constants';
 import { User } from '@/interfaces/interfaces';
 import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import Sidebar from './sidebar';
+import { useRouter } from 'next/navigation';
+import { deleteCookies, getCurrentUserFromCookie } from '@/actions/cookies';
 
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },
@@ -16,6 +17,7 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>();
+    const router = useRouter();
 
     const handleMenu = () => {
         if (isMenuOpen) {
@@ -23,6 +25,11 @@ export default function Navbar() {
             return;
         }
         setIsMenuOpen(true);
+    };
+
+    const signOut = async () => {
+        await deleteCookies();
+        router.push(`/auth/login`);
     };
 
     const fetchUser = async () => {
@@ -185,9 +192,7 @@ export default function Navbar() {
                                     <a
                                         href="#"
                                         className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                                        role="menuitem"
-                                        tabIndex={-1}
-                                        id="user-menu-item-2"
+                                        onClick={() => signOut()}
                                     >
                                         Sign out
                                     </a>

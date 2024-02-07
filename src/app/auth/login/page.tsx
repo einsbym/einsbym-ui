@@ -1,6 +1,6 @@
 'use client';
 
-import { createAccessTokenCookie, createUserCookie } from '@/actions/actions';
+import { createAccessTokenCookie, createUserCookie } from '@/actions/cookies';
 import { SigninInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
