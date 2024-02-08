@@ -1,6 +1,8 @@
 import { storageUrl } from '@/app/constants/constants';
+import { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
+import UpdateProfilePictureModal from './update-profile-pic-modal';
 
 interface UserCoverAndPhotoProps {
     firstName: string;
@@ -10,6 +12,8 @@ interface UserCoverAndPhotoProps {
 }
 
 export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
+    const [isChangeProfPicModalActive, setIsChangeProfPicModalActive] = useState<boolean>(false);
+
     return (
         <>
             <div
@@ -25,6 +29,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                     <div
                         className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer"
                         title="Change profile image"
+                        onClick={() => setIsChangeProfPicModalActive(true)}
                     >
                         <FaCamera size={40} />
                     </div>
@@ -38,6 +43,12 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                 <span className="text-[#cc00ff]">23</span> images <LuDot size={30} />
                 <span className="text-[#cc00ff]">125k</span> views
             </div>
+
+            {/* Chande profile picture modal */}
+            <UpdateProfilePictureModal
+                isChangeProfPicModalActive={isChangeProfPicModalActive}
+                setIsChangeProfPicModalActive={setIsChangeProfPicModalActive}
+            />
         </>
     );
 }
