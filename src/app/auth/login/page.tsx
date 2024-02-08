@@ -5,7 +5,7 @@ import { SigninInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { CiLogin } from 'react-icons/ci';
 import { FaRegHourglass } from 'react-icons/fa';
 import { MdError } from 'react-icons/md';
@@ -16,10 +16,10 @@ export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
-    const handleChange = (target: any) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSigninInput({
             ...signinInput,
-            [target.type]: target.value,
+            [event.target.type]: event.target.value,
         });
     };
 
@@ -71,15 +71,15 @@ export default function Login() {
                                 type="email"
                                 name="floating_email"
                                 id="email"
-                                className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
+                                className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-[#cc00ff] focus:outline-none focus:ring-0 peer"
                                 placeholder=""
                                 autoComplete="on"
                                 required
-                                onChange={(event) => handleChange(event.target)}
+                                onChange={(event) => handleChange(event)}
                             />
                             <label
                                 htmlFor="email"
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-focus:dark:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                className="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
                                 Email address
                             </label>
@@ -92,13 +92,13 @@ export default function Login() {
                                 className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-[#cc00ff] focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
                                 placeholder=""
                                 required
-                                onChange={(event) => handleChange(event.target)}
+                                onChange={(event) => handleChange(event)}
                             />
                             <label
                                 htmlFor="password"
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-focus:dark:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                className="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
-                                Email address
+                                Password
                             </label>
                         </div>
                         {errorMessage && (
