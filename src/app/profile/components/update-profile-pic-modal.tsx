@@ -1,7 +1,9 @@
+import { createUserCookie } from '@/actions/cookies';
 import { storageServiceUrl } from '@/app/constants/constants';
 import { UPDATE_PROFILE_IMAGE } from '@/graphql/mutations/user';
-import { useMutation } from '@apollo/client';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { ME } from '@/graphql/queries/user';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { ChangeEvent, Dispatch, SetStateAction, useState, useTransition } from 'react';
 import { MdOutlineCloudUpload } from 'react-icons/md';
 
 interface UpdateProfilePictureModalProps {
@@ -14,6 +16,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>();
     const [file, setFile] = useState<File>();
     const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
+    const [getMe] = useLazyQuery(ME);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -51,7 +54,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
             const jsonResponse = await response.json();
 
             // Save image data
-            const result = await updateProfileImage({
+            const { errors } = await updateProfileImage({
                 variables: {
                     updateProfilePictureInput: {
                         id: props.userId,
@@ -60,9 +63,16 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                 },
             });
 
-            if (result.errors) {
-                throw new Error('Error when attempting to save image data');
+            if (errors) {
+                throw new Error('Error when attempting update profile image');
             }
+
+            // Update user cookie with the new data
+            await getMe({ variables: { id: props.userId } }).then(async (result) => {
+                await createUserCookie(result.data.me);
+            });
+
+            props.setIsChangeProfPicModalActive(false);
         } catch (error) {
             console.error('Error uploading file:', error);
         }
@@ -113,7 +123,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                         >
                             <MdOutlineCloudUpload size={50} />
                         </label>
-                        {selectedImageUrl && <img className="rounded-lg" src={selectedImageUrl} />}
+                        {selectedImageUrl && <img className="w-screen rounded-lg" src={selectedImageUrl} />}
                         <input
                             className="hidden"
                             id="fileInput"
