@@ -33,6 +33,7 @@ export default function ViewImage() {
 
                 {/* User's cover and profile picture */}
                 <UserCoverAndPhoto
+                    id={user?.id || ''}
                     firstName={user?.firstName || ''}
                     lastName={user?.lastName || ''}
                     coverImage=""

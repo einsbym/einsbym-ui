@@ -5,6 +5,7 @@ import { LuDot } from 'react-icons/lu';
 import UpdateProfilePictureModal from './update-profile-pic-modal';
 
 interface UserCoverAndPhotoProps {
+    id: string;
     firstName: string;
     lastName: string;
     coverImage: string;
@@ -46,6 +47,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
 
             {/* Chande profile picture modal */}
             <UpdateProfilePictureModal
+                userId={props.id}
                 isChangeProfPicModalActive={isChangeProfPicModalActive}
                 setIsChangeProfPicModalActive={setIsChangeProfPicModalActive}
             />

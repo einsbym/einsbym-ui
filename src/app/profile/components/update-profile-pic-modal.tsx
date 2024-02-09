@@ -1,7 +1,11 @@
+import { storageServiceUrl } from '@/app/constants/constants';
+import { UPDATE_PROFILE_IMAGE } from '@/graphql/mutations/user';
+import { useMutation } from '@apollo/client';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { MdOutlineCloudUpload } from 'react-icons/md';
 
 interface UpdateProfilePictureModalProps {
+    userId: string;
     isChangeProfPicModalActive: boolean;
     setIsChangeProfPicModalActive: Dispatch<SetStateAction<boolean>>;
 }
@@ -9,6 +13,7 @@ interface UpdateProfilePictureModalProps {
 export default function UpdateProfilePictureModal(props: UpdateProfilePictureModalProps) {
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>();
     const [file, setFile] = useState<File>();
+    const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -22,6 +27,45 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
         }
 
         setFile(file);
+    };
+
+    const handleSave = async () => {
+        try {
+            if (!file) {
+                throw new Error('No file selected.');
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch(`${storageServiceUrl}/storage-service/upload`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.status !== 200) {
+                throw new Error(response.statusText);
+            }
+
+            // Get response from backend
+            const jsonResponse = await response.json();
+
+            // Save image data
+            const result = await updateProfileImage({
+                variables: {
+                    updateProfilePictureInput: {
+                        id: props.userId,
+                        profilePicture: jsonResponse.filename,
+                    },
+                },
+            });
+
+            if (result.errors) {
+                throw new Error('Error when attempting to save image data');
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
     };
 
     return (
@@ -70,19 +114,23 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                             <MdOutlineCloudUpload size={50} />
                         </label>
                         {selectedImageUrl && <img className="rounded-lg" src={selectedImageUrl} />}
-                        <input className="hidden" id="fileInput" type="file" onChange={(event) => handleFileChange(event)} />
+                        <input
+                            className="hidden"
+                            id="fileInput"
+                            type="file"
+                            onChange={(event) => handleFileChange(event)}
+                        />
                     </div>
                     {/* Modal footer */}
                     <div className="flex items-center p-4 md:p-5 border-t rounded-b border-gray-600">
                         <button
-                            data-modal-hide="default-modal"
                             type="button"
                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                            onClick={handleSave}
                         >
                             Save
                         </button>
                         <button
-                            data-modal-hide="default-modal"
                             type="button"
                             className="ms-3 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-600 focus:ring-gray-600"
                             onClick={() => props.setIsChangeProfPicModalActive(false)}
