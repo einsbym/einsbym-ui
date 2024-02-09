@@ -8,26 +8,23 @@ import {
     NextSSRApolloClient,
     SSRMultipartLink,
 } from '@apollo/experimental-nextjs-app-support/ssr';
+import { setContext } from '@apollo/client/link/context';
+import { getAccessTokenFromCookie } from '@/actions/cookies';
 
 function makeClient() {
     const httpLink = new HttpLink({
         uri: apiUrl,
     });
 
-    const authLink = new ApolloLink((operation, forward) => {
-        if (typeof window !== 'undefined') {
-            // Get the access token from local storage
-            const accessToken = localStorage.getItem('accessToken');
+    const authMiddleware = setContext(async (operation) => {
+        const cookie = await getAccessTokenFromCookie();
 
-            // Set the access token in the headers
-            operation.setContext({
-                headers: {
-                    Authorization: accessToken ? `Bearer ${accessToken}` : '',
-                },
-            });
-        }
-
-        return forward(operation);
+        return {
+            // Make sure to actually set the headers here
+            headers: {
+                Authorization: cookie ? `Bearer ${cookie.value.replace(/^"(.*)"$/, '$1')}` : '',
+            },
+        };
     });
 
     return new NextSSRApolloClient({
@@ -38,10 +35,10 @@ function makeClient() {
                       new SSRMultipartLink({
                           stripDefer: true,
                       }),
-                      authLink,
+                      authMiddleware,
                       httpLink,
                   ])
-                : ApolloLink.from([authLink, httpLink]),
+                : ApolloLink.from([authMiddleware, httpLink]),
     });
 }
 

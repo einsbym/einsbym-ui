@@ -1,15 +1,14 @@
 'use client';
 
-import useAuth from '@/auth/use-auth';
 import Navbar from '@/components/navbar';
 import { SAVE_IMAGE_DATA } from '@/graphql/mutations/image';
 import { User } from '@/interfaces/interfaces';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { FaRegHourglass } from 'react-icons/fa6';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { storageServiceUrl } from '../constants/constants';
-import { FaRegHourglass } from 'react-icons/fa6';
 
 const KeyCodes = {
     comma: 188,
@@ -37,7 +36,6 @@ export default function Upload() {
         name: '',
         description: '',
     });
-    const { getUser } = useAuth();
     const [user, setUser] = useState<User>();
     const [disableButtons, setDisableButtons] = useState<boolean>(false);
 
@@ -148,13 +146,6 @@ export default function Upload() {
             setErrorMessage(`${error}`);
         }
     };
-
-    useEffect(() => {
-        const currentUser = getUser();
-        if (currentUser) {
-            setUser(currentUser);
-        }
-    }, []);
 
     return (
         <main className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">

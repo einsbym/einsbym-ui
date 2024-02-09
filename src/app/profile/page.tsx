@@ -8,8 +8,22 @@ import UserBioAndPost from './components/user-bio-and-post';
 import UserPosts from './components/user-posts';
 import UserGallery from './components/user-gallery';
 import UserBlurredCover from './components/user-blurred-cover';
+import { getCurrentUserFromCookie } from '@/actions/cookies';
+import { useEffect, useState } from 'react';
+import { User } from '@/interfaces/interfaces';
 
 export default function ViewImage() {
+    const [user, setUser] = useState<User | null>();
+    
+    const fetchUser = async () => {
+        const user = await getCurrentUserFromCookie();
+        setUser(user);
+    };
+
+    useEffect(() => {
+        fetchUser();
+    }, []);
+    
     return (
         <>
             <UserBlurredCover coverImage="" />
@@ -19,10 +33,11 @@ export default function ViewImage() {
 
                 {/* User's cover and profile picture */}
                 <UserCoverAndPhoto
-                    firstName="Bruna"
-                    lastName="Stenio"
+                    id={user?.id || ''}
+                    firstName={user?.firstName || ''}
+                    lastName={user?.lastName || ''}
                     coverImage=""
-                    profileImage=""
+                    profileImage={user?.profilePicture || ''}
                 />
 
                 {/* General statistics */}
