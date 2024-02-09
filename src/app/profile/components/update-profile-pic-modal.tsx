@@ -17,6 +17,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
     const [file, setFile] = useState<File>();
     const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
     const [getMe] = useLazyQuery(ME);
+    const [errorMessage, setErrorMessage] = useState<string | null>();
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -34,6 +35,8 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
 
     const handleSave = async () => {
         try {
+            setErrorMessage(null);
+
             if (!file) {
                 throw new Error('No file selected.');
             }
@@ -75,6 +78,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
             props.setIsChangeProfPicModalActive(false);
         } catch (error) {
             console.error('Error uploading file:', error);
+            setErrorMessage(`Oops... ${error}`);
         }
     };
 
@@ -147,6 +151,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                         >
                             Cancel
                         </button>
+                        {errorMessage && <div className='ml-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400'>{errorMessage}</div>}
                     </div>
                 </div>
             </div>
