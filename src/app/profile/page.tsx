@@ -47,7 +47,7 @@ export default function ViewImage() {
                 <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                     <div>
                         <UserBioAndPost userId={user?.id || ''} />
-                        <UserPosts />
+                        <UserPosts userId={user?.id || ''} />
                     </div>
 
                     <UserGallery />
