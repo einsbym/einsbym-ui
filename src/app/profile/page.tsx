@@ -36,7 +36,7 @@ export default function ViewImage() {
                     id={user?.id || ''}
                     firstName={user?.firstName || ''}
                     lastName={user?.lastName || ''}
-                    coverImage=""
+                    coverImage={user?.coverImage || ''}
                     profileImage={user?.profilePicture || ''}
                 />
 
@@ -46,8 +46,8 @@ export default function ViewImage() {
                 {/* User's content */}
                 <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                     <div>
-                        <UserBioAndPost />
-                        <UserPosts />
+                        <UserBioAndPost userId={user?.id || ''} />
+                        <UserPosts userId={user?.id || ''} />
                     </div>
 
                     <UserGallery />
