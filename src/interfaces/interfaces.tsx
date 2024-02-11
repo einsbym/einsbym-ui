@@ -22,5 +22,6 @@ export interface User {
     email: string;
     bio: string;
     profilePicture: string;
+    coverImage: string;
     createdAt: Date;
 }

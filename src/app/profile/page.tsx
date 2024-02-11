@@ -36,7 +36,7 @@ export default function ViewImage() {
                     id={user?.id || ''}
                     firstName={user?.firstName || ''}
                     lastName={user?.lastName || ''}
-                    coverImage=""
+                    coverImage={user?.coverImage || ''}
                     profileImage={user?.profilePicture || ''}
                 />
 
