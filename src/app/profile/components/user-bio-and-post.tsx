@@ -1,6 +1,6 @@
 import PublishPost from "./publish-post";
 
-export default function UserBioAndPost() {
+export default function UserBioAndPost(props: { userId: string }) {
     return (
         <>
             {/* User's bio */}
@@ -16,7 +16,7 @@ export default function UserBioAndPost() {
             </a>
 
             {/* Publish post */}
-            <PublishPost />
+            <PublishPost userId={props.userId} />
         </>
     );
 }
