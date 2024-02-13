@@ -20,13 +20,13 @@ export default function UserPosts(props: { userId: string; posts: any }) {
     return (
         <>
             {posts?.map((post: any) => (
-                <div key={post.id} className="mt-5 flex items-start gap-2.5">
+                <div key={post.id} className="mt-5 flex items-start gap-2">
                     <img
-                        className="w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                        src={`${storageUrl}/${post.user.profilePicture}`}
+                        className="flex-none w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                        src={storageUrl + post.user.profilePicture}
                         alt={post.user.username}
                     />
-                    <div className="flex flex-col w-full leading-1.5 p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+                    <div className="flex flex-col w-full overflow-hidden break-all p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse">
                             <span className="text-sm font-semibold text-white">
                                 {post.user.firstName} {post.user.lastName}
