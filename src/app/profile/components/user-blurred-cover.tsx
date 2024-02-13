@@ -1,4 +1,4 @@
-import { storageUrl } from "@/app/constants/constants";
+import { storageUrl } from "@/constants/constants";
 
 interface UserBlurredCoverProps {
     coverImage: string;

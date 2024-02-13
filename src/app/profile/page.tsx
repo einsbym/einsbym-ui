@@ -1,18 +1,17 @@
 'use client';
 
+import { getCurrentUserFromCookie } from '@/actions/cookies';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
-import UserCoverAndPhoto from './components/user-cover-and-photo';
-import UserGeneralStatistics from './components/user-general-statistics';
-import UserBioAndPost from './components/user-bio-and-post';
-import UserPosts from './components/user-posts';
-import UserGallery from './components/user-gallery';
-import UserBlurredCover from './components/user-blurred-cover';
-import { getCurrentUserFromCookie } from '@/actions/cookies';
-import { useEffect, useState } from 'react';
 import { User } from '@/interfaces/interfaces';
+import { useEffect, useState } from 'react';
+import UserBioAndPost from './components/user-bio-and-post';
+import UserBlurredCover from './components/user-blurred-cover';
+import UserCoverAndPhoto from './components/user-cover-and-photo';
+import UserGallery from './components/user-gallery';
+import UserGeneralStatistics from './components/user-general-statistics';
 
-export default function ViewImage() {
+export default function UserProfile() {
     const [user, setUser] = useState<User | null>();
     
     const fetchUser = async () => {
@@ -47,7 +46,6 @@ export default function ViewImage() {
                 <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                     <div>
                         <UserBioAndPost userId={user?.id || ''} />
-                        <UserPosts userId={user?.id || ''} />
                     </div>
 
                     <UserGallery />

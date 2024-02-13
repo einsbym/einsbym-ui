@@ -8,7 +8,7 @@ import { Image } from '@/interfaces/interfaces';
 import { useSuspenseQuery } from '@apollo/client';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { storageUrl } from '../constants/constants';
+import { storageUrl } from '../../constants/constants';
 
 const slides = [
     { title: 'Title 1', text: 'Text 1' },

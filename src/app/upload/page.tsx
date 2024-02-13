@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaRegHourglass } from 'react-icons/fa6';
 import { WithContext as ReactTags } from 'react-tag-input';
-import { storageServiceUrl } from '../constants/constants';
+import { storageServiceUrl } from '../../constants/constants';
 
 const KeyCodes = {
     comma: 188,

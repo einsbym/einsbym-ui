@@ -1,6 +1,6 @@
 'use client';
 
-import { apiUrl } from '@/app/constants/constants';
+import { apiUrl } from '@/constants/constants';
 import { ApolloLink, HttpLink } from '@apollo/client';
 import {
     ApolloNextAppProvider,
