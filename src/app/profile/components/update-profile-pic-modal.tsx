@@ -3,7 +3,7 @@ import { storageServiceUrl } from '@/constants/constants';
 import { UPDATE_PROFILE_IMAGE } from '@/graphql/mutations/user';
 import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { ChangeEvent, Dispatch, SetStateAction, useState, useTransition } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { MdOutlineCloudUpload } from 'react-icons/md';
 
 interface UpdateProfilePictureModalProps {
@@ -45,7 +45,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
             const formData = new FormData();
             formData.append('file', file);
 
-            const response = await fetch(`${storageServiceUrl}/storage-service/upload`, {
+            const response = await fetch(`${storageServiceUrl}/upload`, {
                 method: 'POST',
                 body: formData,
             });
