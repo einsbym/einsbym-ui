@@ -5,11 +5,12 @@ import { useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { MdPostAdd } from 'react-icons/md';
 import UserPosts from './user-posts';
+import { Post } from '@/interfaces/interfaces';
 
 export default function PublishPost(props: { userId: string }) {
     // States
     const [postText, setPostText] = useState<string | null>();
-    const [posts, setPosts] = useState<any>();
+    const [posts, setPosts] = useState<Post[]>([]);
 
     // Mutations
     const [createPost] = useMutation(CREATE_POST);

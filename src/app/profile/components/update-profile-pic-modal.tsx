@@ -9,6 +9,7 @@ import { MdOutlineCloudUpload } from 'react-icons/md';
 interface UpdateProfilePictureModalProps {
     userId: string;
     isChangeProfPicModalActive: boolean;
+    setProfileImage: Dispatch<SetStateAction<string>>;
     setIsChangeProfPicModalActive: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -75,6 +76,9 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                 await createUserCookie(result.data.me);
             });
 
+            // Update state
+            props.setProfileImage(jsonResponse.filename);
+
             props.setIsChangeProfPicModalActive(false);
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -98,7 +102,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                         <button
                             type="button"
                             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-                            data-modal-hide="default-modal"
+                            data-modal-hide="default-mnullodal"
                             onClick={() => props.setIsChangeProfPicModalActive(false)}
                         >
                             <svg
@@ -119,6 +123,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                             <span className="sr-only">Close modal</span>
                         </button>
                     </div>
+
                     {/* Modal body */}
                     <div className="p-4 md:p-5 space-y-4">
                         <label
@@ -135,6 +140,7 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                             onChange={(event) => handleFileChange(event)}
                         />
                     </div>
+
                     {/* Modal footer */}
                     <div className="flex items-center p-4 md:p-5 border-t rounded-b border-gray-600">
                         <button
@@ -151,7 +157,11 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
                         >
                             Cancel
                         </button>
-                        {errorMessage && <div className='ml-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400'>{errorMessage}</div>}
+                        {errorMessage && (
+                            <div className="ml-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400">
+                                {errorMessage}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

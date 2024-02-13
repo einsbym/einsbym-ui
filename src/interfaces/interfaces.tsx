@@ -25,3 +25,11 @@ export interface User {
     coverImage: string;
     createdAt: Date;
 }
+
+export interface Post {
+    id: string;
+    postText: string;
+    createdAt: Date;
+    updatedAt: Date;
+    user: User;
+}
