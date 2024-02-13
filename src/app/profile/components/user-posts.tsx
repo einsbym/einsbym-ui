@@ -1,4 +1,4 @@
-import { storageUrl } from '@/app/constants/constants';
+import { storageUrl } from '@/constants/constants';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { useQuery } from '@apollo/client';
 import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';

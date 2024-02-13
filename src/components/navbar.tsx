@@ -1,6 +1,6 @@
 'use client';
 
-import { storageUrl } from '@/app/constants/constants';
+import { storageUrl } from '@/constants/constants';
 import { User } from '@/interfaces/interfaces';
 import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';

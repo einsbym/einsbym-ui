@@ -1,4 +1,4 @@
-import { storageUrl } from '@/app/constants/constants';
+import { storageUrl } from '@/constants/constants';
 import { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';

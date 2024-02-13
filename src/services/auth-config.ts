@@ -1,4 +1,4 @@
-import { apiUrl } from '@/app/constants/constants';
+import { apiUrl } from '@/constants/constants';
 import { SIGN_IN } from '@/graphql/mutations/auth';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 

@@ -1,5 +1,5 @@
 import { createUserCookie } from '@/actions/cookies';
-import { storageServiceUrl } from '@/app/constants/constants';
+import { storageServiceUrl } from '@/constants/constants';
 import { UPDATE_PROFILE_IMAGE } from '@/graphql/mutations/user';
 import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
