@@ -1,5 +1,5 @@
 import { storageUrl } from '@/constants/constants';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
 import UpdateProfilePictureModal from './update-profile-pic-modal';
@@ -14,6 +14,13 @@ interface UserCoverAndPhotoProps {
 
 export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
     const [isChangeProfPicModalActive, setIsChangeProfPicModalActive] = useState<boolean>(false);
+    const [profileImage, setProfileImage] = useState<string>('');
+
+    useEffect(() => {
+        if (props.profileImage) {
+            setProfileImage(props.profileImage);
+        }
+    }, [props.profileImage]);
 
     return (
         <>
@@ -23,7 +30,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
             >
                 <div
                     style={{
-                        backgroundImage: `url('${storageUrl + props.profileImage}')`,
+                        backgroundImage: `url('${storageUrl + profileImage}')`,
                     }}
                     className="absolute transform -translate-x-1/2 -translate-y-[-30px] top-1/2 left-1/2 w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                 >
@@ -49,6 +56,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
             <UpdateProfilePictureModal
                 userId={props.id}
                 isChangeProfPicModalActive={isChangeProfPicModalActive}
+                setProfileImage={setProfileImage}
                 setIsChangeProfPicModalActive={setIsChangeProfPicModalActive}
             />
         </>
