@@ -1,12 +1,13 @@
 import { storageUrl } from '@/constants/constants';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
+import { Post } from '@/interfaces/interfaces';
 import { useQuery } from '@apollo/client';
 import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 
-export default function UserPosts(props: { userId: string; posts: any }) {
+export default function UserPosts(props: { userId: string; posts: Post[] }) {
     let posts = props.posts;
 
-    if (!posts) {
+    if (posts.length === 0) {
         const { data } = useQuery(FIND_POSTS_BY_USER, {
             variables: {
                 userId: props.userId,
@@ -19,7 +20,7 @@ export default function UserPosts(props: { userId: string; posts: any }) {
 
     return (
         <>
-            {posts?.map((post: any) => (
+            {posts?.map((post: Post) => (
                 <div key={post.id} className="mt-5 flex items-start gap-2">
                     <img
                         className="flex-none w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
