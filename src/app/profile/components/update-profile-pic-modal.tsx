@@ -51,7 +51,8 @@ export default function UpdateProfilePictureModal(props: UpdateProfilePictureMod
             });
 
             if (response.status !== 200) {
-                throw new Error(response.statusText);
+                const { error } = await response.json();
+                throw new Error(error);
             }
 
             // Get response from backend
