@@ -5,6 +5,8 @@ export const FIND_POSTS_BY_USER = gql`
         findPostsByUser(userId: $userId) {
             id
             postText
+            createdAt
+            updatedAt
             user {
               id
               firstName

@@ -2,12 +2,12 @@
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
-import { IMAGES } from '@/graphql/queries/image';
 import { Image } from '@/interfaces/interfaces';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageUrl } from './constants/constants';
+import { IMAGES } from '@/graphql/queries/image';
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
