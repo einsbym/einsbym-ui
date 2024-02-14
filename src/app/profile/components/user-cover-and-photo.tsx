@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
 import UpdateProfilePictureModal from './update-profile-pic-modal';
+import UpdateCoverImageModal from './update-cover-image-modal';
 
 interface UserCoverAndPhotoProps {
     id: string;
@@ -14,6 +15,7 @@ interface UserCoverAndPhotoProps {
 
 export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
     const [isChangeProfPicModalActive, setIsChangeProfPicModalActive] = useState<boolean>(false);
+    const [isChangeCoverImageModalActive, setIsChangeCoverImageModalActive] = useState<boolean>(false);
     const [profileImage, setProfileImage] = useState<string>('');
 
     useEffect(() => {
@@ -29,6 +31,13 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                 className="relative lg:w-4/5 h-[20rem] mx-auto lg:rounded-lg bg-cover bg-center"
             >
                 <div
+                    className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer"
+                    title="Change cover image"
+                    onClick={() => setIsChangeCoverImageModalActive(true)}
+                >
+                    <FaCamera size={30} />
+                </div>
+                <div
                     style={{
                         backgroundImage: `url('${storageUrl + profileImage}')`,
                     }}
@@ -39,7 +48,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                         title="Change profile image"
                         onClick={() => setIsChangeProfPicModalActive(true)}
                     >
-                        <FaCamera size={40} />
+                        <FaCamera size={30} />
                     </div>
                 </div>
             </div>
@@ -51,6 +60,13 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                 <span className="text-[#cc00ff]">23</span> images <LuDot size={30} />
                 <span className="text-[#cc00ff]">125k</span> views
             </div>
+
+            {/* Chande cover image modal */}
+            <UpdateCoverImageModal
+                userId={props.id}
+                isChangeCoverImageModalActive={isChangeCoverImageModalActive}
+                setIsChangeCoverImageModalActive={setIsChangeCoverImageModalActive}
+            />
 
             {/* Chande profile picture modal */}
             <UpdateProfilePictureModal

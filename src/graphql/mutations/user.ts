@@ -8,3 +8,12 @@ export const UPDATE_PROFILE_IMAGE = gql`
         }
     }
 `;
+
+export const UPDATE_COVER_IMAGE = gql`
+    mutation UpdateCoverImage($updateCoverImageInput: UpdateCoverImageInput!) {
+        updateCoverImage(updateCoverImageInput: $updateCoverImageInput) {
+            id
+            profilePicture
+        }
+    }
+`;
