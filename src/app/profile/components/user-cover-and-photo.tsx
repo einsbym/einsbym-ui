@@ -2,8 +2,8 @@ import { storageUrl } from '@/constants/constants';
 import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
-import UpdateProfilePictureModal from './update-profile-pic-modal';
-import UpdateCoverImageModal from './update-cover-image-modal';
+import UpdateProfileImage from './update-profile-image';
+import UpdateCoverImage from './update-cover-image';
 
 interface UserCoverAndPhotoProps {
     id: string;
@@ -14,8 +14,8 @@ interface UserCoverAndPhotoProps {
 }
 
 export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
-    const [isChangeProfPicModalActive, setIsChangeProfPicModalActive] = useState<boolean>(false);
-    const [isChangeCoverImageModalActive, setIsChangeCoverImageModalActive] = useState<boolean>(false);
+    const [isChangeProfPicActive, setIsChangeProfPicActive] = useState<boolean>(false);
+    const [isChangeCoverImageActive, setIsChangeCoverImageActive] = useState<boolean>(false);
     const [profileImage, setProfileImage] = useState<string>('');
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                 <div
                     className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer"
                     title="Change cover image"
-                    onClick={() => setIsChangeCoverImageModalActive(true)}
+                    onClick={() => setIsChangeCoverImageActive(true)}
                 >
                     <FaCamera size={30} />
                 </div>
@@ -46,7 +46,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                     <div
                         className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer"
                         title="Change profile image"
-                        onClick={() => setIsChangeProfPicModalActive(true)}
+                        onClick={() => setIsChangeProfPicActive(true)}
                     >
                         <FaCamera size={30} />
                     </div>
@@ -61,19 +61,19 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                 <span className="text-[#cc00ff]">125k</span> views
             </div>
 
-            {/* Chande cover image modal */}
-            <UpdateCoverImageModal
+            {/* Show menu for changing the cover image */}
+            <UpdateCoverImage
                 userId={props.id}
-                isChangeCoverImageModalActive={isChangeCoverImageModalActive}
-                setIsChangeCoverImageModalActive={setIsChangeCoverImageModalActive}
+                isChangeCoverImageActive={isChangeCoverImageActive}
+                setIsChangeCoverImageActive={setIsChangeCoverImageActive}
             />
 
-            {/* Chande profile picture modal */}
-            <UpdateProfilePictureModal
+            {/* Show menu for changing the profile picture */}
+            <UpdateProfileImage
                 userId={props.id}
-                isChangeProfPicModalActive={isChangeProfPicModalActive}
+                isChangeProfPicActive={isChangeProfPicActive}
+                setIsChangeProfPicActive={setIsChangeProfPicActive}
                 setProfileImage={setProfileImage}
-                setIsChangeProfPicModalActive={setIsChangeProfPicModalActive}
             />
         </>
     );

@@ -11,6 +11,7 @@ export const SIGN_IN = gql`
                 username
                 email
                 bio
+                coverImage
                 profilePicture
                 createdAt
             }
