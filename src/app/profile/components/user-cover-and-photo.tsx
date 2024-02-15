@@ -17,17 +17,22 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
     const [isChangeProfPicActive, setIsChangeProfPicActive] = useState<boolean>(false);
     const [isChangeCoverImageActive, setIsChangeCoverImageActive] = useState<boolean>(false);
     const [profileImage, setProfileImage] = useState<string>('');
+    const [coverImage, setCoverImage] = useState<string>('');
 
     useEffect(() => {
+        if (props.coverImage) {
+            setCoverImage(props.coverImage);
+        }
+
         if (props.profileImage) {
             setProfileImage(props.profileImage);
         }
-    }, [props.profileImage]);
+    }, [props.profileImage, props.coverImage]);
 
     return (
         <>
             <div
-                style={{ backgroundImage: `url('${storageUrl + props.coverImage}')` }}
+                style={{ backgroundImage: `url('${storageUrl + coverImage}')` }}
                 className="relative lg:w-4/5 h-[20rem] mx-auto lg:rounded-lg bg-cover bg-center"
             >
                 <div
@@ -64,13 +69,16 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
             {/* Show menu for changing the cover image */}
             <UpdateCoverImage
                 userId={props.id}
+                currentCoverImage={coverImage}
                 isChangeCoverImageActive={isChangeCoverImageActive}
                 setIsChangeCoverImageActive={setIsChangeCoverImageActive}
+                setCoverImage={setCoverImage}
             />
 
             {/* Show menu for changing the profile picture */}
             <UpdateProfileImage
                 userId={props.id}
+                currentProfileImage={profileImage}
                 isChangeProfPicActive={isChangeProfPicActive}
                 setIsChangeProfPicActive={setIsChangeProfPicActive}
                 setProfileImage={setProfileImage}

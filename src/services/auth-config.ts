@@ -1,6 +1,9 @@
+import { deleteCookies, getCurrentUserFromCookie } from '@/actions/cookies';
 import { apiUrl } from '@/constants/constants';
 import { SIGN_IN } from '@/graphql/mutations/auth';
+import { User } from '@/interfaces/interfaces';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { Dispatch, SetStateAction } from 'react';
 
 export class AuthService {
     protected readonly instance: ApolloClient<unknown>;
@@ -23,4 +26,9 @@ export class AuthService {
             return null;
         }
     };
+
+    getUser = async (setUser: Dispatch<SetStateAction<User | null | undefined>>) => {
+        const user = await getCurrentUserFromCookie();
+        setUser(user);
+    }
 }
