@@ -8,6 +8,7 @@ import UpdateImageModal from './update-images-modal';
 
 interface UpdateProfileImageProps {
     userId: string;
+    currentProfileImage: string;
     isChangeProfPicActive: boolean;
     setProfileImage: Dispatch<SetStateAction<string>>;
     setIsChangeProfPicActive: Dispatch<SetStateAction<boolean>>;
@@ -71,6 +72,11 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
             if (errors) {
                 throw new Error('Error when attempting to update the profile image');
             }
+
+            // Delete old image from storage
+            await fetch(`${storageServiceUrl}/delete/${props.currentProfileImage}`, {
+                method: 'DELETE',
+            });
 
             // Update user cookie with the new data
             await getMe({ variables: { id: props.userId } }).then(async (result) => {

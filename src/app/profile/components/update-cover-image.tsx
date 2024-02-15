@@ -8,8 +8,10 @@ import UpdateImageModal from './update-images-modal';
 
 interface UpdateCoverImageProps {
     userId: string;
+    currentCoverImage: string;
     isChangeCoverImageActive: boolean;
     setIsChangeCoverImageActive: Dispatch<SetStateAction<boolean>>;
+    setCoverImage: Dispatch<SetStateAction<string>>;
 }
 
 export default function UpdateCoverImage(props: UpdateCoverImageProps) {
@@ -71,10 +73,18 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
                 throw new Error('Error when attempting to update the cover image');
             }
 
+            // Delete old image from storage
+            await fetch(`${storageServiceUrl}/delete/${props.currentCoverImage}`, {
+                method: 'DELETE',
+            });
+
             // Update user cookie with the new data
             await getMe({ variables: { id: props.userId } }).then(async (result) => {
                 await createUserCookie(result.data.me);
             });
+
+            // Update state
+            props.setCoverImage(jsonResponse.filename);
 
             props.setIsChangeCoverImageActive(false);
         } catch (error) {
