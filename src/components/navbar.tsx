@@ -7,6 +7,7 @@ import { RiLoginCircleLine } from 'react-icons/ri';
 import Sidebar from './sidebar';
 import { useRouter } from 'next/navigation';
 import { deleteCookies, getCurrentUserFromCookie } from '@/actions/cookies';
+import { AuthService } from '@/services/auth-config';
 
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },
@@ -32,13 +33,8 @@ export default function Navbar() {
         router.push(`/auth/login`);
     };
 
-    const fetchUser = async () => {
-        const user = await getCurrentUserFromCookie();
-        setUser(user);
-    };
-
     useEffect(() => {
-        fetchUser();
+        new AuthService().getUser(setUser);
     }, []);
 
     return (
