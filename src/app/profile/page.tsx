@@ -1,16 +1,15 @@
 'use client';
 
-import { getCurrentUserFromCookie } from '@/actions/cookies';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import { User } from '@/interfaces/interfaces';
+import { AuthService } from '@/services/auth-config';
 import { useEffect, useState } from 'react';
 import UserBioAndPost from './components/user-bio-and-post';
 import UserBlurredCover from './components/user-blurred-cover';
 import UserCoverAndPhoto from './components/user-cover-and-photo';
 import UserGallery from './components/user-gallery';
 import UserGeneralStatistics from './components/user-general-statistics';
-import { AuthService } from '@/services/auth-config';
 
 export default function UserProfile() {
     const [user, setUser] = useState<User | null>();

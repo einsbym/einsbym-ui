@@ -1,13 +1,13 @@
 'use client';
 
+import { deleteCookies } from '@/actions/cookies';
 import { storageUrl } from '@/constants/constants';
 import { User } from '@/interfaces/interfaces';
+import { AuthService } from '@/services/auth-config';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import Sidebar from './sidebar';
-import { useRouter } from 'next/navigation';
-import { deleteCookies, getCurrentUserFromCookie } from '@/actions/cookies';
-import { AuthService } from '@/services/auth-config';
 
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },

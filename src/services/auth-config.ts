@@ -1,4 +1,4 @@
-import { deleteCookies, getCurrentUserFromCookie } from '@/actions/cookies';
+import { getCurrentUserFromCookie } from '@/actions/cookies';
 import { apiUrl } from '@/constants/constants';
 import { SIGN_IN } from '@/graphql/mutations/auth';
 import { User } from '@/interfaces/interfaces';
