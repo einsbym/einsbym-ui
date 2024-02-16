@@ -40,7 +40,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                         {post.images.length > 0 && (
                             <div className="grid gap-2 grid-cols-2 my-2.5">
                                 {post.images.map((image) => (
-                                    <div className="group relative">
+                                    <div key={image.id} className="group relative">
                                         <img src={storageUrl + image.filename} className="w-full h-[200px] lg:h-[500px] object-cover rounded-lg" />
                                     </div>
                                 ))}
