@@ -52,7 +52,7 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                         </button>
                     </div>
 
-                    <p className="mt-2 text-white text-center">{props.modalDescription}</p>
+                    <p className="mt-2 p-4 text-white text-center">{props.modalDescription}</p>
 
                     {/* Modal body */}
                     <div className="p-4 md:p-5 space-y-4">
