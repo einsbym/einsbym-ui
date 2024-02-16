@@ -43,7 +43,7 @@ export default function UserProfile() {
                         <UserBioAndPost userId={user?.id || ''} />
                     </div>
 
-                    <UserGallery />
+                    <UserGallery userId={user?.id || ''} />
                 </div>
 
                 <Footer />
