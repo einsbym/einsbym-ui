@@ -35,6 +35,18 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                             <span className="text-sm font-normal text-gray-400">11:46</span>
                         </div>
                         <p className="text-sm font-normal py-2.5 text-white">{post.postText}</p>
+
+                        {/* Display images (if any) */}
+                        {post.images.length > 0 && (
+                            <div className="grid gap-2 grid-cols-2 my-2.5">
+                                {post.images.map((image) => (
+                                    <div className="group relative">
+                                        <img src={storageUrl + image.filename} className="w-full h-[200px] lg:h-[500px] object-cover rounded-lg" />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
                         <div className="flex space-x-2 justify-end">
                             <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
                                 <FaRegHeart size={13} /> 232

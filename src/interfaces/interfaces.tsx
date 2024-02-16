@@ -31,5 +31,6 @@ export interface Post {
     postText: string;
     createdAt: Date;
     updatedAt: Date;
+    images: Image[];
     user: User;
 }

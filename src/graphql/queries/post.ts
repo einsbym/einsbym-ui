@@ -7,12 +7,16 @@ export const FIND_POSTS_BY_USER = gql`
             postText
             createdAt
             updatedAt
+            images {
+                id
+                filename
+            }
             user {
-              id
-              firstName
-              lastName
-              username
-              profilePicture
+                id
+                firstName
+                lastName
+                username
+                profilePicture
             }
         }
     }
