@@ -16,6 +16,7 @@ export default function PublishPost(props: { userId: string }) {
     const [files, setFiles] = useState<FileList | null>();
     const [selectedImages, setSelectedImages] = useState<string[]>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     // Mutations
     const [createPost] = useMutation(CREATE_POST);
@@ -44,6 +45,8 @@ export default function PublishPost(props: { userId: string }) {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+
+        setLoading(true);
 
         // Clear previous error message
         setErrorMessage(null);
@@ -103,7 +106,10 @@ export default function PublishPost(props: { userId: string }) {
             });
 
             setPosts(data?.findPostsByUser);
+
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             console.error('Something bad happened:', error);
             setErrorMessage(`${error instanceof Error ? error.message : error}`);
         }
@@ -149,6 +155,12 @@ export default function PublishPost(props: { userId: string }) {
                         </button>
                     </div>
                 </form>
+
+                {loading && (
+                    <div className="mt-2 px-3 py-1 text-xs font-medium leading-none text-center text-[#cc00ff] bg-[#cc00ff1e] rounded-full animate-pulse">
+                        publishing your post...
+                    </div>
+                )}
 
                 {errorMessage && (
                     <div className="mt-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400 text-center">
