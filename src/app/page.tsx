@@ -10,10 +10,9 @@ import { storageUrl } from '../constants/constants';
 import { IMAGES } from '@/graphql/queries/image';
 
 export default function Home() {
-    const [loading, setLoading] = useState(true);
     const [images, setImages] = useState<Image[]>([]);
     const router = useRouter();
-    const imagesQuery = useQuery(IMAGES);
+    const {data, loading, error} = useQuery(IMAGES);
 
     const viewImage = (image: Image) => {
         router.push(`/view-image?image=${image.id}`);
@@ -21,19 +20,17 @@ export default function Home() {
 
     const fetchData = async () => {
         try {
-            if (imagesQuery.data) {
-                setImages(imagesQuery.data.images);
-                setLoading(false);
+            if (data) {
+                setImages(data.images);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
-            setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchData();
-    }, [imagesQuery]);
+    }, [data]);
 
     return (
         <>
@@ -70,7 +67,7 @@ export default function Home() {
                         ))}
                 </div>
 
-                {!images && !loading ? (
+                {images.length === 0 && !loading ? (
                     <div className="flex justify-center">
                         <div className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
                             There's nothing to show here
