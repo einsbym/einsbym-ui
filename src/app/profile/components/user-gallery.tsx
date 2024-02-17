@@ -13,11 +13,22 @@ export default function UserGallery(props: { userId: string }) {
 
     return (
         <div>
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">Gallery</h5>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">
+                Gallery{' '}
+                {data && (
+                    <span className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-base">
+                        {data.findImagesByUser.length} images
+                    </span>
+                )}
+            </h5>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {data?.findImagesByUser.map((image: Image) => (
                     <div key={image.id}>
-                        <img className="h-[200px] w-[300px] rounded-lg object-cover" src={storageUrl + image.filename} alt={image.filename} />
+                        <img
+                            className="h-[200px] w-[300px] rounded-lg object-cover"
+                            src={storageUrl + image.filename}
+                            alt={image.filename}
+                        />
                     </div>
                 ))}
             </div>

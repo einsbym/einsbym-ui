@@ -11,7 +11,6 @@ import Sidebar from './sidebar';
 
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },
-    { id: 2, label: 'Upload', slug: '/upload' },
 ];
 
 export default function Navbar() {
