@@ -1,13 +1,13 @@
+import { storageServiceUrl } from '@/constants/constants';
 import { CREATE_POST } from '@/graphql/mutations/post';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
+import { Post } from '@/interfaces/interfaces';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { ChangeEvent, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
+import { GrGallery } from 'react-icons/gr';
 import { MdPostAdd } from 'react-icons/md';
 import UserPosts from './user-posts';
-import { Image, Post } from '@/interfaces/interfaces';
-import { GrGallery } from 'react-icons/gr';
-import { storageServiceUrl } from '@/constants/constants';
 
 export default function PublishPost(props: { userId: string }) {
     // States
@@ -37,28 +37,32 @@ export default function PublishPost(props: { userId: string }) {
             const images: any[] = [];
 
             if (files) {
+                console.log('FILES ARRAY LENGTH:', files.length);
+
                 Array.from(files).forEach(async (file) => {
                     // Save that shit in storage (or try to)
                     const formData = new FormData();
                     formData.append('file', file);
-        
+
                     const response = await fetch(`${storageServiceUrl}/upload`, {
                         method: 'POST',
                         body: formData,
                     });
-        
+
                     if (response.status !== 200) {
                         const { error } = await response.json();
                         console.error(`The file ${file.name} could not be uploaded. Reason:`, error);
                         return;
                     }
-        
+
                     // Get response from backend
                     const responseInJson = await response.json();
 
-                    images.push({ filename: responseInJson.filename, name: "blah", description: "foobar", tags: [""] });
+                    images.push({ filename: responseInJson.filename, name: 'blah', description: 'foobar', tags: [''] });
                 });
             }
+
+            console.log('IMAGES ARRAY:', images);
 
             // Save post
             const { errors } = await createPost({
@@ -110,7 +114,7 @@ export default function PublishPost(props: { userId: string }) {
                         <label
                             className="text-white absolute end-12 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2 cursor-pointer"
                             htmlFor="fileInput"
-                            title='Select images'
+                            title="Select images"
                         >
                             <GrGallery size={20} />
                         </label>
