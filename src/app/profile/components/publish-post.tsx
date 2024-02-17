@@ -14,6 +14,8 @@ export default function PublishPost(props: { userId: string }) {
     const [postText, setPostText] = useState<string | null>();
     const [posts, setPosts] = useState<Post[]>([]);
     const [files, setFiles] = useState<FileList | null>();
+    const [selectedImages, setSelectedImages] = useState<string[]>();
+    const [errorMessage, setErrorMessage] = useState<string | null>();
 
     // Mutations
     const [createPost] = useMutation(CREATE_POST);
@@ -21,13 +23,30 @@ export default function PublishPost(props: { userId: string }) {
     // Queries
     const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
 
-    const handleMultiFilesChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleFilesChange = (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
+
+        if (files) {
+            const blobs: string[] = [];
+
+            Array.from(files).forEach(async (file) => {
+                // Create a blob URL for the selected file
+                const blob = URL.createObjectURL(file);
+
+                blobs.push(blob);
+            });
+
+            setSelectedImages(blobs);
+        }
+
         setFiles(files);
     };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+
+        // Clear previous error message
+        setErrorMessage(null);
 
         try {
             if (!postText) {
@@ -37,10 +56,7 @@ export default function PublishPost(props: { userId: string }) {
             const images: any[] = [];
 
             if (files) {
-                console.log('FILES ARRAY LENGTH:', files.length);
-
                 Array.from(files).forEach(async (file) => {
-                    // Save that shit in storage (or try to)
                     const formData = new FormData();
                     formData.append('file', file);
 
@@ -61,8 +77,6 @@ export default function PublishPost(props: { userId: string }) {
                     images.push({ filename: responseInJson.filename, name: 'blah', description: 'foobar', tags: [''] });
                 });
             }
-
-            console.log('IMAGES ARRAY:', images);
 
             // Save post
             const { errors } = await createPost({
@@ -91,6 +105,7 @@ export default function PublishPost(props: { userId: string }) {
             setPosts(data?.findPostsByUser);
         } catch (error) {
             console.error('Something bad happened:', error);
+            setErrorMessage(`${error instanceof Error ? error.message : error}`);
         }
     };
 
@@ -123,7 +138,7 @@ export default function PublishPost(props: { userId: string }) {
                             className="hidden"
                             id="fileInput"
                             type="file"
-                            onChange={(event) => handleMultiFilesChange(event)}
+                            onChange={(event) => handleFilesChange(event)}
                         />
                         <button
                             type="submit"
@@ -134,6 +149,27 @@ export default function PublishPost(props: { userId: string }) {
                         </button>
                     </div>
                 </form>
+
+                {errorMessage && (
+                    <div className="mt-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400 text-center">
+                        {errorMessage}
+                    </div>
+                )}
+
+                {selectedImages && (
+                    <div className="mt-2 grid gap-4">
+                        <p className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
+                            Selected images: {selectedImages.length}
+                        </p>
+                        <div className="grid grid-cols-5 gap-2">
+                            {selectedImages.map((image, index) => (
+                                <div key={index}>
+                                    <img className="h-auto max-w-full rounded-lg" src={image} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* User posts */}
