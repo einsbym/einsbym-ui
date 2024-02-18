@@ -77,7 +77,7 @@ export default function PublishPost(props: { userId: string }) {
                     // Get response from backend
                     const responseInJson = await response.json();
 
-                    images.push({ filename: responseInJson.filename, name: 'blah', description: 'foobar', tags: [''] });
+                    images.push({ filename: responseInJson.filename });
                 });
             }
 

@@ -2,19 +2,34 @@ import { storageUrl } from '@/constants/constants';
 import { FIND_IMAGES_BY_USER } from '@/graphql/queries/image';
 import { Image } from '@/interfaces/interfaces';
 import { useQuery } from '@apollo/client';
+import { useState } from 'react';
+import { IoIosArrowForward } from 'react-icons/io';
 
 export default function UserGallery(props: { userId: string }) {
-    const { data } = useQuery(FIND_IMAGES_BY_USER, {
+    // States
+    const [isImageViewerActive, setIsImageViewerActive] = useState<boolean>(false);
+    const [selectedImage, setSelectedImage] = useState<string>();
+
+    // Queries
+    const { data, loading } = useQuery(FIND_IMAGES_BY_USER, {
         variables: {
             userId: props.userId,
         },
         fetchPolicy: 'no-cache',
     });
 
+    const handleImageClick = (imageUrl: string) => {
+        setSelectedImage(imageUrl);
+        setIsImageViewerActive(true);
+    };
+
     return (
         <div>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">
                 Gallery{' '}
+                {loading && (
+                    <span className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-base">loading...</span>
+                )}
                 {data && (
                     <span className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-base">
                         {data.findImagesByUser.length} images
@@ -25,12 +40,25 @@ export default function UserGallery(props: { userId: string }) {
                 {data?.findImagesByUser.map((image: Image) => (
                     <div key={image.id}>
                         <img
-                            className="h-[200px] w-[300px] rounded-lg object-cover"
+                            className="h-[200px] w-[300px] rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
                             src={storageUrl + image.filename}
                             alt={image.filename}
+                            onClick={() => handleImageClick(storageUrl + image.filename)}
                         />
                     </div>
                 ))}
+            </div>
+            <div
+                className={`fixed top-0 right-0 z-40 w-full lg:w-1/2 h-screen p-4 overflow-y-auto ${
+                    isImageViewerActive ? null : 'translate-x-full'
+                } transition-transform bg-gray-900`}
+            >
+                <IoIosArrowForward
+                    className="bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
+                    onClick={() => setIsImageViewerActive(false)}
+                    size={40}
+                />
+                <img className="w-full rounded-lg" src={selectedImage} />
             </div>
         </div>
     );
