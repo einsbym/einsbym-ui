@@ -53,7 +53,7 @@ export default function Login() {
     return (
         <div className="flex flex-col items-center md:flex-row md:h-screen">
             <div className="flex items-center justify-center w-full md:w-1/2">
-                <Image src="/bg.svg" alt="Login Image" width={800} height={600} />
+                <Image src="/bg.svg" alt="Login Image" width={800} height={600} style={{ width: 800, height: 600 }} />
             </div>
             <div
                 className={`${
