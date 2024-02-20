@@ -59,14 +59,16 @@ export default function PublishPost(props: { userId: string }) {
             const images: any[] = [];
 
             if (files) {
-                Array.from(files).forEach(async (file) => {
+                const arrayFromFiles = Array.from(files);
+
+                for (const file of arrayFromFiles) {
                     const formData = new FormData();
                     formData.append('file', file);
 
                     const response = await fetch(`${storageServiceUrl}/upload`, {
                         method: 'POST',
                         body: formData,
-                    });
+                    })
 
                     if (response.status !== 200) {
                         const { error } = await response.json();
@@ -75,10 +77,10 @@ export default function PublishPost(props: { userId: string }) {
                     }
 
                     // Get response from backend
-                    const responseInJson = await response.json();
+                    const json = await response.json();
 
-                    images.push({ filename: responseInJson.filename });
-                });
+                    images.push({ filename: json.filename });
+                }
             }
 
             // Save post
