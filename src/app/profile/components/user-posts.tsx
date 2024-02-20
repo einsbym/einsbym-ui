@@ -1,3 +1,4 @@
+import useTimeAgo from '@/actions/elapsed-time';
 import { storageUrl } from '@/constants/constants';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { Post } from '@/interfaces/interfaces';
@@ -32,7 +33,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                             <span className="text-sm font-semibold text-white">
                                 {post.user.firstName} {post.user.lastName}
                             </span>
-                            <span className="text-sm font-normal text-gray-400">11:46</span>
+                            <span className="text-sm font-normal text-gray-400">{useTimeAgo(post.createdAt)}</span>
                         </div>
                         <p className="text-sm font-normal py-2.5 text-white">{post.postText}</p>
 
