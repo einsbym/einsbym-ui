@@ -70,7 +70,7 @@ export default function UserBioAndPost(props: { userId: string; bio: string }) {
                     <textarea
                         id="bio"
                         name="bio"
-                        className="block p-2.5 w-full h-[10rem] text-sm rounded-lg border bg-transparent border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                        className="block p-2.5 w-full h-[10rem] text-sm bg-transparent placeholder-gray-400 text-white outline-none resize-none"
                         placeholder="Write your thoughts here..."
                         onChange={(event) => setBio(event.target.value)}
                     />
