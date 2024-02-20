@@ -147,11 +147,13 @@ export default function PublishPost(props: { userId: string }) {
                             id="fileInput"
                             type="file"
                             onChange={(event) => handleFilesChange(event)}
+                            disabled={loading ? true : false}
                         />
                         <button
                             type="submit"
-                            className="text-white absolute end-2.5 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2"
+                            className="text-white absolute end-2.5 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2 disabled:text-gray-500"
                             onClick={(event) => handleSubmit(event)}
+                            disabled={loading ? true : false}
                         >
                             <FiSend size={20} />
                         </button>

@@ -17,3 +17,12 @@ export const UPDATE_COVER_IMAGE = gql`
         }
     }
 `;
+
+export const UPDATE_BIO = gql`
+    mutation UpdateBio($updateBioInput: UpdateBioInput!) {
+        updateBio(updateBioInput: $updateBioInput) {
+            id
+            bio
+        }
+    }
+`;

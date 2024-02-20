@@ -25,7 +25,7 @@ export default function UserGallery(props: { userId: string }) {
 
     return (
         <div>
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">
+            <div className="flex items-center justify-between mb-2 text-2xl font-bold tracking-tight text-white">
                 Gallery{' '}
                 {loading && (
                     <span className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-base">loading...</span>
@@ -35,7 +35,7 @@ export default function UserGallery(props: { userId: string }) {
                         {data.findImagesByUser.length} images
                     </span>
                 )}
-            </h5>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {data?.findImagesByUser.map((image: Image) => (
                     <div key={image.id}>
