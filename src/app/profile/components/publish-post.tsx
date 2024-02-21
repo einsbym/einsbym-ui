@@ -14,7 +14,7 @@ export default function PublishPost(props: { userId: string }) {
     const [postText, setPostText] = useState<string | null>();
     const [posts, setPosts] = useState<Post[]>([]);
     const [files, setFiles] = useState<FileList | null>();
-    const [selectedImages, setSelectedImages] = useState<string[]>();
+    const [selectedImages, setSelectedImages] = useState<{ filename: string; blob?: string }[]>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -24,20 +24,25 @@ export default function PublishPost(props: { userId: string }) {
     // Queries
     const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
 
+    const removeImageFromList = (indexToRemove: number) => {
+        const images = selectedImages?.filter((_, index) => index !== indexToRemove);
+        setSelectedImages(images);
+    };
+
     const handleFilesChange = (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
 
         if (files) {
-            const blobs: string[] = [];
+            const imagesAndBlobs: { filename: string; blob: string }[] = [];
 
             Array.from(files).forEach(async (file) => {
                 // Create a blob URL for the selected file
                 const blob = URL.createObjectURL(file);
 
-                blobs.push(blob);
+                imagesAndBlobs.push({ filename: file.name, blob: blob });
             });
 
-            setSelectedImages(blobs);
+            setSelectedImages(imagesAndBlobs);
         }
 
         setFiles(files);
@@ -62,13 +67,20 @@ export default function PublishPost(props: { userId: string }) {
                 const arrayFromFiles = Array.from(files);
 
                 for (const file of arrayFromFiles) {
+                    const isImageSelected = !!selectedImages?.find(({ filename }) => filename === file.name);
+
+                    if (!isImageSelected) {
+                        // console.log(`Not saving ${file.name}`);
+                        continue;
+                    }
+
                     const formData = new FormData();
                     formData.append('file', file);
 
                     const response = await fetch(`${storageServiceUrl}/upload`, {
                         method: 'POST',
                         body: formData,
-                    })
+                    });
 
                     if (response.status !== 200) {
                         const { error } = await response.json();
@@ -180,7 +192,11 @@ export default function PublishPost(props: { userId: string }) {
                         <div className="grid grid-cols-5 gap-2">
                             {selectedImages.map((image, index) => (
                                 <div key={index}>
-                                    <img className="h-auto max-w-full rounded-lg" src={image} />
+                                    <img
+                                        className="h-auto max-w-full rounded-lg"
+                                        src={image.blob}
+                                        onClick={() => removeImageFromList(index)}
+                                    />
                                 </div>
                             ))}
                         </div>
