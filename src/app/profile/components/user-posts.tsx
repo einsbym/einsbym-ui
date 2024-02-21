@@ -39,10 +39,17 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
 
                         {/* Display images (if any) */}
                         {post.images.length > 0 && (
-                            <div className={`grid gap-2 ${post.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} my-2.5`}>
+                            <div
+                                className={`grid gap-2 ${post.images.length === 1 ? 'grid-cols-1' : null} ${
+                                    post.images.length > 4 ? 'grid-cols-4' : null
+                                } ${post.images.length > 1 && post.images.length <= 4 ? 'grid-cols-2' : null} my-2.5`}
+                            >
                                 {post.images.map((image) => (
                                     <div key={image.id} className="group relative">
-                                        <img src={storageUrl + image.filename} className="w-full h-[200px] lg:h-[500px] object-cover rounded-lg" />
+                                        <img
+                                            src={storageUrl + image.filename}
+                                            className={`w-full h-[200px] ${post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'} object-cover rounded-lg`}
+                                        />
                                     </div>
                                 ))}
                             </div>
