@@ -57,7 +57,7 @@ export default function PublishPost(props: { userId: string }) {
         setErrorMessage(null);
 
         try {
-            if (!postText) {
+            if (!postText && !files) {
                 throw new Error("I mean... you need to write or upload something at least, don't you agree?");
             }
 
