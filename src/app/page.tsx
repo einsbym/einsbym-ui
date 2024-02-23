@@ -2,34 +2,48 @@
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
+import { IMAGES } from '@/graphql/queries/image';
 import { Image } from '@/interfaces/interfaces';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageUrl } from '../constants/constants';
-import { IMAGES } from '@/graphql/queries/image';
 
 export default function Home() {
+    // States
     const [images, setImages] = useState<Image[]>([]);
+    const [page, setPage] = useState<number>(1);
+
+    // Other hooks
     const router = useRouter();
-    const {data, loading, error} = useQuery(IMAGES);
+
+    // Queries
+    const [queryImages, { data, loading }] = useLazyQuery(IMAGES);
 
     const viewImage = (image: Image) => {
         router.push(`/view-image?image=${image.id}`);
     };
 
-    const fetchData = async () => {
+    const fetchImages = async () => {
         try {
-            if (data) {
-                setImages(data.images);
+            if (page === 1) {
+                setPage(page + 1);
             }
+
+            await queryImages({ variables: { page: page } });
+
+            if (data) {
+                setImages([...images, ...data.images]);
+            }
+
+            setPage(page + 1);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
     useEffect(() => {
-        fetchData();
+        fetchImages();
     }, [data]);
 
     return (
@@ -66,6 +80,18 @@ export default function Home() {
                             </div>
                         ))}
                 </div>
+
+                {images && (
+                    <button
+                        type="button"
+                        className="w-full text-white bg-gradient-to-r from-purple-400 via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-[#cc00ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-3 mb-3"
+                        onClick={() => {
+                            fetchImages();
+                        }}
+                    >
+                        more
+                    </button>
+                )}
 
                 {images.length === 0 && !loading ? (
                     <div className="flex justify-center">

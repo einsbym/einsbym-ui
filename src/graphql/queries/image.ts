@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const IMAGES = gql`
-    query Images {
-        images {
+    query Images($page: Int) {
+        images(page: $page) {
             id
             filename
         }
