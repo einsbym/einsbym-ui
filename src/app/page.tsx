@@ -81,7 +81,7 @@ export default function Home() {
                         ))}
                 </div>
 
-                {images && (
+                {data && data.images.length !== 0 && (
                     <button
                         type="button"
                         className="w-full text-white bg-gradient-to-r from-purple-400 via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-[#cc00ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-3 mb-3"
@@ -93,13 +93,13 @@ export default function Home() {
                     </button>
                 )}
 
-                {images.length === 0 && !loading ? (
+                {images.length === 0 && !loading && (
                     <div className="flex justify-center">
                         <div className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
                             There's nothing to show here
                         </div>
                     </div>
-                ) : null}
+                )}
             </main>
 
             <Footer />

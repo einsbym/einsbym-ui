@@ -1,5 +1,3 @@
-'use client';
-
 import { deleteCookies } from '@/actions/cookies';
 import { storageUrl } from '@/constants/constants';
 import { User } from '@/interfaces/interfaces';
