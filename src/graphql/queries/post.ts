@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const FIND_POSTS_BY_USER = gql`
-    query FindPostsByUser($userId: String!) {
-        findPostsByUser(userId: $userId) {
+    query FindPostsByUser($userId: String!, $page: Int) {
+        findPostsByUser(userId: $userId, page: $page) {
             id
             postText
             createdAt

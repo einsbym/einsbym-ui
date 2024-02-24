@@ -3,13 +3,14 @@ import ButtonLoadMore from '@/components/button-load-more';
 import { storageUrl } from '@/constants/constants';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { Post } from '@/interfaces/interfaces';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 
 export default function UserPosts(props: { userId: string; posts: Post[] }) {
     // States
     const [posts, setPosts] = useState<Post[]>([]);
+    const [page, setPage] = useState<number>(1);
 
     // Queries
     const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
@@ -19,17 +20,24 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
             if (!props.userId) {
                 return;
             }
-            
+
+            if (page === 1) {
+                setPage(page + 1);
+            }
+
             const { data } = await findPostsByUser({
                 variables: {
                     userId: props.userId,
+                    page: page
                 },
                 fetchPolicy: 'no-cache',
             });
 
             if (data) {
-                setPosts(data.findPostsByUser);
+                setPosts([...posts, ...data.findPostsByUser]);
             }
+
+            setPage(page + 1);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
