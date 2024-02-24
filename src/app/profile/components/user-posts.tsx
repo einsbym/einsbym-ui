@@ -1,23 +1,47 @@
 import useTimeAgo from '@/actions/elapsed-time';
+import ButtonLoadMore from '@/components/button-load-more';
 import { storageUrl } from '@/constants/constants';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { Post } from '@/interfaces/interfaces';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 
 export default function UserPosts(props: { userId: string; posts: Post[] }) {
-    let posts = props.posts;
+    // States
+    const [posts, setPosts] = useState<Post[]>([]);
 
-    if (posts.length === 0) {
-        const { data } = useQuery(FIND_POSTS_BY_USER, {
-            variables: {
-                userId: props.userId,
-            },
-            fetchPolicy: 'no-cache',
-        });
+    // Queries
+    const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
 
-        posts = data?.findPostsByUser;
-    }
+    const fetchPosts = async () => {
+        try {
+            if (!props.userId) {
+                return;
+            }
+            
+            const { data } = await findPostsByUser({
+                variables: {
+                    userId: props.userId,
+                },
+                fetchPolicy: 'no-cache',
+            });
+
+            if (data) {
+                setPosts(data.findPostsByUser);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useEffect(() => {
+        setPosts(props.posts);
+
+        if (posts.length === 0) {
+            fetchPosts();
+        }
+    }, [props.userId, props.posts]);
 
     return (
         <>
@@ -48,7 +72,9 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                                     <div key={image.id} className="group relative">
                                         <img
                                             src={storageUrl + image.filename}
-                                            className={`w-full h-[200px] ${post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'} object-cover rounded-lg`}
+                                            className={`w-full h-[200px] ${
+                                                post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
+                                            } object-cover rounded-lg`}
                                         />
                                     </div>
                                 ))}
@@ -69,6 +95,8 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                     </div>
                 </div>
             ))}
+
+            {posts && <ButtonLoadMore handleClick={fetchPosts} />}
         </>
     );
 }

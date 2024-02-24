@@ -8,6 +8,7 @@ import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageUrl } from '../constants/constants';
+import ButtonLoadMore from '@/components/button-load-more';
 
 export default function Home() {
     // States
@@ -81,17 +82,7 @@ export default function Home() {
                         ))}
                 </div>
 
-                {data && data.images.length !== 0 && (
-                    <button
-                        type="button"
-                        className="w-full text-white bg-gradient-to-r from-purple-400 via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-[#cc00ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-3 mb-3"
-                        onClick={() => {
-                            fetchImages();
-                        }}
-                    >
-                        more
-                    </button>
-                )}
+                {data && data.images.length !== 0 && <ButtonLoadMore handleClick={fetchImages} />}
 
                 {images.length === 0 && !loading && (
                     <div className="flex justify-center">
