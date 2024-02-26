@@ -70,7 +70,6 @@ export default function PublishPost(props: { userId: string }) {
                     const isImageSelected = !!selectedImages?.find(({ filename }) => filename === file.name);
 
                     if (!isImageSelected) {
-                        // console.log(`Not saving ${file.name}`);
                         continue;
                     }
 
@@ -85,7 +84,7 @@ export default function PublishPost(props: { userId: string }) {
                     if (response.status !== 200) {
                         const { error } = await response.json();
                         console.error(`The file ${file.name} could not be uploaded. Reason:`, error);
-                        return;
+                        continue;
                     }
 
                     // Get response from backend
