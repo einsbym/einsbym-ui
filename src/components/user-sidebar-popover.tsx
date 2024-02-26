@@ -1,0 +1,97 @@
+import { deleteCookies } from '@/actions/cookies';
+import { storageUrl } from '@/constants/constants';
+import { User } from '@/interfaces/interfaces';
+import { useRouter } from 'next/navigation';
+import { RiLoginCircleLine } from 'react-icons/ri';
+
+interface SidebarProps {
+    user: User | null;
+    isMenuOpen: boolean;
+    handleMenu: any;
+}
+
+export default function UserSidebarPopover(props: SidebarProps) {
+    const router = useRouter();
+
+    const signOut = async () => {
+        await deleteCookies();
+        router.push(`/auth/login`);
+    };
+
+    return (
+        <div className="relative ml-3">
+            <div>
+                {props.user && (
+                    <button
+                        type="button"
+                        className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#cc00ff] focus:ring-offset-2 focus:ring-offset-gray-800"
+                        id="user-menu-button"
+                        onClick={() => props.handleMenu()}
+                    >
+                        <span className="absolute -inset-1.5"></span>
+                        <span className="sr-only">Open user menu</span>
+                        {storageUrl && (
+                            <img
+                                className="h-8 w-8 rounded-full object-cover"
+                                src={storageUrl + props.user.profilePicture}
+                            />
+                        )}
+                    </button>
+                )}
+                {!props.user && (
+                    <a href="/auth/login">
+                        <div className="h-8 w-8 rounded-full cursor-pointer text-[#cc00ff]">
+                            <RiLoginCircleLine size={32} />
+                        </div>
+                    </a>
+                )}
+            </div>
+            <div
+                className={
+                    !props.isMenuOpen
+                        ? 'hidden'
+                        : 'absolute right-0 z-10 pt-2 pb-2 mt-3 w-48 origin-top-right rounded-md bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+                }
+                role="menu"
+                tabIndex={-1}
+            >
+                {props.user && (
+                    <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                        role="menuitem"
+                        tabIndex={-1}
+                        id="user-menu-item-0"
+                    >
+                        {props.user.firstName} ({props.user.username})
+                    </a>
+                )}
+                <a
+                    href="/profile"
+                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                    role="menuitem"
+                    tabIndex={-1}
+                    id="user-menu-item-0"
+                >
+                    Your Profile
+                </a>
+                <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                    role="menuitem"
+                    tabIndex={-1}
+                    id="user-menu-item-1"
+                >
+                    Settings
+                </a>
+                <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                    onClick={() => signOut()}
+                >
+                    Sign out
+                </a>
+            </div>
+        </div>
+    );
+}

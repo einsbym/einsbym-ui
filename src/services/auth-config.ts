@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 export class AuthService {
     protected readonly instance: ApolloClient<unknown>;
+    
     public constructor() {
         this.instance = new ApolloClient({
             uri: apiUrl,
