@@ -8,6 +8,7 @@ import { FiSend } from 'react-icons/fi';
 import { GrGallery } from 'react-icons/gr';
 import { MdPostAdd } from 'react-icons/md';
 import UserPosts from './user-posts';
+import { IoMdCloseCircle } from 'react-icons/io';
 
 export default function PublishPost(props: { userId: string }) {
     // States
@@ -183,19 +184,22 @@ export default function PublishPost(props: { userId: string }) {
                     </div>
                 )}
 
-                {selectedImages && (
+                {selectedImages && selectedImages.length !== 0 && (
                     <div className="mt-2 grid gap-4">
                         <p className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
                             Selected images: {selectedImages.length}
                         </p>
                         <div className="grid grid-cols-5 gap-2">
                             {selectedImages.map((image, index) => (
-                                <div key={index}>
-                                    <img
-                                        className="h-auto max-w-full rounded-lg"
-                                        src={image.blob}
+                                <div className="relative" key={index}>
+                                    <button
+                                        className="absolute top-2 right-2 text-[#cc00ff]"
+                                        type="button"
                                         onClick={() => removeImageFromList(index)}
-                                    />
+                                    >
+                                        <IoMdCloseCircle size={20} />
+                                    </button>
+                                    <img className="h-auto max-w-full rounded-lg" src={image.blob} />
                                 </div>
                             ))}
                         </div>
