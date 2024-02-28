@@ -140,7 +140,7 @@ export default function PublishPost(props: { userId: string }) {
                         <input
                             type="post"
                             id="post"
-                            className="block w-full p-4 ps-[3rem] text-sm border rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                            className="block w-full p-4 ps-[3rem] text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
                             placeholder="Write something..."
                             value={postText || ''}
                             onChange={(event) => setPostText(event.target.value)}

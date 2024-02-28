@@ -51,8 +51,6 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
             ...prevMap,
             [postId]: !prevMap[postId], // Toggle the value for the postId
         }));
-
-        console.log(showCommentsMap);
     };
 
     useEffect(() => {
@@ -72,7 +70,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                         src={storageUrl + post.user.profilePicture}
                         alt={post.user.username}
                     />
-                    <div className="flex flex-col w-full overflow-hidden break-all p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+                    <div className="flex flex-col w-full overflow-hidden break-all p-4 rounded-e-xl rounded-es-xl bg-gray-800">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse">
                             <span className="text-sm font-semibold text-white">
                                 {post.user.firstName} {post.user.lastName}

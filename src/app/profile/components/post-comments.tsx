@@ -33,7 +33,6 @@ export default function PostComments(props: { postId: string | null }) {
 
     useEffect(() => {
         if (props.postId) {
-            console.log('Shwoing comments for the post:', props.postId);
             fetchPostComments();
         }
     }, [props.postId]);
