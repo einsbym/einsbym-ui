@@ -29,3 +29,10 @@ export interface Post {
     images: Image[];
     user: User;
 }
+
+export interface PostComment {
+    id: string;
+    comment: string;
+    createdAt: Date;
+    user: User;
+}

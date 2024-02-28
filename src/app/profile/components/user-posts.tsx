@@ -6,11 +6,13 @@ import { Post } from '@/interfaces/interfaces';
 import { useLazyQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
+import PostComments from './post-comments';
 
 export default function UserPosts(props: { userId: string; posts: Post[] }) {
     // States
     const [posts, setPosts] = useState<Post[]>([]);
     const [page, setPage] = useState<number>(1);
+    const [showCommentsMap, setShowCommentsMap] = useState<any>({});
 
     // Queries
     const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
@@ -28,7 +30,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
             const { data } = await findPostsByUser({
                 variables: {
                     userId: props.userId,
-                    page: page
+                    page: page,
                 },
                 fetchPolicy: 'no-cache',
             });
@@ -43,6 +45,16 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
         }
     };
 
+    // Function to toggle comments for a specific post
+    const toggleComments = (postId: string) => {
+        setShowCommentsMap((prevMap: any) => ({
+            ...prevMap,
+            [postId]: !prevMap[postId], // Toggle the value for the postId
+        }));
+
+        console.log(showCommentsMap);
+    };
+
     useEffect(() => {
         setPosts(props.posts);
 
@@ -53,7 +65,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
 
     return (
         <>
-            {posts?.map((post: Post) => (
+            {posts?.map((post: Post, index) => (
                 <div key={post.id} className="mt-5 flex items-start gap-2">
                     <img
                         className="flex-none w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
@@ -93,13 +105,21 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                             <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
                                 <FaRegHeart size={13} /> 232
                             </button>
-                            <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                            <button
+                                className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200"
+                                onClick={() => {
+                                    toggleComments(post.id);
+                                }}
+                            >
                                 <FaRegCommentAlt size={13} /> {post.totalComments}
                             </button>
                             <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
                                 <FaRegShareSquare size={13} /> 0
                             </button>
                         </div>
+
+                        {/* Conditionally render PostComments */}
+                        {showCommentsMap[post.id] && <PostComments postId={post.id} />}
                     </div>
                 </div>
             ))}
