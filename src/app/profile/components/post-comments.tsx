@@ -1,13 +1,12 @@
 import useTimeAgo from '@/actions/elapsed-time';
 import { storageUrl } from '@/constants/constants';
-import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { FIND_COMMENTS_BY_POST } from '@/graphql/queries/post-comment';
-import { Post, PostComment } from '@/interfaces/interfaces';
+import { PostComment } from '@/interfaces/interfaces';
 import { useLazyQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart } from 'react-icons/fa';
 
-export default function PostComments(props: { postId: string | null }) {
+export default function PostComments(props: { postId: string | null, publishedPostCommentId: string }) {
     // States
     const [comments, setComments] = useState<PostComment[]>([]);
 
@@ -32,10 +31,9 @@ export default function PostComments(props: { postId: string | null }) {
     };
 
     useEffect(() => {
-        if (props.postId) {
-            fetchPostComments();
-        }
-    }, [props.postId]);
+        console.log('Mounting component...');
+        fetchPostComments();
+    }, [props.postId, props.publishedPostCommentId]);
 
     return (
         <>
@@ -51,7 +49,9 @@ export default function PostComments(props: { postId: string | null }) {
                             <span className="text-sm font-semibold text-white">
                                 {postComment.user.firstName} {postComment.user.lastName}
                             </span>
-                            <span className="text-sm font-normal text-gray-400">{useTimeAgo(postComment.createdAt)}</span>
+                            <span className="text-sm font-normal text-gray-400">
+                                {useTimeAgo(postComment.createdAt)}
+                            </span>
                         </div>
 
                         <p className="text-sm font-normal py-2.5 text-white">{postComment.comment}</p>

@@ -1,11 +1,15 @@
-import { CREATE_POST } from '@/graphql/mutations/post';
 import { CREATE_COMMENT } from '@/graphql/mutations/post-comment';
 import { useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { MdPostAdd } from 'react-icons/md';
 
-export default function PublishPostComment(props: { postId: string; userId: string, toggleComments: any }) {
+export default function PublishPostComment(props: {
+    postId: string;
+    userId: string;
+    setPostId: Dispatch<SetStateAction<string>>;
+    setPublishedPostCommentId: Dispatch<SetStateAction<string>>;
+}) {
     // States
     const [comment, setComment] = useState<string | null>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
@@ -23,7 +27,7 @@ export default function PublishPostComment(props: { postId: string; userId: stri
         setErrorMessage(null);
 
         try {
-            const { errors } = await createComment({
+            const { data, errors } = await createComment({
                 variables: {
                     createCommentInput: {
                         comment: comment,
@@ -39,7 +43,10 @@ export default function PublishPostComment(props: { postId: string; userId: stri
 
             setComment(null);
 
-            props.toggleComments(props.postId);
+            if (data) {
+                props.setPostId(props.postId)
+                props.setPublishedPostCommentId(data.createComment.id)
+            }
 
             setLoading(false);
         } catch (error) {

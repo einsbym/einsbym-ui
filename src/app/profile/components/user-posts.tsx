@@ -13,7 +13,8 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
     // States
     const [posts, setPosts] = useState<Post[]>([]);
     const [page, setPage] = useState<number>(1);
-    const [showCommentsMap, setShowCommentsMap] = useState<any>({});
+    const [postId, setPostId] = useState<string>('');
+    const [publishedPostCommentId, setPublishedPostCommentId] = useState<string>('');
 
     // Queries
     const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
@@ -44,14 +45,6 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    };
-
-    // Function to toggle comments for a specific post
-    const toggleComments = (postId: string) => {
-        setShowCommentsMap((prevMap: any) => ({
-            ...prevMap,
-            [postId]: !prevMap[postId], // Toggle the value for the postId
-        }));
     };
 
     useEffect(() => {
@@ -107,7 +100,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                             <button
                                 className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200"
                                 onClick={() => {
-                                    toggleComments(post.id);
+                                    setPostId(post.id);
                                 }}
                             >
                                 <FaRegCommentAlt size={13} /> {post.totalComments}
@@ -117,10 +110,20 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                             </button>
                         </div>
 
-                        <PublishPostComment postId={post.id} userId={props.userId} toggleComments={toggleComments} />
+                        <PublishPostComment
+                            postId={post.id}
+                            userId={props.userId}
+                            setPostId={setPostId}
+                            setPublishedPostCommentId={setPublishedPostCommentId}
+                        />
 
                         {/* Conditionally render PostComments */}
-                        {showCommentsMap[post.id] && <PostComments postId={post.id} />}
+                        {postId === post.id && (
+                            <PostComments
+                                postId={postId}
+                                publishedPostCommentId={publishedPostCommentId}
+                            />
+                        )}
                     </div>
                 </div>
             ))}
