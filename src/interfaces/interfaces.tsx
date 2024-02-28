@@ -23,6 +23,7 @@ export interface User {
 export interface Post {
     id: string;
     postText: string;
+    totalComments: number;
     createdAt: Date;
     updatedAt: Date;
     images: Image[];

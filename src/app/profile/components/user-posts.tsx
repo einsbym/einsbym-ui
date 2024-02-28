@@ -94,7 +94,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                                 <FaRegHeart size={13} /> 232
                             </button>
                             <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
-                                <FaRegCommentAlt size={13} /> 1.5k
+                                <FaRegCommentAlt size={13} /> {post.totalComments}
                             </button>
                             <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
                                 <FaRegShareSquare size={13} /> 0

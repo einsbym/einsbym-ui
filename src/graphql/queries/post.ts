@@ -5,6 +5,7 @@ export const FIND_POSTS_BY_USER = gql`
         findPostsByUser(userId: $userId, page: $page) {
             id
             postText
+            totalComments
             createdAt
             updatedAt
             images {
