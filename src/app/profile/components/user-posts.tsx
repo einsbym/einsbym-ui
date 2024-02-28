@@ -7,6 +7,7 @@ import { useLazyQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 import PostComments from './post-comments';
+import PublishPostComment from './publish-post-comment';
 
 export default function UserPosts(props: { userId: string; posts: Post[] }) {
     // States
@@ -115,6 +116,8 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                                 <FaRegShareSquare size={13} /> 0
                             </button>
                         </div>
+
+                        <PublishPostComment postId={post.id} userId={props.userId} toggleComments={toggleComments} />
 
                         {/* Conditionally render PostComments */}
                         {showCommentsMap[post.id] && <PostComments postId={post.id} />}
