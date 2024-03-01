@@ -15,11 +15,16 @@ interface UpdateCoverImageProps {
 }
 
 export default function UpdateCoverImage(props: UpdateCoverImageProps) {
+    // States
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
-    const [updateCoverImage] = useMutation(UPDATE_COVER_IMAGE);
-    const [getMe] = useLazyQuery(ME);
     const [errorMessage, setErrorMessage] = useState<string | null>();
+
+    // Queries
+    const [getMe] = useLazyQuery(ME);
+
+    // Mutations
+    const [updateCoverImage] = useMutation(UPDATE_COVER_IMAGE);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -73,10 +78,12 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
                 throw new Error('Error when attempting to update the cover image');
             }
 
-            // Delete old image from storage
-            await fetch(`${storageServiceUrl}/delete/${props.currentCoverImage}`, {
-                method: 'DELETE',
-            });
+            // Delete previous cover image from storage (if any)
+            if (props.currentCoverImage) {
+                await fetch(`${storageServiceUrl}/delete/${props.currentCoverImage}`, {
+                    method: 'DELETE',
+                });
+            }
 
             // Update user cookie with the new data
             await getMe({ variables: { id: props.userId } }).then(async (result) => {

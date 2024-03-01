@@ -15,11 +15,16 @@ interface UpdateProfileImageProps {
 }
 
 export default function UpdateProfileImage(props: UpdateProfileImageProps) {
+    // States
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
-    const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
-    const [getMe] = useLazyQuery(ME);
     const [errorMessage, setErrorMessage] = useState<string | null>();
+
+    // Queries
+    const [getMe] = useLazyQuery(ME);
+    
+    // Mutations
+    const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -73,10 +78,12 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
                 throw new Error('Error when attempting to update the profile image');
             }
 
-            // Delete old image from storage
-            await fetch(`${storageServiceUrl}/delete/${props.currentProfileImage}`, {
-                method: 'DELETE',
-            });
+            // Delete previous profile image from storage (if any)
+            if (props.currentProfileImage) {
+                await fetch(`${storageServiceUrl}/delete/${props.currentProfileImage}`, {
+                    method: 'DELETE',
+                });
+            }
 
             // Update user cookie with the new data
             await getMe({ variables: { id: props.userId } }).then(async (result) => {
