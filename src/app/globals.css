@@ -3,26 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background: #040D12;
+    --foreground-rgb: 0, 0, 0;
+    --background: #040d12;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-end-rgb: rgb(225, 0, 255);
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-end-rgb: rgb(225, 0, 255);
+    }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: var(--background);
-}
-
-.grid-image {
-  transition: all ease-in-out .3s;
-}
-
-.grid-image:hover {
-  box-shadow: 0px 10px 50px #cc00ff69;
+    color: rgb(var(--foreground-rgb));
+    background: var(--background);
 }
