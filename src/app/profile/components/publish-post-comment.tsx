@@ -27,6 +27,10 @@ export default function PublishPostComment(props: {
         setErrorMessage(null);
 
         try {
+            if (!comment) {
+                throw new Error('Hey! You need to write something first');
+            }
+
             const { data, errors } = await createComment({
                 variables: {
                     createCommentInput: {
@@ -38,7 +42,7 @@ export default function PublishPostComment(props: {
             });
 
             if (errors) {
-                throw new Error('Error when attempting to publish your post.');
+                throw new Error('Error when attempting to publish your comment.');
             }
 
             setComment(null);
