@@ -85,10 +85,8 @@ export default function Home() {
                 {data && data.images.length !== 0 && <ButtonLoadMore handleClick={fetchImages} />}
 
                 {images.length === 0 && !loading && (
-                    <div className="flex justify-center">
-                        <div className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
-                            There's nothing to show here
-                        </div>
+                    <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
+                        There's nothing to show here
                     </div>
                 )}
             </main>

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 import PostComments from './post-comments';
 import PublishPostComment from './publish-post-comment';
+import { FcLike } from 'react-icons/fc';
 
 export default function UserPosts(props: { userId: string; posts: Post[] }) {
     // States
@@ -50,14 +51,14 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
     useEffect(() => {
         setPosts(props.posts);
 
-        if (posts.length === 0) {
+        if (props.posts.length === 0) {
             fetchPosts();
         }
     }, [props.userId, props.posts]);
 
     return (
         <>
-            {posts?.map((post: Post, index) => (
+            {posts.map((post: Post, index) => (
                 <div key={post.id} className="mt-5 flex items-start gap-2">
                     <img
                         className="flex-none w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
@@ -119,16 +120,19 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
 
                         {/* Conditionally render PostComments */}
                         {postId === post.id && (
-                            <PostComments
-                                postId={postId}
-                                publishedPostCommentId={publishedPostCommentId}
-                            />
+                            <PostComments postId={postId} publishedPostCommentId={publishedPostCommentId} />
                         )}
                     </div>
                 </div>
             ))}
 
-            {posts && <ButtonLoadMore handleClick={fetchPosts} />}
+            {posts.length !== 0 && <ButtonLoadMore handleClick={fetchPosts} />}
+
+            {posts.length === 0 && (
+                <div className="mx-auto mt-5 flex items-center gap-1 text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
+                    Hey! It's time to post something <FcLike />
+                </div>
+            )}
         </>
     );
 }
