@@ -115,7 +115,7 @@ export default function Login() {
                             >
                                 {isLoading ? (
                                     <>
-                                        <FaRegHourglass size={30} /> Signing in...
+                                        <FaRegHourglass size={20} /> Signing in...
                                     </>
                                 ) : (
                                     <>

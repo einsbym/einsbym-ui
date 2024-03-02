@@ -31,7 +31,6 @@ export default function PostComments(props: { postId: string | null, publishedPo
     };
 
     useEffect(() => {
-        console.log('Mounting component...');
         fetchPostComments();
     }, [props.postId, props.publishedPostCommentId]);
 
