@@ -2,6 +2,7 @@
 
 import { deleteCookies, getAccessTokenFromCookie } from '@/actions/cookies';
 import { apiUrl } from '@/constants/constants';
+import { AuthService } from '@/services/auth-config';
 import { ApolloLink, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import {
@@ -11,8 +12,10 @@ import {
     SSRMultipartLink,
 } from '@apollo/experimental-nextjs-app-support/ssr';
 import jwt from 'jsonwebtoken';
+import { useRouter } from 'next/navigation';
 
 function makeClient() {
+    const router = useRouter();
     const httpLink = new HttpLink({
         uri: apiUrl,
     });
@@ -35,7 +38,7 @@ function makeClient() {
 
                 // Check if the token is expired
                 if (exp < currentTime) {
-                    throw new Error('Token has expired');
+                    await new AuthService().signOut(router);
                 }
 
                 return {
