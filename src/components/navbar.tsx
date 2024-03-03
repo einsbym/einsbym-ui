@@ -27,8 +27,8 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="mb-10">
-                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <nav className="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-10/12 rounded-lg top-10 z-10 backdrop-filter backdrop-blur-lg bg-opacity-10 border-gray-200">
+                <div className="px-2 sm:px-6 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                             <button

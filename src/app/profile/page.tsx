@@ -20,11 +20,10 @@ export default function UserProfile() {
 
     return (
         <>
+            <Navbar />
             <UserBlurredCover coverImage={user?.coverImage || ''} />
 
-            <main className="mx-auto lg:pt-12">
-                <Navbar />
-
+            <main className="mx-auto lg:pt-24">
                 {/* User's cover and profile picture */}
                 <UserCoverAndPhoto
                     id={user?.id || ''}
