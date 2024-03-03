@@ -29,8 +29,6 @@ function makeClient() {
                     throw new Error('Token is not valid');
                 }
 
-                console.log("DECODED TOKEN:", decodedToken);
-
                 // Assert the type of decodedToken to access 'exp' property
                 const { exp } = decodedToken as { exp: number };
                 const currentTime = Math.floor(Date.now() / 1000);
