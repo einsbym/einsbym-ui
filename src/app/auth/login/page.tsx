@@ -1,6 +1,5 @@
 'use client';
 
-import { createAccessTokenCookie, createUserCookie } from '@/actions/cookies';
 import { SigninInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
@@ -23,32 +22,9 @@ export default function Login() {
         });
     };
 
-    const login = async (event: any) => {
-        event.preventDefault();
-
-        setIsLoading(true);
-
-        // Clear previous error messages
-        setErrorMessage(null);
-
-        try {
-            const data = await new AuthService().getData(signinInput.email, signinInput.password);
-
-            if (!data) {
-                setErrorMessage('Invalid credentials. Try again.');
-                setIsLoading(false);
-                return;
-            }
-
-            await createAccessTokenCookie(data.accessToken);
-            await createUserCookie(data.user);
-
-            router.push(`/profile`);
-        } catch (error) {
-            setErrorMessage('Something went wrong.');
-            setIsLoading(false);
-        }
-    };
+    const signIn = async (event: any) => {
+        await new AuthService().signIn(event, setIsLoading, setErrorMessage, signinInput, router);
+    }
 
     return (
         <div className="flex flex-col items-center md:flex-row md:h-screen">
@@ -111,7 +87,7 @@ export default function Login() {
                         <div>
                             <button
                                 className="flex gap-2 items-center justify-center w-full text-white bg-gradient-to-r from-[#cc00ff] via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
-                                onClick={(event) => login(event)}
+                                onClick={(event) => signIn(event)}
                                 disabled={isLoading}
                             >
                                 {isLoading ? (

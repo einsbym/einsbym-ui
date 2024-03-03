@@ -2,7 +2,7 @@ import { User } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import { useEffect, useState } from 'react';
 import Sidebar from './sidebar';
-import UserSidebarPopover from './user-sidebar-popover';
+import NavbarUserPopover from './navbar-user-popover';
 
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },
@@ -108,7 +108,7 @@ export default function Navbar() {
                                 </svg>
                             </button>
 
-                            <UserSidebarPopover isMenuOpen={isMenuOpen} handleMenu={handleMenu} user={user || null}/>
+                            <NavbarUserPopover isMenuOpen={isMenuOpen} handleMenu={handleMenu} user={user || null}/>
                         </div>
                     </div>
                 </div>

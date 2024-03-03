@@ -1,6 +1,6 @@
-import { deleteCookies } from '@/actions/cookies';
 import { storageUrl } from '@/constants/constants';
 import { User } from '@/interfaces/interfaces';
+import { AuthService } from '@/services/auth-config';
 import { useRouter } from 'next/navigation';
 import { RiLoginCircleLine } from 'react-icons/ri';
 
@@ -10,12 +10,11 @@ interface SidebarProps {
     handleMenu: any;
 }
 
-export default function UserSidebarPopover(props: SidebarProps) {
+export default function NavbarUserPopover(props: SidebarProps) {
     const router = useRouter();
 
     const signOut = async () => {
-        await deleteCookies();
-        router.push(`/auth/login`);
+        await new AuthService().signOut(router);
     };
 
     return (
@@ -87,7 +86,7 @@ export default function UserSidebarPopover(props: SidebarProps) {
                 <a
                     href="#"
                     className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                    onClick={() => signOut()}
+                    onClick={signOut}
                 >
                     Sign out
                 </a>
