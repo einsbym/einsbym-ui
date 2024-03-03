@@ -96,7 +96,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                         )}
 
                         <div className="flex space-x-2 justify-end">
-                            <PostLikeButton post={post} initialLikes={post.totalLikes} userId={props.userId} />
+                            <PostLikeButton postId={post.id} liked={post.likes.some((like) => like.id === props.userId)} initialLikes={post.totalLikes} userId={props.userId} />
                             <button
                                 className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200"
                                 onClick={() => {
