@@ -5,7 +5,7 @@ import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { Post } from '@/interfaces/interfaces';
 import { useLazyQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
+import { FaHeart, FaRegCommentAlt, FaRegHeart, FaRegShareSquare } from 'react-icons/fa';
 import PostComments from './post-comments';
 import PublishPostComment from './publish-post-comment';
 import { FcLike } from 'react-icons/fc';
@@ -96,7 +96,12 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
 
                         <div className="flex space-x-2 justify-end">
                             <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
-                                <FaRegHeart size={13} /> 232
+                                {post.likes.some((like) => like.id === props.userId) ? (
+                                    <FaHeart size={13} />
+                                ) : (
+                                    <FaRegHeart size={13} />
+                                )}{' '}
+                                {post.totalLikes}
                             </button>
                             <button
                                 className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200"

@@ -24,10 +24,12 @@ export interface Post {
     id: string;
     postText: string;
     totalComments: number;
+    totalLikes: number;
     createdAt: Date;
     updatedAt: Date;
     images: Image[];
     user: User;
+    likes: User[];
 }
 
 export interface PostComment {

@@ -6,6 +6,7 @@ export const FIND_POSTS_BY_USER = gql`
             id
             postText
             totalComments
+            totalLikes
             createdAt
             updatedAt
             images {
@@ -18,6 +19,10 @@ export const FIND_POSTS_BY_USER = gql`
                 lastName
                 username
                 profilePicture
+            }
+            likes {
+                id
+                username
             }
         }
     }
