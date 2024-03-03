@@ -35,13 +35,13 @@ export class AuthService {
     };
 
     signIn = async (
-        event: any,
+        preventDefault: () => void,
         setIsLoading: Dispatch<SetStateAction<boolean>>,
         setErrorMessage: Dispatch<SetStateAction<string | null | undefined>>,
         signinInput: SigninInput,
         router: AppRouterInstance,
     ) => {
-        event.preventDefault();
+        preventDefault;
 
         setIsLoading(true);
 

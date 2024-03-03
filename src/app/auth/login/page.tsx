@@ -4,7 +4,7 @@ import { SigninInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 import { CiLogin } from 'react-icons/ci';
 import { FaRegHourglass } from 'react-icons/fa';
 import { MdError } from 'react-icons/md';
@@ -22,9 +22,9 @@ export default function Login() {
         });
     };
 
-    const signIn = async (event: any) => {
-        await new AuthService().signIn(event, setIsLoading, setErrorMessage, signinInput, router);
-    }
+    const signIn = async (preventDefault: () => void) => {
+        await new AuthService().signIn(preventDefault, setIsLoading, setErrorMessage, signinInput, router);
+    };
 
     return (
         <div className="flex flex-col items-center md:flex-row md:h-screen">
@@ -87,7 +87,7 @@ export default function Login() {
                         <div>
                             <button
                                 className="flex gap-2 items-center justify-center w-full text-white bg-gradient-to-r from-[#cc00ff] via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
-                                onClick={(event) => signIn(event)}
+                                onClick={(event) => signIn(event.preventDefault)}
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
