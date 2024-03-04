@@ -3,7 +3,7 @@ export default function Footer() {
     const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || ""
 
     return (
-        <footer className="bg-gray-900 mt-5 rounded-lg">
+        <footer className="bg-gray-900 mt-5 mb-5 lg:mb-0 rounded-lg">
             <div className="w-full mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <a href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
@@ -26,7 +26,7 @@ export default function Footer() {
                     </ul>
                 </div>
                 <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
-                <span className="block text-sm text-gray-500 sm:text-center">
+                <span className="block text-sm text-gray-500 text-center">
                     © {currentYear}{' '}
                     <a href="/" className="hover:text-[#cc00ff]">
                         Einsbym

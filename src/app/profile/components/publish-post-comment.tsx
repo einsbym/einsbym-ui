@@ -2,7 +2,6 @@ import { CREATE_COMMENT } from '@/graphql/mutations/post-comment';
 import { useMutation } from '@apollo/client';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
-import { MdPostAdd } from 'react-icons/md';
 
 export default function PublishPostComment(props: {
     postId: string;

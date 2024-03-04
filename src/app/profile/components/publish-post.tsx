@@ -185,11 +185,11 @@ export default function PublishPost(props: { userId: string }) {
                 )}
 
                 {selectedImages && selectedImages.length !== 0 && (
-                    <div className="mt-2 grid gap-4">
+                    <div className="mt-2 grid gap-2">
                         <p className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
                             Selected images: {selectedImages.length}
                         </p>
-                        <div className="grid grid-cols-5 gap-2">
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
                             {selectedImages.map((image, index) => (
                                 <div className="relative" key={index}>
                                     <button
