@@ -53,7 +53,7 @@ export default function UserBioAndPost(props: { userId: string; bio: string }) {
     return (
         <>
             {/* User's bio */}
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">Bio</h5>
+            <h5 className="mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">Bio</h5>
             <div
                 className="block w-full p-6 border rounded-lg shadow hover:bg-gray-100 bg-gray-800 border-gray-700 hover:bg-gray-700"
                 onClick={() => setIsEditBioActive(true)}

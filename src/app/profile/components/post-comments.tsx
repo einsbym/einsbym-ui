@@ -37,9 +37,9 @@ export default function PostComments(props: { postId: string | null, publishedPo
     return (
         <>
             {comments?.map((postComment: PostComment) => (
-                <div key={postComment.id} className="mt-5 flex items-start gap-2">
+                <div key={postComment.id} className="mt-3 lg:mt-5 flex items-start gap-2">
                     <img
-                        className="flex-none w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                        className="flex-none w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
                         src={storageUrl + postComment.user.profilePicture}
                         alt={postComment.user.username}
                     />
@@ -55,11 +55,11 @@ export default function PostComments(props: { postId: string | null, publishedPo
 
                         <p className="text-sm font-normal py-2.5 text-white">{postComment.comment}</p>
 
-                        <div className="flex space-x-2 justify-end">
-                            <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                        <div className="flex gap-2 justify-end">
+                            <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                                 <FaRegHeart size={13} /> 232
                             </button>
-                            <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                            <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                                 <FaRegCommentAlt size={13} /> 0
                             </button>
                         </div>

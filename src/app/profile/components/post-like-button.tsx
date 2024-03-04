@@ -52,7 +52,7 @@ const PostLikeButton = (props: { initialLikes: number; postId: string; liked: bo
 
     return (
         <button
-            className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200"
+            className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
             onClick={handleLikePost}
         >
             {liked ? <FaHeart size={13} /> : <FaRegHeart size={13} />} {likes}

@@ -65,13 +65,10 @@ export default function PublishPostComment(props: {
             <div className="mt-5">
                 <form>
                     <div className="relative">
-                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <MdPostAdd size={30} color="white" />
-                        </div>
                         <input
                             type="post"
                             id="post"
-                            className="block w-full p-4 ps-[3rem] text-sm rounded-lg bg-gray-700 placeholder-gray-400 text-white"
+                            className="block w-full p-2 lg:p-4 text-sm rounded-lg bg-gray-700 placeholder-gray-400 text-white"
                             placeholder="What are your thoughts on this?"
                             value={comment || ''}
                             onChange={(event) => setComment(event.target.value)}
@@ -79,7 +76,7 @@ export default function PublishPostComment(props: {
                         />
                         <button
                             type="submit"
-                            className="text-white absolute end-2.5 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2 disabled:text-gray-500"
+                            className="text-white absolute top-1/2 right-3 transform -translate-y-1/2 hover:text-[#cc00ff] focus:outline-none disabled:text-gray-500"
                             onClick={(event) => handleSubmit(event)}
                             disabled={loading ? true : false}
                         >

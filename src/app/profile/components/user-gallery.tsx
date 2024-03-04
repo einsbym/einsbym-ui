@@ -26,13 +26,13 @@ export default function UserGallery(props: { userId: string }) {
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-2 text-2xl font-bold tracking-tight text-white">
+            <div className="flex items-center justify-between mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">
                 Gallery{' '}
                 {loading && (
                     <span className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-base">loading...</span>
                 )}
                 {data && (
-                    <span className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-base">
+                    <span className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
                         {data.findImagesByUser.length} images
                     </span>
                 )}

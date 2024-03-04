@@ -62,7 +62,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
             {posts.map((post: Post, index) => (
                 <div key={post.id} className="mt-5 flex items-start gap-2">
                     <img
-                        className="flex-none w-[60px] h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                        className="flex-none w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
                         src={storageUrl + post.user.profilePicture}
                         alt={post.user.username}
                     />
@@ -95,17 +95,17 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                             </div>
                         )}
 
-                        <div className="flex space-x-2 justify-end">
+                        <div className="flex gap-2 justify-end">
                             <PostLikeButton postId={post.id} liked={post.likes.some((like) => like.id === props.userId)} initialLikes={post.totalLikes} userId={props.userId} />
                             <button
-                                className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200"
+                                className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                                 onClick={() => {
                                     setPostId(post.id);
                                 }}
                             >
                                 <FaRegCommentAlt size={13} /> {post.totalComments}
                             </button>
-                            <button className="flex items-center gap-2 text-sm bg-gray-800 text-white rounded-full p-2 hover:bg-gray-200 hover:text-black transition duration-200">
+                            <button className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                                 <FaRegShareSquare size={13} /> 0
                             </button>
                         </div>
