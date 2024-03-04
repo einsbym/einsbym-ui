@@ -44,8 +44,6 @@ export default function UserProfile() {
 
                     <UserGallery userId={user?.id || ''} />
                 </div>
-
-                <Footer />
             </main>
         </>
     );
