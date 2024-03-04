@@ -1,9 +1,9 @@
 export default function ButtonLoadMore(props: { handleClick: any }) {
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex w-[200px] mt-5 mb-5 rounded-full mx-auto bg-gradient-to-tr from-violet-400 to-[#cc00ff] p-1 hover:shadow-2xl hover:shadow-[#cc00ff] transition-all duration-200">
             <button
                 type="button"
-                className="w-fit text-white bg-gradient-to-r from-purple-400 via-pink-500 to-[#cc00ff] hover:bg-gradient-to-br focus:outline-none shadow-lg shadow-[#cc00ff] font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-3 mb-3"
+                className="flex-1 font-medium text-lg text-[#cc00ff] bg-black hover:bg-[#cc00ff] hover:text-black py-1 rounded-full transition-all duration-200"
                 onClick={() => {
                     props.handleClick();
                 }}

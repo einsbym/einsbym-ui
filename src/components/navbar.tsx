@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 import Sidebar from './sidebar';
 import NavbarUserPopover from './navbar-user-popover';
 
-const menuItems = [
-    { id: 1, label: 'Gallery', slug: '/' },
-];
+const menuItems = [{ id: 1, label: 'Gallery', slug: '/' }];
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -27,7 +25,9 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-10/12 rounded-lg top-10 z-10 backdrop-filter backdrop-blur-lg bg-opacity-10 border-gray-200">
+            <nav className="fixed inset-x-0 top-0 w-full rounded-lg z-10">
+                <div className="absolute inset-0 backdrop-blur-md bg-black/30"></div>
+
                 <div className="px-2 sm:px-6 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -108,7 +108,7 @@ export default function Navbar() {
                                 </svg>
                             </button>
 
-                            <NavbarUserPopover isMenuOpen={isMenuOpen} handleMenu={handleMenu} user={user || null}/>
+                            <NavbarUserPopover isMenuOpen={isMenuOpen} handleMenu={handleMenu} user={user || null} />
                         </div>
                     </div>
                 </div>
