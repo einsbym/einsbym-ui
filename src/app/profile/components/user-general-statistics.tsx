@@ -21,11 +21,11 @@ export default function UserGeneralStatistics() {
                     <div className="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto sm:grid-cols-3 xl:p-2 xl:grid-cols-6 text-white sm:p-8">
                         <div className="flex flex-col items-center justify-center">
                             <dt className="mb-2 text-3xl font-extrabold">2º</dt>
-                            <dd className="text-gray-400">Creators ranking</dd>
+                            <dd className="text-gray-400">Ranking</dd>
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <dt className="mb-2 text-3xl font-extrabold">83%</dt>
-                            <dd className="text-gray-400">Month's engagement</dd>
+                            <dd className="text-gray-400">Engagement</dd>
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <dt className="mb-2 text-3xl font-extrabold">2k</dt>
@@ -41,7 +41,7 @@ export default function UserGeneralStatistics() {
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <dt className="mb-2 text-3xl font-extrabold">4M+</dt>
-                            <dd className="text-gray-400">Pageviews this month</dd>
+                            <dd className="text-gray-400">Pageviews</dd>
                         </div>
                     </div>
                 </div>

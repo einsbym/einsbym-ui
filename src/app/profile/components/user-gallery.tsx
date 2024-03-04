@@ -50,16 +50,16 @@ export default function UserGallery(props: { userId: string }) {
                 ))}
             </div>
             <div
-                className={`fixed top-0 right-0 z-40 w-full lg:w-1/2 h-screen flex justify-center p-4 overflow-y-auto ${
+                className={`fixed top-0 right-0 z-40 w-full lg:w-1/2 h-screen flex justify-center items-center p-4 overflow-y-auto ${
                     isImageViewerActive ? null : 'translate-x-full'
                 } transition-transform backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
             >
                 <IoIosArrowForward
-                    className="absolute left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
+                    className="absolute top-5 left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
                     onClick={() => setIsImageViewerActive(false)}
                     size={40}
                 />
-                <img className="rounded-lg h-full" src={selectedImage} />
+                <img className="rounded-lg h-1/2 lg:h-full" src={selectedImage} />
             </div>
             
             <Footer />

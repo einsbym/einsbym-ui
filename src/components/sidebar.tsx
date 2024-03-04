@@ -11,7 +11,7 @@ export default function Sidebar(props: SidebarProps) {
             id="drawer-navigation"
             className={`fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto ${
                 props.isSidebarActive ? null : '-translate-x-full'
-            } transition-transform bg-gray-900`}
+            } transition-transform backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
             aria-labelledby="drawer-navigation-label"
         >
             <h5 id="drawer-navigation-label" className="text-base font-semibold uppercase text-gray-400">
