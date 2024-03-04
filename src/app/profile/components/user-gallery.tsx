@@ -55,7 +55,7 @@ export default function UserGallery(props: { userId: string }) {
                 } transition-transform backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
             >
                 <IoIosArrowForward
-                    className="absolute left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
+                    className="absolute top-5 lg:top-auto left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
                     onClick={() => setIsImageViewerActive(false)}
                     size={40}
                 />
