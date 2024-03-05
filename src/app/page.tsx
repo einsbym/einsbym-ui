@@ -6,7 +6,7 @@ import { IMAGES } from '@/graphql/queries/image';
 import { Image } from '@/interfaces/interfaces';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { storageUrl } from '../constants/constants';
 
 const skeleton = new Array(6).fill(null);
@@ -29,7 +29,7 @@ export default function Home() {
         router.push(`/view-image?image=${image.id}`);
     };
 
-    const loadMoreImages = () => {
+    const loadMoreImages = useCallback(() => {
         fetchMore({
             variables: { page: page + 1 },
             updateQuery: (prev, { fetchMoreResult }) => {
@@ -38,14 +38,14 @@ export default function Home() {
             },
         });
         setPage(page + 1); // Update the page state after fetching more images
-    };
+    }, [page, fetchMore, images]); // Add fetchMore as a dependency
 
     // useEffect to load images initially
     useEffect(() => {
         if (page === 1) {
             loadMoreImages();
         }
-    }, [page]); // Depend on the page state to trigger loading
+    }, [page, loadMoreImages]); // Include loadMoreImages in the dependency array
 
     return (
         <>
