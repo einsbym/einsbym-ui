@@ -41,9 +41,9 @@ export default function UserGallery(props: { userId: string }) {
                 {data?.findImagesByUser.map((image: Image) => (
                     <div key={image.id}>
                         <img
+                            alt={image.filename}
                             className="h-[200px] w-[300px] rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
                             src={storageUrl + image.filename}
-                            alt={image.filename}
                             onClick={() => handleImageClick(storageUrl + image.filename)}
                         />
                     </div>
@@ -59,7 +59,7 @@ export default function UserGallery(props: { userId: string }) {
                     onClick={() => setIsImageViewerActive(false)}
                     size={40}
                 />
-                <img className="rounded-lg h-1/2 lg:h-full" src={selectedImage} />
+                <img alt={selectedImage} className="rounded-lg h-1/2 lg:h-full" src={selectedImage} />
             </div>
 
             <Footer />

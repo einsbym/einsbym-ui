@@ -65,6 +65,7 @@ export default function Home() {
                     images.map((image, index) => (
                         <div key={image.id}>
                             <img
+                                alt={image.filename}
                                 className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-[500px] h-[500px] cursor-pointer object-cover"
                                 src={storageUrl + image.filename}
                                 onClick={() => viewImage(image)}

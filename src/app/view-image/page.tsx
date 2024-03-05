@@ -29,20 +29,18 @@ export default function ViewImage() {
             <main className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
                 <Navbar />
 
-                <h2 className="mb-5 text-4xl font-extrabold text-white underline underline-offset-3 decoration-8 decoration-[#cc00ff]">
-                    
-                </h2>
+                <h2 className="mb-5 text-4xl font-extrabold text-white underline underline-offset-3 decoration-8 decoration-[#cc00ff]"></h2>
                 <p className="mb-5">
-                        <span
-                            key={1}
-                            className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300"
-                        >
-                            TEST
-                        </span>
+                    <span
+                        key={1}
+                        className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300"
+                    >
+                        TEST
+                    </span>
                 </p>
 
                 <div className="flex justify-center">
-                    <img className="rounded-lg object-cover" src={''} />
+                    <img alt="" className="rounded-lg object-cover" src={''} />
                 </div>
 
                 <button
@@ -55,15 +53,10 @@ export default function ViewImage() {
 
                 <div className="flex items-center mb-5 p-5 border border-1 border-gray-500 rounded-lg">
                     <div className="flex-shrink-0">
-                            <img
-                                className="w-10 h-10 rounded-full"
-                                src={''}
-                            />
+                        <img alt="" className="w-10 h-10 rounded-full" src={''} />
                     </div>
                     <div className="flex-1 min-w-0 ms-4">
-                        <p className="text-sm font-medium truncate text-[#cc00ff]">
-                            Name
-                        </p>
+                        <p className="text-sm font-medium truncate text-[#cc00ff]">Name</p>
                         <p className="text-sm text-gray-500 truncate">@username</p>
                     </div>
                     <div className="inline-flex text-xs items-center font-semibold text-gray-500">a day ago</div>

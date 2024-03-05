@@ -31,6 +31,7 @@ export default function NavbarUserPopover(props: SidebarProps) {
                         <span className="sr-only">Open user menu</span>
                         {storageUrl && (
                             <img
+                                alt={props.user.profilePicture}
                                 className="h-8 w-8 rounded-full object-cover"
                                 src={storageUrl + props.user.profilePicture}
                             />
@@ -75,11 +76,7 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 >
                     Settings
                 </a>
-                <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                    onClick={signOut}
-                >
+                <a href="#" className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]" onClick={signOut}>
                     Sign out
                 </a>
             </div>

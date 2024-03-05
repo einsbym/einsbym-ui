@@ -63,7 +63,7 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                             <MdOutlineCloudUpload size={50} />
                         </label>
                         {props.selectedImageUrl && (
-                            <img className="w-screen rounded-lg" src={props.selectedImageUrl} />
+                            <img alt={props.selectedImageUrl} className="w-screen rounded-lg" src={props.selectedImageUrl} />
                         )}
                         <input
                             className="hidden"

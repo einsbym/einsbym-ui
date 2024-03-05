@@ -62,9 +62,9 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
             {posts.map((post: Post, index) => (
                 <div key={post.id} className="mt-5 flex items-start gap-2">
                     <img
+                        alt={post.user.username}
                         className="flex-none w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
                         src={storageUrl + post.user.profilePicture}
-                        alt={post.user.username}
                     />
                     <div className="flex flex-col w-full overflow-hidden break-all p-4 rounded-e-xl rounded-es-xl bg-gray-800">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse">
@@ -85,6 +85,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                                 {post.images.map((image) => (
                                     <div key={image.id} className="group relative">
                                         <img
+                                            alt={image.filename}
                                             src={storageUrl + image.filename}
                                             className={`w-full h-[200px] ${
                                                 post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
@@ -96,7 +97,12 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                         )}
 
                         <div className="flex gap-2 justify-end">
-                            <PostLikeButton postId={post.id} liked={post.likes.some((like) => like.id === props.userId)} initialLikes={post.totalLikes} userId={props.userId} />
+                            <PostLikeButton
+                                postId={post.id}
+                                liked={post.likes.some((like) => like.id === props.userId)}
+                                initialLikes={post.totalLikes}
+                                userId={props.userId}
+                            />
                             <button
                                 className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                                 onClick={() => {

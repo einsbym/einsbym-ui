@@ -199,7 +199,7 @@ export default function PublishPost(props: { userId: string }) {
                                     >
                                         <IoMdCloseCircle size={20} />
                                     </button>
-                                    <img className="h-auto max-w-full rounded-lg" src={image.blob} />
+                                    <img alt={image.filename} className="h-auto max-w-full rounded-lg" src={image.blob} />
                                 </div>
                             ))}
                         </div>
