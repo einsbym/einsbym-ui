@@ -78,7 +78,7 @@ export default function Home() {
 
             {images.length === 0 && !loading && (
                 <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
-                    There's nothing to show here
+                    There&apos;s nothing to show here
                 </div>
             )}
         </>

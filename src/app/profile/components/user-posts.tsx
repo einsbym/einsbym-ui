@@ -135,7 +135,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
 
             {posts.length === 0 && (
                 <div className="mx-auto mt-5 flex items-center gap-1 text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
-                    Hey! It's time to post something <FcLike />
+                    Hey! It&apos;s time to post something <FcLike />
                 </div>
             )}
         </>
