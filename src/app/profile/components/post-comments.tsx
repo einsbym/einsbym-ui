@@ -3,7 +3,7 @@ import { storageUrl } from '@/constants/constants';
 import { FIND_COMMENTS_BY_POST } from '@/graphql/queries/post-comment';
 import { PostComment } from '@/interfaces/interfaces';
 import { useLazyQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart } from 'react-icons/fa';
 
 export default function PostComments(props: { postId: string | null, publishedPostCommentId: string }) {
@@ -13,7 +13,7 @@ export default function PostComments(props: { postId: string | null, publishedPo
     // Queries
     const [findCommentsByPost] = useLazyQuery(FIND_COMMENTS_BY_POST);
 
-    const fetchPostComments = async () => {
+    const fetchPostComments = useCallback(async () => {
         try {
             const { data } = await findCommentsByPost({
                 variables: {
@@ -28,11 +28,11 @@ export default function PostComments(props: { postId: string | null, publishedPo
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    };
+    }, [findCommentsByPost, props.postId]);
 
     useEffect(() => {
         fetchPostComments();
-    }, [props.postId, props.publishedPostCommentId]);
+    }, [props.postId, props.publishedPostCommentId, fetchPostComments]);
 
     return (
         <>
