@@ -6,7 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 dayjs.locale(localeEn);
 
-const useTimeAgo = (date: Date) => {
+const getElapsedTime = (date: Date) => {
     let timeAgo;
 
     // Function to update the time ago message
@@ -22,4 +22,4 @@ const useTimeAgo = (date: Date) => {
     return timeAgo;
 };
 
-export default useTimeAgo;
+export default getElapsedTime;

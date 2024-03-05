@@ -1,4 +1,4 @@
-import useTimeAgo from '@/actions/elapsed-time';
+import getElapsedTime from '@/actions/elapsed-time';
 import { storageUrl } from '@/constants/constants';
 import { FIND_COMMENTS_BY_POST } from '@/graphql/queries/post-comment';
 import { PostComment } from '@/interfaces/interfaces';
@@ -49,7 +49,7 @@ export default function PostComments(props: { postId: string | null, publishedPo
                                 {postComment.user.firstName} {postComment.user.lastName}
                             </span>
                             <span className="text-sm font-normal text-gray-400">
-                                {useTimeAgo(postComment.createdAt)}
+                                {getElapsedTime(postComment.createdAt)}
                             </span>
                         </div>
 

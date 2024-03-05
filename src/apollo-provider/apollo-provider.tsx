@@ -14,7 +14,7 @@ import {
 import jwt from 'jsonwebtoken';
 import { useRouter } from 'next/navigation';
 
-function makeClient() {
+function useClient() {
     const router = useRouter();
     const httpLink = new HttpLink({
         uri: apiUrl,
@@ -74,5 +74,5 @@ function makeClient() {
 }
 
 export function ApolloWrapper({ children }: React.PropsWithChildren) {
-    return <ApolloNextAppProvider makeClient={makeClient}>{children}</ApolloNextAppProvider>;
+    return <ApolloNextAppProvider makeClient={useClient}>{children}</ApolloNextAppProvider>;
 }
