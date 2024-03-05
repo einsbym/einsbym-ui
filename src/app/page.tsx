@@ -4,7 +4,7 @@ import ButtonLoadMore from '@/components/button-load-more';
 import Navbar from '@/components/navbar';
 import { IMAGES } from '@/graphql/queries/image';
 import { Image } from '@/interfaces/interfaces';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { storageUrl } from '../constants/constants';
@@ -20,33 +20,32 @@ export default function Home() {
     const router = useRouter();
 
     // Queries
-    const [queryImages, { data, loading }] = useLazyQuery(IMAGES);
+    const { data, loading, fetchMore } = useQuery(IMAGES, {
+        variables: { page: page },
+        notifyOnNetworkStatusChange: true,
+    });
 
     const viewImage = (image: Image) => {
         router.push(`/view-image?image=${image.id}`);
     };
 
-    const fetchImages = async () => {
-        try {
-            if (page === 1) {
-                setPage(page + 1);
-            }
-
-            await queryImages({ variables: { page: page } });
-
-            if (data) {
-                setImages([...images, ...data.images]);
-            }
-
-            setPage(page + 1);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+    const loadMoreImages = () => {
+        fetchMore({
+            variables: { page: page + 1 },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                setImages([...images, ...fetchMoreResult.images]);
+            },
+        });
+        setPage(page + 1); // Update the page state after fetching more images
     };
 
+    // useEffect to load images initially
     useEffect(() => {
-        fetchImages();
-    }, [data]);
+        if (page === 1) {
+            loadMoreImages();
+        }
+    }, [page]); // Depend on the page state to trigger loading
 
     return (
         <>
@@ -74,7 +73,7 @@ export default function Home() {
                     ))}
             </div>
 
-            {data && data.images.length !== 0 && <ButtonLoadMore handleClick={fetchImages} />}
+            {data && data.images.length !== 0 && <ButtonLoadMore handleClick={loadMoreImages} />}
 
             {images.length === 0 && !loading && (
                 <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
