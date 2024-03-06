@@ -1,19 +1,17 @@
 import { storageServiceUrl } from '@/constants/constants';
 import { CREATE_POST } from '@/graphql/mutations/post';
-import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
-import { Post } from '@/interfaces/interfaces';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ChangeEvent, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { GrGallery } from 'react-icons/gr';
+import { IoMdCloseCircle } from 'react-icons/io';
 import { MdPostAdd } from 'react-icons/md';
 import UserPosts from './user-posts';
-import { IoMdCloseCircle } from 'react-icons/io';
 
 export default function PublishPost(props: { userId: string }) {
     // States
     const [postText, setPostText] = useState<string | null>();
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [publishedPostId, setPublishedPostId] = useState<string>('');
     const [files, setFiles] = useState<FileList | null>();
     const [selectedImages, setSelectedImages] = useState<{ filename: string; blob?: string }[]>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
@@ -21,9 +19,6 @@ export default function PublishPost(props: { userId: string }) {
 
     // Mutations
     const [createPost] = useMutation(CREATE_POST);
-
-    // Queries
-    const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
 
     const removeImageFromList = (indexToRemove: number) => {
         const images = selectedImages?.filter((_, index) => index !== indexToRemove);
@@ -96,7 +91,7 @@ export default function PublishPost(props: { userId: string }) {
             }
 
             // Save post
-            const { errors } = await createPost({
+            const { data, errors } = await createPost({
                 variables: {
                     createPostInput: {
                         userId: props.userId,
@@ -112,14 +107,9 @@ export default function PublishPost(props: { userId: string }) {
 
             setPostText(null);
 
-            const { data } = await findPostsByUser({
-                variables: {
-                    userId: props.userId,
-                },
-                fetchPolicy: 'no-cache',
-            });
-
-            setPosts(data?.findPostsByUser);
+            if (data) {
+                setPublishedPostId(data.createPost.id);
+            }
 
             setLoading(false);
         } catch (error) {
@@ -208,7 +198,7 @@ export default function PublishPost(props: { userId: string }) {
             </div>
 
             {/* User posts */}
-            <UserPosts userId={props.userId} posts={posts} />
+            <UserPosts userId={props.userId} publishedPostId={publishedPostId} />
         </>
     );
 }

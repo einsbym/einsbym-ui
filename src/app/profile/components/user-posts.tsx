@@ -3,59 +3,59 @@ import ButtonLoadMore from '@/components/button-load-more';
 import { storageUrl } from '@/constants/constants';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { Post } from '@/interfaces/interfaces';
-import { useLazyQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { useCallback, useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
 import { FcLike } from 'react-icons/fc';
 import PostComments from './post-comments';
 import PostLikeButton from './post-like-button';
 import PublishPostComment from './publish-post-comment';
 
-export default function UserPosts(props: { userId: string; posts: Post[] }) {
+export default function UserPosts(props: { userId: string; publishedPostId: string }) {
     // States
     const [posts, setPosts] = useState<Post[]>([]);
     const [page, setPage] = useState<number>(1);
     const [postId, setPostId] = useState<string>('');
     const [publishedPostCommentId, setPublishedPostCommentId] = useState<string>('');
+    const [publishedPostId, setPublishedPostId] = useState<string>('');
 
-    // Queries
-    const [findPostsByUser] = useLazyQuery(FIND_POSTS_BY_USER);
+    const { data, loading, fetchMore } = useQuery(FIND_POSTS_BY_USER, {
+        variables: { userId: props.userId, page: page },
+        notifyOnNetworkStatusChange: true,
+    });
 
-    const fetchPosts = async () => {
-        try {
-            if (!props.userId) {
-                return;
-            }
-
-            if (page === 1) {
-                setPage(page + 1);
-            }
-
-            const { data } = await findPostsByUser({
-                variables: {
-                    userId: props.userId,
-                    page: page,
-                },
-                fetchPolicy: 'no-cache',
-            });
-
-            if (data) {
-                setPosts([...posts, ...data.findPostsByUser]);
-            }
-
-            setPage(page + 1);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+    const loadMorePosts = useCallback(async (offSet?: number) => {
+        if (!props.userId) {
+            return;
         }
-    };
+
+        await fetchMore({
+            variables: { userId: props.userId, page: offSet || page + 1 },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+
+                if (offSet) {
+                    setPosts(fetchMoreResult.findPostsByUser);
+                    return;
+                }
+
+                setPosts([...posts, ...fetchMoreResult.findPostsByUser]);
+            },
+        });
+
+        setPage(offSet || page + 1);
+    }, [props.userId, page, fetchMore, posts]);
 
     useEffect(() => {
-        setPosts(props.posts);
-
-        if (props.posts.length === 0) {
-            fetchPosts();
+        if (data && posts.length === 0) {
+            setPosts(data.findPostsByUser);
         }
-    }, [props.userId, props.posts]);
+
+        if (props.publishedPostId !== publishedPostId) {
+            loadMorePosts(1);
+            setPublishedPostId(props.publishedPostId);
+        }
+    }, [data, posts, props.publishedPostId, publishedPostId, loadMorePosts]);
 
     return (
         <>
@@ -99,7 +99,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                         <div className="flex gap-2 justify-end">
                             <PostLikeButton
                                 postId={post.id}
-                                liked={post.likes.some((like) => like.id === props.userId)}
+                                liked={post.likes?.some((like) => like.id === props.userId)}
                                 initialLikes={post.totalLikes}
                                 userId={props.userId}
                             />
@@ -131,7 +131,7 @@ export default function UserPosts(props: { userId: string; posts: Post[] }) {
                 </div>
             ))}
 
-            {posts.length !== 0 && <ButtonLoadMore handleClick={fetchPosts} />}
+            {posts.length !== 0 && <ButtonLoadMore handleClick={loadMorePosts} />}
 
             {posts.length === 0 && (
                 <div className="mx-auto mt-5 flex items-center gap-1 text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">

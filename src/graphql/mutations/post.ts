@@ -5,6 +5,19 @@ export const CREATE_POST = gql`
         createPost(createPostInput: $createPostInput) {
             id
             postText
+            createdAt
+            updatedAt
+            images {
+                id
+                filename
+            }
+            user {
+                id
+                firstName
+                lastName
+                username
+                profilePicture
+            }
         }
     }
 `;
