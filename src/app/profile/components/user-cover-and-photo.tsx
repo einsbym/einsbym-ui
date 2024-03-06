@@ -31,18 +31,25 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
 
     return (
         <>
-            <div
-                className={`relative lg:w-4/5 h-[20rem] mx-auto lg:rounded-lg`}
-            >
-                <FaCamera className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer" title="Change cover image" onClick={() => setIsChangeCoverImageActive(true)} size={30} />
+            <div className={`relative lg:w-4/5 h-[20rem] mx-auto lg:rounded-lg`}>
+                <FaCamera
+                    className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer"
+                    title="Change cover image"
+                    onClick={() => setIsChangeCoverImageActive(true)}
+                    size={30}
+                />
                 <div
                     style={{
-                        backgroundImage: `url('${storageUrl + profileImage}')`,
+                        backgroundImage: props.profileImage && profileImage ? `url('${storageUrl + profileImage}')` : 'none',
                     }}
                     className="absolute transform -translate-x-1/2 -translate-y-[-30px] top-1/2 left-1/2 w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                 >
-
-                    <FaCamera className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer" title="Change profile image" onClick={() => setIsChangeProfPicActive(true)} size={30} />
+                    <FaCamera
+                        className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer"
+                        title="Change profile image"
+                        onClick={() => setIsChangeProfPicActive(true)}
+                        size={30}
+                    />
                 </div>
             </div>
             <div className="mt-[8rem] text-white font-sans text-center font-semibold text-2xl lg:text-3xl w-fit mx-auto rounded-lg">
