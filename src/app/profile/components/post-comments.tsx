@@ -6,7 +6,7 @@ import { useLazyQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart } from 'react-icons/fa';
 
-export default function PostComments(props: { postId: string | null, publishedPostCommentId: string }) {
+export default function PostComments(props: { postId: string | null; publishedPostCommentId: string }) {
     // States
     const [comments, setComments] = useState<PostComment[]>([]);
 
@@ -38,17 +38,15 @@ export default function PostComments(props: { postId: string | null, publishedPo
         <>
             {comments?.map((postComment: PostComment) => (
                 <div key={postComment.id} className="mt-3 lg:mt-5 flex items-start gap-2">
-                    <img
-                        className="flex-none w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                        src={storageUrl + postComment.user.profilePicture}
-                        alt={postComment.user.username}
-                    />
-                    <div className="flex flex-col w-full overflow-hidden break-all p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+                    <div className="flex flex-col w-full overflow-hidden break-word p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                            <span className="text-sm font-semibold text-white">
-                                {postComment.user.firstName} {postComment.user.lastName}
-                            </span>
-                            <span className="text-sm font-normal text-gray-400">
+                            <img
+                                className="flex-none w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] rounded-full object-cover"
+                                src={storageUrl + postComment.user.profilePicture}
+                                alt={postComment.user.username}
+                            />
+                            <span className="text-sm font-semibold text-white">{postComment.user.firstName}</span>
+                            <span className="text-[10px] lg:text-sm font-normal text-gray-400">
                                 {getElapsedTime(postComment.createdAt)}
                             </span>
                         </div>

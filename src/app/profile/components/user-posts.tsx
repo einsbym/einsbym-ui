@@ -71,7 +71,7 @@ export default function UserPosts(props: { userId: string; publishedPostId: stri
                             <span className="text-sm font-semibold text-white">
                                 {post.user.firstName} {post.user.lastName}
                             </span>
-                            <span className="text-sm font-normal text-gray-400">{getElapsedTime(post.createdAt)}</span>
+                            <span className="text-[12px] lg:text-sm font-normal text-gray-400">{getElapsedTime(post.createdAt)}</span>
                         </div>
                         <p className="text-sm font-normal py-2.5 text-white">{post.postText}</p>
 
