@@ -9,8 +9,6 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { storageUrl } from '../constants/constants';
 
-const skeleton = new Array(6).fill(null);
-
 export default function Home() {
     // States
     const [images, setImages] = useState<Image[]>([]);
@@ -51,15 +49,7 @@ export default function Home() {
         <>
             <Navbar />
 
-            {loading && (
-                <div className="flex justify-center flex-wrap gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                    {skeleton.map((_, index) => (
-                        <div key={index} className="w-[500px] h-[500px] animate-pulse bg-gray-100"></div>
-                    ))}
-                </div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-20 rounded-t-[2rem] overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {images &&
                     images.map((image, index) => (
                         <div key={image.id}>

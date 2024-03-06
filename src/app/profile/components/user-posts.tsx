@@ -66,7 +66,7 @@ export default function UserPosts(props: { userId: string; publishedPostId: stri
                         className="flex-none w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
                         src={storageUrl + post.user.profilePicture}
                     />
-                    <div className="flex flex-col w-full overflow-hidden break-all p-4 rounded-e-xl rounded-es-xl bg-gray-800">
+                    <div className="flex flex-col w-full overflow-hidden break-words p-4 rounded-e-xl rounded-es-xl bg-gray-800">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse">
                             <span className="text-sm font-semibold text-white">
                                 {post.user.firstName} {post.user.lastName}
@@ -131,7 +131,7 @@ export default function UserPosts(props: { userId: string; publishedPostId: stri
                 </div>
             ))}
 
-            {posts.length !== 0 && <ButtonLoadMore handleClick={loadMorePosts} />}
+            {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && <ButtonLoadMore handleClick={loadMorePosts} />}
 
             {posts.length === 0 && (
                 <div className="mx-auto mt-5 flex items-center gap-1 text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
