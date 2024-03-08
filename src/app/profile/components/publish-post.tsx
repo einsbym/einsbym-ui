@@ -6,7 +6,7 @@ import { FiSend } from 'react-icons/fi';
 import { GrGallery } from 'react-icons/gr';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { MdPostAdd } from 'react-icons/md';
-import UserPosts from './user-posts';
+import Posts from './posts';
 
 export default function PublishPost(props: { userId: string }) {
     // States
@@ -198,7 +198,7 @@ export default function PublishPost(props: { userId: string }) {
             </div>
 
             {/* User posts */}
-            <UserPosts userId={props.userId} publishedPostId={publishedPostId} />
+            <Posts userId={props.userId} publishedPostId={publishedPostId} />
         </>
     );
 }
