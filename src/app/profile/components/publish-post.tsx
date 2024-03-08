@@ -109,6 +109,7 @@ export default function PublishPost(props: { userId: string }) {
 
             if (data) {
                 setPublishedPostId(data.createPost.id);
+                setSelectedImages([]);
             }
 
             setLoading(false);

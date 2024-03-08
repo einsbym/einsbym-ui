@@ -7,6 +7,7 @@ export default function PublishPostComment(props: {
     postId: string;
     userId: string;
     setPublishedPostCommentId: Dispatch<SetStateAction<string>>;
+    setAreCommentsVisible: Dispatch<SetStateAction<boolean>>;
 }) {
     // States
     const [comment, setComment] = useState<string | null>();
@@ -46,7 +47,8 @@ export default function PublishPostComment(props: {
             setComment(null);
 
             if (data) {
-                props.setPublishedPostCommentId(data.createComment.id)
+                props.setPublishedPostCommentId(data.createComment.id);
+                props.setAreCommentsVisible(true);
             }
 
             setLoading(false);
@@ -84,7 +86,7 @@ export default function PublishPostComment(props: {
 
                 {loading && (
                     <div className="mt-2 px-3 py-1 text-xs font-medium leading-none text-center text-[#cc00ff] bg-[#cc00ff1e] rounded-full animate-pulse">
-                        publishing your post...
+                        publishing your comment...
                     </div>
                 )}
 
