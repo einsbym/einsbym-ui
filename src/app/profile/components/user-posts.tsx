@@ -10,6 +10,8 @@ import { FcLike } from 'react-icons/fc';
 import PostComments from './post-comments';
 import PostLikeButton from './post-like-button';
 import PublishPostComment from './publish-post-comment';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import PostPopoverMenu from './post-popover-menu';
 
 export default function UserPosts(props: { userId: string; publishedPostId: string }) {
     // States
@@ -24,27 +26,30 @@ export default function UserPosts(props: { userId: string; publishedPostId: stri
         notifyOnNetworkStatusChange: true,
     });
 
-    const loadMorePosts = useCallback(async (offSet?: number) => {
-        if (!props.userId) {
-            return;
-        }
+    const loadMorePosts = useCallback(
+        async (offSet?: number) => {
+            if (!props.userId) {
+                return;
+            }
 
-        await fetchMore({
-            variables: { userId: props.userId, page: offSet || page + 1 },
-            updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
+            await fetchMore({
+                variables: { userId: props.userId, page: offSet || page + 1 },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                    if (!fetchMoreResult) return prev;
 
-                if (offSet) {
-                    setPosts(fetchMoreResult.findPostsByUser);
-                    return;
-                }
+                    if (offSet) {
+                        setPosts(fetchMoreResult.findPostsByUser);
+                        return;
+                    }
 
-                setPosts([...posts, ...fetchMoreResult.findPostsByUser]);
-            },
-        });
+                    setPosts([...posts, ...fetchMoreResult.findPostsByUser]);
+                },
+            });
 
-        setPage(offSet || page + 1);
-    }, [props.userId, page, fetchMore, posts]);
+            setPage(offSet || page + 1);
+        },
+        [props.userId, page, fetchMore, posts],
+    );
 
     useEffect(() => {
         if (data && posts.length === 0) {
@@ -67,11 +72,19 @@ export default function UserPosts(props: { userId: string; publishedPostId: stri
                         src={storageUrl + post.user.profilePicture}
                     />
                     <div className="flex flex-col w-full overflow-hidden break-words p-4 rounded-e-xl rounded-es-xl bg-gray-800">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                            <span className="text-sm font-semibold text-white">
-                                {post.user.firstName} {post.user.lastName}
-                            </span>
-                            <span className="text-[12px] lg:text-sm font-normal text-gray-400">{getElapsedTime(post.createdAt)}</span>
+                        <div className="relative flex justify-between items-center">
+                            <div>
+                                <span className="text-sm font-semibold text-white">
+                                    {post.user.firstName} {post.user.lastName}
+                                </span>
+                                <span className="ml-2 text-[12px] lg:text-sm font-normal text-gray-400">
+                                    {getElapsedTime(post.createdAt)}
+                                </span>
+                            </div>
+                            <button className="text-white" type="button">
+                                <BsThreeDotsVertical />
+                            </button>
+                            <PostPopoverMenu />
                         </div>
                         <p className="text-sm font-normal py-2.5 text-white">{post.postText}</p>
 
@@ -131,7 +144,9 @@ export default function UserPosts(props: { userId: string; publishedPostId: stri
                 </div>
             ))}
 
-            {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && <ButtonLoadMore handleClick={loadMorePosts} />}
+            {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && (
+                <ButtonLoadMore handleClick={loadMorePosts} />
+            )}
 
             {posts.length === 0 && (
                 <div className="mx-auto mt-5 flex items-center gap-1 text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
