@@ -6,7 +6,6 @@ import { FiSend } from 'react-icons/fi';
 export default function PublishPostComment(props: {
     postId: string;
     userId: string;
-    setPostId: Dispatch<SetStateAction<string>>;
     setPublishedPostCommentId: Dispatch<SetStateAction<string>>;
 }) {
     // States
@@ -47,7 +46,6 @@ export default function PublishPostComment(props: {
             setComment(null);
 
             if (data) {
-                props.setPostId(props.postId)
                 props.setPublishedPostCommentId(data.createComment.id)
             }
 

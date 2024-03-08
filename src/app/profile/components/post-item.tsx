@@ -11,9 +11,9 @@ import { useState } from 'react';
 
 export default function PostItem(props: { post: Post; userId: string }) {
     // States
-    const [postId, setPostId] = useState<string>('');
     const [publishedPostCommentId, setPublishedPostCommentId] = useState<string>('');
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+    const [areCommentsVisible, setAreCommentsVisible] = useState(false);
 
     const handlePopoverToggle = () => {
         setIsPopoverOpen(!isPopoverOpen);
@@ -76,7 +76,7 @@ export default function PostItem(props: { post: Post; userId: string }) {
                     <button
                         className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                         onClick={() => {
-                            setPostId(props.post.id);
+                            setAreCommentsVisible(!areCommentsVisible);
                         }}
                     >
                         <FaRegCommentAlt size={13} /> {props.post.totalComments}
@@ -89,13 +89,12 @@ export default function PostItem(props: { post: Post; userId: string }) {
                 <PublishPostComment
                     postId={props.post.id}
                     userId={props.userId}
-                    setPostId={setPostId}
                     setPublishedPostCommentId={setPublishedPostCommentId}
                 />
 
                 {/* Conditionally render PostComments */}
-                {postId === props.post.id && (
-                    <PostComments postId={postId} publishedPostCommentId={publishedPostCommentId} />
+                {areCommentsVisible && (
+                    <PostComments postId={props.post.id} publishedPostCommentId={publishedPostCommentId} />
                 )}
             </div>
         </div>
