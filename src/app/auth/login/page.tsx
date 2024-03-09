@@ -26,9 +26,9 @@ export default function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center md:h-screen bg-contain bg-cover bg-no-repeat bg-center bg-[url()]">
+        <div className="flex items-center justify-center h-screen bg-contain bg-cover bg-no-repeat bg-center bg-[url()]">
             <div className="overflow-hidden rounded-lg flex items-center justify-center w-full md:w-1/2 md:h-4/6 backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30 shadow-[0px_0px_25px_rgba(0,0,0,0.25)]">
-                <div className="w-full h-full bg-contain bg-cover bg-no-repeat bg-center bg-[url())]"></div>
+                <div className="hidden md:block w-full h-full bg-contain bg-cover bg-no-repeat bg-center bg-[url())]"></div>
                 <div className="w-full ml-10 mr-10 space-y-6">
                     <div>
                         <h1 className="text-2xl text-[#cc00ff] font-bold">Hi!</h1>
