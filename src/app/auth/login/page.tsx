@@ -1,6 +1,7 @@
 'use client';
 
 import UserBlurredCover from '@/app/profile/components/user-blurred-cover';
+import IconLoading from '@/components/icon-loading';
 import { storageUrl } from '@/constants/constants';
 import { FIND_RANDOM_IMAGE } from '@/graphql/queries/image';
 import { SigninInput } from '@/interfaces/interfaces';
@@ -9,7 +10,6 @@ import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { CiLogin } from 'react-icons/ci';
-import { FaRegHourglass } from 'react-icons/fa';
 import { MdError } from 'react-icons/md';
 
 export default function Login() {
@@ -108,12 +108,10 @@ export default function Login() {
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
-                                    <>
-                                        <FaRegHourglass size={20} /> Signing in...
-                                    </>
+                                    <IconLoading title="Signing in..." />
                                 ) : (
                                     <>
-                                        <CiLogin size={30} /> Sign In
+                                        <CiLogin size={25} /> Sign In
                                     </>
                                 )}
                             </button>
