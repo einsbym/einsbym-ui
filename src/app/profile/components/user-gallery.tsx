@@ -40,12 +40,20 @@ export default function UserGallery(props: { userId: string }) {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {data?.findImagesByUser.map((image: Image) => (
                     <div key={image.id}>
-                        <img
-                            alt={image.filename}
-                            className="h-[200px] w-[300px] rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
-                            src={storageUrl + image.filename}
-                            onClick={() => handleImageClick(storageUrl + image.filename)}
-                        />
+                        {image.filename.split('.').pop() === 'mp4' && (
+                            <video className="h-[200px] w-[300px] rounded-lg object-cover hover:border-2 hover:border-[#cc00ff]" controls>
+                                <source src={storageUrl + image.filename} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        )}
+                        {image.filename.split('.').pop() !== 'mp4' && (
+                            <img
+                                alt={image.filename}
+                                className="h-[200px] w-[300px] rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
+                                src={storageUrl + image.filename}
+                                onClick={() => handleImageClick(storageUrl + image.filename)}
+                            />
+                        )}
                     </div>
                 ))}
             </div>

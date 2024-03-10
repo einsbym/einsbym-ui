@@ -54,13 +54,21 @@ export default function PostItem(props: { post: Post; userId: string }) {
                     >
                         {props.post.images.map((image) => (
                             <div key={image.id} className="group relative">
-                                <img
-                                    alt={image.filename}
-                                    src={storageUrl + image.filename}
-                                    className={`w-full h-[200px] ${
-                                        props.post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
-                                    } object-cover rounded-lg`}
-                                />
+                                {image.filename.split('.').pop() === 'mp4' && (
+                                    <video className="w-full rounded-lg" autoPlay loop controls>
+                                        <source src={storageUrl + image.filename} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                )}
+                                {image.filename.split('.').pop() !== 'mp4' && (
+                                    <img
+                                        alt={image.filename}
+                                        src={storageUrl + image.filename}
+                                        className={`w-full h-[200px] ${
+                                            props.post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
+                                        } object-cover rounded-lg`}
+                                    />
+                                )}
                             </div>
                         ))}
                     </div>
