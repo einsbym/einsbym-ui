@@ -52,7 +52,7 @@ export default function UserGallery(props: { userId: string }) {
             <div
                 className={`fixed top-0 right-0 z-40 w-full lg:rounded-l-[2rem] lg:w-1/2 h-screen flex justify-center items-center p-4 overflow-y-auto ${
                     isImageViewerActive ? null : 'translate-x-full'
-                } transition-transform backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
+                } transition-transform backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
             >
                 <IoIosArrowForward
                     className="absolute top-5 lg:top-auto left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"

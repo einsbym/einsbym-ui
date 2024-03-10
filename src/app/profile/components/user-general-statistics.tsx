@@ -1,6 +1,6 @@
 export default function UserGeneralStatistics() {
     return (
-        <div className="w-11/12 lg:w-4/5 mx-auto mt-5 rounded-lg shadow backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
+        <div className="w-11/12 lg:w-4/5 mx-auto mt-5 rounded-lg shadow backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
             <ul
                 className="text-sm font-medium text-center sm:flex text-gray-400"
                 id="fullWidthTab"

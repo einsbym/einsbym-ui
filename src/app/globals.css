@@ -18,3 +18,46 @@ body {
     color: rgb(var(--foreground-rgb));
     background: var(--background);
 }
+
+.animated-gradient-bg {
+    background: linear-gradient(334deg, #cc00ff, rgb(165, 10, 126), #9635c3);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimatedGradient 12s ease infinite;
+    -moz-animation: AnimatedGradient 12s ease infinite;
+    animation: AnimatedGradient 12s ease infinite;
+}
+
+@-webkit-keyframes AnimatedGradient {
+    0% {
+        background-position: 18% 0%;
+    }
+    50% {
+        background-position: 83% 100%;
+    }
+    100% {
+        background-position: 18% 0%;
+    }
+}
+@-moz-keyframes AnimatedGradient {
+    0% {
+        background-position: 18% 0%;
+    }
+    50% {
+        background-position: 83% 100%;
+    }
+    100% {
+        background-position: 18% 0%;
+    }
+}
+@keyframes AnimatedGradient {
+    0% {
+        background-position: 18% 0%;
+    }
+    50% {
+        background-position: 83% 100%;
+    }
+    100% {
+        background-position: 18% 0%;
+    }
+}

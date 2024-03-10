@@ -23,7 +23,7 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
         >
             <div className="relative p-4 w-full max-w-2xl max-h-full">
                 {/* Modal content */}
-                <div className="relative rounded-lg shadow backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
+                <div className="relative rounded-lg shadow backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     {/* Modal header */}
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                         <h3 className="text-xl font-semibold text-white">{props.modalName}</h3>

@@ -50,7 +50,7 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 className={
                     !props.isMenuOpen
                         ? 'hidden'
-                        : 'absolute right-0 pt-2 pb-2 mt-5 w-48 origin-top-right rounded-md py-1 backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30'
+                        : 'absolute right-0 pt-2 pb-2 mt-5 w-48 origin-top-right rounded-md py-1 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30'
                 }
             >
                 {props.user && (

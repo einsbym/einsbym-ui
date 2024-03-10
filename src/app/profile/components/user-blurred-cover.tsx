@@ -12,7 +12,7 @@ export default function UserBlurredCover(props: UserBlurredCoverProps) {
                     ? `linear-gradient(to bottom, transparent, black), url('${storageUrl}/${props.coverImage}')`
                     : 'none',
             }}
-            className="absolute left-0 top-0 h-screen rounded-b-[2rem] lg:rounded-b-[10rem] w-full -z-10 bg-contain bg-cover blur-sm bg-no-repeat bg-center bg-fixed"
+            className="absolute left-0 top-0 h-screen w-full -z-10 bg-cover blur-sm bg-no-repeat bg-center bg-fixed"
         ></div>
     );
 }
