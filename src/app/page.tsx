@@ -27,23 +27,32 @@ export default function Home() {
         router.push(`/view-image?image=${image.id}`);
     };
 
-    const loadMoreImages = useCallback(() => {
-        fetchMore({
-            variables: { page: page + 1 },
-            updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
-                setImages([...images, ...fetchMoreResult.images]);
-            },
-        });
-        setPage(page + 1); // Update the page state after fetching more images
-    }, [page, fetchMore, images]); // Add fetchMore as a dependency
+    const loadMoreImages = useCallback(
+        async (offSet?: number) => {
+            await fetchMore({
+                variables: { page: offSet || page + 1 },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                    if (!fetchMoreResult) return prev;
+
+                    if (offSet) {
+                        setImages(fetchMoreResult.images);
+                        return;
+                    }
+
+                    setImages([...images, ...fetchMoreResult.images]);
+                },
+            });
+            setPage(offSet || page + 1); // Update the page state after fetching more images
+        },
+        [page, fetchMore, images],
+    );
 
     // useEffect to load images initially
     useEffect(() => {
-        if (page === 1) {
-            loadMoreImages();
+        if (data && images.length === 0) {
+            setImages(data.images);
         }
-    }, [page, loadMoreImages]); // Include loadMoreImages in the dependency array
+    }, [data, images, loadMoreImages]);
 
     return (
         <>
@@ -53,12 +62,20 @@ export default function Home() {
                 {images &&
                     images.map((image, index) => (
                         <div key={image.id}>
-                            <img
-                                alt={image.filename}
-                                className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-[500px] h-[500px] cursor-pointer object-cover"
-                                src={storageUrl + image.filename}
-                                onClick={() => viewImage(image)}
-                            />
+                            {image.filename.split('.').pop() === 'mp4' && (
+                                <video className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-[500px] h-[500px] cursor-pointer object-cover" controls>
+                                    <source src={storageUrl + image.filename} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            )}
+                            {image.filename.split('.').pop() !== 'mp4' && (
+                                <img
+                                    alt={image.filename}
+                                    className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-[500px] h-[500px] cursor-pointer object-cover"
+                                    src={storageUrl + image.filename}
+                                    onClick={() => viewImage(image)}
+                                />
+                            )}
                         </div>
                     ))}
             </div>
