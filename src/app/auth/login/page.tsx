@@ -1,7 +1,10 @@
 'use client';
 
+import { storageUrl } from '@/constants/constants';
+import { FIND_RANDOM_IMAGE } from '@/graphql/queries/image';
 import { SigninInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth-config';
+import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { CiLogin } from 'react-icons/ci';
@@ -13,6 +16,9 @@ export default function Login() {
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
+
+    // Queries
+    const { data, loading } = useQuery(FIND_RANDOM_IMAGE);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSigninInput({
@@ -26,9 +32,25 @@ export default function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen bg-contain bg-cover bg-no-repeat bg-center bg-[url()]">
+        <div className="flex items-center justify-center h-screen bg-contain bg-cover bg-no-repeat bg-center">
             <div className="overflow-hidden rounded-lg flex items-center justify-center w-full md:w-1/2 md:h-4/6 backdrop-filter backdrop-blur-lg bg-opacity-10 z-10 bg-black/30 shadow-[0px_0px_25px_rgba(0,0,0,0.25)]">
-                <div className="hidden md:block w-full h-full bg-contain bg-cover bg-no-repeat bg-center bg-[url())]"></div>
+                <div
+                    style={{
+                        backgroundImage: data ? `linear-gradient(to bottom, transparent, black), url('${storageUrl + data.findRandomImage.filename}')` : 'none',
+                    }}
+                    className={`hidden relative md:block w-full h-full bg-contain bg-cover bg-no-repeat bg-center`}
+                >
+                    <div className='absolute bottom-5 left-5 flex items-center gap-2'>
+                        <img
+                            alt={data?.findRandomImage.post.user.username}
+                            className="flex-none w-[45px] h-[45px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                            src={storageUrl + data?.findRandomImage.post.user.profilePicture}
+                        />
+                        <span className="text-sm font-semibold text-white">
+                            {data?.findRandomImage.post.user.username}
+                        </span>
+                    </div>
+                </div>
                 <div className="w-full ml-10 mr-10 space-y-6">
                     <div>
                         <h1 className="text-2xl text-[#cc00ff] font-bold">Hi!</h1>
@@ -40,7 +62,7 @@ export default function Login() {
                                 type="email"
                                 name="floating_email"
                                 id="email"
-                                className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] focus:outline-none focus:ring-0 peer"
+                                className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
                                 placeholder=""
                                 autoComplete="on"
                                 required
@@ -50,7 +72,7 @@ export default function Login() {
                                 htmlFor="email"
                                 className="peer-focus:font-medium absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
-                                Email address
+                                E-mail address
                             </label>
                         </div>
                         <div className="relative z-0 w-full mb-5 group">
@@ -58,7 +80,7 @@ export default function Login() {
                                 type="password"
                                 name="floating_password"
                                 id="password"
-                                className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b text-white border-white appearance-none focus:outline-none focus:ring-0 focus:border-[#cc00ff] peer"
+                                className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b text-white border-white appearance-none focus:outline-none focus:ring-0 focus:border-[#cc00ff] caret-[#cc00ff] peer"
                                 placeholder=""
                                 required
                                 onChange={(event) => handleChange(event)}

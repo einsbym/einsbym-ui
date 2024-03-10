@@ -17,3 +17,20 @@ export const FIND_IMAGES_BY_USER = gql`
         }
     }
 `;
+
+export const FIND_RANDOM_IMAGE = gql`
+    query FindRandomImage {
+        findRandomImage {
+            id
+            filename
+            post {
+                id
+                user {
+                    id
+                    username
+                    profilePicture
+                }
+            }
+        }
+    }
+`;
