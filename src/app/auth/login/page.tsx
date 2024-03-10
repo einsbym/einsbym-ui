@@ -5,7 +5,7 @@ import IconLoading from '@/components/icon-loading';
 import { storageUrl } from '@/constants/constants';
 import { FIND_RANDOM_IMAGE } from '@/graphql/queries/image';
 import { SigninInput } from '@/interfaces/interfaces';
-import { AuthService } from '@/services/auth-config';
+import { AuthService } from '@/services/auth.service';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';

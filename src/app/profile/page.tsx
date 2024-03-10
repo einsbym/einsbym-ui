@@ -1,9 +1,8 @@
 'use client';
 
-import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
 import { User } from '@/interfaces/interfaces';
-import { AuthService } from '@/services/auth-config';
+import { AuthService } from '@/services/auth.service';
 import { useEffect, useState } from 'react';
 import UserBioAndPost from './components/user-bio-and-post';
 import UserBlurredCover from './components/user-blurred-cover';

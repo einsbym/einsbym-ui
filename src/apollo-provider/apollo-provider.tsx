@@ -2,7 +2,7 @@
 
 import { deleteCookies, getAccessTokenFromCookie } from '@/actions/cookies';
 import { apiUrl } from '@/constants/constants';
-import { AuthService } from '@/services/auth-config';
+import { AuthService } from '@/services/auth.service';
 import { ApolloLink, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import {

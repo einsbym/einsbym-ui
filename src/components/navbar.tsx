@@ -1,5 +1,5 @@
 import { User } from '@/interfaces/interfaces';
-import { AuthService } from '@/services/auth-config';
+import { AuthService } from '@/services/auth.service';
 import { useEffect, useState } from 'react';
 import Sidebar from './sidebar';
 import NavbarUserPopover from './navbar-user-popover';

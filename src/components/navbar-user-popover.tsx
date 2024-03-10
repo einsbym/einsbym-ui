@@ -1,6 +1,6 @@
 import { storageUrl } from '@/constants/constants';
 import { User } from '@/interfaces/interfaces';
-import { AuthService } from '@/services/auth-config';
+import { AuthService } from '@/services/auth.service';
 import { useRouter } from 'next/navigation';
 import { RiLoginCircleLine } from 'react-icons/ri';
 
