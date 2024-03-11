@@ -2,9 +2,9 @@ name: Build Workflow
 
 on:
     push:
-        branches: ['develop']
+        branches: ['develop', 'main', 'feature/*']
     pull_request:
-        branches: ['develop']
+        branches: ['develop', 'main', 'feature/*']
 
 jobs:
     build:
