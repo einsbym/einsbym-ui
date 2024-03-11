@@ -14,13 +14,14 @@ export default function PostItem(props: { post: Post; userId: string }) {
     const [publishedPostCommentId, setPublishedPostCommentId] = useState<string>('');
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const [areCommentsVisible, setAreCommentsVisible] = useState(false);
+    const [removed, setRemoved] = useState(false);
 
     const handlePopoverToggle = () => {
         setIsPopoverOpen(!isPopoverOpen);
     };
 
     return (
-        <div key={props.post.id} className="mt-5 flex items-start gap-2">
+        <div key={props.post.id} className={removed ? 'hidden' : 'mt-5 flex items-start gap-2'}>
             <img
                 alt={props.post.user.username}
                 className="flex-none w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
@@ -39,7 +40,7 @@ export default function PostItem(props: { post: Post; userId: string }) {
                     <button className="text-white" type="button" onClick={handlePopoverToggle}>
                         <BsThreeDotsVertical />
                     </button>
-                    {isPopoverOpen && <PostPopoverMenu />}
+                    {isPopoverOpen && <PostPopoverMenu postId={props.post.id} setRemoved={setRemoved} />}
                 </div>
                 <p className="text-sm font-normal py-2.5 text-white">{props.post.postText}</p>
 

@@ -33,3 +33,11 @@ export const UNLIKE_POST = gql`
         unlikePost(postId: $postId, userId: $userId)
     }
 `;
+
+export const REMOVE_POST = gql`
+    mutation RemovePost($id: String!) {
+        removePost(id: $id) {
+            message
+        }
+    }
+`;
