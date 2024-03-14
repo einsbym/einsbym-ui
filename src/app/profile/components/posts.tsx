@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { FcLike } from 'react-icons/fc';
 import PostItem from './post-item';
 
-export default function Posts(props: { userId: string; publishedPostId: string }) {
+export default function Posts(props: { userId: string; publishedPostId: string; loggedUserId?: string | null }) {
     // States
     const [posts, setPosts] = useState<Post[]>([]);
     const [page, setPage] = useState<number>(1);
@@ -56,7 +56,7 @@ export default function Posts(props: { userId: string; publishedPostId: string }
     return (
         <>
             {posts.map((post: Post, index) => (
-                <PostItem key={post.id} post={post} userId={props.userId} />
+                <PostItem key={post.id} post={post} userId={props.userId} loggedUserId={props.loggedUserId} />
             ))}
 
             {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && (

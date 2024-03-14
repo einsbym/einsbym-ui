@@ -205,7 +205,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
             )}
 
             {/* User posts */}
-            <Posts userId={props.userId} publishedPostId={publishedPostId} />
+            <Posts userId={props.userId} publishedPostId={publishedPostId} loggedUserId={props.loggedUserId} />
         </>
     );
 }

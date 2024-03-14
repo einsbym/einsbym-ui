@@ -4,7 +4,13 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-const PostLikeButton = (props: { initialLikes: number; postId: string; liked: boolean; userId: string }) => {
+const PostLikeButton = (props: {
+    initialLikes: number;
+    postId: string;
+    liked: boolean;
+    userId: string;
+    loggedUserId?: string | null;
+}) => {
     const [likes, setLikes] = useState<number>(props.initialLikes);
     const [liked, setLiked] = useState<boolean>(props.liked);
 
@@ -18,7 +24,7 @@ const PostLikeButton = (props: { initialLikes: number; postId: string; liked: bo
                 const { errors } = await unlikePost({
                     variables: {
                         postId: props.postId,
-                        userId: props.userId,
+                        userId: props.loggedUserId || props.userId,
                     },
                 });
 
@@ -35,7 +41,7 @@ const PostLikeButton = (props: { initialLikes: number; postId: string; liked: bo
             const { errors } = await likePost({
                 variables: {
                     postId: props.postId,
-                    userId: props.userId,
+                    userId: props.loggedUserId || props.userId,
                 },
             });
 

@@ -9,7 +9,7 @@ import PublishPostComment from './publish-post-comment';
 import PostComments from './post-comments';
 import { useState } from 'react';
 
-export default function PostItem(props: { post: Post; userId: string }) {
+export default function PostItem(props: { post: Post; userId: string; loggedUserId?: string | null }) {
     // States
     const [publishedPostCommentId, setPublishedPostCommentId] = useState<string>('');
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -100,6 +100,7 @@ export default function PostItem(props: { post: Post; userId: string }) {
                     userId={props.userId}
                     setPublishedPostCommentId={setPublishedPostCommentId}
                     setAreCommentsVisible={setAreCommentsVisible}
+                    loggedUserId={props.loggedUserId}
                 />
 
                 {/* Conditionally render PostComments */}

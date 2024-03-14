@@ -8,6 +8,7 @@ export default function PublishPostComment(props: {
     userId: string;
     setPublishedPostCommentId: Dispatch<SetStateAction<string>>;
     setAreCommentsVisible: Dispatch<SetStateAction<boolean>>;
+    loggedUserId?: string | null;
 }) {
     // States
     const [comment, setComment] = useState<string | null>();
@@ -35,7 +36,7 @@ export default function PublishPostComment(props: {
                     createCommentInput: {
                         comment: comment,
                         postId: props.postId,
-                        userId: props.userId,
+                        userId: props.loggedUserId || props.userId,
                     },
                 },
             });
