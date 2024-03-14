@@ -8,7 +8,7 @@ import { IoMdCloseCircle } from 'react-icons/io';
 import { MdPostAdd } from 'react-icons/md';
 import Posts from './posts';
 
-export default function PublishPost(props: { userId: string }) {
+export default function PublishPost(props: { userId: string; loggedUserId?: string | null }) {
     // States
     const [postText, setPostText] = useState<string | null>();
     const [publishedPostId, setPublishedPostId] = useState<string>('');
@@ -122,81 +122,87 @@ export default function PublishPost(props: { userId: string }) {
 
     return (
         <>
-            <div className="mt-5">
-                <form>
-                    <div className="relative">
-                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <MdPostAdd size={30} color="white" />
+            {!props.loggedUserId && (
+                <div className="mt-5">
+                    <form>
+                        <div className="relative">
+                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <MdPostAdd size={30} color="white" />
+                            </div>
+                            <input
+                                type="post"
+                                id="post"
+                                className="block w-full p-4 ps-[3rem] text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
+                                placeholder="Write something..."
+                                value={postText || ''}
+                                onChange={(event) => setPostText(event.target.value)}
+                                required
+                            />
+                            <label
+                                className="text-white absolute end-12 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2 cursor-pointer"
+                                htmlFor="fileInput"
+                                title="Select images"
+                            >
+                                <GrGallery size={20} />
+                            </label>
+                            <input
+                                multiple={true}
+                                className="hidden"
+                                id="fileInput"
+                                type="file"
+                                onChange={(event) => handleFilesChange(event)}
+                                disabled={loading ? true : false}
+                            />
+                            <button
+                                type="submit"
+                                className="text-white absolute end-2.5 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2 disabled:text-gray-500"
+                                onClick={(event) => handleSubmit(event)}
+                                disabled={loading ? true : false}
+                            >
+                                <FiSend size={20} />
+                            </button>
                         </div>
-                        <input
-                            type="post"
-                            id="post"
-                            className="block w-full p-4 ps-[3rem] text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
-                            placeholder="Write something..."
-                            value={postText || ''}
-                            onChange={(event) => setPostText(event.target.value)}
-                            required
-                        />
-                        <label
-                            className="text-white absolute end-12 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2 cursor-pointer"
-                            htmlFor="fileInput"
-                            title="Select images"
-                        >
-                            <GrGallery size={20} />
-                        </label>
-                        <input
-                            multiple={true}
-                            className="hidden"
-                            id="fileInput"
-                            type="file"
-                            onChange={(event) => handleFilesChange(event)}
-                            disabled={loading ? true : false}
-                        />
-                        <button
-                            type="submit"
-                            className="text-white absolute end-2.5 bottom-2.5 hover:text-[#cc00ff] focus:outline-none px-4 py-2 disabled:text-gray-500"
-                            onClick={(event) => handleSubmit(event)}
-                            disabled={loading ? true : false}
-                        >
-                            <FiSend size={20} />
-                        </button>
-                    </div>
-                </form>
+                    </form>
 
-                {loading && (
-                    <div className="mt-2 px-3 py-1 text-xs font-medium leading-none text-center text-[#cc00ff] bg-[#cc00ff1e] rounded-full animate-pulse">
-                        publishing your post...
-                    </div>
-                )}
-
-                {errorMessage && (
-                    <div className="mt-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400 text-center">
-                        {errorMessage}
-                    </div>
-                )}
-
-                {selectedImages && selectedImages.length !== 0 && (
-                    <div className="mt-2 grid gap-2">
-                        <p className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
-                            Selected images: {selectedImages.length}
-                        </p>
-                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
-                            {selectedImages.map((image, index) => (
-                                <div className="relative" key={index}>
-                                    <button
-                                        className="absolute top-2 right-2 text-[#cc00ff]"
-                                        type="button"
-                                        onClick={() => removeImageFromList(index)}
-                                    >
-                                        <IoMdCloseCircle size={20} />
-                                    </button>
-                                    <img alt={image.filename} className="h-auto max-w-full rounded-lg" src={image.blob} />
-                                </div>
-                            ))}
+                    {loading && (
+                        <div className="mt-2 px-3 py-1 text-xs font-medium leading-none text-center text-[#cc00ff] bg-[#cc00ff1e] rounded-full animate-pulse">
+                            publishing your post...
                         </div>
-                    </div>
-                )}
-            </div>
+                    )}
+
+                    {errorMessage && (
+                        <div className="mt-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400 text-center">
+                            {errorMessage}
+                        </div>
+                    )}
+
+                    {selectedImages && selectedImages.length !== 0 && (
+                        <div className="mt-2 grid gap-2">
+                            <p className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
+                                Selected images: {selectedImages.length}
+                            </p>
+                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
+                                {selectedImages.map((image, index) => (
+                                    <div className="relative" key={index}>
+                                        <button
+                                            className="absolute top-2 right-2 text-[#cc00ff]"
+                                            type="button"
+                                            onClick={() => removeImageFromList(index)}
+                                        >
+                                            <IoMdCloseCircle size={20} />
+                                        </button>
+                                        <img
+                                            alt={image.filename}
+                                            className="h-auto max-w-full rounded-lg"
+                                            src={image.blob}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
 
             {/* User posts */}
             <Posts userId={props.userId} publishedPostId={publishedPostId} />

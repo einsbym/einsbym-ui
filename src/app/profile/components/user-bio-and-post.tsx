@@ -100,7 +100,7 @@ export default function UserBioAndPost(props: { userId: string; bio: string; log
             </div>
 
             {/* Publish post */}
-            {!props.loggedUserId && <PublishPost userId={props.userId} />}
+            <PublishPost userId={props.userId} loggedUserId={props.loggedUserId} />
         </>
     );
 }
