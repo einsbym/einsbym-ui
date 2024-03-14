@@ -16,3 +16,19 @@ export const ME = gql`
         }
     }
 `;
+
+export const FIND_USER_BY_USERNAME = gql`
+    query FindUserByUsername($username: String!) {
+        findUserByUsername(username: $username) {
+            id
+            firstName
+            lastName
+            username
+            profilePicture
+            coverImage
+            createdAt
+            updatedAt
+            bio
+        }
+    }
+`;
