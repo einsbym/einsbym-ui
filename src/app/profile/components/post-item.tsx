@@ -22,11 +22,13 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
 
     return (
         <div key={props.post.id} className={removed ? 'hidden' : 'mt-5 flex items-start gap-2'}>
-            <img
-                alt={props.post.user.username}
-                className="flex-none w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                src={storageUrl + props.post.user.profilePicture}
-            />
+            <a className='flex-none' href={`/profile/${props.post.user.username}`}>
+                <img
+                    alt={props.post.user.username}
+                    className="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
+                    src={storageUrl + props.post.user.profilePicture}
+                />
+            </a>
             <div className="flex flex-col w-full overflow-hidden break-words p-4 rounded-e-xl rounded-es-xl bg-gray-800">
                 <div className="relative flex justify-between items-center">
                     <div>

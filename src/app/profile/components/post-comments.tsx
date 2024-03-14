@@ -40,11 +40,13 @@ export default function PostComments(props: { postId: string | null; publishedPo
                 <div key={postComment.id} className="mt-3 lg:mt-5 flex items-start gap-2">
                     <div className="flex flex-col w-full overflow-hidden break-word p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                            <img
-                                className="flex-none w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] rounded-full object-cover"
-                                src={storageUrl + postComment.user.profilePicture}
-                                alt={postComment.user.username}
-                            />
+                            <a href={`/profile/${postComment.user.username}`}>
+                                <img
+                                    className="flex-none w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] rounded-full object-cover"
+                                    src={storageUrl + postComment.user.profilePicture}
+                                    alt={postComment.user.username}
+                                />
+                            </a>
                             <span className="text-sm font-semibold text-white">{postComment.user.firstName}</span>
                             <span className="text-[10px] lg:text-sm font-normal text-gray-400">
                                 {getElapsedTime(postComment.createdAt)}
