@@ -5,7 +5,7 @@ import PublishPost from './publish-post';
 import { createUserCookie } from '@/actions/cookies';
 import { ME } from '@/graphql/queries/user';
 
-export default function UserBioAndPost(props: { userId: string; bio: string }) {
+export default function UserBioAndPost(props: { userId: string; bio: string; loggedUserId?: string | null }) {
     // States
     const [isEditBioActive, setIsEditBioActive] = useState<boolean>(false);
     const [bio, setBio] = useState<string>();
@@ -100,7 +100,7 @@ export default function UserBioAndPost(props: { userId: string; bio: string }) {
             </div>
 
             {/* Publish post */}
-            <PublishPost userId={props.userId} />
+            {!props.loggedUserId && <PublishPost userId={props.userId} />}
         </>
     );
 }
