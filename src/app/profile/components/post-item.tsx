@@ -101,10 +101,9 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
 
                 <PublishPostComment
                     postId={props.post.id}
-                    userId={props.userId}
+                    userId={props.loggedUserId || props.userId}
                     setPublishedPostCommentId={setPublishedPostCommentId}
                     setAreCommentsVisible={setAreCommentsVisible}
-                    loggedUserId={props.loggedUserId}
                 />
 
                 {/* Conditionally render PostComments */}
