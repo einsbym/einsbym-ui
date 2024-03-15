@@ -22,7 +22,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
 
     return (
         <div key={props.post.id} className={removed ? 'hidden' : 'mt-5 flex items-start gap-2'}>
-            <a className='flex-none' href={`/profile/${props.post.user.username}`}>
+            <a className="flex-none" href={`/profile/${props.post.user.username}`}>
                 <img
                     alt={props.post.user.username}
                     className="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
@@ -80,9 +80,11 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                 <div className="flex gap-2 justify-end">
                     <PostLikeButton
                         postId={props.post.id}
-                        liked={props.post.likes?.some((like) => like.id === props.userId)}
+                        liked={props.post.likes?.some((like) =>
+                            props.loggedUserId ? like.id === props.loggedUserId : like.id === props.userId,
+                        )}
                         initialLikes={props.post.totalLikes}
-                        userId={props.userId}
+                        userId={props.loggedUserId || props.userId}
                     />
                     <button
                         className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"

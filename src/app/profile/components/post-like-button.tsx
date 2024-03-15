@@ -9,7 +9,6 @@ const PostLikeButton = (props: {
     postId: string;
     liked: boolean;
     userId: string;
-    loggedUserId?: string | null;
 }) => {
     const [likes, setLikes] = useState<number>(props.initialLikes);
     const [liked, setLiked] = useState<boolean>(props.liked);
@@ -24,7 +23,7 @@ const PostLikeButton = (props: {
                 const { errors } = await unlikePost({
                     variables: {
                         postId: props.postId,
-                        userId: props.loggedUserId || props.userId,
+                        userId: props.userId,
                     },
                 });
 
@@ -41,7 +40,7 @@ const PostLikeButton = (props: {
             const { errors } = await likePost({
                 variables: {
                     postId: props.postId,
-                    userId: props.loggedUserId || props.userId,
+                    userId: props.userId,
                 },
             });
 
