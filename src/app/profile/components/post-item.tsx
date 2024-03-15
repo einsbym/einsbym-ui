@@ -42,7 +42,13 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                     <button className="text-white" type="button" onClick={handlePopoverToggle}>
                         <BsThreeDotsVertical />
                     </button>
-                    {isPopoverOpen && <PostPopoverMenu postId={props.post.id} setRemoved={setRemoved} />}
+                    {isPopoverOpen && (
+                        <PostPopoverMenu
+                            postId={props.post.id}
+                            setRemoved={setRemoved}
+                            loggedUserId={props.loggedUserId}
+                        />
+                    )}
                 </div>
                 <p className="text-sm font-normal py-2.5 text-white">{props.post.postText}</p>
 

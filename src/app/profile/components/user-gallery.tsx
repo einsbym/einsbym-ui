@@ -67,7 +67,7 @@ export default function UserGallery(props: { userId: string }) {
                     onClick={() => setIsImageViewerActive(false)}
                     size={40}
                 />
-                <img alt={selectedImage} className="rounded-lg h-1/2 lg:h-full" src={selectedImage} />
+                <img alt={selectedImage} className="rounded-lg h-full object-contain" src={selectedImage} />
             </div>
 
             <Footer />
