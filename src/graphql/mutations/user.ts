@@ -26,3 +26,14 @@ export const UPDATE_BIO = gql`
         }
     }
 `;
+
+export const CREATE_USER = gql`
+    mutation Mutation($createUserInput: CreateUserInput!) {
+        createUser(createUserInput: $createUserInput) {
+            id
+            firstName
+            username
+            email
+        }
+    }
+`;
