@@ -5,11 +5,12 @@ import { Image } from '@/interfaces/interfaces';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
+import ReactPlayer from 'react-player';
 
 export default function UserGallery(props: { userId: string }) {
     // States
     const [isImageViewerActive, setIsImageViewerActive] = useState<boolean>(false);
-    const [selectedImage, setSelectedImage] = useState<string>();
+    const [selectedFile, setSelectedFile] = useState<{ url: string; fileExtension: string } | null>();
 
     // Queries
     const { data, loading } = useQuery(FIND_IMAGES_BY_USER, {
@@ -19,8 +20,9 @@ export default function UserGallery(props: { userId: string }) {
         fetchPolicy: 'no-cache',
     });
 
-    const handleImageClick = (imageUrl: string) => {
-        setSelectedImage(imageUrl);
+    const handleGalleryItemClick = (url: string) => {
+        setSelectedFile(null);
+        setSelectedFile({ url: url, fileExtension: url.split('.').pop() || '' });
         setIsImageViewerActive(true);
     };
 
@@ -41,7 +43,13 @@ export default function UserGallery(props: { userId: string }) {
                 {data?.findImagesByUser.map((image: Image) => (
                     <div key={image.id}>
                         {image.filename.split('.').pop() === 'mp4' && (
-                            <video className="h-[200px] w-[300px] rounded-lg object-cover hover:border-2 hover:border-[#cc00ff]" muted autoPlay loop>
+                            <video
+                                className="h-[200px] w-[300px] rounded-lg object-cover hover:border-2 hover:border-[#cc00ff]"
+                                muted
+                                autoPlay
+                                loop
+                                onClick={() => handleGalleryItemClick(storageUrl + image.filename)}
+                            >
                                 <source src={storageUrl + image.filename} type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
@@ -51,7 +59,7 @@ export default function UserGallery(props: { userId: string }) {
                                 alt={image.filename}
                                 className="h-[200px] w-[300px] rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
                                 src={storageUrl + image.filename}
-                                onClick={() => handleImageClick(storageUrl + image.filename)}
+                                onClick={() => handleGalleryItemClick(storageUrl + image.filename)}
                             />
                         )}
                     </div>
@@ -63,11 +71,16 @@ export default function UserGallery(props: { userId: string }) {
                 } transition-transform backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
             >
                 <IoIosArrowForward
-                    className="absolute top-5 lg:top-auto left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
+                    className="absolute z-10 top-5 lg:top-auto left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
                     onClick={() => setIsImageViewerActive(false)}
                     size={40}
                 />
-                <img alt={selectedImage} className="rounded-lg h-full object-contain" src={selectedImage} />
+                {selectedFile && selectedFile.fileExtension !== 'mp4' && (
+                    <img alt={selectedFile.url} className="rounded-lg h-full object-contain" src={selectedFile.url} />
+                )}
+                {selectedFile && selectedFile.fileExtension === 'mp4' && (
+                    <ReactPlayer style={{ width: '100%', borderRadius: '20px' }} url={selectedFile.url} controls playing />
+                )}
             </div>
 
             <Footer />
