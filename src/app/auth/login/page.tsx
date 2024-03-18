@@ -36,7 +36,7 @@ export default function Login() {
         <>
             {data && <UserBlurredCover coverImage={data.findRandomImage.filename} />}
             <div className="flex items-center justify-center h-screen">
-                <div className="overflow-hidden rounded-lg flex items-center justify-center w-full md:w-1/2 md:h-4/6 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
+                <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:pt-[auto] md:pb-[auto] md:w-1/2 md:h-4/6 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     <div
                         style={{
                             backgroundImage: data ? `url('${storageUrl + data.findRandomImage.filename}')` : 'none',

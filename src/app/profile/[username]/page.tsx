@@ -1,5 +1,6 @@
 'use client';
 
+import { getCurrentUserFromCookie } from '@/actions/cookies';
 import Navbar from '@/components/navbar';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
 import { User } from '@/interfaces/interfaces';
@@ -11,8 +12,6 @@ import UserBlurredCover from '../components/user-blurred-cover';
 import UserCoverAndPhoto from '../components/user-cover-and-photo';
 import UserGallery from '../components/user-gallery';
 import UserGeneralStatistics from '../components/user-general-statistics';
-import { getCurrentUserFromCookie } from '@/actions/cookies';
-import Login from '@/app/auth/login/page';
 
 export default function UserProfile() {
     const router = useRouter();
