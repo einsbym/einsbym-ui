@@ -43,21 +43,17 @@ export default function UserGallery(props: { userId: string }) {
                 {data?.findImagesByUser.map((image: Image) => (
                     <div key={image.id}>
                         {image.filename.split('.').pop() === 'mp4' && (
-                            <video
-                                className="h-[200px] w-[300px] rounded-lg object-cover hover:border-2 hover:border-[#cc00ff]"
-                                muted
-                                autoPlay
-                                loop
+                            <div
+                                className="h-[200px] w-full overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
                                 onClick={() => handleGalleryItemClick(storageUrl + image.filename)}
                             >
-                                <source src={storageUrl + image.filename} type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
+                                <ReactPlayer url={storageUrl + image.filename} playing muted />
+                            </div>
                         )}
                         {image.filename.split('.').pop() !== 'mp4' && (
                             <img
                                 alt={image.filename}
-                                className="h-[200px] w-[300px] rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
+                                className="h-[200px] w-full rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
                                 src={storageUrl + image.filename}
                                 onClick={() => handleGalleryItemClick(storageUrl + image.filename)}
                             />
@@ -79,7 +75,14 @@ export default function UserGallery(props: { userId: string }) {
                     <img alt={selectedFile.url} className="rounded-lg h-full object-contain" src={selectedFile.url} />
                 )}
                 {selectedFile && selectedFile.fileExtension === 'mp4' && (
-                    <ReactPlayer style={{ width: '100%', borderRadius: '20px' }} url={selectedFile.url} controls playing />
+                    <ReactPlayer
+                        width="100%"
+                        height="fit-content"
+                        style={{ borderRadius: '10px', overflow: 'hidden' }}
+                        url={selectedFile.url}
+                        controls
+                        playing
+                    />
                 )}
             </div>
 
