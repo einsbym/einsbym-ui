@@ -40,7 +40,7 @@ export default function Login() {
                         <a href="/auth/login"><FaArrowLeft className='text-[#cc00ff] cursor-pointer' /></a>
                         <div>
                             <h1 className="text-2xl text-[#cc00ff] font-bold">Create your account</h1>
-                            <p className="mt-2 text-white">Just fill in all the necessary information in the box below, and you're done.</p>
+                            <p className="mt-2 text-white">Just fill in all the necessary information in the box below, and you&apos;re done.</p>
                         </div>
                         <form className="">
                             <div className="relative z-0 w-full mb-5 group">

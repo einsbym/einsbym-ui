@@ -115,7 +115,7 @@ export default function Login() {
                                     </>
                                 )}
                             </button>
-                            <div className='mt-5 text-sm text-center'>Don't have an account? No problem, you can <a className='text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]' href="/auth/signup">sign up here</a>.</div>
+                            <div className='mt-5 text-sm text-center'>Don&apos;t have an account? No problem, you can <a className='text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]' href="/auth/signup">sign up here</a>.</div>
                         </form>
                     </div>
                 </div>
