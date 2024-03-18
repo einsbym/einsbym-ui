@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { storageUrl } from '../constants/constants';
+import ReactPlayer from 'react-player';
 
 export default function Home() {
     // States
@@ -63,15 +64,14 @@ export default function Home() {
                     images.map((image, index) => (
                         <div key={image.id}>
                             {image.filename.split('.').pop() === 'mp4' && (
-                                <video className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-[500px] h-[500px] cursor-pointer object-cover" muted autoPlay loop>
-                                    <source src={storageUrl + image.filename} type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
+                                <div className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] overflow-hidden w-full h-[500px] cursor-pointer">
+                                    <ReactPlayer width="100%" height="100%" url={storageUrl + image.filename} playing muted />
+                                </div>
                             )}
                             {image.filename.split('.').pop() !== 'mp4' && (
                                 <img
                                     alt={image.filename}
-                                    className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-[500px] h-[500px] cursor-pointer object-cover"
+                                    className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-full h-[500px] cursor-pointer object-cover"
                                     src={storageUrl + image.filename}
                                     onClick={() => viewImage(image)}
                                 />

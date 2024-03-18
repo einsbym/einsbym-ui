@@ -12,6 +12,7 @@ import UserCoverAndPhoto from '../components/user-cover-and-photo';
 import UserGallery from '../components/user-gallery';
 import UserGeneralStatistics from '../components/user-general-statistics';
 import { getCurrentUserFromCookie } from '@/actions/cookies';
+import Login from '@/app/auth/login/page';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -19,7 +20,7 @@ export default function UserProfile() {
     const [user, setUser] = useState<User | null>();
     const [loggedUser, setLoggedUser] = useState<User | null>();
 
-    const { data, loading } = useQuery(FIND_USER_BY_USERNAME, { variables: { username: params.username } });
+    const { data, loading, error } = useQuery(FIND_USER_BY_USERNAME, { variables: { username: params.username } });
 
     // Check if usernames match
     const checkUser = useCallback(async () => {
@@ -41,6 +42,14 @@ export default function UserProfile() {
             checkUser();
         }
     }, [data, checkUser]);
+
+    if (error) {
+        return (
+            <p>
+                you must <a href="/auth/login">be logged</a> to view this page
+            </p>
+        );
+    }
 
     if (loading) {
         return 'loading...';

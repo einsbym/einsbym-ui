@@ -1,13 +1,14 @@
 import getElapsedTime from '@/actions/elapsed-time';
 import { storageUrl } from '@/constants/constants';
 import { Post } from '@/interfaces/interfaces';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import PostPopoverMenu from './post-popover-menu';
-import PostLikeButton from './post-like-button';
-import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
-import PublishPostComment from './publish-post-comment';
-import PostComments from './post-comments';
 import { useState } from 'react';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
+import ReactPlayer from 'react-player';
+import PostComments from './post-comments';
+import PostLikeButton from './post-like-button';
+import PostPopoverMenu from './post-popover-menu';
+import PublishPostComment from './publish-post-comment';
 
 export default function PostItem(props: { post: Post; userId: string; loggedUserId?: string | null }) {
     // States
@@ -64,10 +65,16 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                         {props.post.images.map((image) => (
                             <div key={image.id} className="group relative">
                                 {image.filename.split('.').pop() === 'mp4' && (
-                                    <video className="w-full rounded-lg" muted autoPlay loop>
-                                        <source src={storageUrl + image.filename} type="video/mp4" />
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    <div className="w-full rounded-lg">
+                                        <ReactPlayer
+                                            width="100%"
+                                            height="100%"
+                                            style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
+                                            url={storageUrl + image.filename}
+                                            playing
+                                            muted
+                                        />
+                                    </div>
                                 )}
                                 {image.filename.split('.').pop() !== 'mp4' && (
                                     <img

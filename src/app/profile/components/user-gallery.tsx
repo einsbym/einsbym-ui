@@ -47,7 +47,7 @@ export default function UserGallery(props: { userId: string }) {
                                 className="h-[200px] w-full overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
                                 onClick={() => handleGalleryItemClick(storageUrl + image.filename)}
                             >
-                                <ReactPlayer url={storageUrl + image.filename} playing muted />
+                                <ReactPlayer url={storageUrl + image.filename} playing muted pip={false} />
                             </div>
                         )}
                         {image.filename.split('.').pop() !== 'mp4' && (
@@ -78,10 +78,11 @@ export default function UserGallery(props: { userId: string }) {
                     <ReactPlayer
                         width="100%"
                         height="fit-content"
-                        style={{ borderRadius: '10px', overflow: 'hidden' }}
+                        style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
                         url={selectedFile.url}
                         controls
                         playing
+                        pip={false}
                     />
                 )}
             </div>
