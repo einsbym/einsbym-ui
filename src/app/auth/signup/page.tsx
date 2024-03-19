@@ -3,7 +3,7 @@
 import UserBlurredCover from '@/app/profile/components/user-blurred-cover';
 import IconLoading from '@/components/icon-loading';
 import { FIND_RANDOM_IMAGE } from '@/graphql/queries/image';
-import { SigninInput } from '@/interfaces/interfaces';
+import { SignUpInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth.service';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
@@ -12,7 +12,13 @@ import { FaArrowLeft, FaSave } from 'react-icons/fa';
 import { MdError } from 'react-icons/md';
 
 export default function Login() {
-    const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
+    const [signUpInput, setSignUpInput] = useState<SignUpInput>({
+        email: '',
+        firstName: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+    });
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
@@ -21,14 +27,32 @@ export default function Login() {
     const { data, loading } = useQuery(FIND_RANDOM_IMAGE);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSigninInput({
-            ...signinInput,
-            [event.target.type]: event.target.value,
+        setSignUpInput({
+            ...signUpInput,
+            [event.target.name]: event.target.value,
         });
     };
 
-    const signIn = async (preventDefault: () => void) => {
-        await new AuthService().signIn(preventDefault, setIsLoading, setErrorMessage, signinInput, router);
+    const checkFields = (requiredFields: string[], signUpInput: any) => {
+        requiredFields.map((requiredField: string) => {
+            if (signUpInput[requiredField] == '') {
+                return setErrorMessage(`The field ${requiredField} is required`);
+            }
+        });
+    };
+
+    const signUp = async (event: any) => {
+        event.preventDefault();
+
+        setErrorMessage(null);
+
+        checkFields(Object.keys(signUpInput), signUpInput);
+
+        if (signUpInput.password !== signUpInput.confirmPassword) {
+            setErrorMessage('passwords dont match');
+        }
+
+        console.log(signUpInput);
     };
 
     return (
@@ -37,16 +61,20 @@ export default function Login() {
             <div className="flex items-center justify-center h-screen">
                 <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:w-1/4 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     <div className="w-full ml-10 mr-10 space-y-6">
-                        <a href="/auth/login"><FaArrowLeft className='text-[#cc00ff] cursor-pointer' /></a>
+                        <a href="/auth/login">
+                            <FaArrowLeft className="text-[#cc00ff] cursor-pointer" />
+                        </a>
                         <div>
                             <h1 className="text-2xl text-[#cc00ff] font-bold">Create your account</h1>
-                            <p className="mt-2 text-white">Just fill in all the necessary information in the box below, and you&apos;re done.</p>
+                            <p className="mt-2 text-white">
+                                Just fill in all the necessary information in the box below, and you&apos;re done.
+                            </p>
                         </div>
-                        <form className="">
+                        <form>
                             <div className="relative z-0 w-full mb-5 group">
                                 <input
                                     type="text"
-                                    name="floating_username"
+                                    name="username"
                                     id="username"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
                                     placeholder=""
@@ -64,7 +92,7 @@ export default function Login() {
                             <div className="relative z-0 w-full mb-5 group">
                                 <input
                                     type="text"
-                                    name="floating_first_name"
+                                    name="firstName"
                                     id="firstName"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
                                     placeholder=""
@@ -82,7 +110,7 @@ export default function Login() {
                             <div className="relative z-0 w-full mb-5 group">
                                 <input
                                     type="email"
-                                    name="floating_email"
+                                    name="email"
                                     id="email"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
                                     placeholder=""
@@ -100,7 +128,7 @@ export default function Login() {
                             <div className="relative z-0 w-full mb-5 group">
                                 <input
                                     type="password"
-                                    name="floating_password"
+                                    name="password"
                                     id="password"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b text-white border-white appearance-none focus:outline-none focus:ring-0 focus:border-[#cc00ff] caret-[#cc00ff] peer"
                                     placeholder=""
@@ -117,7 +145,7 @@ export default function Login() {
                             <div className="relative z-0 w-full mb-5 group">
                                 <input
                                     type="password"
-                                    name="floating_confirm_password"
+                                    name="confirmPassword"
                                     id="confirmPassword"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b text-white border-white appearance-none focus:outline-none focus:ring-0 focus:border-[#cc00ff] caret-[#cc00ff] peer"
                                     placeholder=""
@@ -140,7 +168,7 @@ export default function Login() {
                             )}
                             <button
                                 className="flex gap-2 items-center justify-center w-full text-white animated-gradient-bg focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
-                                onClick={(event) => signIn(event.preventDefault)}
+                                onClick={(event) => signUp(event)}
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
@@ -151,7 +179,23 @@ export default function Login() {
                                     </>
                                 )}
                             </button>
-                            <div className='mt-5 text-sm text-center'>By creating an account, you agree to our <a className='text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]' href="/auth/signup">terms and conditions</a>, as well as our <a className='text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]' href="/auth/signup">privacy policy</a>.</div>
+                            <div className="mt-5 text-sm text-center">
+                                By creating an account, you agree to our{' '}
+                                <a
+                                    className="text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]"
+                                    href="/auth/signup"
+                                >
+                                    terms and conditions
+                                </a>
+                                , as well as our{' '}
+                                <a
+                                    className="text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]"
+                                    href="/auth/signup"
+                                >
+                                    privacy policy
+                                </a>
+                                .
+                            </div>
                         </form>
                     </div>
                 </div>
