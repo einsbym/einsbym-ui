@@ -2,10 +2,11 @@
 
 import UserBlurredCover from '@/app/profile/components/user-blurred-cover';
 import IconLoading from '@/components/icon-loading';
+import { CREATE_USER } from '@/graphql/mutations/user';
 import { FIND_RANDOM_IMAGE } from '@/graphql/queries/image';
 import { SignUpInput } from '@/interfaces/interfaces';
 import { AuthService } from '@/services/auth.service';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { FaArrowLeft, FaSave } from 'react-icons/fa';
@@ -26,6 +27,9 @@ export default function Login() {
     // Queries
     const { data, loading } = useQuery(FIND_RANDOM_IMAGE);
 
+    // Mutations
+    const [createUser] = useMutation(CREATE_USER);
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSignUpInput({
             ...signUpInput,
@@ -33,26 +37,61 @@ export default function Login() {
         });
     };
 
-    const checkFields = (requiredFields: string[], signUpInput: any) => {
+    const validateFields = (requiredFields: string[], signUpInput: any) => {
+        const missingFields: string[] = [];
+
         requiredFields.map((requiredField: string) => {
             if (signUpInput[requiredField] == '') {
-                return setErrorMessage(`The field ${requiredField} is required`);
+                missingFields.push(`The field ${requiredField} is required`);
             }
         });
+
+        if (missingFields.length > 0) {
+            throw new Error(missingFields.toString());
+        }
+
+        if (signUpInput.password !== signUpInput.confirmPassword) {
+            throw new Error("passwords don't match");
+        }
     };
 
     const signUp = async (event: any) => {
         event.preventDefault();
 
+        setIsLoading(true);
         setErrorMessage(null);
 
-        checkFields(Object.keys(signUpInput), signUpInput);
+        try {
+            validateFields(Object.keys(signUpInput), signUpInput);
 
-        if (signUpInput.password !== signUpInput.confirmPassword) {
-            setErrorMessage('passwords dont match');
+            // now we can send the data to server
+            const { errors } = await createUser({
+                variables: {
+                    createUserInput: {
+                        username: signUpInput.username,
+                        firstName: signUpInput.firstName,
+                        email: signUpInput.email,
+                        password: signUpInput.password,
+                    },
+                },
+            });
+
+            if (errors) {
+                throw new Error("For some reason, your account could not be created. We're so sorry... 😭");
+            }
+
+            // Perform login
+            await new AuthService().signIn(
+                event.preventDefault(),
+                setIsLoading,
+                setErrorMessage,
+                { email: signUpInput.email, password: signUpInput.password },
+                router,
+            );
+        } catch (error) {
+            setErrorMessage(`${error}`);
+            setIsLoading(false);
         }
-
-        console.log(signUpInput);
     };
 
     return (
