@@ -22,14 +22,17 @@ export default function Login() {
     });
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [zodIssues, setZodIssues] = useState<z.ZodIssue[]>([]);
     const router = useRouter();
 
-    const SignUpInputSchema = z.object({
-        email: z.string().email('This is not a valid email.'),
-        firstName: z.string().min(1).max(100),
-        username: z.string().min(3).max(100),
-        password: z.string().min(8),
-    }).required();
+    const SignUpInputSchema = z
+        .object({
+            email: z.string().email('🚩 this is not a valid email.'),
+            firstName: z.string().min(1, 'Your name has NO characters? 😱').max(100, '🚩 invalid name'),
+            username: z.string().min(3, 'This username is really small').max(100, 'This username is just huuuuge'),
+            password: z.string().min(8, '🔒 your password must contain at least 8 characters'),
+        })
+        .required();
 
     // Queries
     const { data, loading } = useQuery(FIND_RANDOM_IMAGE);
@@ -49,12 +52,19 @@ export default function Login() {
 
         setIsLoading(true);
         setErrorMessage(null);
+        setZodIssues([]);
 
         try {
-            SignUpInputSchema.parse(signUpInput);
+            const validation = SignUpInputSchema.safeParse(signUpInput);
+
+            if (!validation.success) {
+                const { errors } = validation.error;
+                setZodIssues(errors);
+                return;
+            }
 
             if (signUpInput.password !== signUpInput.confirmPassword) {
-                throw new Error("passwords don't match");
+                throw new Error("🖐️ Passwords don't match");
             }
 
             // now we can send the data to server
@@ -198,6 +208,14 @@ export default function Login() {
                                     </div>
                                 </div>
                             )}
+                            {zodIssues.length > 0 &&
+                                zodIssues.map((error, index) => (
+                                    <div key={index} className="flex justify-center mt-5 mb-5">
+                                        <div className="flex gap-2 items-center w-fit p-2 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
+                                            {error.message}
+                                        </div>
+                                    </div>
+                                ))}
                             <button
                                 className="flex gap-2 items-center justify-center w-full text-white animated-gradient-bg focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
                                 onClick={(event) => signUp(event)}
