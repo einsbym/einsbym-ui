@@ -30,7 +30,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                     src={storageUrl + props.post.user.profilePicture}
                 />
             </a>
-            <div className="flex flex-col w-full overflow-hidden break-words p-4 rounded-e-xl rounded-es-xl bg-gray-800">
+            <div className="flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-800">
                 <div className="relative flex justify-between items-center">
                     <div>
                         <span className="text-sm font-semibold text-white">
@@ -98,6 +98,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                         )}
                         initialLikes={props.post.totalLikes}
                         userId={props.loggedUserId || props.userId}
+                        likes={props.post.likes}
                     />
                     <button
                         className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"

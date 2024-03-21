@@ -1,5 +1,6 @@
 // components/Post.js
 import { LIKE_POST, UNLIKE_POST } from '@/graphql/mutations/post';
+import { User } from '@/interfaces/interfaces';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
@@ -9,9 +10,11 @@ const PostLikeButton = (props: {
     postId: string;
     liked: boolean;
     userId: string;
+    likes: User[];
 }) => {
     const [likes, setLikes] = useState<number>(props.initialLikes);
     const [liked, setLiked] = useState<boolean>(props.liked);
+    const [likesPopoverVisible, setLikesPopoverVisible] = useState<boolean>(false);
 
     // Mutations
     const [likePost] = useMutation(LIKE_POST);
@@ -56,12 +59,34 @@ const PostLikeButton = (props: {
     };
 
     return (
-        <button
-            className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
-            onClick={handleLikePost}
-        >
-            {liked ? <FaHeart size={13} /> : <FaRegHeart size={13} />} {likes}
-        </button>
+        <div className="relative">
+            <button
+                className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
+                onClick={handleLikePost}
+                onMouseEnter={() => setLikesPopoverVisible(true)}
+                onMouseLeave={() => setLikesPopoverVisible(false)}
+            >
+                {liked ? <FaHeart size={13} /> : <FaRegHeart size={13} />} {likes}
+            </button>
+
+            <div
+                id="popover-top"
+                className={
+                    likesPopoverVisible
+                        ? 'absolute top-10 inline-block z-10 w-30 break-words text-sm rounded-lg shadow-sm backdrop-blur-lg bg-opacity-10 bg-black/30'
+                        : 'hidden'
+                }
+            >
+                <div className="px-3 py-2">
+                    {props.likes.map((user) => (
+                        <p key={user.id}>
+                            <a href={`/profile/${user.username}`}>{user.username}</a>
+                        </p>
+                    ))}
+                    {props.likes.length === 0 && <p>no likes</p>}
+                </div>
+            </div>
+        </div>
     );
 };
 
