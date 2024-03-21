@@ -10,7 +10,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { FaArrowLeft, FaSave } from 'react-icons/fa';
-import { MdError } from 'react-icons/md';
+import { z } from 'zod';
 
 export default function Login() {
     const [signUpInput, setSignUpInput] = useState<SignUpInput>({
@@ -23,6 +23,13 @@ export default function Login() {
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
+
+    const SignUpInputSchema = z.object({
+        email: z.string().email('This is not a valid email.'),
+        firstName: z.string().min(1).max(100),
+        username: z.string().min(3).max(100),
+        password: z.string().min(8),
+    }).required();
 
     // Queries
     const { data, loading } = useQuery(FIND_RANDOM_IMAGE);
@@ -37,24 +44,6 @@ export default function Login() {
         });
     };
 
-    const validateFields = (requiredFields: string[], signUpInput: any) => {
-        const missingFields: string[] = [];
-
-        requiredFields.map((requiredField: string) => {
-            if (signUpInput[requiredField] == '') {
-                missingFields.push(`The field ${requiredField} is required`);
-            }
-        });
-
-        if (missingFields.length > 0) {
-            throw new Error(missingFields.toString());
-        }
-
-        if (signUpInput.password !== signUpInput.confirmPassword) {
-            throw new Error("passwords don't match");
-        }
-    };
-
     const signUp = async (event: any) => {
         event.preventDefault();
 
@@ -62,7 +51,11 @@ export default function Login() {
         setErrorMessage(null);
 
         try {
-            validateFields(Object.keys(signUpInput), signUpInput);
+            SignUpInputSchema.parse(signUpInput);
+
+            if (signUpInput.password !== signUpInput.confirmPassword) {
+                throw new Error("passwords don't match");
+            }
 
             // now we can send the data to server
             const { errors } = await createUser({
@@ -201,7 +194,7 @@ export default function Login() {
                             {errorMessage && (
                                 <div className="flex justify-center mt-5 mb-5">
                                     <div className="flex gap-2 items-center w-fit p-2 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
-                                        <MdError /> {errorMessage}
+                                        {errorMessage}
                                     </div>
                                 </div>
                             )}

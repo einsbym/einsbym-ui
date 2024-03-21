@@ -1,4 +1,3 @@
-// components/Post.js
 import { LIKE_POST, UNLIKE_POST } from '@/graphql/mutations/post';
 import { User } from '@/interfaces/interfaces';
 import { useMutation } from '@apollo/client';
