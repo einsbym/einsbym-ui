@@ -1,17 +1,17 @@
-import { createAccessTokenCookie, createUserCookie, deleteCookies, getCurrentUserFromCookie } from '@/actions/cookies';
-import { apiUrl } from '@/constants/constants';
-import { SIGN_IN } from '@/graphql/mutations/auth';
-import { SigninInput, User } from '@/interfaces/interfaces';
+import { createAccessTokenCookie, createUserCookie, deleteCookies, getCurrentUserFromCookie } from '@/auth/cookies';
+import { SigninInput, User } from '@/types/types';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { Dispatch, SetStateAction } from 'react';
+import { SIGN_IN } from './auth';
+import { api } from '@/constants/constants';
 
 export class AuthService {
     protected readonly instance: ApolloClient<unknown>;
 
     public constructor() {
         this.instance = new ApolloClient({
-            uri: apiUrl,
+            uri: api.apiUrl,
             cache: new InMemoryCache(),
         });
     }
@@ -69,6 +69,6 @@ export class AuthService {
 
     signOut = async (router: AppRouterInstance) => {
         await deleteCookies();
-        router.push('/auth/login', { scroll: false });
+        router.push('/auth/signin', { scroll: false });
     };
 }

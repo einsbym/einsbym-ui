@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const protectedRoutes = ["/", "/profile"];
-const authRoutes = ["/auth/login"];
+const authRoutes = ["/auth/signin"];
 const publicRoutes = ["/about"];
 
 export function middleware(request: NextRequest) {
@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
         (!currentUser || Date.now() > JSON.parse(currentUser).expiredAt)
     ) {
         request.cookies.delete('currentUser');
-        const response = NextResponse.redirect(new URL('/auth/login', request.url));
+        const response = NextResponse.redirect(new URL('/auth/signin', request.url));
         response.cookies.delete('currentUser');
 
         return response;

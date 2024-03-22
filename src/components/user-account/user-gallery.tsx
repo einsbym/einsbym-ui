@@ -1,11 +1,11 @@
-import Footer from '@/components/footer';
-import { storageUrl } from '@/constants/constants';
 import { FIND_IMAGES_BY_USER } from '@/graphql/queries/image';
-import { Image } from '@/interfaces/interfaces';
+import { Image } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import ReactPlayer from 'react-player';
+import Footer from '../shared/footer';
+import { api } from '@/constants/constants';
 
 export default function UserGallery(props: { userId: string }) {
     // States
@@ -45,17 +45,17 @@ export default function UserGallery(props: { userId: string }) {
                         {image.filename.split('.').pop() === 'mp4' && (
                             <div
                                 className="h-[200px] w-full overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
-                                onClick={() => handleGalleryItemClick(storageUrl + image.filename)}
+                                onClick={() => handleGalleryItemClick(api.storageUrl + image.filename)}
                             >
-                                <ReactPlayer url={storageUrl + image.filename} playing muted pip={false} />
+                                <ReactPlayer url={api.storageUrl + image.filename} playing muted pip={false} />
                             </div>
                         )}
                         {image.filename.split('.').pop() !== 'mp4' && (
                             <img
                                 alt={image.filename}
                                 className="h-[200px] w-full rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
-                                src={storageUrl + image.filename}
-                                onClick={() => handleGalleryItemClick(storageUrl + image.filename)}
+                                src={api.storageUrl + image.filename}
+                                onClick={() => handleGalleryItemClick(api.storageUrl + image.filename)}
                             />
                         )}
                     </div>

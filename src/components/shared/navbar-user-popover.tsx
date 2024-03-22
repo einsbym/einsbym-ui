@@ -1,8 +1,8 @@
-import { storageUrl } from '@/constants/constants';
-import { User } from '@/interfaces/interfaces';
-import { AuthService } from '@/services/auth.service';
+import { User } from '@/types/types';
+import { AuthService } from '@/auth/auth.service';
 import { useRouter } from 'next/navigation';
 import { RiLoginCircleLine } from 'react-icons/ri';
+import { api } from '@/constants/constants';
 
 interface SidebarProps {
     user: User | null;
@@ -29,17 +29,17 @@ export default function NavbarUserPopover(props: SidebarProps) {
                     >
                         <span className="absolute -inset-1.5"></span>
                         <span className="sr-only">Open user menu</span>
-                        {storageUrl && (
+                        {api.storageUrl && (
                             <img
                                 alt={props.user.profilePicture}
                                 className="h-8 w-8 rounded-full object-cover"
-                                src={storageUrl + props.user.profilePicture}
+                                src={api.storageUrl + props.user.profilePicture}
                             />
                         )}
                     </button>
                 )}
                 {!props.user && (
-                    <a href="/auth/login">
+                    <a href="/auth/signin">
                         <div className="h-8 w-8 rounded-full cursor-pointer text-[#cc00ff]">
                             <RiLoginCircleLine size={32} />
                         </div>

@@ -1,4 +1,4 @@
-import { storageUrl } from '@/constants/constants';
+import { api } from '@/constants/constants';
 
 interface UserBlurredCoverProps {
     coverImage: string;
@@ -9,7 +9,7 @@ export default function UserBlurredCover(props: UserBlurredCoverProps) {
         <div
             style={{
                 backgroundImage: props.coverImage
-                    ? `linear-gradient(to bottom, transparent, black), url('${storageUrl}/${props.coverImage}')`
+                    ? `linear-gradient(to bottom, transparent, black), url('${api.storageUrl}/${props.coverImage}')`
                     : 'none',
             }}
             className="absolute left-0 top-0 h-screen w-full -z-10 bg-cover blur-sm bg-no-repeat bg-center bg-fixed"

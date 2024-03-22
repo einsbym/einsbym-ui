@@ -1,17 +1,17 @@
 'use client';
 
-import { getCurrentUserFromCookie } from '@/actions/cookies';
-import Navbar from '@/components/navbar';
+import { getCurrentUserFromCookie } from '@/auth/cookies';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
-import { User } from '@/interfaces/interfaces';
+import { User } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import UserBioAndPost from '../components/user-bio-and-post';
-import UserBlurredCover from '../components/user-blurred-cover';
-import UserCoverAndPhoto from '../components/user-cover-and-photo';
-import UserGallery from '../components/user-gallery';
-import UserGeneralStatistics from '../components/user-general-statistics';
+import UserBioAndPost from '../../../components/user-account/user-bio-and-post';
+import UserBlurredCover from '../../../components/user-account/user-blurred-cover';
+import UserCoverAndPhoto from '../../../components/user-account/user-cover-and-photo';
+import UserGallery from '../../../components/user-account/user-gallery';
+import UserGeneralStatistics from '../../../components/user-account/user-general-statistics';
+import Navbar from '@/components/shared/navbar';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -45,7 +45,7 @@ export default function UserProfile() {
     if (error) {
         return (
             <p>
-                you must <a href="/auth/login">be logged</a> to view this page
+                you must <a href="/auth/signin">be logged</a> to view this page
             </p>
         );
     }

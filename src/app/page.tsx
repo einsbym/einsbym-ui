@@ -1,13 +1,13 @@
 'use client';
 
-import ButtonLoadMore from '@/components/button-load-more';
-import Navbar from '@/components/navbar';
+import ButtonLoadMore from '@/components/shared/button-load-more';
+import Navbar from '@/components/shared/navbar';
+import { api } from '@/constants/constants';
 import { IMAGES } from '@/graphql/queries/image';
-import { Image } from '@/interfaces/interfaces';
+import { Image } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { storageUrl } from '../constants/constants';
 import ReactPlayer from 'react-player';
 
 export default function Home() {
@@ -65,14 +65,14 @@ export default function Home() {
                         <div key={image.id}>
                             {image.filename.split('.').pop() === 'mp4' && (
                                 <div className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] overflow-hidden w-full h-[500px] cursor-pointer">
-                                    <ReactPlayer width="100%" height="100%" url={storageUrl + image.filename} playing muted />
+                                    <ReactPlayer width="100%" height="100%" url={api.storageUrl + image.filename} playing muted />
                                 </div>
                             )}
                             {image.filename.split('.').pop() !== 'mp4' && (
                                 <img
                                     alt={image.filename}
                                     className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-full h-[500px] cursor-pointer object-cover"
-                                    src={storageUrl + image.filename}
+                                    src={api.storageUrl + image.filename}
                                     onClick={() => viewImage(image)}
                                 />
                             )}

@@ -1,20 +1,20 @@
-import { createUserCookie } from '@/actions/cookies';
-import { storageServiceUrl } from '@/constants/constants';
-import { UPDATE_COVER_IMAGE } from '@/graphql/mutations/user';
+import { createUserCookie } from '@/auth/cookies';
+import { UPDATE_PROFILE_IMAGE } from '@/graphql/mutations/user';
 import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import UpdateImageModal from './update-images-modal';
+import { api } from '@/constants/constants';
 
-interface UpdateCoverImageProps {
+interface UpdateProfileImageProps {
     userId: string;
-    currentCoverImage: string;
-    isChangeCoverImageActive: boolean;
-    setIsChangeCoverImageActive: Dispatch<SetStateAction<boolean>>;
-    setCoverImage: Dispatch<SetStateAction<string>>;
+    currentProfileImage: string;
+    isChangeProfPicActive: boolean;
+    setProfileImage: Dispatch<SetStateAction<string>>;
+    setIsChangeProfPicActive: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function UpdateCoverImage(props: UpdateCoverImageProps) {
+export default function UpdateProfileImage(props: UpdateProfileImageProps) {
     // States
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
@@ -22,9 +22,9 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
 
     // Queries
     const [getMe] = useLazyQuery(ME);
-
+    
     // Mutations
-    const [updateCoverImage] = useMutation(UPDATE_COVER_IMAGE);
+    const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -45,13 +45,13 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             setErrorMessage(null);
 
             if (!file) {
-                throw new Error('No file selected for cover.');
+                throw new Error('No file selected for profile.');
             }
 
             const formData = new FormData();
             formData.append('file', file);
 
-            const response = await fetch(`${storageServiceUrl}/upload`, {
+            const response = await fetch(`${api.storageServiceUrl}/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -65,22 +65,22 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             const jsonResponse = await response.json();
 
             // Save image data
-            const { errors } = await updateCoverImage({
+            const { errors } = await updateProfileImage({
                 variables: {
-                    updateCoverImageInput: {
+                    updateProfilePictureInput: {
                         id: props.userId,
-                        coverImage: jsonResponse.filename,
+                        profilePicture: jsonResponse.filename,
                     },
                 },
             });
 
             if (errors) {
-                throw new Error('Error when attempting to update the cover image');
+                throw new Error('Error when attempting to update the profile image');
             }
 
-            // Delete previous cover image from storage (if any)
-            if (props.currentCoverImage) {
-                await fetch(`${storageServiceUrl}/delete/${props.currentCoverImage}`, {
+            // Delete previous profile image from storage (if any)
+            if (props.currentProfileImage) {
+                await fetch(`${api.storageServiceUrl}/delete/${props.currentProfileImage}`, {
                     method: 'DELETE',
                 });
             }
@@ -91,9 +91,9 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             });
 
             // Update state
-            props.setCoverImage(jsonResponse.filename);
+            props.setProfileImage(jsonResponse.filename);
 
-            props.setIsChangeCoverImageActive(false);
+            props.setIsChangeProfPicActive(false);
         } catch (error) {
             console.error('Something went wrong:', error);
             setErrorMessage(`Oops... ${error}`);
@@ -101,16 +101,16 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
     };
 
     return (
-        props.isChangeCoverImageActive && (
+        props.isChangeProfPicActive && (
             <UpdateImageModal
                 userId={props.userId}
-                modalName="Change your cover image"
-                modalDescription="Select an image file from your device and click in save to update your cover."
+                modalName="Change your profile image"
+                modalDescription="Select an image file from your device and click in save to update your profile image."
                 errorMessage={errorMessage}
                 handleFileChange={handleFileChange}
                 handleSave={handleSave}
-                isModalActive={props.isChangeCoverImageActive}
-                setIsModalActive={props.setIsChangeCoverImageActive}
+                isModalActive={props.isChangeProfPicActive}
+                setIsModalActive={props.setIsChangeProfPicActive}
                 selectedImageUrl={selectedImageUrl}
             />
         )

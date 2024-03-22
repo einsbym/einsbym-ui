@@ -1,8 +1,8 @@
 'use client';
 
-import { deleteCookies, getAccessTokenFromCookie } from '@/actions/cookies';
-import { apiUrl } from '@/constants/constants';
-import { AuthService } from '@/services/auth.service';
+import { AuthService } from '@/auth/auth.service';
+import { deleteCookies, getAccessTokenFromCookie } from '@/auth/cookies';
+import { api } from '@/constants/constants';
 import { ApolloLink, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import {
@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 function useClient() {
     const router = useRouter();
     const httpLink = new HttpLink({
-        uri: apiUrl,
+        uri: api.apiUrl,
     });
 
     const authMiddleware = setContext(async (operation) => {

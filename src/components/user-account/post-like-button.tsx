@@ -1,5 +1,5 @@
 import { LIKE_POST, UNLIKE_POST } from '@/graphql/mutations/post';
-import { User } from '@/interfaces/interfaces';
+import { User } from '@/types/types';
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';

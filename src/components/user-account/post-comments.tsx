@@ -1,7 +1,7 @@
-import getElapsedTime from '@/actions/elapsed-time';
-import { storageUrl } from '@/constants/constants';
+import { api } from '@/constants/constants';
 import { FIND_COMMENTS_BY_POST } from '@/graphql/queries/post-comment';
-import { PostComment } from '@/interfaces/interfaces';
+import { PostComment } from '@/types/types';
+import getElapsedTime from '@/utils/elapsed-time';
 import { useLazyQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart } from 'react-icons/fa';
@@ -43,7 +43,7 @@ export default function PostComments(props: { postId: string | null; publishedPo
                             <a href={`/profile/${postComment.user.username}`}>
                                 <img
                                     className="flex-none w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] rounded-full object-cover"
-                                    src={storageUrl + postComment.user.profilePicture}
+                                    src={api.storageUrl + postComment.user.profilePicture}
                                     alt={postComment.user.username}
                                 />
                             </a>

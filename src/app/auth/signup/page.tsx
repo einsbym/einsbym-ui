@@ -1,16 +1,16 @@
 'use client';
 
-import UserBlurredCover from '@/app/profile/components/user-blurred-cover';
-import IconLoading from '@/components/icon-loading';
+import UserBlurredCover from '@/components/user-account/user-blurred-cover';
 import { CREATE_USER } from '@/graphql/mutations/user';
 import { FIND_RANDOM_IMAGE } from '@/graphql/queries/image';
-import { SignUpInput } from '@/interfaces/interfaces';
-import { AuthService } from '@/services/auth.service';
+import { SignUpInput } from '@/types/types';
+import { AuthService } from '@/auth/auth.service';
 import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { FaArrowLeft, FaSave } from 'react-icons/fa';
 import { z } from 'zod';
+import IconLoading from '@/components/shared/icon-loading';
 
 export default function Login() {
     const [signUpInput, setSignUpInput] = useState<SignUpInput>({
@@ -60,7 +60,7 @@ export default function Login() {
             if (!validation.success) {
                 const { errors } = validation.error;
                 setZodIssues(errors);
-                return;
+                throw new Error("Some fields are invalid");
             }
 
             if (signUpInput.password !== signUpInput.confirmPassword) {
@@ -103,7 +103,7 @@ export default function Login() {
             <div className="flex items-center justify-center h-screen">
                 <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:w-1/4 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     <div className="w-full ml-10 mr-10 space-y-6">
-                        <a href="/auth/login">
+                        <a href="/auth/signin">
                             <FaArrowLeft className="text-[#cc00ff] cursor-pointer" />
                         </a>
                         <div>

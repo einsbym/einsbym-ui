@@ -1,9 +1,9 @@
-import { storageUrl } from '@/constants/constants';
 import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
 import UpdateProfileImage from './update-profile-image';
 import UpdateCoverImage from './update-cover-image';
+import { api } from '@/constants/constants';
 
 interface UserCoverAndPhotoProps {
     id: string;
@@ -44,7 +44,7 @@ export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
                 <div
                     style={{
                         backgroundImage:
-                            props.profileImage && profileImage ? `url('${storageUrl + profileImage}')` : 'none',
+                            props.profileImage && profileImage ? `url('${api.storageUrl + profileImage}')` : 'none',
                     }}
                     className="absolute transform -translate-x-1/2 -translate-y-[-30px] top-1/2 left-1/2 w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                 >

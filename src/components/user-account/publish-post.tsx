@@ -1,4 +1,3 @@
-import { storageServiceUrl } from '@/constants/constants';
 import { CREATE_POST } from '@/graphql/mutations/post';
 import { useMutation } from '@apollo/client';
 import { ChangeEvent, useState } from 'react';
@@ -7,6 +6,7 @@ import { GrGallery } from 'react-icons/gr';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { MdPostAdd } from 'react-icons/md';
 import Posts from './posts';
+import { api } from '@/constants/constants';
 
 export default function PublishPost(props: { userId: string; loggedUserId?: string | null }) {
     // States
@@ -72,7 +72,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                     const formData = new FormData();
                     formData.append('file', file);
 
-                    const response = await fetch(`${storageServiceUrl}/upload`, {
+                    const response = await fetch(`${api.storageServiceUrl}/upload`, {
                         method: 'POST',
                         body: formData,
                     });

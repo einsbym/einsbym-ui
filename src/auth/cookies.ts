@@ -1,6 +1,6 @@
 'use server';
 
-import { User } from '@/interfaces/interfaces';
+import { User } from '@/types/types';
 import { cookies } from 'next/headers';
 
 export async function createUserCookie(user: any) {

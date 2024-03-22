@@ -1,9 +1,9 @@
-import ButtonLoadMore from '@/components/button-load-more';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
-import { Post } from '@/interfaces/interfaces';
+import { Post } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FcLike } from 'react-icons/fc';
+import ButtonLoadMore from '../shared/button-load-more';
 import PostItem from './post-item';
 
 export default function Posts(props: { userId: string; publishedPostId: string; loggedUserId?: string | null }) {

@@ -1,6 +1,6 @@
-import getElapsedTime from '@/actions/elapsed-time';
-import { storageUrl } from '@/constants/constants';
-import { Post } from '@/interfaces/interfaces';
+import { api } from '@/constants/constants';
+import { Post } from '@/types/types';
+import getElapsedTime from '@/utils/elapsed-time';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
@@ -27,7 +27,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                 <img
                     alt={props.post.user.username}
                     className="w-[40px] h-[40px] lg:w-[60px] lg:h-[60px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                    src={storageUrl + props.post.user.profilePicture}
+                    src={api.storageUrl + props.post.user.profilePicture}
                 />
             </a>
             <div className="flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-800">
@@ -70,7 +70,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                                             width="100%"
                                             height="100%"
                                             style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
-                                            url={storageUrl + image.filename}
+                                            url={api.storageUrl + image.filename}
                                             playing
                                             muted
                                         />
@@ -79,7 +79,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                                 {image.filename.split('.').pop() !== 'mp4' && (
                                     <img
                                         alt={image.filename}
-                                        src={storageUrl + image.filename}
+                                        src={api.storageUrl + image.filename}
                                         className={`w-full h-[200px] ${
                                             props.post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
                                         } object-cover rounded-lg`}

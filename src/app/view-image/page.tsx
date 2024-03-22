@@ -1,8 +1,8 @@
 'use client';
 
-import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
-import Slides from '@/components/slide-info';
+import Footer from '@/components/shared/footer';
+import Navbar from '@/components/shared/navbar';
+import Slides from '@/components/shared/slide-info';
 import { useSearchParams } from 'next/navigation';
 
 const slides = [
