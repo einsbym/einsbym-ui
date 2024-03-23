@@ -53,35 +53,35 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                 </div>
                 <p className="text-sm font-normal py-2.5 text-white">{props.post.postText}</p>
 
-                {/* Display images (if any) */}
-                {props.post.images.length > 0 && (
+                {/* Display files (if any) */}
+                {props.post.files.length > 0 && (
                     <div
-                        className={`grid gap-2 ${props.post.images.length === 1 ? 'grid-cols-1' : null} ${
-                            props.post.images.length > 4 ? 'grid-cols-4' : null
+                        className={`grid gap-2 ${props.post.files.length === 1 ? 'grid-cols-1' : null} ${
+                            props.post.files.length > 4 ? 'grid-cols-4' : null
                         } ${
-                            props.post.images.length > 1 && props.post.images.length <= 4 ? 'grid-cols-2' : null
+                            props.post.files.length > 1 && props.post.files.length <= 4 ? 'grid-cols-2' : null
                         } my-2.5`}
                     >
-                        {props.post.images.map((image) => (
-                            <div key={image.id} className="group relative">
-                                {image.filename.split('.').pop() === 'mp4' && (
+                        {props.post.files.map((file) => (
+                            <div key={file.id} className="group relative">
+                                {file.filename.split('.').pop() === 'mp4' && (
                                     <div className="w-full rounded-lg">
                                         <ReactPlayer
                                             width="100%"
                                             height="100%"
                                             style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
-                                            url={api.storageUrl + image.filename}
+                                            url={api.storageUrl + file.filename}
                                             playing
                                             muted
                                         />
                                     </div>
                                 )}
-                                {image.filename.split('.').pop() !== 'mp4' && (
+                                {file.filename.split('.').pop() !== 'mp4' && (
                                     <img
-                                        alt={image.filename}
-                                        src={api.storageUrl + image.filename}
+                                        alt={file.filename}
+                                        src={api.storageUrl + file.filename}
                                         className={`w-full h-[200px] ${
-                                            props.post.images.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
+                                            props.post.files.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
                                         } object-cover rounded-lg`}
                                     />
                                 )}

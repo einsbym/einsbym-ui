@@ -1,4 +1,4 @@
-export interface Image {
+export interface PostFile {
     id: string;
     filename: string;
 }
@@ -35,7 +35,7 @@ export interface Post {
     totalLikes: number;
     createdAt: Date;
     updatedAt: Date;
-    images: Image[];
+    files: PostFile[];
     user: User;
     likes: User[];
 }

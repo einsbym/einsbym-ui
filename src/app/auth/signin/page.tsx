@@ -4,7 +4,7 @@ import { AuthService } from '@/auth/auth.service';
 import IconLoading from '@/components/shared/icon-loading';
 import UserBlurredCover from '@/components/user-account/user-blurred-cover';
 import { api } from '@/constants/constants';
-import { FIND_RANDOM_IMAGE } from '@/graphql/queries/image';
+import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
 import { SigninInput } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
@@ -19,7 +19,7 @@ export default function Login() {
     const router = useRouter();
 
     // Queries
-    const { data, loading } = useQuery(FIND_RANDOM_IMAGE);
+    const { data, loading } = useQuery(FIND_RANDOM_FILE);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSigninInput({
@@ -34,23 +34,23 @@ export default function Login() {
 
     return (
         <>
-            {data && <UserBlurredCover coverImage={data.findRandomImage.filename} />}
+            {data && <UserBlurredCover coverImage={data.findRandomFile.filename} />}
             <div className="flex items-center justify-center h-screen">
                 <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:pt-0 md:pb-0 md:w-1/2 md:h-4/6 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     <div
                         style={{
-                            backgroundImage: data ? `url('${api.storageUrl + data.findRandomImage.filename}')` : 'none',
+                            backgroundImage: data ? `url('${api.storageUrl + data.findRandomFile.filename}')` : 'none',
                         }}
                         className={`hidden relative md:block w-full h-full bg-cover bg-no-repeat bg-center`}
                     >
                         <div className="absolute bottom-2 left-2 flex items-center gap-2">
                             <img
-                                alt={data?.findRandomImage.post.user.username}
+                                alt={data?.findRandomFile.post.user.username}
                                 className="flex-none w-[45px] h-[45px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                                src={api.storageUrl + data?.findRandomImage.post.user.profilePicture}
+                                src={api.storageUrl + data?.findRandomFile.post.user.profilePicture}
                             />
                             <span className="text-sm font-semibold text-white bg-[#0000003b] p-2 rounded-md">
-                                {data?.findRandomImage.post.user.username}
+                                {data?.findRandomFile.post.user.username}
                             </span>
                         </div>
                     </div>

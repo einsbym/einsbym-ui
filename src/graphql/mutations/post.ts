@@ -7,7 +7,7 @@ export const CREATE_POST = gql`
             postText
             createdAt
             updatedAt
-            images {
+            files {
                 id
                 filename
             }

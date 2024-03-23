@@ -9,7 +9,7 @@ export const FIND_POSTS_BY_USER = gql`
             totalLikes
             createdAt
             updatedAt
-            images {
+            files {
                 id
                 filename
             }

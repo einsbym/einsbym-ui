@@ -13,32 +13,32 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
     const [postText, setPostText] = useState<string | null>();
     const [publishedPostId, setPublishedPostId] = useState<string>('');
     const [files, setFiles] = useState<FileList | null>();
-    const [selectedImages, setSelectedImages] = useState<{ filename: string; blob?: string }[]>();
+    const [selectedFiles, setSelectedFiles] = useState<{ filename: string; blob?: string }[]>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [loading, setLoading] = useState<boolean>(false);
 
     // Mutations
     const [createPost] = useMutation(CREATE_POST);
 
-    const removeImageFromList = (indexToRemove: number) => {
-        const images = selectedImages?.filter((_, index) => index !== indexToRemove);
-        setSelectedImages(images);
+    const removeFileFromList = (indexToRemove: number) => {
+        const files = selectedFiles?.filter((_, index) => index !== indexToRemove);
+        setSelectedFiles(files);
     };
 
     const handleFilesChange = (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
 
         if (files) {
-            const imagesAndBlobs: { filename: string; blob: string }[] = [];
+            const blobs: { filename: string; blob: string }[] = [];
 
             Array.from(files).forEach(async (file) => {
                 // Create a blob URL for the selected file
                 const blob = URL.createObjectURL(file);
 
-                imagesAndBlobs.push({ filename: file.name, blob: blob });
+                blobs.push({ filename: file.name, blob: blob });
             });
 
-            setSelectedImages(imagesAndBlobs);
+            setSelectedFiles(blobs);
         }
 
         setFiles(files);
@@ -57,15 +57,15 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                 throw new Error("I mean... you need to write or upload something at least, don't you agree?");
             }
 
-            const images: any[] = [];
+            const postFiles: any[] = [];
 
             if (files) {
                 const arrayFromFiles = Array.from(files);
 
                 for (const file of arrayFromFiles) {
-                    const isImageSelected = !!selectedImages?.find(({ filename }) => filename === file.name);
+                    const isFileSelected = !!selectedFiles?.find(({ filename }) => filename === file.name);
 
-                    if (!isImageSelected) {
+                    if (!isFileSelected) {
                         continue;
                     }
 
@@ -86,7 +86,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                     // Get response from backend
                     const json = await response.json();
 
-                    images.push({ filename: json.filename });
+                    postFiles.push({ filename: json.filename });
                 }
             }
 
@@ -95,7 +95,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                 variables: {
                     createPostInput: {
                         userId: props.userId,
-                        images: images,
+                        files: postFiles,
                         postText: postText,
                     },
                 },
@@ -109,7 +109,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
 
             if (data) {
                 setPublishedPostId(data.createPost.id);
-                setSelectedImages([]);
+                setSelectedFiles([]);
             }
 
             setLoading(false);
@@ -176,25 +176,25 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                         </div>
                     )}
 
-                    {selectedImages && selectedImages.length !== 0 && (
+                    {selectedFiles && selectedFiles.length !== 0 && (
                         <div className="mt-2 grid gap-2">
                             <p className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
-                                Selected images: {selectedImages.length}
+                                Selected files: {selectedFiles.length}
                             </p>
                             <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
-                                {selectedImages.map((image, index) => (
+                                {selectedFiles.map((file, index) => (
                                     <div className="relative" key={index}>
                                         <button
                                             className="absolute top-2 right-2 text-[#cc00ff]"
                                             type="button"
-                                            onClick={() => removeImageFromList(index)}
+                                            onClick={() => removeFileFromList(index)}
                                         >
                                             <IoMdCloseCircle size={20} />
                                         </button>
                                         <img
-                                            alt={image.filename}
+                                            alt={file.filename}
                                             className="h-auto max-w-full rounded-lg"
-                                            src={image.blob}
+                                            src={file.blob}
                                         />
                                     </div>
                                 ))}
