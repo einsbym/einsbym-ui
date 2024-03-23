@@ -7,22 +7,23 @@ import { FILES } from '@/graphql/queries/file';
 import { PostFile } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
 
-export default function Home() {
+export default function Videos() {
     // States
     const [files, setFiles] = useState<PostFile[]>([]);
     const [page, setPage] = useState<number>(1);
 
     // Queries
     const { data, loading, fetchMore } = useQuery(FILES, {
-        variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page },
+        variables: { fileTypes: ['video/mp4'], page: page },
         notifyOnNetworkStatusChange: true,
     });
 
     const loadMore = useCallback(
         async (offSet?: number) => {
             await fetchMore({
-                variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: offSet || page + 1 },
+                variables: { fileTypes: ['video/mp4'], page: offSet || page + 1 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev;
 
@@ -50,14 +51,17 @@ export default function Home() {
         <>
             <Navbar />
 
-            <div className="mt-20 rounded-t-[2rem] overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-20 overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-5 gap-2">
                 {files &&
                     files.map((file, index) => (
-                        <div key={file.id}>
-                            <img
-                                alt={file.filename}
-                                className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-full h-[500px] cursor-pointer object-cover"
-                                src={api.storageUrl + file.filename}
+                        <div key={file.id} className="w-full rounded-lg">
+                            <ReactPlayer
+                                width="100%"
+                                height="100%"
+                                style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
+                                url={api.storageUrl + file.filename}
+                                playing
+                                muted
                             />
                         </div>
                     ))}

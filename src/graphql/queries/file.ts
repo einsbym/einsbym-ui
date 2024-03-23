@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const FILES = gql`
-    query Files($page: Int) {
-        files(page: $page) {
+    query Files($fileTypes: [String!]!, $page: Int) {
+        files(fileTypes: $fileTypes, page: $page) {
             id
             filename
             fileType
