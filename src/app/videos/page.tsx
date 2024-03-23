@@ -53,7 +53,7 @@ export default function Videos() {
 
             <div className="mt-20 overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-5 gap-2">
                 {files &&
-                    files.map((file, index) => (
+                    files.map((file) => (
                         <div key={file.id} className="w-full rounded-lg">
                             <ReactPlayer
                                 width="100%"

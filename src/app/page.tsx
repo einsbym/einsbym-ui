@@ -52,7 +52,7 @@ export default function Home() {
 
             <div className="mt-20 rounded-t-[2rem] overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {files &&
-                    files.map((file, index) => (
+                    files.map((file) => (
                         <div key={file.id}>
                             <img
                                 alt={file.filename}
