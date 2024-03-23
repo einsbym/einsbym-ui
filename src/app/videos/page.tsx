@@ -16,26 +16,20 @@ export default function Videos() {
 
     // Queries
     const { data, loading, fetchMore } = useQuery(FILES, {
-        variables: { fileTypes: ['video/mp4'], page: page },
+        variables: { fileTypes: ['video/mp4'], page: page, limit: 1 },
         notifyOnNetworkStatusChange: true,
     });
 
     const loadMore = useCallback(
-        async (offSet?: number) => {
+        async () => {
             await fetchMore({
-                variables: { fileTypes: ['video/mp4'], page: offSet || page + 1 },
+                variables: { fileTypes: ['video/mp4'], page: page + 1, limit: 1 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev;
-
-                    if (offSet) {
-                        setFiles(fetchMoreResult.files);
-                        return;
-                    }
-
-                    setFiles([...files, ...fetchMoreResult.files]);
+                    setFiles(fetchMoreResult.files);
                 },
             });
-            setPage(offSet || page + 1); // Update the page state after fetching more images
+            setPage(page + 1); // Update the page state after fetching more images
         },
         [page, fetchMore, files],
     );
@@ -51,17 +45,18 @@ export default function Videos() {
         <>
             <Navbar />
 
-            <div className="mt-20 overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-5 gap-2">
+            <div className="flex items-center justify-center h-screen">
                 {files &&
                     files.map((file) => (
-                        <div key={file.id} className="w-full rounded-lg">
+                        <div key={file.id} className="w-1/2 rounded-lg">
                             <ReactPlayer
                                 width="100%"
                                 height="100%"
                                 style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
                                 url={api.storageUrl + file.filename}
-                                playing
+                                playing={false}
                                 muted
+                                controls
                             />
                         </div>
                     ))}

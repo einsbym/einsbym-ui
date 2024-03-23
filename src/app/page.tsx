@@ -20,21 +20,15 @@ export default function Home() {
     });
 
     const loadMore = useCallback(
-        async (offSet?: number) => {
+        async () => {
             await fetchMore({
-                variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: offSet || page + 1 },
+                variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page + 1 },
                 updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev;
-
-                    if (offSet) {
-                        setFiles(fetchMoreResult.files);
-                        return;
-                    }
-
                     setFiles([...files, ...fetchMoreResult.files]);
                 },
             });
-            setPage(offSet || page + 1); // Update the page state after fetching more images
+            setPage(page + 1); // Update the page state after fetching more images
         },
         [page, fetchMore, files],
     );
