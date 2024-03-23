@@ -5,6 +5,7 @@ export const FILES = gql`
         files(page: $page) {
             id
             filename
+            fileType
         }
     }
 `;
@@ -14,6 +15,7 @@ export const FIND_FILES_BY_USER = gql`
         findFilesByUser(userId: $userId) {
             id
             filename
+            fileType
         }
     }
 `;
@@ -23,6 +25,7 @@ export const FIND_RANDOM_FILE = gql`
         findRandomFile {
             id
             filename
+            fileType
             post {
                 id
                 user {

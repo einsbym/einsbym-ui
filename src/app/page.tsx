@@ -63,12 +63,12 @@ export default function Home() {
                 {files &&
                     files.map((file, index) => (
                         <div key={file.id}>
-                            {file.filename.split('.').pop() === 'mp4' && (
+                            {file.fileType === 'video/mp4' && (
                                 <div className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] overflow-hidden w-full h-[500px] cursor-pointer">
                                     <ReactPlayer width="100%" height="100%" url={api.storageUrl + file.filename} playing muted />
                                 </div>
                             )}
-                            {file.filename.split('.').pop() !== 'mp4' && (
+                            {file.fileType !== 'video/mp4' && (
                                 <img
                                     alt={file.filename}
                                     className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-full h-[500px] cursor-pointer object-cover"

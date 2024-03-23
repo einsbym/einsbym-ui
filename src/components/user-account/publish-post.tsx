@@ -86,7 +86,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                     // Get response from backend
                     const json = await response.json();
 
-                    postFiles.push({ filename: json.filename });
+                    postFiles.push({ filename: json.filename, fileType: file.type });
                 }
             }
 

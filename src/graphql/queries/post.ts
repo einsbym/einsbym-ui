@@ -12,6 +12,7 @@ export const FIND_POSTS_BY_USER = gql`
             files {
                 id
                 filename
+                fileType
             }
             user {
                 id

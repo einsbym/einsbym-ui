@@ -10,6 +10,7 @@ export const CREATE_POST = gql`
             files {
                 id
                 filename
+                fileType
             }
             user {
                 id

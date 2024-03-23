@@ -42,7 +42,7 @@ export default function UserGallery(props: { userId: string }) {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {data?.findFilesByUser.map((file: PostFile) => (
                     <div key={file.id}>
-                        {file.filename.split('.').pop() === 'mp4' && (
+                        {file.fileType === 'video/mp4' && (
                             <div
                                 className="h-[200px] w-full overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
                                 onClick={() => handleGalleryItemClick(api.storageUrl + file.filename)}
@@ -50,7 +50,7 @@ export default function UserGallery(props: { userId: string }) {
                                 <ReactPlayer url={api.storageUrl + file.filename} playing muted pip={false} />
                             </div>
                         )}
-                        {file.filename.split('.').pop() !== 'mp4' && (
+                        {file.fileType !== 'video/mp4' && (
                             <img
                                 alt={file.filename}
                                 className="h-[200px] w-full rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"

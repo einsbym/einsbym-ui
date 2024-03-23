@@ -64,7 +64,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                     >
                         {props.post.files.map((file) => (
                             <div key={file.id} className="group relative">
-                                {file.filename.split('.').pop() === 'mp4' && (
+                                {file.fileType === 'video/mp4' && (
                                     <div className="w-full rounded-lg">
                                         <ReactPlayer
                                             width="100%"
@@ -76,7 +76,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                                         />
                                     </div>
                                 )}
-                                {file.filename.split('.').pop() !== 'mp4' && (
+                                {file.fileType !== 'video/mp4' && (
                                     <img
                                         alt={file.filename}
                                         src={api.storageUrl + file.filename}
