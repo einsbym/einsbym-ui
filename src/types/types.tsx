@@ -2,6 +2,7 @@ export interface PostFile {
     id: string;
     filename: string;
     fileType: string;
+    post: Post;
 }
 
 export interface SigninInput {

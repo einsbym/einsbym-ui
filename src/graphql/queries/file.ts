@@ -6,6 +6,9 @@ export const FILES = gql`
             id
             filename
             fileType
+            post {
+                id
+            }
         }
     }
 `;
