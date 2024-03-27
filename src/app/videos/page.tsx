@@ -7,7 +7,7 @@ import { FILES } from '@/graphql/queries/file';
 import { PostFile } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
-import { IoIosArrowDroprightCircle } from 'react-icons/io';
+import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 
 export default function Videos() {
@@ -21,7 +21,24 @@ export default function Videos() {
         notifyOnNetworkStatusChange: true,
     });
 
-    const loadMore = useCallback(async () => {
+    // Fetch previous video
+    const loadPrevious = useCallback(async () => {
+        if (page === 1) {
+            return;
+        }
+
+        await fetchMore({
+            variables: { fileTypes: ['video/mp4'], page: page - 1, limit: 1 },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                setFiles(fetchMoreResult.files);
+            },
+        });
+        setPage(page - 1);
+    }, [page, fetchMore]);
+
+    // Fetch next video
+    const loadNext = useCallback(async () => {
         await fetchMore({
             variables: { fileTypes: ['video/mp4'], page: page + 1, limit: 1 },
             updateQuery: (prev, { fetchMoreResult }) => {
@@ -29,7 +46,7 @@ export default function Videos() {
                 setFiles(fetchMoreResult.files);
             },
         });
-        setPage(page + 1); // Update the page state after fetching more images
+        setPage(page + 1);
     }, [page, fetchMore]);
 
     // useEffect to load images initially
@@ -37,7 +54,7 @@ export default function Videos() {
         if (data && files.length === 0) {
             setFiles(data.files);
         }
-    }, [data, files, loadMore]);
+    }, [data, files, loadNext, loadPrevious]);
 
     return (
         <>
@@ -51,29 +68,32 @@ export default function Videos() {
                                 width="100%"
                                 height="100%"
                                 url={api.storageUrl + file.filename}
-                                playing={false}
+                                playing
                                 muted
-                                controls
+                                loop
                             />
-                            {files.length !== 0 && (
+                            {data && data.files.length !== 0 && (
                                 <button
-                                    className="absolute top-2/4 right-5 text-[2rem] text-[#cc00ff] bg-[#040d12] hover:bg-[#cc00ff] hover:text-[#040d12] rounded-full transition-all duration-200"
+                                    className="absolute top-2/4 right-5 text-[3em] text-[#00000071] hover:text-[#040d12] rounded-full transition-all duration-200"
                                     type="button"
-                                    onClick={loadMore}
+                                    onClick={loadNext}
                                 >
                                     <IoIosArrowDroprightCircle />
+                                </button>
+                            )}
+                            {files.length !== 0 && page > 1 && (
+                                <button
+                                    className="absolute top-2/4 left-5 text-[3em] text-[#00000071] hover:text-[#040d12] rounded-full transition-all duration-200"
+                                    type="button"
+                                    onClick={loadPrevious}
+                                >
+                                    <IoIosArrowDropleftCircle />
                                 </button>
                             )}
                         </div>
                         <VideoParentPost postId={file.post.id} />
                     </div>
                 ))}
-
-            {files.length === 0 && !loading && (
-                <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
-                    There&apos;s nothing to show here
-                </div>
-            )}
         </>
     );
 }
