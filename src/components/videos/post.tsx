@@ -4,8 +4,9 @@ import { Post } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
+import Comments from './comments';
 
-export default function VideoParentPost(props: { postId: string }) {
+export default function Post(props: { postId: string }) {
     // States
     const [post, setPost] = useState<Post>();
 
@@ -25,7 +26,7 @@ export default function VideoParentPost(props: { postId: string }) {
     if (post) {
         return (
             <div className="w-2/6 h-screen pt-20 px-5">
-                <div className="relative w-full text-sm rounded-lg shadow-sm text-gray-400 bg-black p-3">
+                <div className="relative w-full text-sm rounded-lg shadow-lg text-white bg-black p-3">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-base font-semibold leading-none text-white">
                             <a href={`profile/${post.user.username}`}>
@@ -39,7 +40,7 @@ export default function VideoParentPost(props: { postId: string }) {
                                 <span>
                                     {post.user.firstName} {post.user.lastName}
                                 </span>
-                                <span className="hover:underline text-sm font-normal">@{post.user.username}</span>
+                                <span className="hover:underline text-sm font-normal text-gray-400">@{post.user.username}</span>
                             </div>
                         </div>
                         <div>
@@ -52,7 +53,7 @@ export default function VideoParentPost(props: { postId: string }) {
                         </div>
                     </div>
                     <p className="mb-4">{post.postText}</p>
-                    <ul className="flex">
+                    <ul className="flex text-gray-400">
                         <li className="me-2">
                             <a href="#" className="hover:underline">
                                 <span className="font-semibold text-white mr-1">{post.totalLikes}</span>
@@ -66,8 +67,10 @@ export default function VideoParentPost(props: { postId: string }) {
                             </a>
                         </li>
                     </ul>
-                    <span className="absolute bottom-3 right-3">{getElapsedTime(post.createdAt)}</span>
+                    <span className="absolute bottom-3 right-3 text-gray-400">{getElapsedTime(post.createdAt)}</span>
                 </div>
+
+                <Comments postId={post.id} />
             </div>
         );
     }

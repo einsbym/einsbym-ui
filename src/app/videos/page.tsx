@@ -1,7 +1,7 @@
 'use client';
 
 import Navbar from '@/components/shared/navbar';
-import VideoParentPost from '@/components/videos/video-parent-post';
+import Post from '@/components/videos/post';
 import { api } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
 import { PostFile } from '@/types/types';
@@ -91,7 +91,7 @@ export default function Videos() {
                                 </button>
                             )}
                         </div>
-                        <VideoParentPost postId={file.post.id} />
+                        <Post postId={file.post.id} />
                     </div>
                 ))}
         </>
