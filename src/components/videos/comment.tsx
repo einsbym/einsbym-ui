@@ -6,7 +6,7 @@ import { FaRegHeart } from 'react-icons/fa';
 export default function Comment(props: { comment: PostComment }) {
     if (props.comment) {
         return (
-            <div className="w-full text-sm rounded-lg shadow-lg text-white p-3 mt-5 mb-2">
+            <div className="w-full text-sm rounded-lg shadow-lg text-white p-3 mt-2 mb-2">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-base font-semibold leading-none text-white">
                         <a href={`profile/${props.comment.user.username}`}>
@@ -30,7 +30,7 @@ export default function Comment(props: { comment: PostComment }) {
                         </button>
                     </div>
                 </div>
-                <p className="mb-2 mt-2">{props.comment.comment}</p>
+                <p className="mt-2">{props.comment.comment}</p>
             </div>
         );
     }
