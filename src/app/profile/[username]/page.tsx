@@ -54,34 +54,36 @@ export default function UserProfile() {
         return 'loading...';
     }
 
-    return (
-        <>
-            <Navbar />
-            <UserBlurredCover coverImage={user?.coverImage || ''} />
-
-            <main className="mx-auto lg:pt-24">
-                {/* User's cover and profile picture */}
-                <UserCoverAndPhoto
-                    id={user?.id || ''}
-                    firstName={user?.firstName || ''}
-                    lastName={user?.lastName || ''}
-                    coverImage={user?.coverImage || ''}
-                    profileImage={user?.profilePicture || ''}
-                    loggedUserId={loggedUser?.id}
-                />
-
-                {/* General statistics */}
-                <UserGeneralStatistics />
-
-                {/* User's content */}
-                <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
-                    <div>
-                        <UserBioAndPost userId={user?.id || ''} bio={user?.bio || ''} loggedUserId={loggedUser?.id} />
+    if (user && loggedUser) {
+        return (
+            <>
+                <Navbar />
+                <UserBlurredCover coverImage={user.coverImage} />
+    
+                <main className="mx-auto lg:pt-24">
+                    {/* User's cover and profile picture */}
+                    <UserCoverAndPhoto
+                        id={user.id}
+                        firstName={user.firstName}
+                        lastName={user.lastName}
+                        coverImage={user.coverImage}
+                        profileImage={user.profilePicture}
+                        loggedUserId={loggedUser.id}
+                    />
+    
+                    {/* General statistics */}
+                    <UserGeneralStatistics />
+    
+                    {/* User's content */}
+                    <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
+                        <div>
+                            <UserBioAndPost userId={user.id} bio={user.bio} loggedUserId={loggedUser.id} />
+                        </div>
+    
+                        <UserGallery userId={user.id} />
                     </div>
-
-                    <UserGallery userId={user?.id || ''} />
-                </div>
-            </main>
-        </>
-    );
+                </main>
+            </>
+        );   
+    }
 }
