@@ -1,18 +1,18 @@
 import { api } from '@/constants/constants';
-import { Post } from '@/types/types';
+import { PostType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
 import ReactPlayer from 'react-player';
-import PostComments from './post-comments';
-import PostLikeButton from './post-like-button';
+import Comments from './comments';
+import LikePostButton from './like-post-button';
 import PostPopoverMenu from './post-popover-menu';
-import PublishPostComment from './publish-post-comment';
+import PublishComment from './publish-comment';
 
-export default function PostItem(props: { post: Post; userId: string; loggedUserId?: string | null }) {
+export default function Post(props: { post: PostType; userId: string; loggedUserId?: string | null }) {
     // States
-    const [publishedPostCommentId, setPublishedPostCommentId] = useState<string>('');
+    const [publishedCommentId, setPublishedCommentId] = useState<string>('');
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const [areCommentsVisible, setAreCommentsVisible] = useState(false);
     const [removed, setRemoved] = useState(false);
@@ -91,7 +91,7 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                 )}
 
                 <div className="flex gap-2 justify-end">
-                    <PostLikeButton
+                    <LikePostButton
                         postId={props.post.id}
                         liked={props.post.likes?.some((like) =>
                             props.loggedUserId ? like.id === props.loggedUserId : like.id === props.userId,
@@ -113,16 +113,16 @@ export default function PostItem(props: { post: Post; userId: string; loggedUser
                     </button>
                 </div>
 
-                <PublishPostComment
+                <PublishComment
                     postId={props.post.id}
                     userId={props.loggedUserId || props.userId}
-                    setPublishedPostCommentId={setPublishedPostCommentId}
+                    setPublishedPostCommentId={setPublishedCommentId}
                     setAreCommentsVisible={setAreCommentsVisible}
                 />
 
                 {/* Conditionally render PostComments */}
                 {areCommentsVisible && (
-                    <PostComments postId={props.post.id} publishedPostCommentId={publishedPostCommentId} />
+                    <Comments postId={props.post.id} publishedCommentId={publishedCommentId} />
                 )}
             </div>
         </div>

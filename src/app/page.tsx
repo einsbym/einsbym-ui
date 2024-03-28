@@ -4,13 +4,13 @@ import ButtonLoadMore from '@/components/shared/button-load-more';
 import Navbar from '@/components/shared/navbar';
 import { api } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
-import { PostFile } from '@/types/types';
+import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function Home() {
     // States
-    const [files, setFiles] = useState<PostFile[]>([]);
+    const [files, setFiles] = useState<PostFileType[]>([]);
     const [page, setPage] = useState<number>(1);
 
     // Queries

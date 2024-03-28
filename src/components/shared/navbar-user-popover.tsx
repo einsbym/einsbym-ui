@@ -1,11 +1,11 @@
-import { User } from '@/types/types';
+import { UserType } from '@/types/types';
 import { AuthService } from '@/auth/auth.service';
 import { useRouter } from 'next/navigation';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { api } from '@/constants/constants';
 
 interface SidebarProps {
-    user: User | null;
+    user: UserType | null;
     isMenuOpen: boolean;
     handleMenu: any;
 }

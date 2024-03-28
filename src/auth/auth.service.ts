@@ -1,5 +1,5 @@
 import { createAccessTokenCookie, createUserCookie, deleteCookies, getCurrentUserFromCookie } from '@/auth/cookies';
-import { SigninInput, User } from '@/types/types';
+import { SignInType, UserType } from '@/types/types';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { Dispatch, SetStateAction } from 'react';
@@ -29,7 +29,7 @@ export class AuthService {
         }
     };
 
-    getUser = async (setUser: Dispatch<SetStateAction<User | null | undefined>>) => {
+    getUser = async (setUser: Dispatch<SetStateAction<UserType | null | undefined>>) => {
         const user = await getCurrentUserFromCookie();
         setUser(user);
     };
@@ -38,7 +38,7 @@ export class AuthService {
         preventDefault: () => void,
         setIsLoading: Dispatch<SetStateAction<boolean>>,
         setErrorMessage: Dispatch<SetStateAction<string | null | undefined>>,
-        signinInput: SigninInput,
+        signinInput: SignInType,
         router: AppRouterInstance,
     ) => {
         preventDefault;

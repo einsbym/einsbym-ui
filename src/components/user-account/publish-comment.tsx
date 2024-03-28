@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 
-export default function PublishPostComment(props: {
+export default function PublishComment(props: {
     postId: string;
     userId: string;
     setPublishedPostCommentId: Dispatch<SetStateAction<string>>;

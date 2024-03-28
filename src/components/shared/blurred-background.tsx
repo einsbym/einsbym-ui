@@ -1,10 +1,10 @@
 import { api } from '@/constants/constants';
 
-interface UserBlurredCoverProps {
+interface BlurredBackgroundProps {
     coverImage: string;
 }
 
-export default function UserBlurredCover(props: UserBlurredCoverProps) {
+export default function BlurredBackground(props: BlurredBackgroundProps) {
     return (
         <div
             style={{

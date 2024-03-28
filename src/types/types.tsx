@@ -1,16 +1,16 @@
-export interface PostFile {
+export interface PostFileType {
     id: string;
     filename: string;
     fileType: string;
-    post: Post;
+    post: PostType;
 }
 
-export interface SigninInput {
+export interface SignInType {
     email: string;
     password: string;
 }
 
-export interface SignUpInput {
+export interface SignUpType {
     email: string;
     firstName: string;
     username: string;
@@ -18,7 +18,7 @@ export interface SignUpInput {
     confirmPassword: string;
 }
 
-export interface User {
+export interface UserType {
     id: string;
     firstName: string;
     lastName: string;
@@ -30,21 +30,21 @@ export interface User {
     createdAt: Date;
 }
 
-export interface Post {
+export interface PostType {
     id: string;
     postText: string;
     totalComments: number;
     totalLikes: number;
     createdAt: Date;
     updatedAt: Date;
-    files: PostFile[];
-    user: User;
-    likes: User[];
+    files: PostFileType[];
+    user: UserType;
+    likes: UserType[];
 }
 
-export interface PostComment {
+export interface CommentType {
     id: string;
     comment: string;
     createdAt: Date;
-    user: User;
+    user: UserType;
 }

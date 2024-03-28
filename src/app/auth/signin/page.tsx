@@ -1,11 +1,11 @@
 'use client';
 
 import { AuthService } from '@/auth/auth.service';
+import BlurredBackground from '@/components/shared/blurred-background';
 import IconLoading from '@/components/shared/icon-loading';
-import UserBlurredCover from '@/components/user-account/user-blurred-cover';
 import { api } from '@/constants/constants';
 import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
-import { SigninInput } from '@/types/types';
+import { SignInType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
@@ -13,7 +13,7 @@ import { CiLogin } from 'react-icons/ci';
 import { MdError } from 'react-icons/md';
 
 export default function Login() {
-    const [signinInput, setSigninInput] = useState<SigninInput>({ email: '', password: '' });
+    const [signinInput, setSigninInput] = useState<SignInType>({ email: '', password: '' });
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
@@ -34,7 +34,7 @@ export default function Login() {
 
     return (
         <>
-            {data && <UserBlurredCover coverImage={data.findRandomFile.filename} />}
+            {data && <BlurredBackground coverImage={data.findRandomFile.filename} />}
             <div className="flex items-center justify-center h-screen">
                 <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:pt-0 md:pb-0 md:w-1/2 md:h-4/6 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     <div

@@ -1,14 +1,14 @@
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
-import { Post } from '@/types/types';
+import { PostType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FcLike } from 'react-icons/fc';
 import ButtonLoadMore from '../shared/button-load-more';
-import PostItem from './post-item';
+import Post from './post';
 
 export default function Posts(props: { userId: string; publishedPostId: string; loggedUserId?: string | null }) {
     // States
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<PostType[]>([]);
     const [page, setPage] = useState<number>(1);
     const [publishedPostId, setPublishedPostId] = useState<string>('');
 
@@ -55,8 +55,8 @@ export default function Posts(props: { userId: string; publishedPostId: string; 
 
     return (
         <>
-            {posts.map((post: Post, index) => (
-                <PostItem key={post.id} post={post} userId={props.userId} loggedUserId={props.loggedUserId} />
+            {posts.map((post: PostType, index) => (
+                <Post key={post.id} post={post} userId={props.userId} loggedUserId={props.loggedUserId} />
             ))}
 
             {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && (

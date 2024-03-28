@@ -1,19 +1,19 @@
 'use client';
 
-import UserBlurredCover from '@/components/user-account/user-blurred-cover';
-import { CREATE_USER } from '@/graphql/mutations/user';
-import { SignUpInput } from '@/types/types';
 import { AuthService } from '@/auth/auth.service';
+import BlurredBackground from '@/components/shared/blurred-background';
+import IconLoading from '@/components/shared/icon-loading';
+import { CREATE_USER } from '@/graphql/mutations/user';
+import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
+import { SignUpType } from '@/types/types';
 import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { FaArrowLeft, FaSave } from 'react-icons/fa';
 import { z } from 'zod';
-import IconLoading from '@/components/shared/icon-loading';
-import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
 
 export default function Login() {
-    const [signUpInput, setSignUpInput] = useState<SignUpInput>({
+    const [signUpInput, setSignUpInput] = useState<SignUpType>({
         email: '',
         firstName: '',
         username: '',
@@ -60,7 +60,7 @@ export default function Login() {
             if (!validation.success) {
                 const { errors } = validation.error;
                 setZodIssues(errors);
-                throw new Error("Some fields are invalid");
+                throw new Error('Some fields are invalid');
             }
 
             if (signUpInput.password !== signUpInput.confirmPassword) {
@@ -99,7 +99,7 @@ export default function Login() {
 
     return (
         <>
-            {data && <UserBlurredCover coverImage={data.findRandomFile.filename} />}
+            {data && <BlurredBackground coverImage={data.findRandomFile.filename} />}
             <div className="flex items-center justify-center h-screen">
                 <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:w-1/4 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     <div className="w-full ml-10 mr-10 space-y-6">

@@ -1,6 +1,6 @@
 import { api } from '@/constants/constants';
 import { FIND_POST_BY_ID } from '@/graphql/queries/post';
-import { Post } from '@/types/types';
+import { PostType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import Comments from './comments';
 
 export default function Post(props: { postId: string }) {
     // States
-    const [post, setPost] = useState<Post>();
+    const [post, setPost] = useState<PostType>();
 
     // Queries
     const { data } = useQuery(FIND_POST_BY_ID, {

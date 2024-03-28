@@ -1,9 +1,9 @@
 import { api } from '@/constants/constants';
-import { PostComment } from '@/types/types';
+import { CommentType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { FaRegHeart } from 'react-icons/fa';
 
-export default function Comment(props: { comment: PostComment }) {
+export default function Comment(props: { comment: CommentType }) {
     if (props.comment) {
         return (
             <div className="w-full text-sm rounded-lg shadow-lg text-white p-3 mt-2 mb-2">

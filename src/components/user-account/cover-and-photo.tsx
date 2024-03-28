@@ -5,7 +5,7 @@ import UpdateProfileImage from './update-profile-image';
 import UpdateCoverImage from './update-cover-image';
 import { api } from '@/constants/constants';
 
-interface UserCoverAndPhotoProps {
+interface CoverAndPhotoProps {
     id: string;
     firstName: string;
     lastName: string;
@@ -14,7 +14,7 @@ interface UserCoverAndPhotoProps {
     loggedUserId?: string | null;
 }
 
-export default function UserCoverAndPhoto(props: UserCoverAndPhotoProps) {
+export default function CoverAndPhoto(props: CoverAndPhotoProps) {
     const [isChangeProfPicActive, setIsChangeProfPicActive] = useState<boolean>(false);
     const [isChangeCoverImageActive, setIsChangeCoverImageActive] = useState<boolean>(false);
     const [profileImage, setProfileImage] = useState<string>('');

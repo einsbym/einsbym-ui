@@ -1,4 +1,4 @@
-import { User } from '@/types/types';
+import { UserType } from '@/types/types';
 import { AuthService } from '@/auth/auth.service';
 import { useEffect, useState } from 'react';
 import Sidebar from './sidebar';
@@ -12,7 +12,7 @@ const menuItems = [
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
-    const [user, setUser] = useState<User | null>();
+    const [user, setUser] = useState<UserType | null>();
 
     const handleMenu = () => {
         if (isMenuOpen) {

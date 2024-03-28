@@ -1,6 +1,6 @@
 'use server';
 
-import { User } from '@/types/types';
+import { UserType } from '@/types/types';
 import { cookies } from 'next/headers';
 
 export async function createUserCookie(user: any) {
@@ -23,7 +23,7 @@ export async function getCurrentUserFromCookie() {
     const currentUser = cookieStore.get('currentUser');
 
     if (currentUser) {
-        return JSON.parse(currentUser.value) as User;
+        return JSON.parse(currentUser.value) as UserType;
     }
 
     return null;

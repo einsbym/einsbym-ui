@@ -2,16 +2,16 @@
 
 import { AuthService } from '@/auth/auth.service';
 import Navbar from '@/components/shared/navbar';
-import { User } from '@/types/types';
+import { UserType } from '@/types/types';
 import { useEffect, useState } from 'react';
-import UserBioAndPost from '../../components/user-account/user-bio-and-post';
-import UserBlurredCover from '../../components/user-account/user-blurred-cover';
-import UserCoverAndPhoto from '../../components/user-account/user-cover-and-photo';
-import UserGallery from '../../components/user-account/user-gallery';
-import UserGeneralStatistics from '../../components/user-account/user-general-statistics';
+import Content from '../../components/user-account/content';
+import BlurredBackground from '../../components/shared/blurred-background';
+import CoverAndPhoto from '../../components/user-account/cover-and-photo';
+import Gallery from '../../components/user-account/gallery';
+import GeneralStatistics from '../../components/user-account/general-statistics';
 
 export default function UserProfile() {
-    const [user, setUser] = useState<User | null>();
+    const [user, setUser] = useState<UserType | null>();
 
     useEffect(() => {
         new AuthService().getUser(setUser);
@@ -21,11 +21,11 @@ export default function UserProfile() {
         return (
             <>
                 <Navbar />
-                <UserBlurredCover coverImage={user.coverImage} />
+                <BlurredBackground coverImage={user.coverImage} />
 
                 <main className="mx-auto lg:pt-24">
                     {/* User's cover and profile picture */}
-                    <UserCoverAndPhoto
+                    <CoverAndPhoto
                         id={user.id}
                         firstName={user.firstName}
                         lastName={user.lastName}
@@ -34,15 +34,15 @@ export default function UserProfile() {
                     />
 
                     {/* General statistics */}
-                    <UserGeneralStatistics />
+                    <GeneralStatistics />
 
                     {/* User's content */}
                     <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                         <div>
-                            <UserBioAndPost userId={user.id} bio={user.bio} />
+                            <Content userId={user.id} bio={user.bio} />
                         </div>
 
-                        <UserGallery userId={user.id} />
+                        <Gallery userId={user.id} />
                     </div>
                 </main>
             </>

@@ -1,12 +1,12 @@
 import { FIND_COMMENTS_BY_POST } from '@/graphql/queries/post-comment';
-import { PostComment } from '@/types/types';
+import { CommentType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import Comment from './comment';
 
 export default function Comments(props: { postId: string }) {
     // States
-    const [comments, setComments] = useState<PostComment[]>([]);
+    const [comments, setComments] = useState<CommentType[]>([]);
 
     // Queries
     const { data } = useQuery(FIND_COMMENTS_BY_POST, {

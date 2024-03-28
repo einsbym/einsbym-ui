@@ -4,7 +4,7 @@ import Navbar from '@/components/shared/navbar';
 import Post from '@/components/videos/post';
 import { api } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
-import { PostFile } from '@/types/types';
+import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
@@ -12,7 +12,7 @@ import ReactPlayer from 'react-player';
 
 export default function Videos() {
     // States
-    const [files, setFiles] = useState<PostFile[]>([]);
+    const [files, setFiles] = useState<PostFileType[]>([]);
     const [page, setPage] = useState<number>(1);
 
     // Queries

@@ -5,7 +5,7 @@ import PublishPost from './publish-post';
 import { createUserCookie } from '@/auth/cookies';
 import { ME } from '@/graphql/queries/user';
 
-export default function UserBioAndPost(props: { userId: string; bio: string; loggedUserId?: string | null }) {
+export default function Content(props: { userId: string; bio: string; loggedUserId?: string | null }) {
     // States
     const [isEditBioActive, setIsEditBioActive] = useState<boolean>(false);
     const [bio, setBio] = useState<string>();
