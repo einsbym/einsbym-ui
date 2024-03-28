@@ -72,7 +72,7 @@ const LikePostButton = (props: {
                 id="popover-top"
                 className={
                     likesPopoverVisible
-                        ? 'absolute top-10 inline-block z-10 w-30 break-words text-sm rounded-lg shadow-sm backdrop-blur-lg bg-opacity-10 bg-black/30'
+                        ? 'absolute top-10 inline-block z-10 w-40 max-w-40 break-words text-sm text-white rounded-lg shadow-sm backdrop-blur-lg bg-opacity-10 bg-black/30'
                         : 'hidden'
                 }
             >
@@ -82,7 +82,7 @@ const LikePostButton = (props: {
                             <a href={`/profile/${user.username}`}>{user.username}</a>
                         </p>
                     ))}
-                    {props.likes.length === 0 && <p>no likes</p>}
+                    {props.likes.length === 0 && <p className='text-center'>no likes</p>}
                 </div>
             </div>
         </div>

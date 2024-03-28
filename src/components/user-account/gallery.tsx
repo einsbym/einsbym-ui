@@ -44,10 +44,16 @@ export default function Gallery(props: { userId: string }) {
                     <div key={file.id}>
                         {file.fileType === 'video/mp4' && (
                             <div
-                                className="h-[200px] w-full overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
+                                className="h-[200px] w-full bg-black overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
                                 onClick={() => handleGalleryItemClick(api.storageUrl + file.filename)}
                             >
-                                <ReactPlayer url={api.storageUrl + file.filename} playing muted pip={false} />
+                                <ReactPlayer
+                                    url={api.storageUrl + file.filename}
+                                    width="100%"
+                                    height="100%"
+                                    light
+                                    pip={false}
+                                />
                             </div>
                         )}
                         {file.fileType !== 'video/mp4' && (
@@ -81,8 +87,8 @@ export default function Gallery(props: { userId: string }) {
                         style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
                         url={selectedFile.url}
                         controls
-                        playing
-                        pip={false}
+                        playing={isFileViewerActive}
+                        stopOnUnmount
                     />
                 )}
             </div>

@@ -63,7 +63,7 @@ export default function Videos() {
             {files &&
                 files.map((file) => (
                     <div key={file.id} className="flex items-center justify-center h-screen">
-                        <div className="relative w-4/5 shadow-[0_35px_60px_-15px_#cc00ff69] bg-red-800">
+                        <div className="relative w-4/5 shadow-[0_35px_60px_-15px_#cc00ff69]">
                             <ReactPlayer
                                 width="100%"
                                 height="100%"

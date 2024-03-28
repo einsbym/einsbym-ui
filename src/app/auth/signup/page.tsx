@@ -229,7 +229,7 @@ export default function Login() {
                                     </>
                                 )}
                             </button>
-                            <div className="mt-5 text-sm text-center">
+                            <div className="mt-5 text-sm text-center text-white">
                                 By creating an account, you agree to our{' '}
                                 <a
                                     className="text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]"
