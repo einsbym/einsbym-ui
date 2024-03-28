@@ -11,7 +11,6 @@ interface UpdateCoverImageProps {
     currentCoverImage: string;
     isChangeCoverImageActive: boolean;
     setIsChangeCoverImageActive: Dispatch<SetStateAction<boolean>>;
-    setCoverImage: Dispatch<SetStateAction<string>>;
 }
 
 export default function UpdateCoverImage(props: UpdateCoverImageProps) {
@@ -89,9 +88,6 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             await getMe({ variables: { id: props.userId } }).then(async (result) => {
                 await createUserCookie(result.data.me);
             });
-
-            // Update state
-            props.setCoverImage(jsonResponse.filename);
 
             props.setIsChangeCoverImageActive(false);
         } catch (error) {

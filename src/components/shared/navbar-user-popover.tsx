@@ -1,8 +1,10 @@
-import { UserType } from '@/types/types';
 import { AuthService } from '@/auth/auth.service';
-import { useRouter } from 'next/navigation';
-import { RiLoginCircleLine } from 'react-icons/ri';
 import { api } from '@/constants/constants';
+import { UserType } from '@/types/types';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { RiLoginCircleLine } from 'react-icons/ri';
+import UpdateCoverImage from '../user-account/update-cover-image';
 
 interface SidebarProps {
     user: UserType | null;
@@ -11,7 +13,10 @@ interface SidebarProps {
 }
 
 export default function NavbarUserPopover(props: SidebarProps) {
+    const pathname = usePathname();
     const router = useRouter();
+
+    const [isChangeCoverImageActive, setIsChangeCoverImageActive] = useState<boolean>(false);
 
     const signOut = async () => {
         await new AuthService().signOut(router);
@@ -54,13 +59,9 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 }
             >
                 {props.user && (
-                    <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                        id="user-menu-item-0"
-                    >
+                    <p className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]">
                         {props.user.firstName} ({props.user.username})
-                    </a>
+                    </p>
                 )}
                 <a
                     href="/profile"
@@ -69,17 +70,31 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 >
                     Your Profile
                 </a>
-                <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                    id="user-menu-item-1"
+                {pathname === '/profile' && (
+                    <p
+                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
+                        onClick={() => setIsChangeCoverImageActive(true)}
+                    >
+                        Change cover image
+                    </p>
+                )}
+                <p
+                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
+                    onClick={signOut}
                 >
-                    Settings
-                </a>
-                <a href="#" className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]" onClick={signOut}>
                     Sign out
-                </a>
+                </p>
             </div>
+
+            {/* Show menu for changing the cover image */}
+            {props.user && (
+                <UpdateCoverImage
+                    userId={props.user.id}
+                    currentCoverImage={props.user.coverImage}
+                    isChangeCoverImageActive={isChangeCoverImageActive}
+                    setIsChangeCoverImageActive={setIsChangeCoverImageActive}
+                />
+            )}
         </div>
     );
 }

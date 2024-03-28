@@ -29,7 +29,6 @@ export default function UserProfile() {
                         id={user.id}
                         firstName={user.firstName}
                         lastName={user.lastName}
-                        coverImage={user.coverImage}
                         profileImage={user.profilePicture}
                     />
 
