@@ -1,12 +1,11 @@
+import { api } from '@/constants/constants';
 import { CREATE_POST } from '@/graphql/mutations/post';
 import { useMutation } from '@apollo/client';
 import { ChangeEvent, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { GrGallery } from 'react-icons/gr';
 import { IoMdCloseCircle } from 'react-icons/io';
-import { MdPostAdd } from 'react-icons/md';
 import Posts from './posts';
-import { api } from '@/constants/constants';
 
 export default function PublishPost(props: { userId: string; loggedUserId?: string | null }) {
     // States
@@ -23,6 +22,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
     const removeFileFromList = (indexToRemove: number) => {
         const files = selectedFiles?.filter((_, index) => index !== indexToRemove);
         setSelectedFiles(files);
+        setFiles(null);
     };
 
     const handleFilesChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -126,15 +126,10 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                 <div className="mt-5">
                     <form>
                         <div className="relative">
-                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <MdPostAdd size={30} color="white" />
-                            </div>
-                            <input
-                                type="post"
+                            <textarea
                                 id="post"
-                                className="block w-full p-4 ps-[3rem] text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
+                                className="block w-full h-30 p-4 resize-y text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
                                 placeholder="Write something..."
-                                value={postText || ''}
                                 onChange={(event) => setPostText(event.target.value)}
                                 required
                             />
