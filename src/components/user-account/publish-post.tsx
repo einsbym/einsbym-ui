@@ -128,7 +128,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                         <div className="relative">
                             <textarea
                                 id="post"
-                                className="block w-full h-30 p-4 resize-y text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
+                                className="block w-full h-40 p-4 resize-none text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
                                 placeholder="Write something..."
                                 onChange={(event) => setPostText(event.target.value)}
                                 required

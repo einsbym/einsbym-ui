@@ -34,10 +34,9 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 >
                     {!props.loggedUserId && (
                         <FaCamera
-                            className="absolute bottom-3 right-3 text-[#cc00ff] cursor-pointer"
+                            className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-7 h-7 lg:w-8 lg:h-8 lg:bottom-3 lg:left-auto lg:right-3 text-[#cc00ff] cursor-pointer"
                             title="Change profile image"
                             onClick={() => setIsChangeProfPicActive(true)}
-                            size={30}
                         />
                     )}
                 </div>
