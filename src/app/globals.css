@@ -19,6 +19,28 @@ body {
     background: var(--background);
 }
 
+.animated-shadow {
+    animation: AnimatedShadow 5s ease infinite;
+}
+
+@keyframes AnimatedShadow {
+    0% {
+        box-shadow: #cc00ff 0px -4px 16px, #cc00ff 0px -8px 32px;
+    }
+    25% {
+        box-shadow: #cc00ff 0px -1px 0px, #cc00ff 0px -8px 24px, #cc00ff 0px -16px 48px;
+    }
+    50% {
+        box-shadow: #cc00ff 0px -8px 24px, #cc00ff 0px -16px 56px, #cc00ff 0px -24px 80px;
+    }
+    75% {
+        box-shadow: #cc00ff 0px -1px 0px, #cc00ff 0px -8px 24px, #cc00ff 0px -16px 48px;
+    }
+    100% {
+        box-shadow: #cc00ff 0px -4px 16px, #cc00ff 0px -8px 32px;
+    }
+}
+
 .animated-gradient-bg {
     background: linear-gradient(334deg, #cc00ff, rgb(165, 10, 126), #9635c3);
     background-size: 600% 600%;

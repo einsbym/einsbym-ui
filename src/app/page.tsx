@@ -1,5 +1,6 @@
 'use client';
 
+import ButtonGroup from '@/components/shared/button-group';
 import ButtonLoadMore from '@/components/shared/button-load-more';
 import Navbar from '@/components/shared/navbar';
 import { api } from '@/constants/constants';
@@ -19,19 +20,16 @@ export default function Home() {
         notifyOnNetworkStatusChange: true,
     });
 
-    const loadMore = useCallback(
-        async () => {
-            await fetchMore({
-                variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page + 1 },
-                updateQuery: (prev, { fetchMoreResult }) => {
-                    if (!fetchMoreResult) return prev;
-                    setFiles([...files, ...fetchMoreResult.files]);
-                },
-            });
-            setPage(page + 1); // Update the page state after fetching more images
-        },
-        [page, fetchMore, files],
-    );
+    const loadMore = useCallback(async () => {
+        await fetchMore({
+            variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page + 1 },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                setFiles([...files, ...fetchMoreResult.files]);
+            },
+        });
+        setPage(page + 1); // Update the page state after fetching more images
+    }, [page, fetchMore, files]);
 
     // useEffect to load images initially
     useEffect(() => {
@@ -44,13 +42,15 @@ export default function Home() {
         <>
             <Navbar />
 
-            <div className="mt-20 rounded-t-[2rem] overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            {/* <ButtonGroup /> */}
+
+            <div className="rounded-t-[2rem] overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {files &&
                     files.map((file) => (
                         <div key={file.id}>
                             <img
                                 alt={file.filename}
-                                className="transition duration-300 ease-in-out hover:shadow-[0_35px_60px_-15px_#cc00ff69] w-full h-[500px] cursor-pointer object-cover"
+                                className="w-full h-[500px] cursor-pointer object-cover"
                                 src={api.storageUrl + file.filename}
                             />
                         </div>
