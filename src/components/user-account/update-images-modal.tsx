@@ -19,7 +19,7 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
             id="default-modal"
             className={`${
                 !props.isModalActive ? 'hidden' : null
-            } transition-all transform duration-200 overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-10 flex justify-center items-center w-full md:inset-0 h-screen max-h-full`}
+            } overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-10 flex justify-center items-center w-full md:inset-0 h-screen max-h-full`}
         >
             <div className="relative p-4 w-full max-w-2xl max-h-full">
                 {/* Modal content */}

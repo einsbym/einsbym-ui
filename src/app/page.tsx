@@ -1,6 +1,5 @@
 'use client';
 
-import ButtonGroup from '@/components/shared/button-group';
 import ButtonLoadMore from '@/components/shared/button-load-more';
 import Navbar from '@/components/shared/navbar';
 import { api } from '@/constants/constants';
@@ -12,13 +11,20 @@ import { useCallback, useEffect, useState } from 'react';
 export default function Home() {
     // States
     const [files, setFiles] = useState<PostFileType[]>([]);
+    const [selectedFile, setSelectedFile] = useState<PostFileType>();
     const [page, setPage] = useState<number>(1);
+    const [isViewerOpen, setIsViewerOpen] = useState<boolean>(false);
 
     // Queries
     const { data, loading, fetchMore } = useQuery(FILES, {
         variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page },
         notifyOnNetworkStatusChange: true,
     });
+
+    const openViewer = (file: PostFileType) => {
+        setSelectedFile(file);
+        setIsViewerOpen(true);
+    };
 
     const loadMore = useCallback(async () => {
         await fetchMore({
@@ -44,7 +50,7 @@ export default function Home() {
 
             {/* <ButtonGroup /> */}
 
-            <div className="rounded-t-[2rem] overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {files &&
                     files.map((file) => (
                         <div key={file.id}>
@@ -52,10 +58,21 @@ export default function Home() {
                                 alt={file.filename}
                                 className="w-full h-[500px] cursor-pointer object-cover"
                                 src={api.storageUrl + file.filename}
+                                onClick={() => openViewer(file)}
                             />
                         </div>
                     ))}
             </div>
+
+            {isViewerOpen && selectedFile && (
+                <div className="fixed px-2 lg-mx-auto inset-0 flex items-center justify-center backdrop-blur-lg bg-black/30" onClick={() => setIsViewerOpen(false)}>
+                    <img
+                        className="h-auto lg:h-5/6 rounded-lg"
+                        src={api.storageUrl + selectedFile.filename}
+                        alt={selectedFile.filename}
+                    />
+                </div>
+            )}
 
             {data && data.files.length !== 0 && <ButtonLoadMore handleClick={loadMore} />}
 
