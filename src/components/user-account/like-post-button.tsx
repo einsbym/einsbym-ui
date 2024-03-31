@@ -60,7 +60,7 @@ const LikePostButton = (props: {
     return (
         <div className="relative">
             <button
-                className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
+                className="flex items-center gap-2 text-sm lg:bg-transparent text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                 onClick={handleLikePost}
                 onMouseEnter={() => setLikesPopoverVisible(true)}
                 onMouseLeave={() => setLikesPopoverVisible(false)}
@@ -72,7 +72,7 @@ const LikePostButton = (props: {
                 id="popover-top"
                 className={
                     likesPopoverVisible
-                        ? 'absolute top-10 inline-block z-10 w-40 max-w-40 break-words text-sm text-white rounded-lg shadow-sm backdrop-blur-lg bg-opacity-10 bg-black/30'
+                        ? 'absolute top-10 inline-block z-10 w-20 lg:w-40 break-words text-sm text-white rounded-lg shadow-sm shadow-black bg-gray-800'
                         : 'hidden'
                 }
             >

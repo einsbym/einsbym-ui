@@ -101,7 +101,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                 },
             });
 
-            if (errors) {
+            if (errors && errors.length > 0) {
                 throw new Error('Error when attempting to publish your post.');
             }
 
@@ -130,6 +130,7 @@ export default function PublishPost(props: { userId: string; loggedUserId?: stri
                                 id="post"
                                 className="block w-full h-40 p-4 resize-none text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white"
                                 placeholder="Write something..."
+                                value={postText || ''}
                                 onChange={(event) => setPostText(event.target.value)}
                                 required
                             />

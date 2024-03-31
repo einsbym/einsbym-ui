@@ -31,7 +31,7 @@ export default function PostPopoverMenu(props: {
     return (
         <>
             {!props.loggedUserId && (
-                <div className="absolute right-0 mt-40 origin-top-right z-10 divide-y divide-gray-100 rounded-lg shadow w-44 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
+                <div className="absolute right-0 mt-40 origin-top-right divide-y divide-gray-100 rounded-lg shadow-md shadow-black w-44 z-10 bg-gray-800">
                     <ul className="py-2 text-sm text-gray-200">
                         <li>
                             <a href="#" className="block px-4 py-2 text-[#cc00ff] hover:bg-[#cc00ff1e]">
@@ -51,7 +51,7 @@ export default function PostPopoverMenu(props: {
             )}
 
             {props.loggedUserId && (
-                <div className="absolute right-0 mt-20 origin-top-right z-10 divide-y divide-gray-100 rounded-lg shadow w-44 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
+                <div className="absolute right-0 mt-20 origin-top-right divide-y divide-gray-100 rounded-lg shadow-md shadow-black w-44 z-10 bg-gray-800">
                     <ul className="py-2 text-sm text-gray-200">
                         <li>
                             <a href="#" className="block px-4 py-2 text-[#cc00ff] hover:bg-[#cc00ff1e]">

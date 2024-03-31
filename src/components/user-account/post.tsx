@@ -17,10 +17,6 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
     const [areCommentsVisible, setAreCommentsVisible] = useState(false);
     const [removed, setRemoved] = useState(false);
 
-    const handlePopoverToggle = () => {
-        setIsPopoverOpen(!isPopoverOpen);
-    };
-
     return (
         <div key={props.post.id} className={removed ? 'hidden' : 'mt-5 flex items-start gap-2'}>
             <a className="flex-none" href={`/profile/${props.post.user.username}`}>
@@ -40,7 +36,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                             {getElapsedTime(props.post.createdAt)}
                         </span>
                     </div>
-                    <button className="text-white" type="button" onClick={handlePopoverToggle}>
+                    <button className="text-white" type="button" onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
                         <BsThreeDotsVertical />
                     </button>
                     {isPopoverOpen && (
