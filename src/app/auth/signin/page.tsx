@@ -2,13 +2,13 @@
 
 import { AuthService } from '@/auth/auth.service';
 import BlurredBackground from '@/components/shared/blurred-background';
-import IconLoading from '@/components/shared/icon-loading';
 import { api } from '@/constants/constants';
 import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
 import { SignInType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
+import { AiOutlineLoading } from 'react-icons/ai';
 import { CiLogin } from 'react-icons/ci';
 import { MdError } from 'react-icons/md';
 
@@ -108,7 +108,10 @@ export default function Login() {
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
-                                    <IconLoading title="Signing in..." />
+                                    <>
+                                        <AiOutlineLoading className="w-5 h-5 text-transparent animate-spin fill-white" />{' '}
+                                        Signing in...
+                                    </>
                                 ) : (
                                     <>
                                         <CiLogin size={25} /> Sign In

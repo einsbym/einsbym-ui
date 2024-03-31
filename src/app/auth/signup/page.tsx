@@ -2,13 +2,13 @@
 
 import { AuthService } from '@/auth/auth.service';
 import BlurredBackground from '@/components/shared/blurred-background';
-import IconLoading from '@/components/shared/icon-loading';
 import { CREATE_USER } from '@/graphql/mutations/user';
 import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
 import { SignUpType } from '@/types/types';
 import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
+import { AiOutlineLoading } from 'react-icons/ai';
 import { FaArrowLeft, FaSave } from 'react-icons/fa';
 import { z } from 'zod';
 
@@ -222,7 +222,10 @@ export default function Login() {
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
-                                    <IconLoading title="Hold on..." />
+                                    <>
+                                        <AiOutlineLoading className="w-5 h-5 text-transparent animate-spin fill-white" />{' '}
+                                        Hold on...
+                                    </>
                                 ) : (
                                     <>
                                         <FaSave size={20} /> Create account
