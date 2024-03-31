@@ -1,5 +1,6 @@
 'use client';
 
+import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import Post from '@/components/videos/post';
 import { api } from '@/constants/constants';
@@ -55,6 +56,10 @@ export default function Videos() {
             setFiles(data.files);
         }
     }, [data, files, loadNext, loadPrevious]);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <>

@@ -1,17 +1,18 @@
 'use client';
 
 import { getCurrentUserFromCookie } from '@/auth/cookies';
+import Loading from '@/components/shared/loading';
+import Navbar from '@/components/shared/navbar';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
 import { UserType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import Content from '../../../components/user-account/content';
 import BlurredBackground from '../../../components/shared/blurred-background';
+import Content from '../../../components/user-account/content';
 import CoverAndPhoto from '../../../components/user-account/cover-and-photo';
 import Gallery from '../../../components/user-account/gallery';
 import GeneralStatistics from '../../../components/user-account/general-statistics';
-import Navbar from '@/components/shared/navbar';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -51,7 +52,7 @@ export default function UserProfile() {
     }
 
     if (loading) {
-        return 'loading...';
+        return <Loading />;
     }
 
     if (user && loggedUser) {
@@ -59,7 +60,7 @@ export default function UserProfile() {
             <>
                 <Navbar />
                 <BlurredBackground coverImage={user.coverImage} />
-    
+
                 <main className="mx-auto lg:pt-24">
                     {/* User's cover and profile picture */}
                     <CoverAndPhoto
@@ -69,20 +70,20 @@ export default function UserProfile() {
                         profileImage={user.profilePicture}
                         loggedUserId={loggedUser.id}
                     />
-    
+
                     {/* General statistics */}
                     <GeneralStatistics />
-    
+
                     {/* User's content */}
                     <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                         <div>
                             <Content userId={user.id} bio={user.bio} loggedUserId={loggedUser.id} />
                         </div>
-    
+
                         <Gallery userId={user.id} />
                     </div>
                 </main>
             </>
-        );   
+        );
     }
 }

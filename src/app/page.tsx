@@ -1,6 +1,7 @@
 'use client';
 
 import ButtonLoadMore from '@/components/shared/button-load-more';
+import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import { api } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
@@ -44,6 +45,10 @@ export default function Home() {
         }
     }, [data, files, loadMore]);
 
+    if (loading) {
+        return <Loading />;
+    }
+
     return (
         <>
             <Navbar />
@@ -65,7 +70,10 @@ export default function Home() {
             </div>
 
             {isViewerOpen && selectedFile && (
-                <div className="fixed px-2 lg-mx-auto inset-0 flex items-center justify-center backdrop-blur-lg bg-black/30" onClick={() => setIsViewerOpen(false)}>
+                <div
+                    className="fixed px-2 lg-mx-auto inset-0 flex items-center justify-center backdrop-blur-lg bg-black/30"
+                    onClick={() => setIsViewerOpen(false)}
+                >
                     <img
                         className="h-auto lg:h-5/6 rounded-lg"
                         src={api.storageUrl + selectedFile.filename}
