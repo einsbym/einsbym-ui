@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FcLike } from 'react-icons/fc';
 import ButtonLoadMore from '../shared/button-load-more';
+import PostSkeleton from '../skeletons/post';
 import Post from './post';
 
 export default function Posts(props: { userId: string; publishedPostId: string; loggedUserId?: string | null }) {
@@ -53,11 +54,17 @@ export default function Posts(props: { userId: string; publishedPostId: string; 
         }
     }, [data, posts, props.publishedPostId, publishedPostId, loadMorePosts]);
 
+    if (posts.length === 0 && loading) {
+        return <PostSkeleton />;
+    }
+
     return (
         <>
             {posts.map((post: PostType, index) => (
                 <Post key={post.id} post={post} userId={props.userId} loggedUserId={props.loggedUserId} />
             ))}
+
+            {posts.length > 0 && loading && <PostSkeleton />}
 
             {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && (
                 <ButtonLoadMore handleClick={loadMorePosts} />
