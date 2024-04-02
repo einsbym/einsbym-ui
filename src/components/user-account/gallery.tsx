@@ -1,11 +1,12 @@
+import { api } from '@/constants/constants';
+import { FIND_FILES_BY_USER } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 import Footer from '../shared/footer';
-import { api } from '@/constants/constants';
-import { FIND_FILES_BY_USER } from '@/graphql/queries/file';
+import GallerySkeleton from '../skeletons/gallery';
 
 export default function Gallery(props: { userId: string }) {
     // States
@@ -40,7 +41,9 @@ export default function Gallery(props: { userId: string }) {
                 )}
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {data?.findFilesByUser.map((file: PostFileType) => (
+                {loading && <GallerySkeleton items={6} width='w-full' height='h-[200px]' />}
+
+                {data && data.findFilesByUser.map((file: PostFileType) => (
                     <div key={file.id}>
                         {file.fileType === 'video/mp4' && (
                             <div

@@ -1,8 +1,8 @@
 'use client';
 
 import ButtonLoadMore from '@/components/shared/button-load-more';
-import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
+import GallerySkeleton from '@/components/skeletons/gallery';
 import { api } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
@@ -45,17 +45,15 @@ export default function Home() {
         }
     }, [data, files, loadMore]);
 
-    if (loading) {
-        return <Loading />;
-    }
-
     return (
         <>
             <Navbar />
 
             {/* <ButtonGroup /> */}
 
-            <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div className={`overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ${loading && 'gap-2'}`}>
+                {loading && <GallerySkeleton items={4} width="w-full" height="h-[500px]" />}
+
                 {files &&
                     files.map((file) => (
                         <div key={file.id}>
