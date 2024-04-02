@@ -77,7 +77,7 @@ export default function Videos() {
                                 muted
                                 loop
                             />
-                            {data && data.files.length !== 0 && (
+                            {data.files.length > 0 && (
                                 <button
                                     className="absolute top-2/4 right-5 text-[3em] text-[#00000071] hover:text-[#040d12] rounded-full transition-all duration-200"
                                     type="button"
