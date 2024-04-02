@@ -49,23 +49,30 @@ export default function Home() {
         <>
             <Navbar />
 
-            {/* <ButtonGroup /> */}
+            {files.length === 0 && loading && (
+                <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" />
+                </div>
+            )}
 
-            <div className={`overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ${loading && 'gap-2'}`}>
-                {loading && <GallerySkeleton items={4} width="w-full" height="h-[500px]" />}
-
-                {files &&
-                    files.map((file) => (
-                        <div key={file.id}>
-                            <img
-                                alt={file.filename}
-                                className="w-full h-[500px] cursor-pointer object-cover"
-                                src={api.storageUrl + file.filename}
-                                onClick={() => openViewer(file)}
-                            />
-                        </div>
-                    ))}
+            <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                {files.map((file) => (
+                    <div key={file.id}>
+                        <img
+                            alt={file.filename}
+                            className="w-full h-[500px] cursor-pointer object-cover"
+                            src={api.storageUrl + file.filename}
+                            onClick={() => openViewer(file)}
+                        />
+                    </div>
+                ))}
             </div>
+
+            {files.length > 0 && loading && (
+                <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" margin='mt-2' />
+                </div>
+            )}
 
             {isViewerOpen && selectedFile && (
                 <div
