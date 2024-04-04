@@ -39,6 +39,14 @@ export default function Comments(props: { postId: string | null; publishedCommen
         return <PostSkeleton />;
     }
 
+    if (comments.length === 0) {
+        return (
+            <div className="mt-2 mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
+                There are no comments on this post yet
+            </div>
+        );
+    }
+
     return comments.map((comment: CommentType) => (
         <div key={comment.id} className="mt-3 lg:mt-5 flex items-start gap-2">
             <div className="flex flex-col w-full overflow-hidden break-word p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
