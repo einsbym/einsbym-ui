@@ -5,13 +5,14 @@ import getElapsedTime from '@/utils/elapsed-time';
 import { useLazyQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FaRegCommentAlt, FaRegHeart } from 'react-icons/fa';
+import PostSkeleton from '../skeletons/post';
 
 export default function Comments(props: { postId: string | null; publishedCommentId: string }) {
     // States
     const [comments, setComments] = useState<CommentType[]>([]);
 
     // Queries
-    const [findCommentsByPost] = useLazyQuery(FIND_COMMENTS_BY_POST);
+    const [findCommentsByPost, { loading }] = useLazyQuery(FIND_COMMENTS_BY_POST);
 
     const fetchComments = useCallback(async () => {
         try {
@@ -33,6 +34,10 @@ export default function Comments(props: { postId: string | null; publishedCommen
     useEffect(() => {
         fetchComments();
     }, [props.postId, props.publishedCommentId, fetchComments]);
+
+    if (loading) {
+        return <PostSkeleton />;
+    }
 
     return comments.map((comment: CommentType) => (
         <div key={comment.id} className="mt-3 lg:mt-5 flex items-start gap-2">
