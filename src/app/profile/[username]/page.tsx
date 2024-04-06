@@ -59,14 +59,15 @@ export default function UserProfile() {
         return (
             <>
                 <Navbar />
-                <BlurredBackground coverImage={user.coverImage} />
 
-                <main className="mx-auto lg:pt-24">
+                <main className="mx-auto">
                     {/* User's cover and profile picture */}
                     <CoverAndPhoto
                         id={user.id}
                         firstName={user.firstName}
                         lastName={user.lastName}
+                        username={user.username}
+                        coverImage={user.coverImage}
                         profileImage={user.profilePicture}
                         loggedUserId={loggedUser.id}
                     />
