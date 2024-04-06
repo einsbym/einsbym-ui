@@ -55,7 +55,7 @@ export default function Content(props: { userId: string; bio: string; loggedUser
             {/* User's bio */}
             <h5 className="mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">Bio</h5>
             <div
-                className="block w-full p-6 border rounded-lg shadow hover:bg-gray-100 bg-gray-800 border-gray-700 hover:bg-gray-700"
+                className="block w-full p-6 rounded-lg shadow bg-gray-900 hover:bg-gray-800"
                 onClick={() => (!props.loggedUserId ? setIsEditBioActive(true) : null)}
             >
                 <p className="font-normal text-gray-400">{updatedBio || props.bio}</p>

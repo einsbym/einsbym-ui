@@ -30,7 +30,7 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 style={{
                     backgroundImage: props.coverImage ? `url('${api.storageUrl + props.coverImage}')` : 'none',
                 }}
-                className="relative w-full h-[40rem] mb-56 bg-cover bg-center"
+                className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
             >
                 <div className="absolute -bottom-[12rem] left-1/2 transform -translate-x-1/2">
                     <div

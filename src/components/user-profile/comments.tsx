@@ -49,7 +49,7 @@ export default function Comments(props: { postId: string | null; publishedCommen
 
     return comments.map((comment: CommentType) => (
         <div key={comment.id} className="mt-3 lg:mt-5 flex items-start gap-2">
-            <div className="flex flex-col w-full overflow-hidden break-word p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-700">
+            <div className="flex flex-col w-full overflow-hidden break-word p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-800">
                 <div className="flex items-center space-x-2 rtl:space-x-reverse">
                     <a href={`/profile/${comment.user.username}`}>
                         <img
@@ -67,10 +67,10 @@ export default function Comments(props: { postId: string | null; publishedCommen
                 <p className="text-sm font-normal py-2.5 text-white">{comment.comment}</p>
 
                 <div className="flex gap-2 justify-end">
-                    <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
+                    <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-900 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                         <FaRegHeart size={13} /> 232
                     </button>
-                    <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-800 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
+                    <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-900 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                         <FaRegCommentAlt size={13} /> 0
                     </button>
                 </div>

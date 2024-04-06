@@ -72,7 +72,7 @@ const LikePostButton = (props: {
                 id="popover-top"
                 className={
                     likesPopoverVisible
-                        ? 'absolute top-10 inline-block z-10 w-20 lg:w-40 break-words text-sm text-white rounded-lg shadow-sm shadow-black bg-gray-800'
+                        ? 'absolute top-10 inline-block z-10 w-20 lg:w-40 break-words text-sm text-white rounded-lg shadow-sm shadow-black bg-gray-900'
                         : 'hidden'
                 }
             >

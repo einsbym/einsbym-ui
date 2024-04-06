@@ -26,7 +26,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                     src={api.storageUrl + props.post.user.profilePicture}
                 />
             </a>
-            <div className="flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-800">
+            <div className="flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-900">
                 <div className="relative flex justify-between items-center">
                     <div>
                         <span className="text-sm font-semibold text-white">
@@ -97,14 +97,14 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                         likes={props.post.likes}
                     />
                     <button
-                        className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
+                        className="flex items-center gap-2 text-sm lg:bg-gray-900 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                         onClick={() => {
                             setAreCommentsVisible(!areCommentsVisible);
                         }}
                     >
                         <FaRegCommentAlt size={13} /> {props.post.totalComments}
                     </button>
-                    <button className="flex items-center gap-2 text-sm lg:bg-gray-800 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
+                    <button className="flex items-center gap-2 text-sm lg:bg-gray-900 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                         <FaRegShareSquare size={13} /> 0
                     </button>
                 </div>
