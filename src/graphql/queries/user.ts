@@ -32,3 +32,15 @@ export const FIND_USER_BY_USERNAME = gql`
         }
     }
 `;
+
+export const FIND_USER_STATS = gql`
+    query FindUserStats($username: String!) {
+        findUserStats(username: $username) {
+            username
+            totalPosts
+            totalFiles
+            totalComments
+            totalLikes
+        }
+    }
+`;

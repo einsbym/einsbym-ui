@@ -72,7 +72,7 @@ export default function UserProfile() {
                     />
 
                     {/* General statistics */}
-                    <GeneralStatistics />
+                    <GeneralStatistics username={user.username} />
 
                     {/* User's content */}
                     <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
