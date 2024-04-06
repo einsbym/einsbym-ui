@@ -1,11 +1,10 @@
+import { createUserCookie } from '@/auth/cookies';
 import { UPDATE_BIO } from '@/graphql/mutations/user';
+import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { useState } from 'react';
-import PublishPost from './publish-post';
-import { createUserCookie } from '@/auth/cookies';
-import { ME } from '@/graphql/queries/user';
 
-export default function Content(props: { userId: string; bio: string; loggedUserId?: string | null }) {
+export default function UserBio(props: { userId: string; bio: string; loggedUserId?: string | null }) {
     // States
     const [isEditBioActive, setIsEditBioActive] = useState<boolean>(false);
     const [bio, setBio] = useState<string>();
@@ -53,7 +52,7 @@ export default function Content(props: { userId: string; bio: string; loggedUser
     return (
         <>
             {/* User's bio */}
-            <h5 className="mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">Bio</h5>
+            <h5 className="mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">About</h5>
             <div
                 className="block w-full p-6 rounded-lg shadow bg-gray-900 hover:bg-gray-800"
                 onClick={() => (!props.loggedUserId ? setIsEditBioActive(true) : null)}
@@ -98,9 +97,6 @@ export default function Content(props: { userId: string; bio: string; loggedUser
                     </div>
                 </form>
             </div>
-
-            {/* Publish post */}
-            <PublishPost userId={props.userId} loggedUserId={props.loggedUserId} />
         </>
     );
 }

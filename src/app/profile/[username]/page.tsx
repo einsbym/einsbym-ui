@@ -3,13 +3,13 @@
 import { getCurrentUserFromCookie } from '@/auth/cookies';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
+import PostsSection from '@/components/user-profile/posts-section';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
 import { UserType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import BlurredBackground from '../../../components/shared/blurred-background';
-import Content from '../../../components/user-profile/content';
+import UserBio from '../../../components/user-profile/bio';
 import CoverAndPhoto from '../../../components/user-profile/cover-and-photo';
 import Gallery from '../../../components/user-profile/gallery';
 import GeneralStatistics from '../../../components/user-profile/general-statistics';
@@ -78,7 +78,10 @@ export default function UserProfile() {
                     {/* User's content */}
                     <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
                         <div>
-                            <Content userId={user.id} bio={user.bio} loggedUserId={loggedUser.id} />
+                            <UserBio userId={user.id} bio={user.bio} loggedUserId={loggedUser.id} />
+
+                            {/* Publish and view post */}
+                            <PostsSection userId={user.id} loggedUserId={loggedUser.id} />
                         </div>
 
                         <Gallery userId={user.id} />

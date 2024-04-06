@@ -32,7 +32,7 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 }}
                 className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
             >
-                <div className="absolute -bottom-[12rem] left-1/2 transform -translate-x-1/2">
+                <div className="absolute -bottom-[13rem] left-1/2 transform -translate-x-1/2">
                     <div
                         style={{
                             backgroundImage:
@@ -51,6 +51,7 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                     <div className="mt-2 text-white font-sans text-center font-semibold text-2xl lg:text-3xl w-full">
                         {props.firstName} {props.lastName}
                     </div>
+                    <div className="w-full text-center text-md font-normal text-gray-400">@{props.username}</div>
                     <div className="flex gap-1 items-center justify-center text-white mt-2 font-sans text-center font-semibold text-md w-full">
                         <span className="text-[#cc00ff]">12k</span> followers <LuDot size={30} />
                         <span className="text-[#cc00ff]">125k</span> views

@@ -5,10 +5,11 @@ import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import { UserType } from '@/types/types';
 import { useEffect, useState } from 'react';
-import Content from '../../components/user-profile/content';
+import UserBio from '../../components/user-profile/bio';
 import CoverAndPhoto from '../../components/user-profile/cover-and-photo';
 import Gallery from '../../components/user-profile/gallery';
 import GeneralStatistics from '../../components/user-profile/general-statistics';
+import PostsSection from '@/components/user-profile/posts-section';
 
 export default function UserProfile() {
     const [user, setUser] = useState<UserType | null>();
@@ -42,7 +43,10 @@ export default function UserProfile() {
                 {/* User's content */}
                 <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-2">
                     <div>
-                        <Content userId={user.id} bio={user.bio} />
+                        <UserBio userId={user.id} bio={user.bio} />
+
+                        {/* Publish and view post */}
+                        <PostsSection userId={user.id} />
                     </div>
 
                     <Gallery userId={user.id} />

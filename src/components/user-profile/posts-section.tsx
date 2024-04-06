@@ -7,7 +7,7 @@ import { GrGallery } from 'react-icons/gr';
 import { IoMdCloseCircle } from 'react-icons/io';
 import Posts from './posts';
 
-export default function PublishPost(props: { userId: string; loggedUserId?: string | null }) {
+export default function PostsSection(props: { userId: string; loggedUserId?: string | null }) {
     // States
     const [postText, setPostText] = useState<string | null>();
     const [publishedPostId, setPublishedPostId] = useState<string>('');
