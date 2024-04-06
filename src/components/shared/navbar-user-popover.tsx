@@ -4,7 +4,7 @@ import { UserType } from '@/types/types';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
-import UpdateCoverImage from '../user-account/update-cover-image';
+import UpdateCoverImage from '../user-profile/update-cover-image';
 
 interface SidebarProps {
     user: UserType | null;

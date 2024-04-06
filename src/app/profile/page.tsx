@@ -6,10 +6,10 @@ import Navbar from '@/components/shared/navbar';
 import { UserType } from '@/types/types';
 import { useEffect, useState } from 'react';
 import BlurredBackground from '../../components/shared/blurred-background';
-import Content from '../../components/user-account/content';
-import CoverAndPhoto from '../../components/user-account/cover-and-photo';
-import Gallery from '../../components/user-account/gallery';
-import GeneralStatistics from '../../components/user-account/general-statistics';
+import Content from '../../components/user-profile/content';
+import CoverAndPhoto from '../../components/user-profile/cover-and-photo';
+import Gallery from '../../components/user-profile/gallery';
+import GeneralStatistics from '../../components/user-profile/general-statistics';
 
 export default function UserProfile() {
     const [user, setUser] = useState<UserType | null>();
