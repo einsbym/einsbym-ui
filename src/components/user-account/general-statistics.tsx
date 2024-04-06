@@ -28,7 +28,7 @@ export default function GeneralStatistics() {
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <dt className="mb-2 text-3xl font-extrabold">2k</dt>
-                            <dd className="text-gray-400">Given likes</dd>
+                            <dd className="text-gray-400">Likes given</dd>
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <dt className="mb-2 text-3xl font-extrabold">2k</dt>
@@ -40,7 +40,7 @@ export default function GeneralStatistics() {
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <dt className="mb-2 text-3xl font-extrabold">4M+</dt>
-                            <dd className="text-gray-400">Pageviews</dd>
+                            <dd className="text-gray-400">Views</dd>
                         </div>
                     </div>
                 </div>
