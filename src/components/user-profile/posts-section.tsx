@@ -94,7 +94,6 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
             const { data, errors } = await createPost({
                 variables: {
                     createPostInput: {
-                        userId: props.userId,
                         files: postFiles,
                         postText: postText,
                     },

@@ -4,21 +4,6 @@ export const CREATE_POST = gql`
     mutation CreatePost($createPostInput: CreatePostInput!) {
         createPost(createPostInput: $createPostInput) {
             id
-            postText
-            createdAt
-            updatedAt
-            files {
-                id
-                filename
-                fileType
-            }
-            user {
-                id
-                firstName
-                lastName
-                username
-                profilePicture
-            }
         }
     }
 `;
