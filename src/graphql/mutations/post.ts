@@ -9,14 +9,14 @@ export const CREATE_POST = gql`
 `;
 
 export const LIKE_POST = gql`
-    mutation LikePost($postId: String!, $userId: String!) {
-        likePost(postId: $postId, userId: $userId)
+    mutation LikePost($postId: String!) {
+        likePost(postId: $postId)
     }
 `;
 
 export const UNLIKE_POST = gql`
-    mutation UnlikePost($postId: String!, $userId: String!) {
-        unlikePost(postId: $postId, userId: $userId)
+    mutation UnlikePost($postId: String!) {
+        unlikePost(postId: $postId)
     }
 `;
 
