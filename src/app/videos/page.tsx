@@ -76,6 +76,7 @@ export default function Videos() {
                                 playing
                                 muted
                                 loop
+                                light={false}
                             />
                             {data.files.length > 0 && (
                                 <button

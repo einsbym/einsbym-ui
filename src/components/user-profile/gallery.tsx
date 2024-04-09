@@ -54,7 +54,7 @@ export default function Gallery(props: { userId: string }) {
                                     url={api.storageUrl + file.filename}
                                     width="100%"
                                     height="100%"
-                                    light
+                                    light={false}
                                     pip={false}
                                 />
                             </div>
@@ -92,6 +92,7 @@ export default function Gallery(props: { userId: string }) {
                         controls
                         playing={isFileViewerActive}
                         stopOnUnmount
+                        light={false}
                     />
                 )}
             </div>

@@ -69,6 +69,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                                             url={api.storageUrl + file.filename}
                                             playing
                                             muted
+                                            light={false}
                                         />
                                     </div>
                                 )}
