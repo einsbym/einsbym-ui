@@ -65,7 +65,7 @@ export default function PublishComment(props: {
                         <input
                             type="post"
                             id="post"
-                            className="block w-full p-2 lg:p-4 text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white placeholder:text-[12px] lg:placeholder:text-sm"
+                            className="block w-full p-2 lg:p-4 text-sm rounded-lg bg-gray-800 placeholder-gray-400 text-white placeholder:text-[12px] lg:placeholder:text-sm focus:outline-none focus:border-2 focus:border-[#cc00ff]"
                             placeholder="What are your thoughts on this?"
                             value={comment || ''}
                             onChange={(event) => setComment(event.target.value)}

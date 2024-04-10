@@ -22,7 +22,6 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
     const removeFileFromList = (indexToRemove: number) => {
         const files = selectedFiles?.filter((_, index) => index !== indexToRemove);
         setSelectedFiles(files);
-        setFiles(null);
     };
 
     const handleFilesChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,8 +52,8 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
         setErrorMessage(null);
 
         try {
-            if (!postText && !files) {
-                throw new Error("I mean... you need to write or upload something at least, don't you agree?");
+            if (!postText && selectedFiles && selectedFiles.length === 0) {
+                throw new Error("You have to write or upload something, right?");
             }
 
             const postFiles: any[] = [];
@@ -109,6 +108,8 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
             if (data) {
                 setPublishedPostId(data.createPost.id);
                 setSelectedFiles([]);
+                setFiles(null);
+                setPostText(null);
             }
 
             setLoading(false);
@@ -127,7 +128,7 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
                         <div className="relative">
                             <textarea
                                 id="post"
-                                className="block w-full h-40 p-4 resize-none text-sm rounded-lg bg-gray-900 placeholder-gray-400 text-white"
+                                className="block w-full h-40 p-4 resize-none text-sm rounded-lg bg-gray-900 placeholder-gray-400 text-white focus:outline-none focus:border-2 focus:border-[#cc00ff]"
                                 placeholder="Write something..."
                                 value={postText || ''}
                                 onChange={(event) => setPostText(event.target.value)}
