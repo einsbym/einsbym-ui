@@ -5,7 +5,6 @@ import { FiSend } from 'react-icons/fi';
 
 export default function PublishComment(props: {
     postId: string;
-    userId: string;
     setPublishedPostCommentId: Dispatch<SetStateAction<string>>;
     setAreCommentsVisible: Dispatch<SetStateAction<boolean>>;
 }) {
@@ -34,8 +33,7 @@ export default function PublishComment(props: {
                 variables: {
                     createCommentInput: {
                         comment: comment,
-                        postId: props.postId,
-                        userId: props.userId,
+                        postId: props.postId
                     },
                 },
             });

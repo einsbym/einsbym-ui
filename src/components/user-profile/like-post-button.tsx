@@ -4,13 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-const LikePostButton = (props: {
-    initialLikes: number;
-    postId: string;
-    liked: boolean;
-    userId: string;
-    likes: UserType[];
-}) => {
+const LikePostButton = (props: { initialLikes: number; postId: string; liked: boolean; likes: UserType[] }) => {
     const [likes, setLikes] = useState<number>(props.initialLikes);
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likesPopoverVisible, setLikesPopoverVisible] = useState<boolean>(false);
@@ -25,7 +19,6 @@ const LikePostButton = (props: {
                 const { errors } = await unlikePost({
                     variables: {
                         postId: props.postId,
-                        userId: props.userId,
                     },
                 });
 
@@ -42,7 +35,6 @@ const LikePostButton = (props: {
             const { errors } = await likePost({
                 variables: {
                     postId: props.postId,
-                    userId: props.userId,
                 },
             });
 
@@ -82,7 +74,7 @@ const LikePostButton = (props: {
                             <a href={`/profile/${user.username}`}>{user.username}</a>
                         </p>
                     ))}
-                    {props.likes.length === 0 && <p className='text-center'>no likes</p>}
+                    {props.likes.length === 0 && <p className="text-center">no likes</p>}
                 </div>
             </div>
         </div>

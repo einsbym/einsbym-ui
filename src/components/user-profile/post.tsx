@@ -94,7 +94,6 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                             props.loggedUserId ? like.id === props.loggedUserId : like.id === props.userId,
                         )}
                         initialLikes={props.post.totalLikes}
-                        userId={props.loggedUserId || props.userId}
                         likes={props.post.likes}
                     />
                     <button
@@ -112,7 +111,6 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
 
                 <PublishComment
                     postId={props.post.id}
-                    userId={props.loggedUserId || props.userId}
                     setPublishedPostCommentId={setPublishedCommentId}
                     setAreCommentsVisible={setAreCommentsVisible}
                 />
