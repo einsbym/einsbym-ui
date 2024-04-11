@@ -25,7 +25,6 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
                 const { data, errors } = await updateBio({
                     variables: {
                         updateBioInput: {
-                            userId: props.userId,
                             bio: bio,
                         },
                     },

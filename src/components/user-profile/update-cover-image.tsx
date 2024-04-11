@@ -67,7 +67,6 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             const { errors } = await updateCoverImage({
                 variables: {
                     updateCoverImageInput: {
-                        id: props.userId,
                         coverImage: jsonResponse.filename,
                     },
                 },

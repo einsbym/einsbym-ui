@@ -68,7 +68,6 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
             const { errors } = await updateProfileImage({
                 variables: {
                     updateProfilePictureInput: {
-                        id: props.userId,
                         profilePicture: jsonResponse.filename,
                     },
                 },
