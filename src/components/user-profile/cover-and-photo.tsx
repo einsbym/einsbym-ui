@@ -36,7 +36,9 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
             <div
                 style={{
                     backgroundImage:
-                        props.coverImage && coverImage ? `url('${api.storageUrl + coverImage}')` : 'none',
+                        props.coverImage && coverImage
+                            ? `linear-gradient(to bottom, transparent, black), url('${api.storageUrl + coverImage}')`
+                            : 'none',
                 }}
                 className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
             >
@@ -66,11 +68,14 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                     </div>
                 </div>
                 {!props.loggedUserId && (
-                    <FaCamera
-                        className="absolute -bottom-3 right-5 transform w-7 h-7 lg:w-8 lg:h-8 lg:bottom-3 lg:left-auto lg:right-3 text-[#cc00ff] cursor-pointer"
+                    <div
                         title="Change cover image"
+                        className="absolute -bottom-5 right-5 transform flex items-center justify-center lg:gap-2 lg:px-3 lg:py-2 lg:bottom-3 lg:right-3 text-black bg-[#cc00ff] rounded-full p-2 cursor-pointer hover:shadow-[0px_0px_25px_#cc00ff] transition-all duration-200"
                         onClick={() => setIsChangeCoverImageActive(true)}
-                    />
+                    >
+                        <FaCamera className='h-5 w-5' />
+                        <span className='hidden lg:block lg:text-sm'>Change cover image</span>
+                    </div>
                 )}
             </div>
 
