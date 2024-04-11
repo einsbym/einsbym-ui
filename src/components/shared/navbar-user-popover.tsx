@@ -1,10 +1,8 @@
 import { AuthService } from '@/auth/auth.service';
 import { api } from '@/constants/constants';
 import { UserType } from '@/types/types';
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { RiLoginCircleLine } from 'react-icons/ri';
-import UpdateCoverImage from '../user-profile/update-cover-image';
 
 interface SidebarProps {
     user: UserType | null;
@@ -13,10 +11,7 @@ interface SidebarProps {
 }
 
 export default function NavbarUserPopover(props: SidebarProps) {
-    const pathname = usePathname();
     const router = useRouter();
-
-    const [isChangeCoverImageActive, setIsChangeCoverImageActive] = useState<boolean>(false);
 
     const signOut = async () => {
         await new AuthService().signOut(router);
@@ -70,14 +65,6 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 >
                     Your Profile
                 </a>
-                {pathname === '/profile' && (
-                    <p
-                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
-                        onClick={() => setIsChangeCoverImageActive(true)}
-                    >
-                        Change cover image
-                    </p>
-                )}
                 <p
                     className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
                     onClick={signOut}
@@ -85,16 +72,6 @@ export default function NavbarUserPopover(props: SidebarProps) {
                     Sign out
                 </p>
             </div>
-
-            {/* Show menu for changing the cover image */}
-            {props.user && (
-                <UpdateCoverImage
-                    userId={props.user.id}
-                    currentCoverImage={props.user.coverImage}
-                    isChangeCoverImageActive={isChangeCoverImageActive}
-                    setIsChangeCoverImageActive={setIsChangeCoverImageActive}
-                />
-            )}
         </div>
     );
 }

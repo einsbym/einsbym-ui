@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
 import UpdateProfileImage from './update-profile-image';
+import UpdateCoverImage from './update-cover-image';
 
 interface CoverAndPhotoProps {
     id: string;
@@ -16,19 +17,26 @@ interface CoverAndPhotoProps {
 
 export default function CoverAndPhoto(props: CoverAndPhotoProps) {
     const [isChangeProfPicActive, setIsChangeProfPicActive] = useState<boolean>(false);
+    const [isChangeCoverImageActive, setIsChangeCoverImageActive] = useState<boolean>(false);
     const [profileImage, setProfileImage] = useState<string>('');
+    const [coverImage, setCoverImage] = useState<string>('');
 
     useEffect(() => {
         if (props.profileImage) {
             setProfileImage(props.profileImage);
         }
-    }, [props.profileImage]);
+
+        if (props.coverImage) {
+            setCoverImage(props.coverImage);
+        }
+    }, [props.profileImage, props.coverImage]);
 
     return (
         <>
             <div
                 style={{
-                    backgroundImage: props.coverImage ? `url('${api.storageUrl + props.coverImage}')` : 'none',
+                    backgroundImage:
+                        props.coverImage && coverImage ? `url('${api.storageUrl + coverImage}')` : 'none',
                 }}
                 className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
             >
@@ -57,7 +65,23 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                         <span className="text-[#cc00ff]">125k</span> views
                     </div>
                 </div>
+                {!props.loggedUserId && (
+                    <FaCamera
+                        className="absolute -bottom-3 right-5 transform w-7 h-7 lg:w-8 lg:h-8 lg:bottom-3 lg:left-auto lg:right-3 text-[#cc00ff] cursor-pointer"
+                        title="Change cover image"
+                        onClick={() => setIsChangeCoverImageActive(true)}
+                    />
+                )}
             </div>
+
+            {/* Show menu for changing the cover image */}
+            <UpdateCoverImage
+                userId={props.id}
+                currentCoverImage={props.coverImage}
+                isChangeCoverImageActive={isChangeCoverImageActive}
+                setCoverImage={setCoverImage}
+                setIsChangeCoverImageActive={setIsChangeCoverImageActive}
+            />
 
             {/* Show menu for changing the profile picture */}
             <UpdateProfileImage
