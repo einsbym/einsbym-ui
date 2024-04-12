@@ -1,6 +1,7 @@
 import { REMOVE_POST } from '@/graphql/mutations/post';
 import { useMutation } from '@apollo/client';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 export default function PostPopoverMenu(props: {
     postId: string;
@@ -8,7 +9,7 @@ export default function PostPopoverMenu(props: {
     loggedUserId?: string | null;
 }) {
     // Mutations
-    const [removePost] = useMutation(REMOVE_POST);
+    const [removePost, { loading }] = useMutation(REMOVE_POST);
 
     const handleRemovePost = async () => {
         try {
@@ -43,7 +44,13 @@ export default function PostPopoverMenu(props: {
                                 change visibility
                             </a>
                         </li>
-                        <li className="block px-4 py-2 text-red-400 cursor-pointer" onClick={handleRemovePost}>
+                        <li
+                            className="flex gap-2 items-center px-4 py-2 text-red-400 cursor-pointer"
+                            onClick={handleRemovePost}
+                        >
+                            {loading && (
+                                <AiOutlineLoading className="w-3 h-3 text-transparent animate-spin fill-red-400" />
+                            )}
                             delete
                         </li>
                     </ul>
