@@ -71,7 +71,7 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
             const accessToken = await getAccessTokenFromCookie();
 
             // Save post
-            const response = await fetch(`${backend.restApiUrl}/upload`, {
+            const response = await fetch(`${backend.restApiUrl}/post/create`, {
                 method: 'POST',
                 headers: {
                     Authorization:
