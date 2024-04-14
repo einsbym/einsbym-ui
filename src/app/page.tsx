@@ -3,7 +3,7 @@
 import ButtonLoadMore from '@/components/shared/button-load-more';
 import Navbar from '@/components/shared/navbar';
 import GallerySkeleton from '@/components/skeletons/gallery';
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
@@ -61,7 +61,7 @@ export default function Home() {
                         <img
                             alt={file.filename}
                             className="w-full h-[500px] cursor-pointer object-cover"
-                            src={api.storageUrl + file.filename}
+                            src={backend.storageUrl + file.filename}
                             onClick={() => openViewer(file)}
                         />
                     </div>
@@ -81,7 +81,7 @@ export default function Home() {
                 >
                     <img
                         className="h-auto lg:h-5/6 rounded-lg"
-                        src={api.storageUrl + selectedFile.filename}
+                        src={backend.storageUrl + selectedFile.filename}
                         alt={selectedFile.filename}
                     />
                 </div>

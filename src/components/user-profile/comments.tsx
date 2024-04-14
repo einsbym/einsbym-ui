@@ -1,4 +1,4 @@
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { FIND_COMMENTS_BY_POST } from '@/graphql/queries/post-comment';
 import { CommentType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
@@ -54,7 +54,7 @@ export default function Comments(props: { postId: string | null; publishedCommen
                     <a href={`/profile/${comment.user.username}`}>
                         <img
                             className="flex-none w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] rounded-full object-cover"
-                            src={api.storageUrl + comment.user.profilePicture}
+                            src={backend.storageUrl + comment.user.profilePicture}
                             alt={comment.user.username}
                         />
                     </a>

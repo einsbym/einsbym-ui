@@ -2,7 +2,7 @@
 
 import { AuthService } from '@/auth/auth.service';
 import BlurredBackground from '@/components/shared/blurred-background';
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
 import { SignInType } from '@/types/types';
 import { useQuery } from '@apollo/client';
@@ -39,7 +39,7 @@ export default function Login() {
                 <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:pt-0 md:pb-0 md:w-1/2 md:h-4/6 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
                     <div
                         style={{
-                            backgroundImage: data ? `url('${api.storageUrl + data.findRandomFile.filename}')` : 'none',
+                            backgroundImage: data ? `url('${backend.storageUrl + data.findRandomFile.filename}')` : 'none',
                         }}
                         className={`hidden relative md:block w-full h-full bg-cover bg-no-repeat bg-center`}
                     >
@@ -47,7 +47,7 @@ export default function Login() {
                             <img
                                 alt={data?.findRandomFile.post.user.username}
                                 className="flex-none w-[45px] h-[45px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                                src={api.storageUrl + data?.findRandomFile.post.user.profilePicture}
+                                src={backend.storageUrl + data?.findRandomFile.post.user.profilePicture}
                             />
                             <span className="text-sm font-semibold text-white bg-[#0000003b] p-2 rounded-md">
                                 {data?.findRandomFile.post.user.username}

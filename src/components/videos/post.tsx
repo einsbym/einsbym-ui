@@ -1,4 +1,4 @@
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { FIND_POST_BY_ID } from '@/graphql/queries/post';
 import { PostType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
@@ -32,7 +32,7 @@ export default function Post(props: { postId: string }) {
                             <a href={`profile/${post.user.username}`}>
                                 <img
                                     className="w-10 h-10 rounded-full object-cover"
-                                    src={api.storageUrl + post.user.profilePicture}
+                                    src={backend.storageUrl + post.user.profilePicture}
                                     alt={post.user.firstName}
                                 />
                             </a>

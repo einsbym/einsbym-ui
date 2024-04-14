@@ -1,4 +1,4 @@
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
@@ -37,7 +37,7 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 style={{
                     backgroundImage:
                         props.coverImage && coverImage
-                            ? `linear-gradient(to bottom, transparent, black), url('${api.storageUrl + coverImage}')`
+                            ? `linear-gradient(to bottom, transparent, black), url('${backend.storageUrl + coverImage}')`
                             : 'none',
                 }}
                 className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
@@ -46,7 +46,7 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                     <div
                         style={{
                             backgroundImage:
-                                props.profileImage && profileImage ? `url('${api.storageUrl + profileImage}')` : 'none',
+                                props.profileImage && profileImage ? `url('${backend.storageUrl + profileImage}')` : 'none',
                         }}
                         className="relative w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                     >

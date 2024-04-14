@@ -4,7 +4,7 @@ import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import UpdateImageModal from './update-images-modal';
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 
 interface UpdateProfileImageProps {
     userId: string;
@@ -51,7 +51,7 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
             const formData = new FormData();
             formData.append('file', file);
 
-            const response = await fetch(`${api.storageServiceUrl}/upload`, {
+            const response = await fetch(`${backend.storageServiceUrl}/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -79,7 +79,7 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
 
             // Delete previous profile image from storage (if any)
             if (props.currentProfileImage) {
-                await fetch(`${api.storageServiceUrl}/delete/${props.currentProfileImage}`, {
+                await fetch(`${backend.storageServiceUrl}/delete/${props.currentProfileImage}`, {
                     method: 'DELETE',
                 });
             }

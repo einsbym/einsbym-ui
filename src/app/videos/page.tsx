@@ -3,7 +3,7 @@
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import Post from '@/components/videos/post';
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
@@ -72,7 +72,7 @@ export default function Videos() {
                             <ReactPlayer
                                 width="100%"
                                 height="100%"
-                                url={api.storageUrl + file.filename}
+                                url={backend.storageUrl + file.filename}
                                 playing
                                 muted
                                 loop

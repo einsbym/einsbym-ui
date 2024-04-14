@@ -1,4 +1,4 @@
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { FIND_FILES_BY_USER } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
@@ -48,10 +48,10 @@ export default function Gallery(props: { userId: string }) {
                         {file.fileType === 'video/mp4' && (
                             <div
                                 className="h-[200px] w-full bg-black overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
-                                onClick={() => handleGalleryItemClick(api.storageUrl + file.filename)}
+                                onClick={() => handleGalleryItemClick(backend.storageUrl + file.filename)}
                             >
                                 <ReactPlayer
-                                    url={api.storageUrl + file.filename}
+                                    url={backend.storageUrl + file.filename}
                                     width="100%"
                                     height="100%"
                                     light={false}
@@ -63,8 +63,8 @@ export default function Gallery(props: { userId: string }) {
                             <img
                                 alt={file.filename}
                                 className="h-[200px] w-full rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
-                                src={api.storageUrl + file.filename}
-                                onClick={() => handleGalleryItemClick(api.storageUrl + file.filename)}
+                                src={backend.storageUrl + file.filename}
+                                onClick={() => handleGalleryItemClick(backend.storageUrl + file.filename)}
                             />
                         )}
                     </div>

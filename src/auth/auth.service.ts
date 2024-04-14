@@ -4,14 +4,14 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { Dispatch, SetStateAction } from 'react';
 import { SIGN_IN } from './auth';
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 
 export class AuthService {
     protected readonly instance: ApolloClient<unknown>;
 
     public constructor() {
         this.instance = new ApolloClient({
-            uri: api.apiUrl,
+            uri: backend.graphqlUrl,
             cache: new InMemoryCache(),
         });
     }

@@ -1,4 +1,4 @@
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { CommentType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { FaRegHeart } from 'react-icons/fa';
@@ -12,7 +12,7 @@ export default function Comment(props: { comment: CommentType }) {
                         <a href={`profile/${props.comment.user.username}`}>
                             <img
                                 className="w-10 h-10 rounded-full object-cover"
-                                src={api.storageUrl + props.comment.user.profilePicture}
+                                src={backend.storageUrl + props.comment.user.profilePicture}
                                 alt={props.comment.user.firstName}
                             />
                         </a>

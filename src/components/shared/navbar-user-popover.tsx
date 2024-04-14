@@ -1,5 +1,5 @@
 import { AuthService } from '@/auth/auth.service';
-import { api } from '@/constants/constants';
+import { backend } from '@/constants/constants';
 import { UserType } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import { RiLoginCircleLine } from 'react-icons/ri';
@@ -29,11 +29,11 @@ export default function NavbarUserPopover(props: SidebarProps) {
                     >
                         <span className="absolute -inset-1.5"></span>
                         <span className="sr-only">Open user menu</span>
-                        {api.storageUrl && (
+                        {backend.storageUrl && (
                             <img
                                 alt={props.user.profilePicture}
                                 className="h-8 w-8 rounded-full object-cover"
-                                src={api.storageUrl + props.user.profilePicture}
+                                src={backend.storageUrl + props.user.profilePicture}
                             />
                         )}
                     </button>

@@ -1,6 +1,5 @@
-import { api } from '@/constants/constants';
-import { CREATE_POST } from '@/graphql/mutations/post';
-import { useMutation } from '@apollo/client';
+import { getAccessTokenFromCookie } from '@/auth/cookies';
+import { backend } from '@/constants/constants';
 import { ChangeEvent, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { GrGallery } from 'react-icons/gr';
@@ -15,9 +14,6 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
     const [selectedFiles, setSelectedFiles] = useState<{ filename: string; blob?: string }[]>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [loading, setLoading] = useState<boolean>(false);
-
-    // Mutations
-    const [createPost] = useMutation(CREATE_POST);
 
     const removeFileFromList = (indexToRemove: number) => {
         const files = selectedFiles?.filter((_, index) => index !== indexToRemove);
@@ -52,71 +48,53 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
         setErrorMessage(null);
 
         try {
-            if (!postText && selectedFiles && selectedFiles.length === 0) {
-                throw new Error("You have to write or upload something, right?");
+            const formData = new FormData();
+
+            if (postText) {
+                formData.append('postText', postText);
             }
 
-            const postFiles: any[] = [];
-
             if (files) {
-                const arrayFromFiles = Array.from(files);
-
-                for (const file of arrayFromFiles) {
-                    const isFileSelected = !!selectedFiles?.find(({ filename }) => filename === file.name);
+                // Append files to FormData
+                for (let i = 0; i < files.length; i++) {
+                    const isFileSelected = !!selectedFiles?.find(({ filename }) => filename === files[i].name);
 
                     if (!isFileSelected) {
                         continue;
                     }
 
-                    const formData = new FormData();
-                    formData.append('file', file);
-
-                    const response = await fetch(`${api.storageServiceUrl}/upload`, {
-                        method: 'POST',
-                        body: formData,
-                    });
-
-                    if (response.status !== 200) {
-                        const { error } = await response.json();
-                        console.error(`The file ${file.name} could not be uploaded. Reason:`, error);
-                        continue;
-                    }
-
-                    // Get response from backend
-                    const json = await response.json();
-
-                    postFiles.push({ filename: json.filename, fileType: file.type });
+                    formData.append('files', files[i]);
                 }
             }
 
+            // Get access token
+            const accessToken = await getAccessTokenFromCookie();
+
             // Save post
-            const { data, errors } = await createPost({
-                variables: {
-                    createPostInput: {
-                        files: postFiles,
-                        postText: postText,
-                    },
+            const response = await fetch(`${backend.restApiUrl}/upload`, {
+                method: 'POST',
+                headers: {
+                    Authorization:
+                        `Bearer ${accessToken?.value.replace(/^"(.*)"$/, '$1')}`,
                 },
+                body: formData,
             });
 
-            if (errors && errors.length > 0) {
-                throw new Error('Error when attempting to publish your post.');
+            if (response.status !== 201) {
+                throw new Error(response.statusText);
             }
 
+            const responseJson = await response.json();
+
+            setPublishedPostId(responseJson.id);
+            setSelectedFiles([]);
+            setFiles(null);
             setPostText(null);
-
-            if (data) {
-                setPublishedPostId(data.createPost.id);
-                setSelectedFiles([]);
-                setFiles(null);
-                setPostText(null);
-            }
-
             setLoading(false);
         } catch (error) {
-            setLoading(false);
             console.error('Something bad happened:', error);
-            setErrorMessage(`${error instanceof Error ? error.message : error}`);
+            setErrorMessage('Oh no! Something went wrong.');
+            setLoading(false);
         }
     };
 
