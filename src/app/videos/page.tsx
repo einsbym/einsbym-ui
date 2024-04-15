@@ -68,7 +68,7 @@ export default function Videos() {
             {files &&
                 files.map((file) => (
                     <div key={file.id} className="flex items-center justify-center h-screen">
-                        <div className="relative w-4/5 animated-shadow">
+                        <div className="relative w-4/5 h-full">
                             <ReactPlayer
                                 width="100%"
                                 height="100%"
@@ -80,7 +80,7 @@ export default function Videos() {
                             />
                             {data.files.length > 0 && (
                                 <button
-                                    className="absolute top-2/4 right-5 text-[3em] text-[#00000071] hover:text-[#040d12] rounded-full transition-all duration-200"
+                                    className="absolute top-2/4 right-5 text-[3em] text-[#cc00ff] hover:text-white rounded-full transition-all duration-200 animated-shadow"
                                     type="button"
                                     onClick={loadNext}
                                 >
@@ -89,7 +89,7 @@ export default function Videos() {
                             )}
                             {files.length !== 0 && page > 1 && (
                                 <button
-                                    className="absolute top-2/4 left-5 text-[3em] text-[#00000071] hover:text-[#040d12] rounded-full transition-all duration-200"
+                                    className="absolute top-2/4 left-5 text-[3em] text-[#cc00ff] hover:text-white rounded-full transition-all duration-200 animated-shadow"
                                     type="button"
                                     onClick={loadPrevious}
                                 >
