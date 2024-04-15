@@ -27,6 +27,7 @@ export interface UserType {
     bio: string;
     profilePicture: string;
     coverImage: string;
+    isPrivate: boolean;
     createdAt: Date;
 }
 

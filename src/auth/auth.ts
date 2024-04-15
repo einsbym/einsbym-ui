@@ -13,6 +13,7 @@ export const SIGN_IN = gql`
                 bio
                 coverImage
                 profilePicture
+                isPrivate
                 createdAt
             }
         }

@@ -1,7 +1,7 @@
 import { AuthService } from '@/auth/auth.service';
 import { backend } from '@/constants/constants';
 import { UserType } from '@/types/types';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { RiLoginCircleLine } from 'react-icons/ri';
 
 interface SidebarProps {
@@ -11,6 +11,7 @@ interface SidebarProps {
 }
 
 export default function NavbarUserPopover(props: SidebarProps) {
+    const pathname = usePathname();
     const router = useRouter();
 
     const signOut = async () => {
@@ -65,6 +66,15 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 >
                     Your Profile
                 </a>
+                {pathname === '/profile' && (
+                    <a
+                        href="/profile/settings"
+                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                        id="user-menu-item-0"
+                    >
+                        Your settings
+                    </a>
+                )}
                 <p
                     className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
                     onClick={signOut}
