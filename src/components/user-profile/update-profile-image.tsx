@@ -1,10 +1,7 @@
 import { createUserCookie, getAccessTokenFromCookie } from '@/auth/cookies';
-import { UPDATE_PROFILE_IMAGE } from '@/graphql/mutations/user';
-import { ME } from '@/graphql/queries/user';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { backend } from '@/constants/constants';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import UpdateImageModal from './update-images-modal';
-import { backend } from '@/constants/constants';
 
 interface UpdateProfileImageProps {
     userId: string;
@@ -19,12 +16,6 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
-
-    // Queries
-    const [getMe] = useLazyQuery(ME);
-
-    // Mutations
-    const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];

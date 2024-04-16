@@ -1,10 +1,7 @@
-import { createUserCookie } from '@/auth/cookies';
-import { UPDATE_COVER_IMAGE } from '@/graphql/mutations/user';
-import { ME } from '@/graphql/queries/user';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { createUserCookie, getAccessTokenFromCookie } from '@/auth/cookies';
+import { backend } from '@/constants/constants';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import UpdateImageModal from './update-images-modal';
-import { backend } from '@/constants/constants';
 
 interface UpdateCoverImageProps {
     userId: string;
@@ -19,12 +16,6 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
-
-    // Queries
-    const [getMe] = useLazyQuery(ME);
-
-    // Mutations
-    const [updateCoverImage] = useMutation(UPDATE_COVER_IMAGE);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -51,8 +42,14 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             const formData = new FormData();
             formData.append('file', file);
 
-            const response = await fetch(`${backend.storageServiceUrl}/upload`, {
-                method: 'POST',
+            // Get access token
+            const accessToken = await getAccessTokenFromCookie();
+
+            const response = await fetch(`${backend.restApiUrl}/user/updateCoverImage`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${accessToken?.value.replace(/^"(.*)"$/, '$1')}`,
+                },
                 body: formData,
             });
 
@@ -64,34 +61,13 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             // Get response from backend
             const jsonResponse = await response.json();
 
-            // Save image data
-            const { errors } = await updateCoverImage({
-                variables: {
-                    updateCoverImageInput: {
-                        coverImage: jsonResponse.filename,
-                    },
-                },
-            });
-
-            if (errors) {
-                throw new Error('Error when attempting to update the cover image');
-            }
-
-            // Delete previous cover image from storage (if any)
-            if (props.currentCoverImage) {
-                await fetch(`${backend.storageServiceUrl}/delete/${props.currentCoverImage}`, {
-                    method: 'DELETE',
-                });
-            }
-
             // Update user cookie with the new data
-            await getMe({ variables: { id: props.userId } }).then(async (result) => {
-                await createUserCookie(result.data.me);
-            });
+            await createUserCookie(jsonResponse);
 
             // Update state
-            props.setCoverImage(jsonResponse.filename);
+            props.setCoverImage(jsonResponse.coverImage);
 
+            // Close modal
             props.setIsChangeCoverImageActive(false);
         } catch (error) {
             console.error('Something went wrong:', error);
