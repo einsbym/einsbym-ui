@@ -1,4 +1,4 @@
-import { createUserCookie } from '@/auth/cookies';
+import { createUserCookie, getAccessTokenFromCookie } from '@/auth/cookies';
 import { UPDATE_PROFILE_IMAGE } from '@/graphql/mutations/user';
 import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
@@ -22,7 +22,7 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
 
     // Queries
     const [getMe] = useLazyQuery(ME);
-    
+
     // Mutations
     const [updateProfileImage] = useMutation(UPDATE_PROFILE_IMAGE);
 
@@ -51,47 +51,34 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
             const formData = new FormData();
             formData.append('file', file);
 
-            const response = await fetch(`${backend.storageServiceUrl}/upload`, {
-                method: 'POST',
+            // Get access token
+            const accessToken = await getAccessTokenFromCookie();
+
+            const response = await fetch(`${backend.restApiUrl}/user/updateProfilePicture`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${accessToken?.value.replace(/^"(.*)"$/, '$1')}`,
+                },
                 body: formData,
             });
-
+            
             if (response.status !== 200) {
                 const { error } = await response.json();
                 throw new Error(error);
             }
-
+            
             // Get response from backend
             const jsonResponse = await response.json();
 
-            // Save image data
-            const { errors } = await updateProfileImage({
-                variables: {
-                    updateProfilePictureInput: {
-                        profilePicture: jsonResponse.filename,
-                    },
-                },
-            });
-
-            if (errors) {
-                throw new Error('Error when attempting to update the profile image');
-            }
-
-            // Delete previous profile image from storage (if any)
-            if (props.currentProfileImage) {
-                await fetch(`${backend.storageServiceUrl}/delete/${props.currentProfileImage}`, {
-                    method: 'DELETE',
-                });
-            }
+            console.log(jsonResponse);
 
             // Update user cookie with the new data
-            await getMe({ variables: { id: props.userId } }).then(async (result) => {
-                await createUserCookie(result.data.me);
-            });
+            await createUserCookie(jsonResponse);
 
             // Update state
-            props.setProfileImage(jsonResponse.filename);
+            props.setProfileImage(jsonResponse.profilePicture);
 
+            // Close modal
             props.setIsChangeProfPicActive(false);
         } catch (error) {
             console.error('Something went wrong:', error);
