@@ -27,6 +27,24 @@ export const UPDATE_BIO = gql`
     }
 `;
 
+export const UPDATE_USER_VISIBILITY = gql`
+    mutation UpdateUserVisibility($isPrivate: Boolean!) {
+        updateUserVisibility(isPrivate: $isPrivate) {
+            id
+            firstName
+            lastName
+            username
+            email
+            bio
+            isPrivate
+            profilePicture
+            coverImage
+            createdAt
+            updatedAt
+        }
+    }
+`;
+
 export const CREATE_USER = gql`
     mutation Mutation($createUserInput: CreateUserInput!) {
         createUser(createUserInput: $createUserInput) {
