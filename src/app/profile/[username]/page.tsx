@@ -6,7 +6,7 @@ import Navbar from '@/components/shared/navbar';
 import PostsSection from '@/components/user-profile/posts-section';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
 import { UserType } from '@/types/types';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import UserBio from '../../../components/user-profile/bio';
@@ -20,7 +20,8 @@ export default function UserProfile() {
     const [user, setUser] = useState<UserType | null>();
     const [loggedUser, setLoggedUser] = useState<UserType | null>();
 
-    const { data, loading, error } = useQuery(FIND_USER_BY_USERNAME, { variables: { username: params.username } });
+    // Queries
+    const [findUserBYUsername, { error }] = useLazyQuery(FIND_USER_BY_USERNAME);
 
     // Check if usernames match
     const checkUser = useCallback(async () => {
@@ -28,20 +29,21 @@ export default function UserProfile() {
 
         if (userFromCookie) {
             if (userFromCookie.username === params.username) {
-                router.push('/profile');
+                return router.push('/profile');
             }
 
-            setLoggedUser(userFromCookie);
-        }
+            const { data } = await findUserBYUsername({
+                variables: { username: params.username },
+            });
 
-        setUser(data.findUserByUsername);
-    }, [data, params, router]);
+            setLoggedUser(userFromCookie);
+            setUser(data.findUserByUsername);
+        }
+    }, [params, router, findUserBYUsername]);
 
     useEffect(() => {
-        if (data) {
-            checkUser();
-        }
-    }, [data, checkUser]);
+        checkUser();
+    }, [checkUser]);
 
     if (error) {
         return (
@@ -51,7 +53,7 @@ export default function UserProfile() {
         );
     }
 
-    if (loading) {
+    if (!user && !loggedUser) {
         return <Loading />;
     }
 
