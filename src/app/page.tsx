@@ -1,5 +1,6 @@
 'use client';
 
+import ButtonGroup from '@/components/shared/button-group';
 import ButtonLoadMore from '@/components/shared/button-load-more';
 import Navbar from '@/components/shared/navbar';
 import GallerySkeleton from '@/components/skeletons/gallery';
@@ -48,6 +49,8 @@ export default function Home() {
     return (
         <>
             <Navbar />
+
+            <ButtonGroup />
 
             {files.length === 0 && loading && (
                 <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
