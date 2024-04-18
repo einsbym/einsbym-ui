@@ -29,7 +29,7 @@ export default function UserProfile() {
 
         if (userFromCookie) {
             if (userFromCookie.username === params.username) {
-                return router.push('/profile');
+                return router.push('/profile', { scroll: false });
             }
 
             const { data } = await findUserBYUsername({
