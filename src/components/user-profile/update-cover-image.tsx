@@ -71,7 +71,7 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             props.setIsChangeCoverImageActive(false);
         } catch (error) {
             console.error('Something went wrong:', error);
-            setErrorMessage(`Oops... ${error}`);
+            setErrorMessage(`${error}`);
         }
     };
 

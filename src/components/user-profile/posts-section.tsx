@@ -145,7 +145,7 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
                     )}
 
                     {errorMessage && (
-                        <div className="mt-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400 text-center">
+                        <div className="mt-2 p-2 text-sm font-medium rounded-lg bg-red-800/20 text-red-600 text-center">
                             {errorMessage}
                         </div>
                     )}

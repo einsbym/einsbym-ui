@@ -26,7 +26,7 @@ export default function PublishComment(props: {
 
         try {
             if (!comment) {
-                throw new Error('Hey! You need to write something first');
+                throw new Error('🖐️ Hey! You need to write something first');
             }
 
             const { data, errors } = await createComment({
@@ -53,7 +53,7 @@ export default function PublishComment(props: {
         } catch (error) {
             setLoading(false);
             console.error('Something bad happened:', error);
-            setErrorMessage(`${error instanceof Error ? error.message : error}`);
+            setErrorMessage('Something bad happened 😭');
         }
     };
 
@@ -89,7 +89,7 @@ export default function PublishComment(props: {
                 )}
 
                 {errorMessage && (
-                    <div className="mt-2 p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400 text-center">
+                    <div className="mt-2 p-2 text-sm font-medium rounded-lg bg-red-800/20 text-red-600 text-center">
                         {errorMessage}
                     </div>
                 )}

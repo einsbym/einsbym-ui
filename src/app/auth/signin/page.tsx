@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { AiOutlineLoading } from 'react-icons/ai';
 import { CiLogin } from 'react-icons/ci';
-import { MdError } from 'react-icons/md';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SignInType>({ email: '', password: '' });
@@ -95,13 +94,15 @@ export default function Login() {
                                     Password
                                 </label>
                             </div>
+                            
                             {errorMessage && (
                                 <div className="flex justify-center mt-5 mb-5">
-                                    <div className="flex gap-2 items-center w-fit p-2 text-[#ff0000] border border-[#ff0000] bg-[#ff00001a] rounded-lg">
-                                        <MdError /> {errorMessage}
+                                    <div className="flex gap-2 items-center w-fit p-2 bg-red-800/20 text-red-600 rounded-lg">
+                                        {errorMessage}
                                     </div>
                                 </div>
                             )}
+
                             <button
                                 className="flex gap-2 items-center justify-center w-full text-white animated-gradient-bg focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
                                 onClick={(event) => signIn(event.preventDefault)}

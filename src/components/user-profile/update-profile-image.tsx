@@ -73,7 +73,7 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
             props.setIsChangeProfPicActive(false);
         } catch (error) {
             console.error('Something went wrong:', error);
-            setErrorMessage(`Oops... ${error}`);
+            setErrorMessage(`${error}`);
         }
     };
 

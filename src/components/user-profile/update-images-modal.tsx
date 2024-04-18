@@ -30,7 +30,7 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                         <h3 className="text-xl font-semibold text-white">{props.modalName}</h3>
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
+                            className="text-gray-400 bg-transparen rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
                             onClick={() => props.setIsModalActive(false)}
                         >
                             <IoIosClose className='w-10 h-10' />
@@ -83,7 +83,7 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                         </button>
 
                         {props.errorMessage && (
-                            <div className="p-2 text-sm font-medium rounded-lg border border-red-400 text-red-400">
+                            <div className="mt-2 p-2 text-sm font-medium rounded-lg bg-red-800/20 text-red-600 text-center">
                                 {props.errorMessage}
                             </div>
                         )}
