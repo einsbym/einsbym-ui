@@ -6,6 +6,7 @@ export const FIND_COMMENTS_BY_POST = gql`
             id
             comment
             createdAt
+            totalResponses
             user {
                 id
                 firstName

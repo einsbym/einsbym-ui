@@ -48,4 +48,5 @@ export interface CommentType {
     comment: string;
     createdAt: Date;
     user: UserType;
+    totalResponses: number;
 }

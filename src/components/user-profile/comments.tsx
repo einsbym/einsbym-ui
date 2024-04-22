@@ -71,7 +71,7 @@ export default function Comments(props: { postId: string | null; publishedCommen
                         <FaRegHeart size={13} /> 232
                     </button>
                     <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-900 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
-                        <FaRegCommentAlt size={13} /> 0
+                        <FaRegCommentAlt size={13} /> {comment.totalResponses}
                     </button>
                 </div>
             </div>
