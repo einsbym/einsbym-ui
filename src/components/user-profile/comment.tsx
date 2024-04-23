@@ -34,7 +34,7 @@ export default function Comment(props: { comment: CommentType }) {
                 </div>
             </div>
 
-            <Reply key={props.comment.id} comment={props.comment} />
+            <Reply key={props.comment.id} commentId={props.comment.id} />
         </div>
     );
 }

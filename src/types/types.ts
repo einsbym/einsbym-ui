@@ -50,3 +50,11 @@ export interface CommentType {
     user: UserType;
     totalResponses: number;
 }
+
+export interface ReplyType {
+    id: string;
+    response: string;
+    createdAt: Date;
+    updatedAt: Date;
+    user: UserType;
+}
