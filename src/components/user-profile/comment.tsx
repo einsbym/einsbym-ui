@@ -2,9 +2,12 @@ import { backend } from '@/constants/constants';
 import { CommentType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { FaRegCommentAlt, FaRegHeart } from 'react-icons/fa';
-import Reply from './reply';
+import Replies from './replies';
+import { useState } from 'react';
 
 export default function Comment(props: { comment: CommentType }) {
+    const [areRepliesVisible, setAreRepliesVisible] = useState<boolean>(false);
+
     return (
         <div key={props.comment.id} className="mt-3 lg:mt-5">
             <div className="flex flex-col w-full overflow-hidden break-word p-4 border-gray-200 rounded-e-xl rounded-es-xl bg-gray-800">
@@ -28,13 +31,16 @@ export default function Comment(props: { comment: CommentType }) {
                     <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-900 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                         <FaRegHeart size={13} /> 232
                     </button>
-                    <button className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-900 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
+                    <button
+                        className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-900 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
+                        onClick={() => setAreRepliesVisible(!areRepliesVisible)}
+                    >
                         <FaRegCommentAlt size={13} /> {props.comment.totalResponses}
                     </button>
                 </div>
             </div>
 
-            <Reply key={props.comment.id} commentId={props.comment.id} />
+            {areRepliesVisible && <Replies key={props.comment.id} commentId={props.comment.id} />}
         </div>
     );
 }

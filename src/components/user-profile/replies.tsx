@@ -5,7 +5,7 @@ import getElapsedTime from '@/utils/elapsed-time';
 import { useLazyQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 
-export default function Reply(props: { commentId: string }) {
+export default function Replies(props: { commentId: string }) {
     // States
     const [replies, setReplies] = useState<ReplyType[]>([]);
 
