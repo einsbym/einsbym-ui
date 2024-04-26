@@ -4,10 +4,12 @@ import { ReplyType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useLazyQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
+import PublishReply from './publish-reply';
 
 export default function Replies(props: { commentId: string }) {
     // States
     const [replies, setReplies] = useState<ReplyType[]>([]);
+    const [publishedReplyId, setPublishedReplyId] = useState<string>('');
 
     // Queries
     const [findRepliesByPostComment, { loading }] = useLazyQuery(FIND_REPLIES_BY_POST_COMMENT);
@@ -31,7 +33,7 @@ export default function Replies(props: { commentId: string }) {
 
     useEffect(() => {
         fetchReplies();
-    }, [props.commentId, fetchReplies]);
+    }, [props.commentId, publishedReplyId, fetchReplies]);
 
     if (loading) {
         return (
@@ -44,27 +46,31 @@ export default function Replies(props: { commentId: string }) {
     }
 
     return (
-        replies &&
-        replies.map((reply) => (
-            <div key={reply.id} className="flex flex-col items-end">
-                <div className="flex flex-col w-11/12 overflow-hidden break-word p-4 border-l-2 border-l-[#cc00ff]">
-                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                        <a href={`/profile/${reply.user.username}`}>
-                            <img
-                                className="flex-none w-[30px] h-[30px] lg:w-[30px] lg:h-[30px] rounded-full object-cover"
-                                src={backend.storageUrl + reply.user.profilePicture}
-                                alt={reply.user.username}
-                            />
-                        </a>
-                        <span className="text-sm font-semibold text-white">{reply.user.username}</span>
-                        <span className="text-[10px] lg:text-sm font-normal text-gray-400">
-                            {getElapsedTime(reply.createdAt)}
-                        </span>
-                    </div>
+        <>
+            {replies &&
+                replies.map((reply) => (
+                    <div key={reply.id} className="flex flex-col items-end">
+                        <div className="flex flex-col w-11/12 overflow-hidden break-word p-4 border-l-2 border-l-[#cc00ff]">
+                            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                                <a href={`/profile/${reply.user.username}`}>
+                                    <img
+                                        className="flex-none w-[30px] h-[30px] lg:w-[30px] lg:h-[30px] rounded-full object-cover"
+                                        src={backend.storageUrl + reply.user.profilePicture}
+                                        alt={reply.user.username}
+                                    />
+                                </a>
+                                <span className="text-sm font-semibold text-white">{reply.user.username}</span>
+                                <span className="text-[10px] lg:text-sm font-normal text-gray-400">
+                                    {getElapsedTime(reply.createdAt)}
+                                </span>
+                            </div>
 
-                    <p className="text-sm font-normal py-2.5 text-white">{reply.response}</p>
-                </div>
-            </div>
-        ))
+                            <p className="text-sm font-normal py-2.5 text-white">{reply.response}</p>
+                        </div>
+                    </div>
+                ))}
+
+            <PublishReply commentId={props.commentId} setPublishedReplyId={setPublishedReplyId} />
+        </>
     );
 }
