@@ -29,7 +29,7 @@ export default function Replies(props: { commentId: string }) {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    }, [props.commentId]);
+    }, [props.commentId, findRepliesByPostComment]);
 
     useEffect(() => {
         fetchReplies();
