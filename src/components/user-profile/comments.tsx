@@ -39,13 +39,11 @@ export default function Comments(props: { postId: string | null; publishedCommen
 
     if (comments.length === 0) {
         return (
-            <div className="mt-2 mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
+            <div className="mt-2 mx-auto text-[#cc00ff] text-center bg-[#cc00ff1e] p-2 w-fit rounded-lg">
                 There are no comments on this post yet
             </div>
         );
     }
 
-    return comments.map((comment: CommentType) => (
-        <Comment key={comment.id} comment={comment} />
-    ));
+    return comments.map((comment: CommentType) => <Comment key={comment.id} comment={comment} />);
 }

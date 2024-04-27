@@ -55,7 +55,7 @@ export default function PublishReply(props: {
     };
 
     return (
-        <div>
+        <>
             <form>
                 <div className="relative">
                     <input
@@ -88,6 +88,6 @@ export default function PublishReply(props: {
                     {errorMessage}
                 </div>
             )}
-        </div>
+        </>
     );
 }

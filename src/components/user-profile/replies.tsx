@@ -70,7 +70,9 @@ export default function Replies(props: { commentId: string }) {
                     </div>
                 ))}
 
-            <PublishReply commentId={props.commentId} setPublishedReplyId={setPublishedReplyId} />
+            <div className={replies && replies.length === 0 ? 'mt-2' : 'mt-0'}>
+                <PublishReply commentId={props.commentId} setPublishedReplyId={setPublishedReplyId} />
+            </div>
         </>
     );
 }
