@@ -46,7 +46,7 @@ export default function UserSettings() {
             <Navbar />
             <main className="flex items-center justify-center w-full h-screen">
                 <div className="w-1/4 p-4 rounded-lg shadow-lg bg-gray-900">
-                    <h1 className="font-bold text-2xl mb-4">{user.firstName}&apos;s settings</h1>
+                    <h1 className="font-bold text-2xl mb-4 text-white">{user.firstName}&apos;s settings</h1>
                     <label className="inline-flex items-center cursor-pointer p-4 rounded-md bg-slate-800 hover:shadow-lg w-full">
                         <input
                             type="checkbox"
