@@ -35,7 +35,7 @@ export default function Comment(props: { comment: CommentType }) {
                         className="flex items-center gap-1 lg:gap-2 text-sm lg:bg-gray-900 text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                         onClick={() => setAreRepliesVisible(!areRepliesVisible)}
                     >
-                        <FaRegCommentAlt size={13} /> {props.comment.totalResponses}
+                        <FaRegCommentAlt size={13} /> {props.comment.totalReplies}
                     </button>
                 </div>
             </div>
