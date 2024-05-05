@@ -1,27 +1,25 @@
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 
-export default function CustomEditorJs() {
-    const editor = new EditorJS({
-        /**
-         * Id of Element that should contain Editor instance
-         */
-        holder: 'editorjs',
-        tools: {
-            header: Header,
-        },
-        data: {
-            blocks: [
-                {
-                    id: 'eD2kuEfvgm',
-                    type: 'paragraph',
-                    data: {
-                        text: 'Clean data is useful to sanitize, validate and process on the backend.',
-                    },
+const editor = new EditorJS({
+    /**
+     * Id of Element that should contain Editor instance
+     */
+    holder: 'editorjs',
+    tools: {
+        header: Header,
+    },
+    data: {
+        blocks: [
+            {
+                id: 'eD2kuEfvgm',
+                type: 'paragraph',
+                data: {
+                    text: 'After you create a new EditorJS object, it will contain isReady property. It is a Promise object that will be resolved when the Editor is ready for work and rejected otherwise. If there is an error during initialization the isReady promise will be rejected with an error message.',
                 },
-            ],
-        },
-    });
+            },
+        ],
+    },
+});
 
-    return <div id="editorjs" className="mt-5 w-full bg-gray-900 rounded-lg shadow-lg"></div>;
-}
+export default function CustomEditorJs() {}
