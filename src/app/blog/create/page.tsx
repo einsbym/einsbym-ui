@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-const CustomEditorJs = dynamic((): any => import('./custom-editorjs'));
+const CustomEditorJs = dynamic((): any => import('./custom-editorjs'), { ssr: false });
 
 export default function Create() {
     return (
