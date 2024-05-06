@@ -9,17 +9,19 @@ const editor = new EditorJS({
     tools: {
         header: Header,
     },
-    data: {
-        blocks: [
-            {
-                id: 'eD2kuEfvgm',
-                type: 'paragraph',
-                data: {
-                    text: 'After you create a new EditorJS object, it will contain isReady property. It is a Promise object that will be resolved when the Editor is ready for work and rejected otherwise. If there is an error during initialization the isReady promise will be rejected with an error message.',
-                },
-            },
-        ],
-    },
 });
 
-export default function CustomEditorJs() {}
+export default function CustomEditorJs() {
+    const saveData = async () => {
+        editor
+            .save()
+            .then((outputData) => {
+                console.log('Article data: ', outputData);
+            })
+            .catch((error) => {
+                console.log('Saving failed: ', error);
+            });
+    };
+
+    return <button type="button" className='w-full bg-white text-black font-medium rounded-lg shadow-lg text-center p-2' onClick={() => saveData()}>save text</button>
+}
