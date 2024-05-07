@@ -23,5 +23,13 @@ export default function CustomEditorJs() {
             });
     };
 
-    return <button type="button" className='w-full bg-white text-black font-medium rounded-lg shadow-lg text-center p-2' onClick={() => saveData()}>save text</button>
+    return (
+        <button
+            type="button"
+            className="w-full bg-white text-black font-medium rounded-lg shadow-lg text-center p-2"
+            onClick={() => saveData()}
+        >
+            save text
+        </button>
+    );
 }

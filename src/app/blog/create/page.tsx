@@ -8,7 +8,8 @@ export default function Create() {
     return (
         <div className="w-full flex items-center justify-center">
             <div className="w-1/2 mt-10">
-                <div id="editorjs" className="p-5 bg-gray-900 rounded-lg shadow-lg">
+                <input className="p-5 bg-gray-900 rounded-lg shadow-lg focus:outline-none placeholder:text-gray-800" type="text" placeholder='Title' />
+                <div id="editorjs" className="mt-5 p-5 bg-gray-900 rounded-lg shadow-lg">
                     <CustomEditorJs />
                 </div>
             </div>
