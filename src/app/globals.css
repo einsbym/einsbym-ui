@@ -84,16 +84,24 @@ body {
     }
 }
 
-/* Set EditorJS styles */
+/* Set Editor.js styles */
 
-.ce-inline-toolbar__toggler-and-button-wrapper, .ce-conversion-tool, .cdx-search-field__input {
+.ce-inline-toolbar__toggler-and-button-wrapper,
+.ce-conversion-tool,
+.cdx-search-field__input {
     color: black;
 }
 
-.ce-toolbar__plus, .ce-toolbar__settings-btn {
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn {
     color: white;
 }
 
-.ce-toolbar__plus:hover, .ce-toolbar__settings-btn:hover {
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn:hover {
     color: black;
+}
+
+.ce-block--selected .ce-block__content {
+    background: rgba(0, 0, 0, 0.089);
 }
