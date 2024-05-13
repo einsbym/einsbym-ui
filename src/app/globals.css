@@ -83,3 +83,17 @@ body {
         background-position: 18% 0%;
     }
 }
+
+/* Set EditorJS styles */
+
+.ce-inline-toolbar__toggler-and-button-wrapper, .ce-conversion-tool, .cdx-search-field__input {
+    color: black;
+}
+
+.ce-toolbar__plus, .ce-toolbar__settings-btn {
+    color: white;
+}
+
+.ce-toolbar__plus:hover, .ce-toolbar__settings-btn:hover {
+    color: black;
+}

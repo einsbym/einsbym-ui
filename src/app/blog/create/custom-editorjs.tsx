@@ -20,10 +20,10 @@ export default function CustomEditorJs() {
             const formData = new FormData();
 
             // Append data
-            formData.append('title', 'yeeeeaaa');
+            formData.append('title', 'This is the title of the post');
             formData.append('file', '');
-            formData.append('description', 'brooooo');
-            formData.append('tags', "['a', 'b', 'c']");
+            formData.append('description', 'A short text describing the core message');
+            formData.append('tags', "['feature', 'news', 'bug']");
 
             // Save data from Editor.JS
             editor
@@ -63,7 +63,7 @@ export default function CustomEditorJs() {
     return (
         <button
             type="button"
-            className="w-full bg-white text-black font-medium rounded-lg shadow-lg text-center p-2"
+            className="w-full bg-white text-black font-medium rounded-lg shadow-lg text-center p-2 hover:bg-gray-200"
             onClick={() => savePost()}
         >
             save text
