@@ -22,7 +22,7 @@ export default function Create() {
             </div>
             <div className="w-[700px] mt-10 ml-5 bg-gray-900 p-5">
                 {data.map((block) => (
-                    <p className="mb-2" dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}></p>
+                    <p key={block.id} className="mb-2" dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}></p>
                 ))}
             </div>
         </div>
