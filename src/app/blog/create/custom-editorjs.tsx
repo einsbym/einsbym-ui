@@ -2,6 +2,7 @@ import { getAccessTokenFromCookie } from '@/auth/cookies';
 import { backend } from '@/constants/constants';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
+import { Dispatch, SetStateAction } from 'react';
 
 const editor = new EditorJS({
     /**
@@ -13,7 +14,7 @@ const editor = new EditorJS({
     },
 });
 
-export default function CustomEditorJs() {
+export default function CustomEditorJs(props: { setData: Dispatch<SetStateAction<any[]>> }) {
     const savePost = async () => {
         try {
             // Create an instance of `FormData`
@@ -60,11 +61,24 @@ export default function CustomEditorJs() {
         }
     };
 
+    const saveData = () => {
+        // Save data from Editor.JS
+        editor
+            .save()
+            .then((outputData) => {
+                console.log('Article data: ', outputData);
+                props.setData(outputData.blocks);
+            })
+            .catch((error) => {
+                throw new Error(error);
+            });
+    };
+
     return (
         <button
             type="button"
             className="w-full bg-white text-black font-medium rounded-lg shadow-lg text-center p-2 hover:bg-gray-200"
-            onClick={() => savePost()}
+            onClick={() => saveData()}
         >
             save text
         </button>
