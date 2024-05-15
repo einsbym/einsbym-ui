@@ -1,5 +1,6 @@
 'use client';
 
+import Preview from '@/components/blog/preview';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
@@ -23,16 +24,7 @@ export default function Create() {
                     <CustomEditorJs setData={setData} />
                 </div>
             </div>
-            <div className="w-1/3 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border border-[#cc00ff]">
-                {title && <h1 className="text-5xl text-md mb-5 font-mono">{title}</h1>}
-                {data.map((block) => (
-                    <p
-                        key={block.id}
-                        className="mb-2 font-serif"
-                        dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
-                    ></p>
-                ))}
-            </div>
+            <Preview title={title} data={data} />
         </div>
     );
 }
