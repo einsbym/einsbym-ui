@@ -78,10 +78,10 @@ export default function CustomEditorJs(props: { setData: Dispatch<SetStateAction
         <button
             id="saveBtn"
             type="button"
-            className="w-full bg-[#cc00ff] text-black font-medium rounded-lg shadow-lg text-center p-2 hover:bg-[#9635c3]"
+            className="w-full bg-[#cc00ff] text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#9635c3]"
             onClick={() => saveData()}
         >
-            save text
+            save
         </button>
     );
 }
