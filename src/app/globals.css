@@ -121,3 +121,7 @@ body {
     right: auto;
     left: -70px;
 }
+
+.ce-inline-tool-input {
+    color: black;
+}

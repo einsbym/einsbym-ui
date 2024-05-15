@@ -11,8 +11,9 @@ export default function Create() {
 
     return (
         <div className="w-full flex items-center justify-center">
-            <div className="w-1/2 mt-10">
+            <div className="w-1/3 mt-10">
                 <input
+                    id="title"
                     className="p-5 w-full bg-gray-900 rounded-lg shadow-lg focus:outline-none placeholder:text-gray-600"
                     type="text"
                     placeholder="Title"
@@ -22,10 +23,14 @@ export default function Create() {
                     <CustomEditorJs setData={setData} />
                 </div>
             </div>
-            <div className="w-[700px] mt-10 ml-5 bg-gray-900 p-5">
-                {title && <h1 className='text-2xl text-md mb-5'>{title}</h1>}
+            <div className="w-1/2 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border border-[#cc00ff]">
+                {title && <h1 className="text-5xl text-md mb-5 font-mono">{title}</h1>}
                 {data.map((block) => (
-                    <p key={block.id} className="mb-2" dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}></p>
+                    <p
+                        key={block.id}
+                        className="mb-2 font-serif"
+                        dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
+                    ></p>
                 ))}
             </div>
         </div>
