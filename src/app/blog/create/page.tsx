@@ -23,7 +23,7 @@ export default function Create() {
                     <CustomEditorJs setData={setData} />
                 </div>
             </div>
-            <div className="w-1/2 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border border-[#cc00ff]">
+            <div className="w-1/3 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border border-[#cc00ff]">
                 {title && <h1 className="text-5xl text-md mb-5 font-mono">{title}</h1>}
                 {data.map((block) => (
                     <p
