@@ -31,7 +31,7 @@ export default function Create() {
                     <CustomEditorJs setData={setData} />
                 </div>
             </div>
-            <Preview title={title} data={data} />
+            <Preview title={title} description={description} data={data} />
         </div>
     );
 }
