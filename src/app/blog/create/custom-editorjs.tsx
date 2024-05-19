@@ -3,6 +3,8 @@ import { backend } from '@/constants/constants';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import { Dispatch, SetStateAction } from 'react';
+import { FiSend } from 'react-icons/fi';
+import { TbEyeEdit } from 'react-icons/tb';
 
 const editor = new EditorJS({
     /**
@@ -75,13 +77,23 @@ export default function CustomEditorJs(props: { setData: Dispatch<SetStateAction
     };
 
     return (
-        <button
-            id="saveBtn"
-            type="button"
-            className="w-full bg-[#cc00ff] text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#9635c3]"
-            onClick={() => saveData()}
-        >
-            save
-        </button>
+        <div className='flex gap-2'>
+            <button
+                id="saveBtn"
+                type="button"
+                className="flex gap-2 items-center justify-center w-full border-2 border-[#cc00ff] text-[#cc00ff] hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] transition-all duration-200"
+                onClick={() => saveData()}
+            >
+                <TbEyeEdit /> preview changes
+            </button>
+            <button
+                id="saveBtn"
+                type="button"
+                className="flex gap-2 items-center justify-center w-full border-2 border-[#cc00ff] text-[#cc00ff] hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] transition-all duration-200"
+                onClick={() => savePost()}
+            >
+                <FiSend /> publish
+            </button>
+        </div>
     );
 }

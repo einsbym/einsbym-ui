@@ -8,6 +8,7 @@ const CustomEditorJs: any = dynamic((): any => import('./custom-editorjs'), { ss
 
 export default function Create() {
     const [title, setTitle] = useState<string>();
+    const [description, setDescription] = useState<string>();
     const [data, setData] = useState<any[]>([]);
 
     return (
@@ -20,7 +21,13 @@ export default function Create() {
                     placeholder="Title"
                     onChange={(event) => setTitle(event.target.value)}
                 />
-                <div id="editorjs" className="mt-5 p-5 bg-gray-900 rounded-lg shadow-lg">
+                <textarea
+                    id="description"
+                    className="mt-2 p-5 w-full bg-gray-900 rounded-lg shadow-lg focus:outline-none placeholder:text-gray-600"
+                    placeholder="Description"
+                    onChange={(event) => setDescription(event.target.value)}
+                />
+                <div id="editorjs" className="mt-2 p-5 bg-gray-900 rounded-lg shadow-lg">
                     <CustomEditorJs setData={setData} />
                 </div>
             </div>
