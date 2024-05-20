@@ -1,5 +1,5 @@
-import { FaChartBar } from "react-icons/fa";
-import { TbEyeEdit } from "react-icons/tb";
+import { TbEyeEdit } from 'react-icons/tb';
+import Statistics from './statistics';
 
 const headerSizes: any = {
     1: 'text-6xl',
@@ -11,39 +11,37 @@ const headerSizes: any = {
 };
 
 export default function Preview(props: { title: string | undefined; description: string | undefined; data: any[] }) {
-    return props.data.length > 0 && (
-        <div className="w-1/3 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border-l-4 border-[#cc00ff]">
-            <div className="w-fit flex gap-2 items-center border-b-2 mb-5 border-[#cc00ff]"><TbEyeEdit /> preview</div>
-            {props.title && <h1 className="text-5xl text-md mb-5 font-mono text-[#cc00ff]">{props.title}</h1>}
-            {props.description && <p className="italic text-sm mb-2 text-white">{props.description}</p>}
-            {props.data.map((block) => {
-                if (block.type === 'header') {
-                    return (
-                        <h1
-                            key={block.id}
-                            className={`text-[#cc00ff] font-bold my-5 ${headerSizes[block.data.level]}`}
-                            dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
-                        ></h1>
-                    );
-                }
+    return (
+        props.data.length > 0 && (
+            <div className="w-1/3 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border-l-4 border-[#cc00ff]">
+                <div className="w-fit flex gap-2 items-center border-b-2 mb-5 border-[#cc00ff]">
+                    <TbEyeEdit /> Preview
+                </div>
+                {props.title && <h1 className="text-5xl text-md mb-5 font-mono text-[#cc00ff]">{props.title}</h1>}
+                {props.description && <p className="italic text-sm mb-2 text-white">{props.description}</p>}
+                {props.data.map((block) => {
+                    if (block.type === 'header') {
+                        return (
+                            <h1
+                                key={block.id}
+                                className={`text-[#cc00ff] font-bold my-5 ${headerSizes[block.data.level]}`}
+                                dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
+                            ></h1>
+                        );
+                    }
 
-                if (block.type === 'paragraph') {
-                    return (
-                        <p
-                            key={block.id}
-                            className="mb-2 font-serif leading-6"
-                            dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
-                        ></p>
-                    );
-                }
-            })}
-            <div className="w-fit flex gap-2 items-center border-b-2 mb-5 border-[#cc00ff]">
-                <FaChartBar /> statistics
+                    if (block.type === 'paragraph') {
+                        return (
+                            <p
+                                key={block.id}
+                                className="mb-2 font-serif leading-6"
+                                dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
+                            ></p>
+                        );
+                    }
+                })}
+                <Statistics data={props.data} />
             </div>
-            <div className="flex gap-2 items-center">
-                <span className="bg-[#cc00ff3a] text-[#cc00ff] p-1 px-2 rounded-lg">Total of blocks: {props.data.length}</span>
-                <span className="bg-[#cc00ff3a] text-[#cc00ff] p-1 px-2 rounded-lg">Total of characters: n/a</span>
-            </div>
-        </div>
+        )
     );
 }
