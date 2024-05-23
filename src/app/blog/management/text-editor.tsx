@@ -16,7 +16,7 @@ const editor = new EditorJS({
     },
 });
 
-export default function CustomEditorJs(props: { setData: Dispatch<SetStateAction<any[]>> }) {
+export default function TextEditor(props: { setData: Dispatch<SetStateAction<any[]>> }) {
     const savePost = async () => {
         try {
             // Create an instance of `FormData`

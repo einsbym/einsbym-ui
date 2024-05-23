@@ -5,7 +5,7 @@ import Navbar from '@/components/shared/navbar';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
-const CustomEditorJs: any = dynamic((): any => import('./custom-editorjs'), { ssr: false });
+const TextEditor: any = dynamic((): any => import('./text-editor'), { ssr: false });
 
 export default function Create() {
     const [title, setTitle] = useState<string>();
@@ -31,7 +31,7 @@ export default function Create() {
                         onChange={(event) => setDescription(event.target.value)}
                     />
                     <div id="editorjs" className="mt-2 p-5 bg-gray-900 rounded-lg shadow-lg">
-                        <CustomEditorJs setData={setData} />
+                        <TextEditor setData={setData} />
                     </div>
                 </div>
                 <Preview title={title} description={description} data={data} />
