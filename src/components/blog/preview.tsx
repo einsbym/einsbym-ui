@@ -17,8 +17,8 @@ export default function Preview(props: { title: string | undefined; description:
                 <div className="w-fit flex gap-2 items-center border-b-2 mb-5 border-[#cc00ff]">
                     <TbEyeEdit /> Preview
                 </div>
-                {props.title && <h1 className="text-5xl text-md mb-5 font-mono text-[#cc00ff]">{props.title}</h1>}
-                {props.description && <p className="italic text-sm mb-2 text-white">{props.description}</p>}
+                {props.title && <h1 className="text-5xl text-md mb-5 font-serif text-[#cc00ff]">{props.title}</h1>}
+                {props.description && <p className="italic text-sm mb-2 font-serif text-white">{props.description}</p>}
                 {props.data.map((block) => {
                     if (block.type === 'header') {
                         return (
@@ -34,7 +34,7 @@ export default function Preview(props: { title: string | undefined; description:
                         return (
                             <p
                                 key={block.id}
-                                className="mb-2 font-serif leading-6"
+                                className="mb-2 leading-6"
                                 dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
                             ></p>
                         );

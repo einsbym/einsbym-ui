@@ -27,19 +27,19 @@ export default function Statistics(props: { data: any[] }) {
             <div className="w-fit flex gap-2 items-center border-b-2 mb-5 border-[#cc00ff]">
                 <FaChartBar /> Statistics
             </div>
-            <div className="flex gap-2 items-center text-sm">
+            <div className="grid grid-cols-3 flex-1 gap-2 items-center text-sm">
                 <span className="flex gap-1 items-center bg-[#cc00ff3a] text-[#cc00ff] p-1 px-2 rounded-lg">
-                    <RiTextBlock className="text-white" /> Total of blocks: {props.data.length}
+                    <RiTextBlock className="text-white" /> Blocks: {props.data.length}
                 </span>
                 <span className="flex gap-1 items-center bg-[#cc00ff3a] text-[#cc00ff] p-1 px-2 rounded-lg">
-                    <TbLetterCaseToggle className="text-white" /> Total of characters: {getTotalOfCharacters()}
+                    <TbLetterCaseToggle className="text-white" /> Characters: {getTotalOfCharacters()}
                 </span>
                 <span className="flex gap-1 items-center bg-[#cc00ff3a] text-[#cc00ff] p-1 px-2 rounded-lg">
-                    <MdOutlineWrapText className="text-white" /> Total of paragraphs:{' '}
+                    <MdOutlineWrapText className="text-white" /> Paragraphs:{' '}
                     {getTotalOfParagraphsAndHeaders().totalOfParagraphs}
                 </span>
                 <span className="flex gap-1 items-center bg-[#cc00ff3a] text-[#cc00ff] p-1 px-2 rounded-lg">
-                    <FaHeading className="text-white" /> Total of headers:{' '}
+                    <FaHeading className="text-white" /> Headers:{' '}
                     {getTotalOfParagraphsAndHeaders().totalOfHeaders}
                 </span>
             </div>
