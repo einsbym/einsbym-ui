@@ -118,6 +118,7 @@ body {
 }
 
 .ce-toolbar__actions {
+    width: fit-content;
     right: auto;
     left: -70px;
 }
