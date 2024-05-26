@@ -16,23 +16,26 @@ const editor = new EditorJS({
     },
 });
 
-export default function TextEditor(props: { setData: Dispatch<SetStateAction<any[]>> }) {
+export default function TextEditor(props: {
+    title: string;
+    description: string;
+    setData: Dispatch<SetStateAction<any[]>>;
+}) {
     const savePost = async () => {
         try {
             // Create an instance of `FormData`
             const formData = new FormData();
 
             // Append data
-            formData.append('title', 'This is the title of the post');
+            formData.append('title', props.title);
             formData.append('file', '');
-            formData.append('description', 'A short text describing the core message');
-            formData.append('tags', "['feature', 'news', 'bug']");
+            formData.append('description', props.description);
+            formData.append('tags', JSON.stringify(['feature', 'implementation', 'test', 'integration', 'editorjs']));
 
             // Save data from Editor.JS
             editor
                 .save()
                 .then((outputData) => {
-                    console.log('Article data: ', outputData);
                     formData.append('body', JSON.stringify(outputData));
                 })
                 .catch((error) => {
@@ -77,7 +80,7 @@ export default function TextEditor(props: { setData: Dispatch<SetStateAction<any
     };
 
     return (
-        <div className='flex gap-2'>
+        <div className="flex gap-2">
             <button
                 id="saveBtn"
                 type="button"

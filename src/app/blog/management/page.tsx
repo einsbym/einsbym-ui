@@ -31,7 +31,7 @@ export default function Create() {
                         onChange={(event) => setDescription(event.target.value)}
                     />
                     <div id="editorjs" className="mt-2 p-5 bg-gray-900 rounded-lg shadow-lg">
-                        <TextEditor setData={setData} />
+                        <TextEditor title={title} description={description} setData={setData} />
                     </div>
                 </div>
                 <Preview title={title} description={description} data={data} />
