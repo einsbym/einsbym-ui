@@ -37,8 +37,11 @@ export default function Blog() {
                                 </p>
                             )}
                             <div className="mt-5 w-full overflow-x-hidden flex gap-2">
-                                {post.tags.map((tag: any) => (
-                                    <span className="bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 rounded-lg text-center">
+                                {post.tags.map((tag: string) => (
+                                    <span
+                                        key={tag}
+                                        className="bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 rounded-lg text-center"
+                                    >
                                         {tag}
                                     </span>
                                 ))}
