@@ -7,6 +7,7 @@ import NavbarUserPopover from './navbar-user-popover';
 const menuItems = [
     { id: 1, label: 'Gallery', slug: '/' },
     { id: 2, label: 'Videos', slug: '/videos' },
+    { id: 3, label: 'Blog', slug: '/blog' },
 ];
 
 export default function Navbar() {
