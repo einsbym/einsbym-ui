@@ -4,6 +4,7 @@ export const ME = gql`
     query Me($id: String!) {
         me(id: $id) {
             id
+            role
             firstName
             lastName
             username
@@ -21,6 +22,7 @@ export const FIND_USER_BY_USERNAME = gql`
     query FindUserByUsername($username: String!) {
         findUserByUsername(username: $username) {
             id
+            role
             firstName
             lastName
             username

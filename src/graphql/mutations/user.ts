@@ -31,6 +31,7 @@ export const UPDATE_USER_VISIBILITY = gql`
     mutation UpdateUserVisibility($isPrivate: Boolean!) {
         updateUserVisibility(isPrivate: $isPrivate) {
             id
+            role
             firstName
             lastName
             username

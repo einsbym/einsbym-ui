@@ -6,6 +6,7 @@ export const SIGN_IN = gql`
             accessToken
             user {
                 id
+                role
                 firstName
                 lastName
                 username

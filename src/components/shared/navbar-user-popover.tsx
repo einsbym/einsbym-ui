@@ -66,6 +66,15 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 >
                     Your Profile
                 </a>
+                {props.user && props.user.role === 'admin' && (
+                    <a
+                        href="/blog/management"
+                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                        id="user-menu-item-0"
+                    >
+                        Manage blog
+                    </a>
+                )}
                 {pathname === '/profile' && (
                     <a
                         href="/profile/settings"
