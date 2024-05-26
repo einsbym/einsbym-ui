@@ -2,9 +2,10 @@ import { getAccessTokenFromCookie } from '@/auth/cookies';
 import { backend } from '@/constants/constants';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { TbEyeEdit } from 'react-icons/tb';
+import { StatusMessage } from './page';
 
 const editor = new EditorJS({
     /**
@@ -20,9 +21,14 @@ export default function TextEditor(props: {
     title: string;
     description: string;
     setData: Dispatch<SetStateAction<any[]>>;
+    setStatusMessage: Dispatch<SetStateAction<StatusMessage | undefined>>;
 }) {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const savePost = async () => {
         try {
+            setIsLoading(true);
+
             // Create an instance of `FormData`
             const formData = new FormData();
 
@@ -58,11 +64,12 @@ export default function TextEditor(props: {
                 throw new Error(response.statusText);
             }
 
-            const responseJson = await response.json();
-
-            console.log('All saved:', responseJson);
+            setIsLoading(false);
+            props.setStatusMessage({ status: 'success', message: `Your post ${props.title} is now live!` });
         } catch (error) {
             console.error(error);
+            props.setStatusMessage({ status: 'error', message: 'Oh no! Something is not right.' });
+            setIsLoading(false);
         }
     };
 
@@ -84,16 +91,18 @@ export default function TextEditor(props: {
             <button
                 id="saveBtn"
                 type="button"
-                className="flex gap-2 items-center justify-center w-full border-2 border-[#cc00ff] text-[#cc00ff] hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] transition-all duration-200"
+                className="flex gap-2 items-center justify-center w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                 onClick={() => saveData()}
+                disabled={isLoading}
             >
                 <TbEyeEdit /> preview changes
             </button>
             <button
                 id="saveBtn"
                 type="button"
-                className="flex gap-2 items-center justify-center w-full border-2 border-[#cc00ff] text-[#cc00ff] hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] transition-all duration-200"
+                className="flex gap-2 items-center justify-center w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                 onClick={() => savePost()}
+                disabled={isLoading}
             >
                 <FiSend /> publish
             </button>
