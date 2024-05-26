@@ -24,7 +24,7 @@ export default function Replies(props: { commentId: string }) {
             });
 
             if (data) {
-                setReplies(data.findResponsesByPostComment);
+                setReplies(data.findRepliesByPostComment);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -65,7 +65,7 @@ export default function Replies(props: { commentId: string }) {
                                 </span>
                             </div>
 
-                            <p className="text-sm font-normal py-2.5 text-white">{reply.response}</p>
+                            <p className="text-sm font-normal py-2.5 text-white">{reply.reply}</p>
                         </div>
                     </div>
                 ))}

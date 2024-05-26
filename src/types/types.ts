@@ -48,12 +48,12 @@ export interface CommentType {
     comment: string;
     createdAt: Date;
     user: UserType;
-    totalResponses: number;
+    totalReplies: number;
 }
 
 export interface ReplyType {
     id: string;
-    response: string;
+    reply: string;
     createdAt: Date;
     updatedAt: Date;
     user: UserType;

@@ -83,3 +83,46 @@ body {
         background-position: 18% 0%;
     }
 }
+
+/* Set Editor.js styles */
+
+.ce-inline-toolbar__toggler-and-button-wrapper,
+.ce-conversion-tool,
+.cdx-search-field__input {
+    color: black;
+}
+
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn {
+    color: white;
+}
+
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn:hover {
+    color: black;
+}
+
+.ce-block--selected .ce-block__content {
+    background: rgba(0, 0, 0, 0.089);
+}
+
+.ce-block__content {
+    max-width: none;
+    width: 100%;
+}
+
+.ce-toolbar__content {
+    max-width: none;
+    margin: auto;
+    position: relative;
+}
+
+.ce-toolbar__actions {
+    width: fit-content;
+    right: auto;
+    left: -70px;
+}
+
+.ce-inline-tool-input {
+    color: black;
+}

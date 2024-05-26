@@ -3,10 +3,10 @@ import { FIND_FILES_BY_USER } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
-import { IoIosArrowForward } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 import Footer from '../shared/footer';
 import GallerySkeleton from '../skeletons/gallery';
+import GallerySideViewer from './gallery-side-viewer';
 
 export default function Gallery(props: { userId: string }) {
     // States
@@ -41,61 +41,42 @@ export default function Gallery(props: { userId: string }) {
                 )}
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {loading && <GallerySkeleton items={6} width='w-full' height='h-[200px]' />}
+                {loading && <GallerySkeleton items={6} width="w-full" height="h-[200px]" />}
 
-                {data && data.findFilesByUser.map((file: PostFileType) => (
-                    <div key={file.id}>
-                        {file.fileType === 'video/mp4' && (
-                            <div
-                                className="h-[200px] w-full bg-black overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
-                                onClick={() => handleGalleryItemClick(backend.storageUrl + file.filename)}
-                            >
-                                <ReactPlayer
-                                    url={backend.storageUrl + file.filename}
-                                    width="100%"
-                                    height="100%"
-                                    light={false}
-                                    pip={false}
+                {data &&
+                    data.findFilesByUser.map((file: PostFileType) => (
+                        <div key={file.id}>
+                            {file.fileType === 'video/mp4' && (
+                                <div
+                                    className="h-[200px] w-full bg-black overflow-hidden object-contain cursor-pointer rounded-lg hover:border-2 hover:border-[#cc00ff]"
+                                    onClick={() => handleGalleryItemClick(backend.storageUrl + file.filename)}
+                                >
+                                    <ReactPlayer
+                                        url={backend.storageUrl + file.filename}
+                                        width="100%"
+                                        height="100%"
+                                        light={false}
+                                        pip={false}
+                                    />
+                                </div>
+                            )}
+                            {file.fileType !== 'video/mp4' && (
+                                <img
+                                    alt={file.filename}
+                                    className="h-[200px] w-full rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
+                                    src={backend.storageUrl + file.filename}
+                                    onClick={() => handleGalleryItemClick(backend.storageUrl + file.filename)}
                                 />
-                            </div>
-                        )}
-                        {file.fileType !== 'video/mp4' && (
-                            <img
-                                alt={file.filename}
-                                className="h-[200px] w-full rounded-lg object-cover cursor-pointer hover:border-2 hover:border-[#cc00ff]"
-                                src={backend.storageUrl + file.filename}
-                                onClick={() => handleGalleryItemClick(backend.storageUrl + file.filename)}
-                            />
-                        )}
-                    </div>
-                ))}
+                            )}
+                        </div>
+                    ))}
             </div>
-            <div
-                className={`fixed top-0 right-0 z-40 w-full lg:rounded-l-[2rem] lg:w-1/2 h-screen flex justify-center items-center p-4 overflow-y-auto ${
-                    isFileViewerActive ? null : 'translate-x-full'
-                } transition-transform backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
-            >
-                <IoIosArrowForward
-                    className="absolute z-10 top-5 lg:top-auto left-5 bg-[#cc00ff1e] text-[#cc00ff] p-2 cursor-pointer mb-2"
-                    onClick={() => setIsFileViewerActive(false)}
-                    size={40}
-                />
-                {selectedFile && selectedFile.fileExtension !== 'mp4' && (
-                    <img alt={selectedFile.url} className="rounded-lg h-full object-contain" src={selectedFile.url} />
-                )}
-                {selectedFile && selectedFile.fileExtension === 'mp4' && (
-                    <ReactPlayer
-                        width="100%"
-                        height="fit-content"
-                        style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
-                        url={selectedFile.url}
-                        controls
-                        playing={isFileViewerActive}
-                        stopOnUnmount
-                        light={false}
-                    />
-                )}
-            </div>
+            
+            <GallerySideViewer
+                isFileViewerActive={isFileViewerActive}
+                setIsFileViewerActive={setIsFileViewerActive}
+                selectedFile={selectedFile}
+            />
 
             <Footer />
         </div>

@@ -30,8 +30,8 @@ export default function PublishReply(props: {
 
             const { data, errors } = await createReply({
                 variables: {
-                    createResponseInput: {
-                        response: reply,
+                    createReplyInput: {
+                        reply: reply,
                         commentId: props.commentId,
                     },
                 },
@@ -42,7 +42,7 @@ export default function PublishReply(props: {
             }
 
             if (data) {
-                props.setPublishedReplyId(data.createResponse.id);
+                props.setPublishedReplyId(data.createReply.id);
             }
 
             setReply(null);

@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const FIND_REPLIES_BY_POST_COMMENT = gql`
-    query FindResponsesByPostComment($commentId: String!) {
-        findResponsesByPostComment(commentId: $commentId) {
+    query FindRepliesByPostComment($commentId: String!) {
+        findRepliesByPostComment(commentId: $commentId) {
             id
-            response
+            reply
             createdAt
             updatedAt
             user {
