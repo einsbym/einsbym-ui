@@ -22,7 +22,7 @@ export default function Blog() {
     return (
         data &&
         data.findBlogPosts.map((post: any) => (
-            <div className="w-1/3 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border-l-4 border-[#cc00ff]">
+            <div key={post.id} className="w-1/3 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border-l-4 border-[#cc00ff]">
                 {post.title && <h1 className="text-5xl text-md mb-5 font-serif text-[#cc00ff]">{post.title}</h1>}
                 {post.description && <p className="italic text-sm mb-2 font-serif text-white">{post.description}</p>}
                 {post.body.blocks.map((block: any) => {
