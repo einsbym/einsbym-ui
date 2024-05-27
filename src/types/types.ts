@@ -59,3 +59,29 @@ export interface ReplyType {
     updatedAt: Date;
     user: UserType;
 }
+
+export interface BlogPostBlocks {
+    id: string;
+    data: {
+        level: string;
+        text: string;
+    };
+    type: string;
+}
+
+export interface BlogPost {
+    id: string;
+    title: string;
+    description: string;
+    filename: string;
+    body: {
+        time: string;
+        version: string;
+        blocks: BlogPostBlocks[];
+    };
+    views: number;
+    isPublished: boolean;
+    tags: string[];
+    createdAt: Date;
+    updatedAt: Date;
+}

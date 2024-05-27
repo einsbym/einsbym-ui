@@ -3,6 +3,8 @@
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import { FIND_BLOG_POST } from '@/graphql/queries/blog';
+import { BlogPostBlocks } from '@/types/types';
+import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'next/navigation';
 
@@ -32,13 +34,16 @@ export default function ViewBlogPost() {
             <Navbar />
             {data && (
                 <div className="w-1/2 mx-auto mt-20">
+                    <span className="text-sm text-[#cc00ff] group-hover:text-black">
+                        {getElapsedTime(data.findBlogPost.createdAt)}
+                    </span>
                     {data.findBlogPost.title && (
-                        <h1 className="text-9xl text-md mb-5 font-serif text-[#cc00ff]">{data.findBlogPost.title}</h1>
+                        <h1 className="text-8xl text-md mb-5 font-serif text-[#cc00ff]">{data.findBlogPost.title}</h1>
                     )}
                     {data.findBlogPost.description && (
                         <p className="italic mb-2 font-serif text-white">{data.findBlogPost.description}</p>
                     )}
-                    {data.findBlogPost.body.blocks.map((block: any) => {
+                    {data.findBlogPost.body.blocks.map((block: BlogPostBlocks) => {
                         if (block.type === 'header') {
                             return (
                                 <h1
@@ -59,6 +64,17 @@ export default function ViewBlogPost() {
                             );
                         }
                     })}
+                    <hr className="my-4 border-slate-800" />
+                    <div className="mt-5 w-full overflow-x-hidden flex gap-2">
+                        {data.findBlogPost.tags.map((tag: string) => (
+                            <span
+                                key={tag}
+                                className="bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 rounded-lg text-center"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             )}
         </>

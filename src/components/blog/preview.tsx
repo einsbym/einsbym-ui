@@ -1,5 +1,6 @@
 import { TbEyeEdit } from 'react-icons/tb';
 import Statistics from './statistics';
+import { BlogPostBlocks } from '@/types/types';
 
 const headerSizes: any = {
     1: 'text-6xl',
@@ -10,7 +11,11 @@ const headerSizes: any = {
     6: 'text-xl',
 };
 
-export default function Preview(props: { title: string | undefined; description: string | undefined; data: any[] }) {
+export default function Preview(props: {
+    title: string | undefined;
+    description: string | undefined;
+    data: BlogPostBlocks[];
+}) {
     return (
         props.data.length > 0 && (
             <div className="w-1/3 mt-10 ml-5 bg-gray-900 p-5 rounded-lg shadow-lg border-l-4 border-[#cc00ff]">
@@ -19,7 +24,7 @@ export default function Preview(props: { title: string | undefined; description:
                 </div>
                 {props.title && <h1 className="text-5xl text-md mb-5 font-serif text-[#cc00ff]">{props.title}</h1>}
                 {props.description && <p className="italic text-sm mb-2 font-serif text-white">{props.description}</p>}
-                {props.data.map((block) => {
+                {props.data.map((block: BlogPostBlocks) => {
                     if (block.type === 'header') {
                         return (
                             <h1
