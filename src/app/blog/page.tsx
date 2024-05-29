@@ -36,7 +36,7 @@ export default function Blog() {
                                 </a>
                             )}
                             {post.description && (
-                                <p className="italic text-sm font-serif text-white group-hover:text-black">
+                                <p className="text-white group-hover:text-black">
                                     {post.description}
                                 </p>
                             )}

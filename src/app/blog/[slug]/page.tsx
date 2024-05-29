@@ -38,10 +38,10 @@ export default function ViewBlogPost() {
                         {getElapsedTime(data.findBlogPost.createdAt)}
                     </span>
                     {data.findBlogPost.title && (
-                        <h1 className="text-8xl text-md mb-5 font-serif text-[#cc00ff]">{data.findBlogPost.title}</h1>
+                        <h1 className="text-8xl text-md font-bold mb-5 text-[#cc00ff]">{data.findBlogPost.title}</h1>
                     )}
                     {data.findBlogPost.description && (
-                        <p className="italic mb-2 font-serif text-white">{data.findBlogPost.description}</p>
+                        <p className="mb-2 text-3xl text-gray-600">{data.findBlogPost.description}</p>
                     )}
                     {data.findBlogPost.body.blocks.map((block: BlogPostBlocks) => {
                         if (block.type === 'header') {
