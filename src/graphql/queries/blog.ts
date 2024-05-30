@@ -5,6 +5,7 @@ export const FIND_BLOG_POSTS = gql`
         findBlogPosts {
             id
             title
+            slug
             description
             filename
             views
@@ -16,10 +17,11 @@ export const FIND_BLOG_POSTS = gql`
 `;
 
 export const FIND_BLOG_POST = gql`
-    query FindBlogPost($findBlogPostId: String!) {
-        findBlogPost(id: $findBlogPostId) {
+    query FindBlogPost($slug: String!) {
+        findBlogPost(slug: $slug) {
             id
             title
+            slug
             description
             filename
             body {

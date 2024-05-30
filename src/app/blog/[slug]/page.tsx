@@ -21,8 +21,9 @@ export default function ViewBlogPost() {
     const params = useParams<{ slug: string }>();
     const { data, loading } = useQuery(FIND_BLOG_POST, {
         variables: {
-            findBlogPostId: params.slug,
+            slug: params.slug,
         },
+        fetchPolicy: 'no-cache'
     });
 
     if (loading) {

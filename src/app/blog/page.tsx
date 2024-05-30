@@ -29,7 +29,7 @@ export default function Blog() {
                                 {getElapsedTime(post.createdAt)}
                             </span>
                             {post.title && (
-                                <a href={`/blog/${post.id}`}>
+                                <a href={`/blog/${post.slug}`}>
                                     <h1 className="text-4xl text-md mb-5 uppercase font-bold text-[#cc00ff] group-hover:text-black hover:underline">
                                         {post.title}
                                     </h1>

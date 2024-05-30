@@ -72,6 +72,7 @@ export interface BlogPostBlocks {
 export interface BlogPost {
     id: string;
     title: string;
+    slug: string;
     description: string;
     filename: string;
     body: {
