@@ -34,15 +34,15 @@ export default function ViewBlogPost() {
         <>
             <Navbar />
             {data && (
-                <div className="w-1/2 mx-auto mt-20">
+                <div className="w-11/12 md:w-1/2 mx-auto mt-20">
                     <span className="text-sm text-[#cc00ff] group-hover:text-black">
                         {getElapsedTime(data.findBlogPost.createdAt)}
                     </span>
                     {data.findBlogPost.title && (
-                        <h1 className="text-8xl text-md font-bold mb-5 text-[#cc00ff]">{data.findBlogPost.title}</h1>
+                        <h1 className="text-4xl md:text-6xl lg:text-8xl text-md font-bold mb-5 text-[#cc00ff]">{data.findBlogPost.title}</h1>
                     )}
                     {data.findBlogPost.description && (
-                        <p className="mb-2 text-3xl text-gray-600">{data.findBlogPost.description}</p>
+                        <p className="mb-2 text-2xl md:text-3xl text-gray-600">{data.findBlogPost.description}</p>
                     )}
                     {data.findBlogPost.body.blocks.map((block: BlogPostBlocks) => {
                         if (block.type === 'header') {
