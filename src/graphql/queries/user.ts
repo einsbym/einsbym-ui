@@ -31,6 +31,7 @@ export const FIND_USER_BY_USERNAME = gql`
             createdAt
             updatedAt
             bio
+            isPrivate
         }
     }
 `;

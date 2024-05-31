@@ -22,8 +22,7 @@ export default function ViewBlogPost() {
     const { data, loading } = useQuery(FIND_BLOG_POST, {
         variables: {
             slug: params.slug,
-        },
-        fetchPolicy: 'no-cache'
+        }
     });
 
     if (loading) {

@@ -13,6 +13,7 @@ import UserBio from '../../../components/user-profile/bio';
 import CoverAndPhoto from '../../../components/user-profile/cover-and-photo';
 import Gallery from '../../../components/user-profile/gallery';
 import GeneralStatistics from '../../../components/user-profile/general-statistics';
+import Forbidden from '@/components/shared/forbidden';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -57,8 +58,13 @@ export default function UserProfile() {
         return <Loading />;
     }
 
-    if (user && loggedUser) {
-        return (
+    if (user && user.isPrivate) {
+        return <Forbidden title="STOP RIGHT THERE!" message="This is a private profile and you have no power here." />;
+    }
+
+    return (
+        user &&
+        loggedUser && (
             <>
                 <Navbar />
 
@@ -90,6 +96,6 @@ export default function UserProfile() {
                     </div>
                 </main>
             </>
-        );
-    }
+        )
+    );
 }
