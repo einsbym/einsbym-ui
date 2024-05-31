@@ -18,8 +18,8 @@ export interface StatusMessage {
 
 export default function Create() {
     const [statusMessage, setStatusMessage] = useState<StatusMessage>();
-    const [title, setTitle] = useState<string>();
-    const [description, setDescription] = useState<string>();
+    const [title, setTitle] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
     const [data, setData] = useState<any[]>([]);
     const [loggedUser, setLoggedUser] = useState<UserType | null>();
 

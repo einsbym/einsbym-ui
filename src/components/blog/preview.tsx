@@ -12,8 +12,8 @@ const headerSizes: any = {
 };
 
 export default function Preview(props: {
-    title: string | undefined;
-    description: string | undefined;
+    title: string;
+    description: string;
     data: BlogPostBlocks[];
 }) {
     return (

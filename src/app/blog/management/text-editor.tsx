@@ -78,7 +78,6 @@ export default function TextEditor(props: {
         editor
             .save()
             .then((outputData) => {
-                console.log('Article data: ', outputData);
                 props.setData(outputData.blocks);
             })
             .catch((error) => {
