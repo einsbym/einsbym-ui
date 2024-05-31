@@ -1,9 +1,13 @@
 'use client';
 
+import { getCurrentUserFromCookie } from '@/auth/cookies';
 import Preview from '@/components/blog/preview';
+import Forbidden from '@/components/shared/forbidden';
+import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
+import { UserType } from '@/types/types';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const TextEditor: any = dynamic((): any => import('./text-editor'), { ssr: false });
 
@@ -17,6 +21,33 @@ export default function Create() {
     const [title, setTitle] = useState<string>();
     const [description, setDescription] = useState<string>();
     const [data, setData] = useState<any[]>([]);
+    const [loggedUser, setLoggedUser] = useState<UserType | null>();
+
+    // Check if the current user is an admin
+    const checkUserPrivileges = useCallback(async () => {
+        const userFromCookie = await getCurrentUserFromCookie();
+
+        if (userFromCookie) {
+            setLoggedUser(userFromCookie);
+        }
+    }, []);
+
+    useEffect(() => {
+        checkUserPrivileges();
+    }, [checkUserPrivileges]);
+
+    if (loggedUser && loggedUser.role !== 'admin') {
+        return (
+            <Forbidden
+                title="YOU ARE NOT ALLOWED HERE!"
+                message="This is a resource intended for users with admin privileges, so... yeah, get out!"
+            />
+        );
+    }
+
+    if (!loggedUser) {
+        return <Loading />;
+    }
 
     return (
         <>
