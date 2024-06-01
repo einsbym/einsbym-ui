@@ -61,14 +61,14 @@ export default function TextEditor(props: {
             });
 
             if (response.status !== 201) {
-                throw new Error(response.statusText);
+                const responseObj = await response.json();
+                throw new Error(responseObj.message);
             }
 
             setIsLoading(false);
             props.setStatusMessage({ status: 'success', message: `Your post ${props.title} is now live!` });
-        } catch (error) {
-            console.error(error);
-            props.setStatusMessage({ status: 'error', message: 'Oh no! Something is not right.' });
+        } catch (error: any) {
+            props.setStatusMessage({ status: 'error', message: `${error.message}` });
             setIsLoading(false);
         }
     };
