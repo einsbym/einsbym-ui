@@ -3,11 +3,15 @@ import { UPDATE_BIO } from '@/graphql/mutations/user';
 import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { useState } from 'react';
+import { FaRegEdit } from 'react-icons/fa';
+import { IoIosSave } from 'react-icons/io';
+import { TiCancel } from 'react-icons/ti';
 
 export default function UserBio(props: { userId: string; bio: string; loggedUserId?: string | null }) {
     // States
     const [isEditBioActive, setIsEditBioActive] = useState<boolean>(false);
     const [bio, setBio] = useState<string>();
+    const [currentBio, setCurrentBio] = useState<string>();
     const [updatedBio, setUpdatedBio] = useState<string>();
 
     // Queries
@@ -35,6 +39,7 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
                 }
 
                 setUpdatedBio(data.updateBio.bio);
+                setCurrentBio(data.updateBio.bio);
 
                 // Update user cookie with the new data
                 await getMe({ variables: { id: props.userId } }).then(async (result) => {
@@ -51,51 +56,52 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
     return (
         <>
             {/* User's bio */}
-            <h5 className="mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">About</h5>
-            <div
-                className="block w-full p-6 rounded-lg shadow bg-gray-900 hover:bg-gray-800"
-                onClick={() => (!props.loggedUserId ? setIsEditBioActive(true) : null)}
-            >
+            <div className="flex items-center justify-between mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">
+                About{' '}
+                <FaRegEdit
+                    className="cursor-pointer text-base hover:text-[#cc00ff]"
+                    onClick={() => {
+                        !props.loggedUserId ? setIsEditBioActive(true) : null;
+                        setCurrentBio(props.bio);
+                    }}
+                />
+            </div>
+            <div className="relative block w-full p-6 rounded-lg shadow bg-gray-900 hover:bg-gray-800">
                 <p className="font-normal text-gray-400">{updatedBio || props.bio}</p>
             </div>
 
-            <div
-                className={`fixed bottom-0 left-0 z-10 rounded-t-lg w-full p-5 ${
-                    isEditBioActive ? null : 'translate-y-full'
-                } transition-transform bg-gray-900`}
-            >
-                <form>
-                    <textarea
-                        id="bio"
-                        name="bio"
-                        className="block p-2.5 w-full h-[10rem] text-sm bg-transparent placeholder-gray-400 text-white outline-none resize-none"
-                        placeholder="Write your thoughts here..."
-                        onChange={(event) => setBio(event.target.value)}
-                    />
-                    <div className="flex gap-2 justify-end mt-2 w-full">
-                        <button
-                            type="button"
-                            onClick={() => setIsEditBioActive(false)}
-                            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-cyan-800"
-                        >
-                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                cancel
-                            </span>
-                        </button>
-                        <button
-                            type="submit"
-                            onClick={(event) => {
-                                handleSave(event);
-                            }}
-                            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-purple-800"
-                        >
-                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                save
-                            </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
+            {isEditBioActive && (
+                <div className={`mt-2 rounded-lg w-full p-5 bg-gray-900`}>
+                    <form>
+                        <textarea
+                            id="bio"
+                            name="bio"
+                            className="block p-2.5 w-full h-fit text-sm bg-transparent placeholder-gray-400 text-white outline-none resize-none"
+                            placeholder="Write your thoughts here..."
+                            defaultValue={currentBio}
+                            onChange={(event) => setBio(event.target.value)}
+                        />
+                        <div className="flex gap-2 justify-end mt-2 w-full">
+                            <button
+                                type="button"
+                                onClick={() => setIsEditBioActive(false)}
+                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                            >
+                                <TiCancel /> cancel
+                            </button>
+                            <button
+                                type="submit"
+                                onClick={(event) => {
+                                    handleSave(event);
+                                }}
+                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                            >
+                                <IoIosSave /> save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
         </>
     );
 }
