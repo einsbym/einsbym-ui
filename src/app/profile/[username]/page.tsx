@@ -1,9 +1,10 @@
 'use client';
 
 import { getCurrentUserFromCookie } from '@/auth/cookies';
+import Forbidden from '@/components/shared/forbidden';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
-import PostsSection from '@/components/user-profile/posts-section';
+import PostManagement from '@/components/user-profile/user-post/posts-management';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
 import { UserType } from '@/types/types';
 import { useLazyQuery } from '@apollo/client';
@@ -13,7 +14,6 @@ import UserBio from '../../../components/user-profile/bio';
 import CoverAndPhoto from '../../../components/user-profile/cover-and-photo';
 import Gallery from '../../../components/user-profile/gallery';
 import GeneralStatistics from '../../../components/user-profile/general-statistics';
-import Forbidden from '@/components/shared/forbidden';
 
 export default function UserProfile() {
     const router = useRouter();
@@ -89,7 +89,7 @@ export default function UserProfile() {
                             <UserBio userId={user.id} bio={user.bio} loggedUserId={loggedUser.id} />
 
                             {/* Publish and view post */}
-                            <PostsSection userId={user.id} loggedUserId={loggedUser.id} />
+                            <PostManagement userId={user.id} loggedUserId={loggedUser.id} />
                         </div>
 
                         <Gallery userId={user.id} />
