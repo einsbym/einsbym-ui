@@ -60,18 +60,18 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                             <button
                                 type="button"
                                 onClick={props.handleSave}
-                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                             >
-                                <IoIosSave /> save
+                                <IoIosSave className='text-xl' /> save
                             </button>
                             <button
                                 type="button"
-                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                                 onClick={() => {
                                     props.setIsModalActive(false);
                                 }}
                             >
-                                <TiCancel /> cancel
+                                <TiCancel className='text-xl' /> cancel
                             </button>
 
                             {props.errorMessage && (
