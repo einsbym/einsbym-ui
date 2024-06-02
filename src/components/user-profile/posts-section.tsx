@@ -16,27 +16,38 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
     const [loading, setLoading] = useState<boolean>(false);
 
     const removeFileFromList = (indexToRemove: number) => {
-        const files = selectedFiles?.filter((_, index) => index !== indexToRemove);
-        setSelectedFiles(files);
+        const filteredSelectedFiles = selectedFiles?.filter((_, index) => index !== indexToRemove);
+        setSelectedFiles(filteredSelectedFiles);
+
+        if (files) {
+            const updatedFilesArray = Array.from(files).filter((_, index) => index !== indexToRemove);
+            const updatedFiles = new DataTransfer();
+            updatedFilesArray.forEach((file) => updatedFiles.items.add(file));
+            setFiles(updatedFiles.files);
+        }
     };
 
     const handleFilesChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
+        const newFiles = event.target.files;
 
-        if (files) {
+        if (newFiles) {
             const blobs: { filename: string; blob: string }[] = [];
 
-            Array.from(files).forEach(async (file) => {
-                // Create a blob URL for the selected file
+            Array.from(newFiles).forEach((file) => {
                 const blob = URL.createObjectURL(file);
-
                 blobs.push({ filename: file.name, blob: blob });
             });
 
-            setSelectedFiles(blobs);
-        }
+            setSelectedFiles((prevSelectedFiles) => [...(prevSelectedFiles || []), ...blobs]);
 
-        setFiles(files);
+            setFiles((prevFiles) => {
+                if (!prevFiles) return newFiles;
+                const updatedFiles = new DataTransfer();
+                Array.from(prevFiles).forEach((file) => updatedFiles.items.add(file));
+                Array.from(newFiles).forEach((file) => updatedFiles.items.add(file));
+                return updatedFiles.files;
+            });
+        }
     };
 
     const handleSubmit = async (event: any) => {
@@ -74,8 +85,7 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
             const response = await fetch(`${backend.restApiUrl}/post/create`, {
                 method: 'POST',
                 headers: {
-                    Authorization:
-                        `Bearer ${accessToken?.value.replace(/^"(.*)"$/, '$1')}`,
+                    Authorization: `Bearer ${accessToken?.value.replace(/^"(.*)"$/, '$1')}`,
                 },
                 body: formData,
             });
@@ -151,13 +161,17 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
                     )}
 
                     {selectedFiles && selectedFiles.length !== 0 && (
-                        <div className="mt-2 grid gap-2">
+                        <div className="mt-2">
                             <p className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg text-sm">
                                 Selected files: {selectedFiles.length}
                             </p>
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
+                            <div className="mt-2 grid grid-cols-2 lg:grid-cols-4 gap-2">
                                 {selectedFiles.map((file, index) => (
-                                    <div className="relative" key={index}>
+                                    <div
+                                        style={{ backgroundImage: `url(${file.blob})` }}
+                                        className="relative w-auto h-40 rounded-lg bg-center bg-cover"
+                                        key={index}
+                                    >
                                         <button
                                             className="absolute top-2 right-2 text-[#cc00ff]"
                                             type="button"
@@ -165,11 +179,6 @@ export default function PostsSection(props: { userId: string; loggedUserId?: str
                                         >
                                             <IoMdCloseCircle size={20} />
                                         </button>
-                                        <img
-                                            alt={file.filename}
-                                            className="h-auto max-w-full rounded-lg"
-                                            src={file.blob}
-                                        />
                                     </div>
                                 ))}
                             </div>
