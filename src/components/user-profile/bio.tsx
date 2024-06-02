@@ -76,7 +76,7 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
                         <textarea
                             id="bio"
                             name="bio"
-                            className="block p-2.5 w-full h-fit text-sm bg-transparent placeholder-gray-400 text-white outline-none resize-none"
+                            className="resize-y rounded-md w-full bg-transparent placeholder-gray-400 text-white outline-none"
                             placeholder="Write your thoughts here..."
                             defaultValue={currentBio}
                             onChange={(event) => setBio(event.target.value)}

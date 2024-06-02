@@ -36,7 +36,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                             {getElapsedTime(props.post.createdAt)}
                         </span>
                     </div>
-                    <button className="text-white" type="button" onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
+                    <button className="text-white hover:text-[#cc00ff]" type="button" onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
                         <BsThreeDotsVertical />
                     </button>
                     {isPopoverOpen && (

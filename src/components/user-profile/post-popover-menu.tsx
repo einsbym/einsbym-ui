@@ -1,7 +1,9 @@
 import { REMOVE_POST } from '@/graphql/mutations/post';
 import { useMutation } from '@apollo/client';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { AiOutlineLoading } from 'react-icons/ai';
+import { FaRegEdit } from 'react-icons/fa';
+import { MdDelete, MdOutlinePrivacyTip } from 'react-icons/md';
 
 export default function PostPopoverMenu(props: {
     postId: string;
@@ -33,25 +35,31 @@ export default function PostPopoverMenu(props: {
         <>
             {!props.loggedUserId && (
                 <div className="absolute right-0 mt-40 origin-top-right divide-y divide-gray-100 rounded-lg shadow-md shadow-black w-44 z-10 bg-gray-900">
-                    <ul className="py-2 text-sm text-gray-200">
+                    <ul className="p-2 text-sm text-gray-200">
                         <li>
-                            <a href="#" className="block px-4 py-2 text-[#cc00ff] hover:bg-[#cc00ff1e]">
-                                edit
+                            <a
+                                href="#"
+                                className="flex gap-1 items-center rounded-lg p-2 text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                            >
+                                <FaRegEdit className="text-lg" /> edit
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="block px-4 py-2 text-[#cc00ff] hover:bg-[#cc00ff1e]">
-                                change visibility
+                            <a
+                                href="#"
+                                className="flex gap-1 items-center rounded-lg p-2 text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                            >
+                                <MdOutlinePrivacyTip className="text-lg" /> change visibility
                             </a>
                         </li>
                         <li
-                            className="flex gap-2 items-center px-4 py-2 text-red-400 cursor-pointer"
+                            className="flex gap-1 items-center rounded-lg p-2 hover:bg-red-950/60 text-red-300 cursor-pointer"
                             onClick={handleRemovePost}
                         >
+                            <MdDelete className="text-lg" /> delete
                             {loading && (
-                                <AiOutlineLoading className="w-3 h-3 text-transparent animate-spin fill-red-400" />
+                                <AiOutlineLoading className="text-sm text-transparent animate-spin fill-red-300" />
                             )}
-                            delete
                         </li>
                     </ul>
                 </div>
