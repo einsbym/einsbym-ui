@@ -91,8 +91,8 @@ export default function Login() {
                 { email: signUpInput.email, password: signUpInput.password },
                 router,
             );
-        } catch (error) {
-            setErrorMessage(`${error}`);
+        } catch (error: any) {
+            setErrorMessage(error.message);
             setIsLoading(false);
         }
     };
@@ -119,8 +119,6 @@ export default function Login() {
                                     name="username"
                                     id="username"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
-                                    placeholder=""
-                                    autoComplete="on"
                                     required
                                     onChange={(event) => handleChange(event)}
                                 />
@@ -137,8 +135,6 @@ export default function Login() {
                                     name="firstName"
                                     id="firstName"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
-                                    placeholder=""
-                                    autoComplete="on"
                                     required
                                     onChange={(event) => handleChange(event)}
                                 />
@@ -155,8 +151,6 @@ export default function Login() {
                                     name="email"
                                     id="email"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
-                                    placeholder=""
-                                    autoComplete="on"
                                     required
                                     onChange={(event) => handleChange(event)}
                                 />
@@ -173,7 +167,6 @@ export default function Login() {
                                     name="password"
                                     id="password"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b text-white border-white appearance-none focus:outline-none focus:ring-0 focus:border-[#cc00ff] caret-[#cc00ff] peer"
-                                    placeholder=""
                                     required
                                     onChange={(event) => handleChange(event)}
                                 />
@@ -190,7 +183,6 @@ export default function Login() {
                                     name="confirmPassword"
                                     id="confirmPassword"
                                     className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b text-white border-white appearance-none focus:outline-none focus:ring-0 focus:border-[#cc00ff] caret-[#cc00ff] peer"
-                                    placeholder=""
                                     required
                                     onChange={(event) => handleChange(event)}
                                 />
