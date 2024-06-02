@@ -20,24 +20,17 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
         props.isModalActive && (
             <div
                 id="default-modal"
-                className="overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-10 flex justify-center items-center w-full md:inset-0 h-screen max-h-full"
+                className="overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-10 flex justify-center items-center w-full md:inset-0 h-screen max-h-full bg-black/40"
             >
                 <div className="relative p-4 w-full max-w-2xl max-h-full">
                     {/* Modal content */}
                     <div className="relative rounded-lg shadow z-10 bg-gray-900">
                         {/* Modal header */}
                         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                            <h3 className="text-xl font-semibold text-white">{props.modalName}</h3>
-                            <button
-                                type="button"
-                                className="rounded-lg ms-auto hover:bg-gray-600"
-                                onClick={() => props.setIsModalActive(false)}
-                            >
-                                <IoIosClose className="w-8 h-8" />
-                            </button>
+                            <h5 className="text-base font-semibold text-white">{props.modalName}</h5>
                         </div>
 
-                        <p className="mt-2 p-4 text-white text-center">{props.modalDescription}</p>
+                        <p className="mt-2 p-4 text-gray-400 text-center text-sm">{props.modalDescription}</p>
 
                         {/* Modal body */}
                         <div className="p-4 md:p-5 space-y-4">

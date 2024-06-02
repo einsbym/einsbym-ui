@@ -56,7 +56,7 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                     >
                         {!props.loggedUserId && (
                             <div
-                                className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 p-3 rounded-full lg:bottom-0 lg:left-auto lg:right-0 bg-gray-900 hover:bg-[#cc00ff] group transition-all duration-200 cursor-pointer"
+                                className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 p-2 lg:p-3 rounded-full lg:bottom-0 lg:left-auto lg:right-0 bg-gray-900 hover:bg-[#cc00ff] group transition-all duration-200 cursor-pointer"
                                 onClick={() => setIsChangeProfPicActive(true)}
                             >
                                 <FaCamera className="text-[#cc00ff] group-hover:text-gray-900 text-lg" title="Change profile image" />
@@ -75,11 +75,11 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 {!props.loggedUserId && (
                     <div
                         title="Change cover image"
-                        className="absolute -bottom-5 right-5 transform flex items-center justify-center lg:gap-2 lg:px-3 lg:py-2 lg:bottom-3 lg:right-3 text-black bg-[#cc00ff] rounded-full p-2 cursor-pointer hover:shadow-[0px_0px_25px_#cc00ff] transition-all duration-200"
+                        className="absolute -bottom-5 right-5 transform flex items-center justify-center lg:gap-2 lg:px-3 lg:py-2 lg:bottom-3 lg:right-3 text-black bg-gray-900 rounded-full p-2 cursor-pointer hover:bg-[#cc00ff] group transition-all duration-200"
                         onClick={() => setIsChangeCoverImageActive(true)}
                     >
-                        <FaCamera className="h-5 w-5" />
-                        <span className="hidden lg:block lg:text-sm">Change cover image</span>
+                        <FaCamera className="text-[#cc00ff] group-hover:text-gray-900 text-lg" />
+                        <span className="hidden lg:block lg:text-sm text-[#cc00ff] group-hover:text-gray-900">Change cover image</span>
                     </div>
                 )}
             </div>
