@@ -68,7 +68,7 @@ export default function TextEditor(props: {
             setIsLoading(false);
             props.setStatusMessage({ status: 'success', message: `Your post ${props.title} is now live!` });
         } catch (error: any) {
-            props.setStatusMessage({ status: 'error', message: `${error.message}` });
+            props.setStatusMessage({ status: 'error', message: error.message });
             setIsLoading(false);
         }
     };

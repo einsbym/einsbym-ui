@@ -69,9 +69,9 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
 
             // Close modal
             props.setIsChangeCoverImageActive(false);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Something went wrong:', error);
-            setErrorMessage(`${error}`);
+            setErrorMessage(error.message);
         }
     };
 

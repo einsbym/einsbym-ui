@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
-import { IoIosClose } from 'react-icons/io';
+import { IoIosClose, IoIosSave } from 'react-icons/io';
 import { MdOutlineCloudUpload } from 'react-icons/md';
+import { TiCancel } from 'react-icons/ti';
 
 interface UpdateImageModalProps {
     userId: string;
@@ -16,80 +17,79 @@ interface UpdateImageModalProps {
 
 export default function UpdateImageModal(props: UpdateImageModalProps) {
     return (
-        <div
-            id="default-modal"
-            className={`${
-                !props.isModalActive ? 'hidden' : null
-            } overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-10 flex justify-center items-center w-full md:inset-0 h-screen max-h-full`}
-        >
-            <div className="relative p-4 w-full max-w-2xl max-h-full">
-                {/* Modal content */}
-                <div className="relative rounded-lg shadow backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
-                    {/* Modal header */}
-                    <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                        <h3 className="text-xl font-semibold text-white">{props.modalName}</h3>
-                        <button
-                            type="button"
-                            className="text-gray-400 bg-transparen rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-                            onClick={() => props.setIsModalActive(false)}
-                        >
-                            <IoIosClose className='w-10 h-10' />
-                            <span className="sr-only">Close modal</span>
-                        </button>
-                    </div>
+        props.isModalActive && (
+            <div
+                id="default-modal"
+                className="overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-10 flex justify-center items-center w-full md:inset-0 h-screen max-h-full"
+            >
+                <div className="relative p-4 w-full max-w-2xl max-h-full">
+                    {/* Modal content */}
+                    <div className="relative rounded-lg shadow z-10 bg-gray-900">
+                        {/* Modal header */}
+                        <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                            <h3 className="text-xl font-semibold text-white">{props.modalName}</h3>
+                            <button
+                                type="button"
+                                className="rounded-lg ms-auto hover:bg-gray-600"
+                                onClick={() => props.setIsModalActive(false)}
+                            >
+                                <IoIosClose className="w-8 h-8" />
+                            </button>
+                        </div>
 
-                    <p className="mt-2 p-4 text-white text-center">{props.modalDescription}</p>
+                        <p className="mt-2 p-4 text-white text-center">{props.modalDescription}</p>
 
-                    {/* Modal body */}
-                    <div className="p-4 md:p-5 space-y-4">
-                        <label
-                            className="block mb-2 text-sm mx-auto w-fit font-medium text-white cursor-pointer"
-                            htmlFor="fileInput"
-                        >
-                            <MdOutlineCloudUpload size={50} />
-                        </label>
-                        {props.selectedImageUrl && (
-                            <img alt={props.selectedImageUrl} className="w-screen rounded-lg" src={props.selectedImageUrl} />
-                        )}
-                        <input
-                            className="hidden"
-                            id="fileInput"
-                            type="file"
-                            onChange={(event) => props.handleFileChange(event)}
-                        />
-                    </div>
+                        {/* Modal body */}
+                        <div className="p-4 md:p-5 space-y-4">
+                            <label
+                                className="block mb-2 text-sm mx-auto w-fit font-medium text-white cursor-pointer"
+                                htmlFor="fileInput"
+                            >
+                                <MdOutlineCloudUpload size={50} />
+                            </label>
+                            {props.selectedImageUrl && (
+                                <img
+                                    alt={props.selectedImageUrl}
+                                    className="w-screen rounded-lg"
+                                    src={props.selectedImageUrl}
+                                />
+                            )}
+                            <input
+                                className="hidden"
+                                id="fileInput"
+                                type="file"
+                                onChange={(event) => props.handleFileChange(event)}
+                            />
+                        </div>
 
-                    {/* Modal footer */}
-                    <div className="flex gap-2 items-center p-4 md:p-5 border-t rounded-b border-gray-600">
-                        <button
-                            type="button"
-                            onClick={props.handleSave}
-                            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-purple-800"
-                        >
-                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                save
-                            </span>
-                        </button>
-                        <button
-                            type="button"
-                            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-cyan-800"
-                            onClick={() => {
-                                props.setIsModalActive(false);
-                            }}
-                        >
-                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                cancel
-                            </span>
-                        </button>
+                        {/* Modal footer */}
+                        <div className="flex gap-2 items-center p-4 md:p-5 border-t rounded-b border-gray-600">
+                            <button
+                                type="button"
+                                onClick={props.handleSave}
+                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                            >
+                                <IoIosSave /> save
+                            </button>
+                            <button
+                                type="button"
+                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black uppercase font-bold rounded-lg shadow-lg text-center p-2 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                onClick={() => {
+                                    props.setIsModalActive(false);
+                                }}
+                            >
+                                <TiCancel /> cancel
+                            </button>
 
-                        {props.errorMessage && (
-                            <div className="mt-2 p-2 text-sm font-medium rounded-lg bg-red-800/20 text-red-600 text-center">
-                                {props.errorMessage}
-                            </div>
-                        )}
+                            {props.errorMessage && (
+                                <div className="p-2 text-sm font-medium rounded-lg bg-red-950/60 text-red-300 text-center">
+                                    {props.errorMessage}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        )
     );
 }

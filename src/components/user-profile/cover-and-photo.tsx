@@ -37,7 +37,9 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 style={{
                     backgroundImage:
                         props.coverImage && coverImage
-                            ? `linear-gradient(to bottom, transparent, black), url('${backend.storageUrl + coverImage}')`
+                            ? `linear-gradient(to bottom, transparent, black), url('${
+                                  backend.storageUrl + coverImage
+                              }')`
                             : 'none',
                 }}
                 className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
@@ -46,16 +48,19 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                     <div
                         style={{
                             backgroundImage:
-                                props.profileImage && profileImage ? `url('${backend.storageUrl + profileImage}')` : 'none',
+                                props.profileImage && profileImage
+                                    ? `url('${backend.storageUrl + profileImage}')`
+                                    : 'none',
                         }}
                         className="relative w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
                     >
                         {!props.loggedUserId && (
-                            <FaCamera
-                                className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-7 h-7 lg:w-8 lg:h-8 lg:bottom-3 lg:left-auto lg:right-3 text-[#cc00ff] cursor-pointer"
-                                title="Change profile image"
+                            <div
+                                className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 p-3 rounded-full lg:bottom-0 lg:left-auto lg:right-0 bg-gray-900 hover:bg-[#cc00ff] group transition-all duration-200 cursor-pointer"
                                 onClick={() => setIsChangeProfPicActive(true)}
-                            />
+                            >
+                                <FaCamera className="text-[#cc00ff] group-hover:text-gray-900 text-lg" title="Change profile image" />
+                            </div>
                         )}
                     </div>
                     <div className="mt-2 text-white font-sans text-center font-semibold text-2xl lg:text-3xl w-full">
@@ -73,8 +78,8 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                         className="absolute -bottom-5 right-5 transform flex items-center justify-center lg:gap-2 lg:px-3 lg:py-2 lg:bottom-3 lg:right-3 text-black bg-[#cc00ff] rounded-full p-2 cursor-pointer hover:shadow-[0px_0px_25px_#cc00ff] transition-all duration-200"
                         onClick={() => setIsChangeCoverImageActive(true)}
                     >
-                        <FaCamera className='h-5 w-5' />
-                        <span className='hidden lg:block lg:text-sm'>Change cover image</span>
+                        <FaCamera className="h-5 w-5" />
+                        <span className="hidden lg:block lg:text-sm">Change cover image</span>
                     </div>
                 )}
             </div>

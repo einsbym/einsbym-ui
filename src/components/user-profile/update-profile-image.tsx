@@ -71,9 +71,9 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
 
             // Close modal
             props.setIsChangeProfPicActive(false);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Something went wrong:', error);
-            setErrorMessage(`${error}`);
+            setErrorMessage(error.message);
         }
     };
 
