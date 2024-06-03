@@ -16,6 +16,7 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -33,6 +34,7 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
 
     const handleSave = async () => {
         try {
+            setIsLoading(true);
             setErrorMessage(null);
 
             if (!file) {
@@ -68,16 +70,19 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
             props.setCoverImage(jsonResponse.coverImage);
 
             // Close modal
+            setIsLoading(false);
             props.setIsChangeCoverImageActive(false);
         } catch (error: any) {
             console.error('Something went wrong:', error);
             setErrorMessage(error.message);
+            setIsLoading(false);
         }
     };
 
     return (
         props.isChangeCoverImageActive && (
             <UpdateImageModal
+                isLoading={isLoading}
                 userId={props.userId}
                 modalName="Change your cover image"
                 modalDescription="Select an image file from your device and click in save to update your cover."

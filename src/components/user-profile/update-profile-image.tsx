@@ -16,6 +16,7 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -33,6 +34,7 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
 
     const handleSave = async () => {
         try {
+            setIsLoading(true);
             setErrorMessage(null);
 
             if (!file) {
@@ -52,12 +54,12 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
                 },
                 body: formData,
             });
-            
+
             if (response.status !== 200) {
                 const { error } = await response.json();
                 throw new Error(error);
             }
-            
+
             // Get response from backend
             const jsonResponse = await response.json();
 
@@ -70,16 +72,19 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
             props.setProfileImage(jsonResponse.profilePicture);
 
             // Close modal
+            setIsLoading(false);
             props.setIsChangeProfPicActive(false);
         } catch (error: any) {
             console.error('Something went wrong:', error);
             setErrorMessage(error.message);
+            setIsLoading(false);
         }
     };
 
     return (
         props.isChangeProfPicActive && (
             <UpdateImageModal
+                isLoading={isLoading}
                 userId={props.userId}
                 modalName="Change your profile image"
                 modalDescription="Select an image file from your device and click in save to update your profile image."

@@ -1,18 +1,19 @@
 import { Dispatch, SetStateAction } from 'react';
-import { IoIosClose, IoIosSave } from 'react-icons/io';
+import { IoIosSave } from 'react-icons/io';
 import { MdOutlineCloudUpload } from 'react-icons/md';
 import { TiCancel } from 'react-icons/ti';
 
 interface UpdateImageModalProps {
+    isLoading: boolean;
     userId: string;
     modalName: string;
     modalDescription: string;
     selectedImageUrl: string;
     errorMessage: string | null | undefined;
     isModalActive: boolean;
-    setIsModalActive: Dispatch<SetStateAction<boolean>>;
     handleFileChange: any;
     handleSave: any;
+    setIsModalActive: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function UpdateImageModal(props: UpdateImageModalProps) {
@@ -61,21 +62,29 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                                 type="button"
                                 onClick={props.handleSave}
                                 className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                disabled={props.isLoading}
                             >
-                                <IoIosSave className='text-xl' /> save
+                                <IoIosSave className="text-xl" /> save
                             </button>
                             <button
                                 type="button"
                                 className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                disabled={props.isLoading}
                                 onClick={() => {
                                     props.setIsModalActive(false);
                                 }}
                             >
-                                <TiCancel className='text-xl' /> cancel
+                                <TiCancel className="text-xl" /> cancel
                             </button>
 
+                            {props.isLoading && (
+                                <div className="text-sm font-mediu text-[#cc00ff]">
+                                    Saving...
+                                </div>
+                            )}
+
                             {props.errorMessage && (
-                                <div className="p-2 text-sm font-medium rounded-lg bg-red-950/60 text-red-300 text-center">
+                                <div className="text-sm font-medium text-red-300">
                                     {props.errorMessage}
                                 </div>
                             )}
