@@ -2,14 +2,13 @@
 
 import { AuthService } from '@/auth/auth.service';
 import BlurredBackground from '@/components/shared/blurred-background';
-import { backend } from '@/constants/constants';
 import { FIND_RANDOM_FILE } from '@/graphql/queries/file';
 import { SignInType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
-import { AiOutlineLoading } from 'react-icons/ai';
-import { CiLogin } from 'react-icons/ci';
+import { useState } from 'react';
+import { FeaturedImage } from '../../../components/auth/signin/featured-image';
+import { SignInForm } from '../../../components/auth/signin/signin-form';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SignInType>({ email: '', password: '' });
@@ -18,14 +17,7 @@ export default function Login() {
     const router = useRouter();
 
     // Queries
-    const { data, loading } = useQuery(FIND_RANDOM_FILE);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSigninInput({
-            ...signinInput,
-            [event.target.type]: event.target.value,
-        });
-    };
+    const { data } = useQuery(FIND_RANDOM_FILE);
 
     const signIn = async (preventDefault: () => void) => {
         await new AuthService().signIn(preventDefault, setIsLoading, setErrorMessage, signinInput, router);
@@ -36,97 +28,20 @@ export default function Login() {
             {data && <BlurredBackground coverImage={data.findRandomFile.filename} />}
             <div className="flex items-center justify-center h-screen">
                 <div className="overflow-hidden rounded-lg flex items-center justify-center w-4/5 pt-10 pb-10 md:pt-0 md:pb-0 md:w-1/2 md:h-4/6 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
-                    <div
-                        style={{
-                            backgroundImage: data ? `url('${backend.storageUrl + data.findRandomFile.filename}')` : 'none',
-                        }}
-                        className={`hidden relative md:block w-full h-full bg-cover bg-no-repeat bg-center`}
-                    >
-                        <div className="absolute bottom-2 left-2 flex items-center gap-2">
-                            <img
-                                alt={data?.findRandomFile.post.user.username}
-                                className="flex-none w-[45px] h-[45px] ring-2 p-1 ring-[#cc00ff] rounded-full object-cover"
-                                src={backend.storageUrl + data?.findRandomFile.post.user.profilePicture}
-                            />
-                            <span className="text-sm font-semibold text-white bg-[#0000003b] p-2 rounded-md">
-                                {data?.findRandomFile.post.user.username}
-                            </span>
-                        </div>
-                    </div>
+                    {data && <FeaturedImage data={data} />}
                     <div className="w-full ml-10 mr-10 space-y-6">
                         <div>
                             <h1 className="text-2xl text-[#cc00ff] font-bold">Hi!</h1>
                             <p className="mt-2 text-white">Please sign in to your account.</p>
                         </div>
-                        <form className="">
-                            <div className="relative z-0 w-full mb-5 group">
-                                <input
-                                    type="email"
-                                    name="floating_email"
-                                    id="email"
-                                    className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
-                                    required
-                                    onChange={(event) => handleChange(event)}
-                                />
-                                <label
-                                    htmlFor="email"
-                                    className="peer-focus:font-medium absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >
-                                    E-mail address
-                                </label>
-                            </div>
-                            <div className="relative z-0 w-full mb-5 group">
-                                <input
-                                    type="password"
-                                    name="floating_password"
-                                    id="password"
-                                    className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b text-white border-white appearance-none focus:outline-none focus:ring-0 focus:border-[#cc00ff] caret-[#cc00ff] peer"
-                                    required
-                                    onChange={(event) => handleChange(event)}
-                                />
-                                <label
-                                    htmlFor="password"
-                                    className="peer-focus:font-medium absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#cc00ff] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                >
-                                    Password
-                                </label>
-                            </div>
-                            
-                            {errorMessage && (
-                                <div className="flex justify-center mt-5 mb-5">
-                                    <div className="flex gap-2 items-center w-fit p-2 bg-red-800/20 text-red-600 rounded-lg">
-                                        {errorMessage}
-                                    </div>
-                                </div>
-                            )}
-
-                            <button
-                                className="flex gap-2 items-center justify-center w-full text-white animated-gradient-bg focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 shadow-lg shadow-pink-500/50"
-                                onClick={(event) => signIn(event.preventDefault)}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? (
-                                    <>
-                                        <AiOutlineLoading className="w-5 h-5 text-transparent animate-spin fill-white" />{' '}
-                                        Signing in...
-                                    </>
-                                ) : (
-                                    <>
-                                        <CiLogin size={25} /> Sign In
-                                    </>
-                                )}
-                            </button>
-                            <div className="mt-5 text-sm text-center text-white">
-                                Don&apos;t have an account? No problem, you can{' '}
-                                <a
-                                    className="text-[#cc00ff] hover:border-b-2 hover:border-b-[#cc00ff]"
-                                    href="/auth/signup"
-                                >
-                                    sign up here
-                                </a>
-                                .
-                            </div>
-                        </form>
+                        
+                        <SignInForm
+                            errorMessage={errorMessage}
+                            isLoading={isLoading}
+                            signinInput={signinInput}
+                            setSigninInput={setSigninInput}
+                            signIn={signIn}
+                        />
                     </div>
                 </div>
             </div>
