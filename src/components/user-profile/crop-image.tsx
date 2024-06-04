@@ -1,17 +1,16 @@
-// pages/crop.tsx
-import { useState, useRef, ChangeEvent } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
+import { MdOutlineCloudUpload } from 'react-icons/md';
 import ReactCrop, { Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import { MdOutlineCloudUpload } from 'react-icons/md';
 
 interface UpdateImageModalProps {
-    handleFileChange: (file: File) => void
+    handleFileChange: (file: File) => void;
 }
 
 export const CropImage: React.FC<UpdateImageModalProps> = ({ handleFileChange }) => {
     const [src, setSrc] = useState<string | null>(null);
     const [crop, setCrop] = useState<Crop>({
-        unit: '%',
+        unit: 'px',
         x: 0,
         y: 0,
         width: 50,
@@ -30,6 +29,9 @@ export const CropImage: React.FC<UpdateImageModalProps> = ({ handleFileChange })
                 }
             };
             reader.readAsDataURL(e.target.files[0]);
+
+            // Save original image for cover/profile on no crop
+            handleFileChange(e.target.files[0]);
         }
     };
 
@@ -57,8 +59,10 @@ export const CropImage: React.FC<UpdateImageModalProps> = ({ handleFileChange })
         const canvas = document.createElement('canvas');
         const scaleX = image.naturalWidth / image.width;
         const scaleY = image.naturalHeight / image.height;
+
         canvas.width = crop.width;
         canvas.height = crop.height;
+
         const ctx = canvas.getContext('2d');
 
         if (ctx) {
@@ -76,24 +80,28 @@ export const CropImage: React.FC<UpdateImageModalProps> = ({ handleFileChange })
         }
 
         return new Promise((resolve, reject) => {
-            canvas.toBlob((blob) => {
-                if (!blob) {
-                    console.error('Canvas is empty');
-                    return;
-                }
-                const file = new File([blob], fileName, { type: 'image/jpeg' });
+            canvas.toBlob(
+                (blob) => {
+                    if (!blob) {
+                        console.error('Canvas is empty');
+                        return;
+                    }
+                    const file = new File([blob], fileName, { type: 'image/jpeg' });
 
-                if (fileUrlRef.current) {
-                    window.URL.revokeObjectURL(fileUrlRef.current);
-                }
+                    if (fileUrlRef.current) {
+                        window.URL.revokeObjectURL(fileUrlRef.current);
+                    }
 
-                const fileUrl = window.URL.createObjectURL(file);
+                    const fileUrl = window.URL.createObjectURL(file);
 
-                fileUrlRef.current = fileUrl;
+                    fileUrlRef.current = fileUrl;
 
-                handleFileChange(file);
-                resolve(fileUrl);
-            }, 'image/jpeg');
+                    handleFileChange(file);
+                    resolve(fileUrl);
+                },
+                'image/jpeg',
+                1,
+            );
         });
     };
 
@@ -103,18 +111,31 @@ export const CropImage: React.FC<UpdateImageModalProps> = ({ handleFileChange })
                 className="block mb-2 text-sm mx-auto w-fit font-medium text-white cursor-pointer"
                 htmlFor="fileInput"
             >
-                <MdOutlineCloudUpload size={50} />
+                <MdOutlineCloudUpload className="hover:text-[#cc00ff] text-5xl" />
             </label>
 
             <input className="hidden" id="fileInput" type="file" onChange={onSelectFile} />
 
-            <div className='grid grid-cols-2 gap-1'>
-            {src && (
-                <ReactCrop crop={crop} ruleOfThirds onComplete={onCropComplete} onChange={onCropChange} className="w-full rounded-lg">
-                    <img alt="Selected Image" src={src} onLoad={(e) => onImageLoaded(e.currentTarget)} className="w-full rounded-lg" />
-                </ReactCrop>
-            )}
-            {croppedImageUrl && <img alt="Crop" className="w-full rounded-lg" src={croppedImageUrl} />}
+            <div className="grid grid-cols-2 gap-1">
+                {src && (
+                    <ReactCrop
+                        crop={crop}
+                        minWidth={50}
+                        minHeight={50}
+                        ruleOfThirds
+                        onComplete={onCropComplete}
+                        onChange={onCropChange}
+                        className="w-full rounded-lg"
+                    >
+                        <img
+                            alt="Selected Image"
+                            src={src}
+                            onLoad={(e) => onImageLoaded(e.currentTarget)}
+                            className="w-full rounded-lg"
+                        />
+                    </ReactCrop>
+                )}
+                {croppedImageUrl && <img alt="Crop" className="w-full rounded-lg" src={croppedImageUrl} />}
             </div>
         </div>
     );
