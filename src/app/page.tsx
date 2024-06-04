@@ -73,7 +73,7 @@ export default function Home() {
 
             {files.length > 0 && loading && (
                 <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" margin='mt-2' />
+                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" margin="mt-2" />
                 </div>
             )}
 

@@ -4,11 +4,11 @@ import getElapsedTime from '@/utils/elapsed-time';
 import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
-import ReactPlayer from 'react-player';
-import PostPopoverMenu from '../post-popover-menu';
-import LikePostButton from './like-post-button';
-import PublishComment from '../publish-comment';
 import Comments from '../comments';
+import PostPopoverMenu from '../post-popover-menu';
+import PublishComment from '../publish-comment';
+import { DisplayFiles } from './display-files';
+import LikePostButton from './like-post-button';
 
 export default function Post(props: { post: PostType; userId: string; loggedUserId?: string | null }) {
     // States
@@ -36,7 +36,11 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                             {getElapsedTime(props.post.createdAt)}
                         </span>
                     </div>
-                    <button className="text-white hover:text-[#cc00ff]" type="button" onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
+                    <button
+                        className="text-white hover:text-[#cc00ff]"
+                        type="button"
+                        onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+                    >
                         <BsThreeDotsVertical />
                     </button>
                     {isPopoverOpen && (
@@ -50,42 +54,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                 <p className="text-sm font-normal py-2.5 text-white">{props.post.postText}</p>
 
                 {/* Display files (if any) */}
-                {props.post.files.length > 0 && (
-                    <div
-                        className={`grid gap-2 ${props.post.files.length === 1 ? 'grid-cols-1' : null} ${
-                            props.post.files.length > 4 ? 'grid-cols-4' : null
-                        } ${
-                            props.post.files.length > 1 && props.post.files.length <= 4 ? 'grid-cols-2' : null
-                        } my-2.5`}
-                    >
-                        {props.post.files.map((file) => (
-                            <div key={file.id} className="group relative">
-                                {file.fileType === 'video/mp4' && (
-                                    <div className="w-full rounded-lg">
-                                        <ReactPlayer
-                                            width="100%"
-                                            height="100%"
-                                            style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
-                                            url={backend.storageUrl + file.filename}
-                                            playing
-                                            muted
-                                            light={false}
-                                        />
-                                    </div>
-                                )}
-                                {file.fileType !== 'video/mp4' && (
-                                    <img
-                                        alt={file.filename}
-                                        src={backend.storageUrl + file.filename}
-                                        className={`w-full h-[200px] ${
-                                            props.post.files.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
-                                        } object-cover rounded-lg`}
-                                    />
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                )}
+                {props.post.files.length > 0 && <DisplayFiles files={props.post.files} />}
 
                 <div className="flex gap-2 justify-end">
                     <LikePostButton
@@ -116,9 +85,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                 />
 
                 {/* Conditionally render PostComments */}
-                {areCommentsVisible && (
-                    <Comments postId={props.post.id} publishedCommentId={publishedCommentId} />
-                )}
+                {areCommentsVisible && <Comments postId={props.post.id} publishedCommentId={publishedCommentId} />}
             </div>
         </div>
     );
