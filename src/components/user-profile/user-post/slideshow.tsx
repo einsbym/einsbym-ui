@@ -20,11 +20,11 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
 
     return (
         files.length > 0 && (
-            <div id="controls-carousel" className="relative w-full md:h-[500px]">
-                <div className="relative h-full md:h-[500px] overflow-hidden rounded-lg md:rounded-none">
+            <div className="relative w-full h-[500px]">
+                <div className="relative overflow-hidden rounded-lg md:rounded-none">
                     {files.map((file, index) => (
-                        <div key={file.id} className={index === activeIndex ? 'block' : 'hidden'}>
-                            <img src={backend.storageUrl + file.filename} alt={`Slide ${index + 1}`} />
+                        <div key={file.id} className={index === activeIndex ? 'flex justify-center items-center' : 'hidden'}>
+                            <img src={backend.storageUrl + file.filename} alt={`Slide ${index + 1}`} className='h-[500px]' />
                         </div>
                     ))}
                 </div>
@@ -33,7 +33,7 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
                     className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                     onClick={handlePrev}
                 >
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-hover:bg-[#cc00ff]/60 group-focus:ring-4 group-focus:ring-[#cc00ff] group-focus:ring-[#cc00ff]/70 group-focus:outline-none">
+                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-focus:ring-4 group-focus:ring-[#cc00ff]/70 group-focus:outline-none">
                         <IoIosArrowDropleft className="text-xl text-[#cc00ff]" />
                     </span>
                 </button>
@@ -42,7 +42,7 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
                     className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                     onClick={handleNext}
                 >
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-hover:bg-[#cc00ff]/60 group-focus:ring-4 group-focus:ring-[#cc00ff] group-focus:ring-[#cc00ff]/70 group-focus:outline-none">
+                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-focus:ring-4 group-focus:ring-[#cc00ff]/70 group-focus:outline-none">
                         <IoIosArrowDropright className="text-xl text-[#cc00ff]" />
                     </span>
                 </button>
