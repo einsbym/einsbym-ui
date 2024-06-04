@@ -2,8 +2,8 @@ import { backend } from '@/constants/constants';
 import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
-import UpdateProfileImage from './update-profile-image';
 import UpdateCoverImage from './update-cover-image';
+import UpdateProfileImage from './update-profile-image';
 
 interface CoverAndPhotoProps {
     id: string;

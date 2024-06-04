@@ -1,6 +1,6 @@
 import { createUserCookie, getAccessTokenFromCookie } from '@/auth/cookies';
 import { backend } from '@/constants/constants';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import UpdateImageModal from './update-images-modal';
 
 interface UpdateProfileImageProps {
@@ -13,7 +13,6 @@ interface UpdateProfileImageProps {
 
 export default function UpdateProfileImage(props: UpdateProfileImageProps) {
     // States
-    const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -53,8 +52,6 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
             // Get response from backend
             const jsonResponse = await response.json();
 
-            console.log(jsonResponse);
-
             // Update user cookie with the new data
             await createUserCookie(jsonResponse);
 
@@ -83,7 +80,6 @@ export default function UpdateProfileImage(props: UpdateProfileImageProps) {
                 handleSave={handleSave}
                 isModalActive={props.isChangeProfPicActive}
                 setIsModalActive={props.setIsChangeProfPicActive}
-                selectedImageUrl={selectedImageUrl}
             />
         )
     );

@@ -4,6 +4,7 @@ import { getCurrentUserFromCookie } from '@/auth/cookies';
 import Forbidden from '@/components/shared/forbidden';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
+import CoverAndPhoto from '@/components/user-profile/profile-images/cover-and-photo';
 import PostManagement from '@/components/user-profile/user-post/posts-management';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
 import { UserType } from '@/types/types';
@@ -11,7 +12,6 @@ import { useLazyQuery } from '@apollo/client';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import UserBio from '../../../components/user-profile/bio';
-import CoverAndPhoto from '../../../components/user-profile/cover-and-photo';
 import Gallery from '../../../components/user-profile/gallery';
 import GeneralStatistics from '../../../components/user-profile/general-statistics';
 

@@ -3,11 +3,11 @@
 import { AuthService } from '@/auth/auth.service';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
+import CoverAndPhoto from '@/components/user-profile/profile-images/cover-and-photo';
 import PostManagement from '@/components/user-profile/user-post/posts-management';
 import { UserType } from '@/types/types';
 import { useEffect, useState } from 'react';
 import UserBio from '../../components/user-profile/bio';
-import CoverAndPhoto from '../../components/user-profile/cover-and-photo';
 import Gallery from '../../components/user-profile/gallery';
 import GeneralStatistics from '../../components/user-profile/general-statistics';
 

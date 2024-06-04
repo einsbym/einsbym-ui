@@ -1,6 +1,6 @@
 import { createUserCookie, getAccessTokenFromCookie } from '@/auth/cookies';
 import { backend } from '@/constants/constants';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import UpdateImageModal from './update-images-modal';
 
 interface UpdateCoverImageProps {
@@ -13,7 +13,6 @@ interface UpdateCoverImageProps {
 
 export default function UpdateCoverImage(props: UpdateCoverImageProps) {
     // States
-    const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
     const [file, setFile] = useState<File>();
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -81,7 +80,6 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
                 handleSave={handleSave}
                 isModalActive={props.isChangeCoverImageActive}
                 setIsModalActive={props.setIsChangeCoverImageActive}
-                selectedImageUrl={selectedImageUrl}
             />
         )
     );

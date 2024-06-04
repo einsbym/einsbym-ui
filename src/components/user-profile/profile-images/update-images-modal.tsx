@@ -8,7 +8,6 @@ interface UpdateImageModalProps {
     userId: string;
     modalName: string;
     modalDescription: string;
-    selectedImageUrl: string;
     errorMessage: string | null | undefined;
     isModalActive: boolean;
     handleFileChange: any;
