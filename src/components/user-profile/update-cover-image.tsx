@@ -18,17 +18,7 @@ export default function UpdateCoverImage(props: UpdateCoverImageProps) {
     const [errorMessage, setErrorMessage] = useState<string | null>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-
-        if (file) {
-            // Create a blob URL for the selected file
-            const blobUrl = URL.createObjectURL(file);
-
-            // Use blobUrl as needed (e.g., display the image)
-            setSelectedImageUrl(blobUrl);
-        }
-
+    const handleFileChange = (file: File) => {
         setFile(file);
     };
 
