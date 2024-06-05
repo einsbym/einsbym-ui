@@ -1,10 +1,10 @@
 'use client';
 
+import { Gallery } from '@/components/homepage/gallery';
 import ButtonGroup from '@/components/shared/button-group';
 import ButtonLoadMore from '@/components/shared/button-load-more';
 import Navbar from '@/components/shared/navbar';
 import GallerySkeleton from '@/components/skeletons/gallery';
-import { backend } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
@@ -13,20 +13,13 @@ import { useCallback, useEffect, useState } from 'react';
 export default function Home() {
     // States
     const [files, setFiles] = useState<PostFileType[]>([]);
-    const [selectedFile, setSelectedFile] = useState<PostFileType>();
     const [page, setPage] = useState<number>(1);
-    const [isViewerOpen, setIsViewerOpen] = useState<boolean>(false);
 
     // Queries
     const { data, loading, fetchMore } = useQuery(FILES, {
         variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page },
         notifyOnNetworkStatusChange: true,
     });
-
-    const openViewer = (file: PostFileType) => {
-        setSelectedFile(file);
-        setIsViewerOpen(true);
-    };
 
     const loadMore = useCallback(async () => {
         await fetchMore({
@@ -58,35 +51,11 @@ export default function Home() {
                 </div>
             )}
 
-            <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                {files.map((file) => (
-                    <div key={file.id}>
-                        <img
-                            alt={file.filename}
-                            className="w-full h-[500px] cursor-pointer object-cover"
-                            src={backend.storageUrl + file.filename}
-                            onClick={() => openViewer(file)}
-                        />
-                    </div>
-                ))}
-            </div>
+            <Gallery files={files} />
 
             {files.length > 0 && loading && (
                 <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                     <GallerySkeleton items={4} width="w-full" height="h-[500px]" margin="mt-2" />
-                </div>
-            )}
-
-            {isViewerOpen && selectedFile && (
-                <div
-                    className="fixed px-2 lg-mx-auto inset-0 flex items-center justify-center backdrop-blur-lg bg-black/30"
-                    onClick={() => setIsViewerOpen(false)}
-                >
-                    <img
-                        className="h-auto lg:h-5/6 rounded-lg"
-                        src={backend.storageUrl + selectedFile.filename}
-                        alt={selectedFile.filename}
-                    />
                 </div>
             )}
 

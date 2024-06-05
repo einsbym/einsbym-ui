@@ -8,6 +8,13 @@ export const FILES = gql`
             fileType
             post {
                 id
+                postText
+                createdAt
+                user {
+                    id
+                    username
+                    profilePicture
+                }
             }
         }
     }

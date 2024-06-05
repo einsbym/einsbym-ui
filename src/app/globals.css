@@ -84,6 +84,15 @@ body {
     }
 }
 
+.child {
+    opacity: 0; /* Hide children by default */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.parent:hover .child {
+    opacity: 1; /* Show children on hover */
+}
+
 /* prevent browsers from overriding the input field styles when autofilling */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

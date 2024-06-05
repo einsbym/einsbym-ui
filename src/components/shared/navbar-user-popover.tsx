@@ -2,6 +2,10 @@ import { AuthService } from '@/auth/auth.service';
 import { backend } from '@/constants/constants';
 import { UserType } from '@/types/types';
 import { usePathname, useRouter } from 'next/navigation';
+import { CgProfile } from 'react-icons/cg';
+import { FaRegNewspaper } from 'react-icons/fa';
+import { GoSignOut } from 'react-icons/go';
+import { IoIosSettings } from 'react-icons/io';
 import { RiLoginCircleLine } from 'react-icons/ri';
 
 interface SidebarProps {
@@ -47,50 +51,44 @@ export default function NavbarUserPopover(props: SidebarProps) {
                     </a>
                 )}
             </div>
-            <div
-                className={
-                    !props.isMenuOpen
-                        ? 'hidden'
-                        : 'absolute right-0 pt-2 pb-2 mt-5 w-48 origin-top-right rounded-md py-1 backdrop-blur-lg bg-opacity-10 z-10 bg-black/30'
-                }
-            >
-                {props.user && (
-                    <p className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]">
-                        {props.user.firstName} ({props.user.username})
+
+            {props.isMenuOpen && (
+                <div className="absolute right-0 p-2 mt-5 w-48 origin-top-right rounded-md backdrop-blur-lg bg-opacity-10 z-10 bg-black/30">
+                    {props.user && (
+                        <p className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]">
+                            {props.user.firstName} ({props.user.username})
+                        </p>
+                    )}
+                    <a
+                        href="/profile"
+                        className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                    >
+                        <CgProfile /> Your Profile
+                    </a>
+                    {props.user && props.user.role === 'admin' && (
+                        <a
+                            href="/blog/management"
+                            className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                        >
+                           <FaRegNewspaper /> Manage blog
+                        </a>
+                    )}
+                    {pathname === '/profile' && (
+                        <a
+                            href="/profile/settings"
+                            className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
+                        >
+                            <IoIosSettings /> Your settings
+                        </a>
+                    )}
+                    <p
+                        className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
+                        onClick={signOut}
+                    >
+                        <GoSignOut /> Sign out
                     </p>
-                )}
-                <a
-                    href="/profile"
-                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                    id="user-menu-item-0"
-                >
-                    Your Profile
-                </a>
-                {props.user && props.user.role === 'admin' && (
-                    <a
-                        href="/blog/management"
-                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                        id="user-menu-item-0"
-                    >
-                        Manage blog
-                    </a>
-                )}
-                {pathname === '/profile' && (
-                    <a
-                        href="/profile/settings"
-                        className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                        id="user-menu-item-0"
-                    >
-                        Your settings
-                    </a>
-                )}
-                <p
-                    className="block px-4 py-2 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
-                    onClick={signOut}
-                >
-                    Sign out
-                </p>
-            </div>
+                </div>
+            )}
         </div>
     );
 }
