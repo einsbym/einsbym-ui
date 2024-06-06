@@ -30,7 +30,7 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
                 </div>
                 <button
                     type="button"
-                    className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                    className="absolute top-0 start-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                     onClick={handlePrev}
                 >
                     <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-focus:ring-4 group-focus:ring-[#cc00ff]/70 group-focus:outline-none">
@@ -39,7 +39,7 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
                 </button>
                 <button
                     type="button"
-                    className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                    className="absolute top-0 end-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                     onClick={handleNext}
                 >
                     <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-focus:ring-4 group-focus:ring-[#cc00ff]/70 group-focus:outline-none">

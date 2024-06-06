@@ -7,8 +7,10 @@ import { MdDelete, MdOutlinePrivacyTip } from 'react-icons/md';
 
 export default function PostPopoverMenu(props: {
     postId: string;
-    setRemoved: Dispatch<SetStateAction<boolean>>;
     loggedUserId?: string | null;
+    setRemoved: Dispatch<SetStateAction<boolean>>;
+    setIsEditModalOpen: Dispatch<SetStateAction<boolean>>;
+    setIsPopoverOpen: Dispatch<SetStateAction<boolean>>;
 }) {
     // Mutations
     const [removePost, { loading }] = useMutation(REMOVE_POST);
@@ -36,13 +38,14 @@ export default function PostPopoverMenu(props: {
             {!props.loggedUserId && (
                 <div className="absolute right-0 mt-40 origin-top-right divide-y divide-gray-100 rounded-lg shadow-md shadow-black w-44 z-10 bg-gray-900">
                     <ul className="p-2 text-sm text-gray-200">
-                        <li>
-                            <a
-                                href="#"
-                                className="flex gap-1 items-center rounded-lg p-2 text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                            >
-                                <FaRegEdit className="text-lg" /> edit
-                            </a>
+                        <li
+                            className="flex gap-1 items-center rounded-lg p-2 text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
+                            onClick={() => {
+                                props.setIsEditModalOpen(true);
+                                props.setIsPopoverOpen(false);
+                            }}
+                        >
+                            <FaRegEdit className="text-lg" /> edit
                         </li>
                         <li>
                             <a
