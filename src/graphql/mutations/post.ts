@@ -27,3 +27,12 @@ export const REMOVE_POST = gql`
         }
     }
 `;
+
+export const UPDATE_POST = gql`
+    mutation UpdatePost($updatePostInput: UpdatePostInput!) {
+        updatePost(updatePostInput: $updatePostInput) {
+            id
+            postText
+        }
+    }
+`;

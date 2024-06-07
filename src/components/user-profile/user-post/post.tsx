@@ -18,6 +18,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
     const [areCommentsVisible, setAreCommentsVisible] = useState(false);
     const [removed, setRemoved] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [post, setPost] = useState<PostType>();
 
     return (
         !removed && (
@@ -30,7 +31,9 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                     />
                 </a>
                 <div className="relative flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-900">
-                    {isEditModalOpen && <Edit post={props.post} setIsEditModalOpen={setIsEditModalOpen} />}
+                    {isEditModalOpen && (
+                        <Edit post={props.post} setIsEditModalOpen={setIsEditModalOpen} setPost={setPost} />
+                    )}
 
                     <div className="relative flex justify-between items-center">
                         <div>
@@ -58,7 +61,9 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                             />
                         )}
                     </div>
-                    <p className="text-sm font-normal py-2.5 text-white">{props.post.postText}</p>
+                    <p className="text-sm font-normal py-2.5 text-white">
+                        {(post && post.postText) || props.post.postText}
+                    </p>
 
                     {/* Display files (if any) */}
                     {props.post.files.length > 0 && <DisplayFiles files={props.post.files} />}
