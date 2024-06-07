@@ -8,7 +8,7 @@ import Comments from '../comments';
 import PostPopoverMenu from '../post-popover-menu';
 import PublishComment from '../publish-comment';
 import { DisplayFiles } from './display-files';
-import LikePostButton from './like-post-button';
+import LikeButton from './like-button';
 import { Edit } from './edit';
 
 export default function Post(props: { post: PostType; userId: string; loggedUserId?: string | null }) {
@@ -64,7 +64,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                     {props.post.files.length > 0 && <DisplayFiles files={props.post.files} />}
 
                     <div className="flex gap-2 justify-end">
-                        <LikePostButton
+                        <LikeButton
                             postId={props.post.id}
                             liked={props.post.likes?.some((like) =>
                                 props.loggedUserId ? like.id === props.loggedUserId : like.id === props.userId,

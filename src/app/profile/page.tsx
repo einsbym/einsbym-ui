@@ -4,7 +4,7 @@ import { AuthService } from '@/auth/auth.service';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import CoverAndPhoto from '@/components/user-profile/profile-images/cover-and-photo';
-import PostManagement from '@/components/user-profile/user-post/posts-management';
+import Management from '@/components/user-profile/user-post/management';
 import { UserType } from '@/types/types';
 import { useEffect, useState } from 'react';
 import UserBio from '../../components/user-profile/bio';
@@ -46,7 +46,7 @@ export default function UserProfile() {
                         <UserBio userId={user.id} bio={user.bio} />
 
                         {/* Publish and view post */}
-                        <PostManagement userId={user.id} />
+                        <Management userId={user.id} />
                     </div>
 
                     <Gallery userId={user.id} />

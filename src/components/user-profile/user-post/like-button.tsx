@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-const LikePostButton = (props: { initialLikes: number; postId: string; liked: boolean; likes: UserType[] }) => {
+const LikeButton = (props: { initialLikes: number; postId: string; liked: boolean; likes: UserType[] }) => {
     const [likes, setLikes] = useState<number>(props.initialLikes);
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likesPopoverVisible, setLikesPopoverVisible] = useState<boolean>(false);
@@ -81,4 +81,4 @@ const LikePostButton = (props: { initialLikes: number; postId: string; liked: bo
     );
 };
 
-export default LikePostButton;
+export default LikeButton;

@@ -2,12 +2,12 @@ import { getAccessTokenFromCookie } from '@/auth/cookies';
 import { backend } from '@/constants/constants';
 import { ChangeEvent, useState } from 'react';
 import { ErrorMessage } from './error-message';
-import { LoadingIndicator } from './loading.indicator';
-import { PostForm } from './post-form';
+import { Loading } from './loading';
+import { PostForm } from './form';
 import Posts from './posts';
 import { SelectedFilesPreview } from './selected-files-preview';
 
-export default function PostManagement(props: { userId: string; loggedUserId?: string | null }) {
+export default function Management(props: { userId: string; loggedUserId?: string | null }) {
     // States
     const [postText, setPostText] = useState<string | null>();
     const [publishedPostId, setPublishedPostId] = useState<string>('');
@@ -120,7 +120,7 @@ export default function PostManagement(props: { userId: string; loggedUserId?: s
                         loading={loading}
                         handleFilesChange={handleFilesChange}
                     />
-                    {loading && <LoadingIndicator />}
+                    {loading && <Loading />}
                     {errorMessage && <ErrorMessage message={errorMessage} />}
                     {selectedFiles && selectedFiles.length > 0 && (
                         <SelectedFilesPreview selectedFiles={selectedFiles} removeFileFromList={removeFileFromList} />
