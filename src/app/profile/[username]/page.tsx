@@ -5,7 +5,7 @@ import Forbidden from '@/components/shared/forbidden';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import CoverAndPhoto from '@/components/user-profile/profile-images/cover-and-photo';
-import PostManagement from '@/components/user-profile/user-post/posts-management';
+import Management from '@/components/user-profile/user-post/management';
 import { FIND_USER_BY_USERNAME } from '@/graphql/queries/user';
 import { UserType } from '@/types/types';
 import { useLazyQuery } from '@apollo/client';
@@ -89,7 +89,7 @@ export default function UserProfile() {
                             <UserBio userId={user.id} bio={user.bio} loggedUserId={loggedUser.id} />
 
                             {/* Publish and view post */}
-                            <PostManagement userId={user.id} loggedUserId={loggedUser.id} />
+                            <Management userId={user.id} loggedUserId={loggedUser.id} />
                         </div>
 
                         <Gallery userId={user.id} />
