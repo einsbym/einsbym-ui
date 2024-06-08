@@ -41,7 +41,10 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                                 {props.post.user.firstName} {props.post.user.lastName}
                             </span>
                             <span className="ml-2 text-[12px] lg:text-sm font-normal text-gray-400">
-                                {getElapsedTime(props.post.createdAt)}
+                                {getElapsedTime(props.post.createdAt)}{' '}
+                                {props.post.createdAt !== props.post.updatedAt && (
+                                    <span className="font-bold" title={getElapsedTime(props.post.updatedAt)}>· edited</span>
+                                )}
                             </span>
                         </div>
                         <button

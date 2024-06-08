@@ -44,7 +44,7 @@ export const Gallery: React.FC<GalleryProps> = ({ files }) => {
                             <img
                                 alt={file.post.user.username}
                                 src={backend.storageUrl + file.post.user.profilePicture}
-                                className="w-12 h-12 bg-slate-50 rounded-full"
+                                className="w-12 h-12 bg-slate-50 rounded-full object-cover"
                             />
                             <span>@{file.post.user.username}</span>
                         </div>
