@@ -1,9 +1,9 @@
+import { LoadMore } from '@/components/shared/load-more';
 import { FIND_POSTS_BY_USER } from '@/graphql/queries/post';
 import { PostType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FcLike } from 'react-icons/fc';
-import ButtonLoadMore from '../../shared/button-load-more';
 import PostSkeleton from '../../skeletons/post';
 import Post from './post';
 
@@ -66,9 +66,7 @@ export default function Posts(props: { userId: string; publishedPostId: string; 
 
             {posts.length > 0 && loading && <PostSkeleton />}
 
-            {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && (
-                <ButtonLoadMore handleClick={loadMorePosts} />
-            )}
+            {posts.length !== 0 && data && data.findPostsByUser.length !== 0 && <LoadMore loadMore={loadMorePosts} />}
 
             {posts.length === 0 && (
                 <div className="mx-auto mt-5 flex items-center gap-1 text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">

@@ -2,13 +2,13 @@
 
 import { Gallery } from '@/components/homepage/gallery';
 import ButtonGroup from '@/components/shared/button-group';
-import ButtonLoadMore from '@/components/shared/button-load-more';
 import Navbar from '@/components/shared/navbar';
 import GallerySkeleton from '@/components/skeletons/gallery';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
+import { LoadMore } from '../components/shared/load-more';
 
 export default function Home() {
     // States
@@ -59,7 +59,7 @@ export default function Home() {
                 </div>
             )}
 
-            {data && data.files.length !== 0 && <ButtonLoadMore handleClick={loadMore} />}
+            {data && data.files.length !== 0 && <LoadMore loadMore={loadMore} />}
 
             {files.length === 0 && !loading && (
                 <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">

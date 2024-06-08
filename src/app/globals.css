@@ -84,6 +84,25 @@ body {
     }
 }
 
+.loading-more-data {
+    background: linear-gradient(268deg, #9800ff, #d28fff, #d400df);
+    background-size: 600% 600%;
+
+    -webkit-animation: LoadingMoreData 2s ease infinite;
+    animation: LoadingMoreData 2s ease infinite;
+}
+
+@-webkit-keyframes LoadingMoreData {
+    0%{background-position:0% 49%}
+    50%{background-position:100% 52%}
+    100%{background-position:0% 49%}
+}
+@keyframes LoadingMoreData {
+    0%{background-position:0% 49%}
+    50%{background-position:100% 52%}
+    100%{background-position:0% 49%}
+}
+
 .child {
     opacity: 0; /* Hide children by default */
     transition: opacity 0.3s ease-in-out;
