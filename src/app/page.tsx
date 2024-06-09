@@ -37,7 +37,7 @@ export default function Home() {
         if (data && files.length === 0) {
             setFiles(data.files);
         }
-    }, [data, files, loadMore]);
+    }, [data, files]);
 
     return (
         <>
