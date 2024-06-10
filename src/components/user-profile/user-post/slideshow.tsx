@@ -20,11 +20,11 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
 
     return (
         files.length > 0 && (
-            <div className="relative w-full h-[500px]">
+            <div className="relative w-full h-full md:h-[500px]">
                 <div className="relative overflow-hidden rounded-lg md:rounded-none">
                     {files.map((file, index) => (
                         <div key={file.id} className={index === activeIndex ? 'flex justify-center items-center' : 'hidden'}>
-                            <img src={backend.storageUrl + file.filename} alt={`Slide ${index + 1}`} className='h-[500px]' />
+                            <img src={backend.storageUrl + file.filename} alt={`Slide ${index + 1}`} className='h-full md:h-[500px]' />
                         </div>
                     ))}
                 </div>
