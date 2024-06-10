@@ -1,7 +1,7 @@
 import { backend } from '@/constants/constants';
 import { useEffect, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
-import { LuDot } from 'react-icons/lu';
+import { ProfileImage } from './profile-image';
 import UpdateCoverImage from './update-cover-image';
 import UpdateProfileImage from './update-profile-image';
 
@@ -44,34 +44,16 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 }}
                 className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
             >
-                <div className="absolute -bottom-[13rem] left-1/2 transform -translate-x-1/2">
-                    <div
-                        style={{
-                            backgroundImage:
-                                props.profileImage && profileImage
-                                    ? `url('${backend.storageUrl + profileImage}')`
-                                    : 'none',
-                        }}
-                        className="relative w-[15rem] h-[15rem] rounded-full bg-cover bg-center shadow-2xl"
-                    >
-                        {!props.loggedUserId && (
-                            <div
-                                className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 p-2 lg:p-3 rounded-full lg:bottom-0 lg:left-auto lg:right-0 bg-gray-900 hover:bg-[#cc00ff] group transition-all duration-200 cursor-pointer"
-                                onClick={() => setIsChangeProfPicActive(true)}
-                            >
-                                <FaCamera className="text-[#cc00ff] group-hover:text-gray-900 text-lg" title="Change profile image" />
-                            </div>
-                        )}
-                    </div>
-                    <div className="mt-2 text-white font-sans text-center font-semibold text-2xl lg:text-3xl w-full">
-                        {props.firstName} {props.lastName}
-                    </div>
-                    <div className="w-full text-center text-md font-normal text-gray-400">@{props.username}</div>
-                    <div className="flex gap-1 items-center justify-center text-white mt-2 font-sans text-center font-semibold text-md w-full">
-                        <span className="text-[#cc00ff]">12k</span> followers <LuDot size={30} />
-                        <span className="text-[#cc00ff]">125k</span> views
-                    </div>
-                </div>
+                
+                <ProfileImage
+                    firstName={props.firstName}
+                    lastName={props.lastName}
+                    profileImage={props.profileImage}
+                    username={props.username}
+                    setIsChangeProfPicActive={setIsChangeProfPicActive}
+                    loggedUserId={props.loggedUserId}
+                />
+
                 {!props.loggedUserId && (
                     <div
                         title="Change cover image"
@@ -79,7 +61,9 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                         onClick={() => setIsChangeCoverImageActive(true)}
                     >
                         <FaCamera className="text-[#cc00ff] group-hover:text-gray-900 text-lg" />
-                        <span className="hidden lg:block lg:text-sm text-[#cc00ff] group-hover:text-gray-900">Change cover image</span>
+                        <span className="hidden lg:block lg:text-sm text-[#cc00ff] group-hover:text-gray-900">
+                            Change cover image
+                        </span>
                     </div>
                 )}
             </div>

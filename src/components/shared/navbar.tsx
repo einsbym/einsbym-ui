@@ -31,15 +31,15 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="fixed inset-x-0 top-0 w-full rounded-lg z-10">
+            <nav className="fixed inset-x-0 top-0 w-full z-10">
                 <div className="absolute inset-0 backdrop-blur-md bg-black/30"></div>
 
-                <div className="px-2 sm:px-6 lg:px-8">
+                <div className="px-5 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">
                         <div className="flex items-center sm:hidden">
                             <button
                                 type="button"
-                                className="rounded-md p-2 text-white hover:bg-[#cc00ff1e] hover:text-[#cc00ff] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#cc00ff]"
+                                className="rounded-md text-white hover:bg-[#cc00ff1e] hover:text-[#cc00ff] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#cc00ff]"
                                 onClick={() => setIsSidebarActive(true)}
                             >
                                 <RxHamburgerMenu className="text-lg" />
@@ -65,7 +65,7 @@ export default function Navbar() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-center gap-2">
                             <button
                                 type="button"
                                 className="rounded-full bg-[#cc00ff1e] p-2 text-[#cc00ff]"

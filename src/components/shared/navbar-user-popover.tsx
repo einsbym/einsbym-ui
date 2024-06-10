@@ -23,7 +23,7 @@ export default function NavbarUserPopover(props: SidebarProps) {
     };
 
     return (
-        <div className="relative ml-3">
+        <div className="relative">
             <div>
                 {props.user && (
                     <button

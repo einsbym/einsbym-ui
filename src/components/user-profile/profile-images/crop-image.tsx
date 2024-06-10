@@ -3,11 +3,11 @@ import { MdOutlineCloudUpload } from 'react-icons/md';
 import ReactCrop, { Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
-interface UpdateImageModalProps {
+interface CropImageProps {
     handleFileChange: (file: File) => void;
 }
 
-export const CropImage: React.FC<UpdateImageModalProps> = ({ handleFileChange }) => {
+export const CropImage: React.FC<CropImageProps> = ({ handleFileChange }) => {
     const [src, setSrc] = useState<string | null>(null);
     const [crop, setCrop] = useState<Crop>({
         unit: 'px',
