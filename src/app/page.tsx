@@ -29,7 +29,7 @@ export default function Home() {
                 setFiles([...files, ...fetchMoreResult.files]);
             },
         });
-        setPage(page + 1); // Update the page state after fetching more images
+        setPage(page + 1);
     }, [page, fetchMore, files]);
 
     // useEffect to load images initially
@@ -60,6 +60,8 @@ export default function Home() {
             )}
 
             {data && data.files.length !== 0 && <LoadMore loadMore={loadMore} />}
+
+            <div className='w-full h-20 md:hidden lg:hidden'></div>
 
             {files.length === 0 && !loading && (
                 <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">

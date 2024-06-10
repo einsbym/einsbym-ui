@@ -1,39 +1,40 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface LoadMoreProps {
     loadMore: any;
 }
 
 export const LoadMore: React.FC<LoadMoreProps> = ({ loadMore }) => {
-    const [isVisible, setIsVisible] = useState(false);
+    const observerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollTop = window.scrollY;
-            const winHeight = window.innerHeight;
-            const docHeight = document.documentElement.scrollHeight;
-            const isScrolledToBottom = scrollTop + winHeight >= docHeight;
-            setIsVisible(isScrolledToBottom);
-        };
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        loadMore();
+                    }
+                });
+            },
+            {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 1.0, // trigger when 100% of the target is visible
+            },
+        );
 
-        window.addEventListener('scroll', handleScroll);
+        const currentRef = observerRef.current;
 
-        return () => window.removeEventListener('scroll', handleScroll); // Cleanup
-    }, []);
-
-    useEffect(() => {
-        if (isVisible) {
-            loadMore();
+        if (currentRef) {
+            observer.observe(currentRef);
         }
-    }, [isVisible]);
 
-    return (
-        <div
-            className={`loading-more-data fixed bottom-0 w-full h-3 text-center bg-gray-200 text-gray-700 opacity-0 transition-opacity duration-300 ${
-                isVisible ? 'opacity-100' : ''
-            }`}
-        ></div>
-    );
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [loadMore]);
+
+    return <div ref={observerRef} style={{ height: '1px' }} />;
 };
