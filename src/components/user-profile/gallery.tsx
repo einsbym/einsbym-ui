@@ -7,6 +7,7 @@ import ReactPlayer from 'react-player';
 import Footer from '../shared/footer';
 import GallerySkeleton from '../skeletons/gallery';
 import GallerySideViewer from './gallery-side-viewer';
+import { Activity } from './activity';
 
 export default function Gallery(props: { userId: string }) {
     // States
@@ -71,6 +72,8 @@ export default function Gallery(props: { userId: string }) {
                         </div>
                     ))}
             </div>
+
+            <Activity />
             
             <GallerySideViewer
                 isFileViewerActive={isFileViewerActive}

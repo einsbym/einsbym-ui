@@ -47,3 +47,13 @@ export const FIND_USER_STATS = gql`
         }
     }
 `;
+
+export const FIND_ACTIVITIES = gql`
+    query FindActivities {
+        findActivities {
+            id
+            description
+            createdAt
+        }
+    }
+`;
