@@ -5,6 +5,19 @@ import { useQuery } from '@apollo/client';
 export const Activity: React.FC = () => {
     const { data, loading } = useQuery(FIND_ACTIVITIES);
 
+    if (loading) {
+        return (
+            <div className="w-full mt-5 p-5 rounded-lg shadow bg-gray-900">
+                <div role="status" className="animate-pulse">
+                    <div className="h-2.5 rounded-full bg-gray-800 w-20 mb-2.5"></div>
+                    <div className="h-2.5 rounded-full bg-gray-800 w-full mb-2.5 mx-auto"></div>
+                    <div className="h-2.5 rounded-full bg-gray-800 w-full mb-2.5 mx-auto"></div>
+                    <div className="h-2.5 rounded-full bg-gray-800 w-full mx-auto"></div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="bg-gray-900 p-5 mt-5 rounded-lg">
             <h2 className="font-bold text-xl mb-2">Activity</h2>

@@ -47,7 +47,7 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
             <div className="w-full text-center text-md font-normal text-gray-400">@{username}</div>
             <div className="flex gap-1 items-center justify-center text-white mt-2 font-sans text-center font-semibold text-md w-full">
                 <span className="text-[#cc00ff]">12k</span> followers <LuDot size={30} />
-                <span className="text-[#cc00ff]">125k</span> views
+                <span className="text-[#cc00ff]">23</span> following
             </div>
         </div>
     );

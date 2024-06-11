@@ -44,11 +44,10 @@ export default function CoverAndPhoto(props: CoverAndPhotoProps) {
                 }}
                 className="relative w-full h-[30rem] lg:h-[40rem] mb-56 bg-cover bg-center"
             >
-                
                 <ProfileImage
                     firstName={props.firstName}
                     lastName={props.lastName}
-                    profileImage={props.profileImage}
+                    profileImage={profileImage}
                     username={props.username}
                     setIsChangeProfPicActive={setIsChangeProfPicActive}
                     loggedUserId={props.loggedUserId}
