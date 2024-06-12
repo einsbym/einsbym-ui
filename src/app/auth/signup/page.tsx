@@ -98,9 +98,9 @@ export default function Login() {
     };
 
     return (
-        <div className="inset-0 h-screen flex justify-center lg:justify-normal">
-            <div className='w-11/12 lg:w-3/5 flex items-center justify-center'>
-                <div className="w-10/12 space-y-6 p-10 rounded-lg bg-gray-900">
+        <div className="inset-0 h-screen flex justify-center items-center">
+            <div className="w-11/12 lg:w-3/5 lg:h-3/4 flex rounded-2xl overflow-hidden shadow-xl">
+                <div className="lg:w-2/3 space-y-6 p-10 rounded-lg bg-gray-900">
                     <a href="/auth/signin">
                         <FaArrowLeft className="text-[#cc00ff] cursor-pointer" />
                     </a>
@@ -117,7 +117,7 @@ export default function Login() {
                                 name="username"
                                 id="username"
                                 className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
-                                autoComplete='username'
+                                autoComplete="username"
                                 required
                                 onChange={(event) => handleChange(event)}
                             />
@@ -150,7 +150,7 @@ export default function Login() {
                                 name="email"
                                 id="email"
                                 className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-white border-white focus:border-[#cc00ff] caret-[#cc00ff] focus:outline-none focus:ring-0 peer"
-                                autoComplete='email'
+                                autoComplete="email"
                                 required
                                 onChange={(event) => handleChange(event)}
                             />
@@ -237,9 +237,14 @@ export default function Login() {
                         </div>
                     </form>
                 </div>
-            </div>
 
-            <div style={{backgroundImage: data ? `url(${backend.storageUrl + data.findRandomFile.filename})` : 'none'}} className="hidden lg:block w-full h-screen bg-cover bg-center rounded-l-2xl"></div>
+                <div
+                    style={{
+                        backgroundImage: data ? `url(${backend.storageUrl + data.findRandomFile.filename})` : 'none',
+                    }}
+                    className="hidden lg:block w-full h-full bg-cover bg-center"
+                ></div>
+            </div>
         </div>
     );
 }
