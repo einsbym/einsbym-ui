@@ -33,7 +33,7 @@ export default function ViewBlogPost() {
         <>
             <Navbar />
             {data && (
-                <div className="w-11/12 md:w-1/2 mx-auto mt-20">
+                <div className="w-11/12 md:w-1/2 mx-auto mt-20 mb-5">
                     <span className="text-sm text-[#cc00ff] group-hover:text-black">
                         {getElapsedTime(data.findBlogPost.createdAt)}
                     </span>
@@ -58,7 +58,7 @@ export default function ViewBlogPost() {
                             return (
                                 <p
                                     key={block.id}
-                                    className="mb-2 leading-6"
+                                    className="mb-2 leading-6 text-white"
                                     dangerouslySetInnerHTML={{ __html: `${block.data.text}` }}
                                 ></p>
                             );
