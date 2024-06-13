@@ -27,7 +27,7 @@ export const Gallery: React.FC<GalleryProps> = ({ files }) => {
                         src={backend.storageUrl + file.filename}
                     />
                     <div
-                        className="parent absolute top-0 left-0 w-full h-full cursor-pointer hover:bg-black/30 transition-all duration-300"
+                        className="parent absolute top-0 left-0 w-full h-full cursor-pointer hover:bg-black/30 transition-all duration-300 text-white"
                         onClick={() => openViewer(file)}
                     >
                         <div className="child absolute flex items-center gap-1 top-5 left-5 text-sm">

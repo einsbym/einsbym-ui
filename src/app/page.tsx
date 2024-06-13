@@ -22,6 +22,11 @@ export default function Home() {
     });
 
     const loadMore = useCallback(async () => {
+        if (data && files.length === 0) {
+            setFiles(data.files);
+            return;
+        }
+
         await fetchMore({
             variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page + 1 },
             updateQuery: (prev, { fetchMoreResult }) => {
@@ -30,14 +35,7 @@ export default function Home() {
             },
         });
         setPage(page + 1);
-    }, [page, fetchMore, files]);
-
-    // useEffect to load images initially
-    useEffect(() => {
-        if (data && files.length === 0) {
-            setFiles(data.files);
-        }
-    }, [data, files]);
+    }, [page, fetchMore, files, data]);
 
     return (
         <>

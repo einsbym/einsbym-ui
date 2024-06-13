@@ -36,5 +36,5 @@ export const LoadMore: React.FC<LoadMoreProps> = ({ loadMore }) => {
         };
     }, [loadMore]);
 
-    return <div ref={observerRef} style={{ height: '1px' }} />;
+    return <div ref={observerRef} className='h-[100px] lg:h-[50px]' />;
 };
