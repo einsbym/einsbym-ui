@@ -36,18 +36,18 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                         <CropImage handleFileChange={props.handleFileChange} />
 
                         {/* Modal footer */}
-                        <div className="flex gap-2 items-center p-4 md:p-5 border-t rounded-b border-gray-600">
+                        <div className="flex gap-2 p-4 md:p-5 border-t rounded-b border-gray-600">
                             <button
                                 type="button"
                                 onClick={props.handleSave}
-                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                className="w-full flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                                 disabled={props.isLoading}
                             >
                                 <IoIosSave className="text-xl" /> save
                             </button>
                             <button
                                 type="button"
-                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                className="w-full flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                                 disabled={props.isLoading}
                                 onClick={() => {
                                     props.setIsModalActive(false);
@@ -55,13 +55,13 @@ export default function UpdateImageModal(props: UpdateImageModalProps) {
                             >
                                 <TiCancel className="text-xl" /> cancel
                             </button>
-
-                            {props.isLoading && <div className="text-sm font-mediu text-[#cc00ff]">Saving...</div>}
-
-                            {props.errorMessage && (
-                                <div className="text-sm font-medium text-red-300">{props.errorMessage}</div>
-                            )}
                         </div>
+
+                        {props.isLoading && <div className="w-full h-10 text-center text-sm font-mediu text-[#cc00ff]">Saving...</div>}
+
+                        {props.errorMessage && (
+                            <div className="w-full h-10 text-center text-sm font-medium text-red-300">{props.errorMessage}</div>
+                        )}
                     </div>
                 </div>
             </div>

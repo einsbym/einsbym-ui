@@ -46,17 +46,17 @@ export const Edit: React.FC<EditProps> = ({ post, setIsEditModalOpen, setPost })
                     defaultValue={post.postText}
                     onChange={(e) => setUpdatedText(e.target.value)}
                 />
-                <div className="flex gap-2 justify-center mt-2 w-full">
+                <div className="flex gap-2 mt-2 w-full">
                     <button
                         type="button"
                         onClick={() => setIsEditModalOpen(false)}
-                        className="flex w-full gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                        className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                     >
                         cancel
                     </button>
                     <button
                         type="button"
-                        className="flex w-full gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                        className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                         onClick={save}
                     >
                         save

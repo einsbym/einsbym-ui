@@ -85,18 +85,18 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
                             <button
                                 type="button"
                                 onClick={() => setIsEditBioActive(false)}
-                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                             >
-                                <TiCancel className='text-xl' /> cancel
+                                cancel
                             </button>
                             <button
                                 type="submit"
                                 onClick={(event) => {
                                     handleSave(event);
                                 }}
-                                className="flex gap-1 items-center justify-center border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase font-bold rounded-lg shadow-lg text-center px-2 py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
+                                className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
                             >
-                                <IoIosSave className='text-xl' /> save
+                                save
                             </button>
                         </div>
                     </form>
