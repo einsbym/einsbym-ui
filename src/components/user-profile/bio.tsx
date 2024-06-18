@@ -4,8 +4,6 @@ import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
-import { IoIosSave } from 'react-icons/io';
-import { TiCancel } from 'react-icons/ti';
 
 export default function UserBio(props: { userId: string; bio: string; loggedUserId?: string | null }) {
     // States

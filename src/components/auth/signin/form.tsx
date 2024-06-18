@@ -1,9 +1,9 @@
 import { SignInType } from '@/types/types';
 import { Dispatch, SetStateAction } from 'react';
-import { InputFields } from './input-fields';
-import { SignInButtons } from './signin-button';
+import { Fields } from './fields';
+import { Buttons } from './button';
 
-interface SignInFormProps {
+interface FormProps {
     signinInput: SignInType;
     errorMessage: string | null | undefined;
     isLoading: boolean;
@@ -11,16 +11,16 @@ interface SignInFormProps {
     signIn: (preventDefault: () => void) => Promise<void>;
 }
 
-export const SignInForm: React.FC<SignInFormProps> = ({
+export const Form: React.FC<FormProps> = ({
     signinInput,
     errorMessage,
     isLoading,
     setSigninInput,
     signIn,
-}: SignInFormProps) => {
+}: FormProps) => {
     return (
         <form>
-            <InputFields signinInput={signinInput} setSigninInput={setSigninInput} />
+            <Fields signinInput={signinInput} setSigninInput={setSigninInput} />
 
             {errorMessage && (
                 <div className="flex justify-center mt-5 mb-5">
@@ -30,7 +30,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                 </div>
             )}
 
-            <SignInButtons isLoading={isLoading} signIn={signIn} />
+            <Buttons isLoading={isLoading} signIn={signIn} />
 
             <div className="mt-5 text-sm text-center text-white">
                 Don&apos;t have an account? No problem, you can{' '}

@@ -1,12 +1,12 @@
 import { SignInType } from "@/types/types";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-interface InputFieldsProps {
+interface FieldsProps {
     signinInput: SignInType;
     setSigninInput: Dispatch<SetStateAction<SignInType>>;
 }
 
-export const InputFields: React.FC<InputFieldsProps> = ({ signinInput, setSigninInput }: InputFieldsProps) => {
+export const Fields: React.FC<FieldsProps> = ({ signinInput, setSigninInput }: FieldsProps) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSigninInput({
             ...signinInput,

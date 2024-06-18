@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FeaturedImage } from '../../../components/auth/signin/featured-image';
-import { SignInForm } from '../../../components/auth/signin/signin-form';
+import { Form } from '../../../components/auth/signin/form';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SignInType>({ email: '', password: '' });
@@ -35,7 +35,7 @@ export default function Login() {
                             <p className="mt-2 text-white">Please sign in to your account.</p>
                         </div>
                         
-                        <SignInForm
+                        <Form
                             errorMessage={errorMessage}
                             isLoading={isLoading}
                             signinInput={signinInput}
