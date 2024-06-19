@@ -1,7 +1,7 @@
 import { SignInType } from '@/types/types';
 import { Dispatch, SetStateAction } from 'react';
 import { Fields } from './fields';
-import { Buttons } from './button';
+import { Button } from './button';
 
 interface FormProps {
     signinInput: SignInType;
@@ -30,7 +30,7 @@ export const Form: React.FC<FormProps> = ({
                 </div>
             )}
 
-            <Buttons isLoading={isLoading} signIn={signIn} />
+            <Button isLoading={isLoading} signIn={signIn} />
 
             <div className="mt-5 text-sm text-center text-white">
                 Don&apos;t have an account? No problem, you can{' '}

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Buttons } from './buttons';
+import { Button } from './button';
 import { ChangeEvent } from 'react';
 import { Errors } from './errors';
 
@@ -99,7 +99,7 @@ export const Form: React.FC<FormProps> = ({ handleChange, errorMessage, zodIssue
 
             <Errors errorMessage={errorMessage} zodIssues={zodIssues} />
 
-            <Buttons isLoading={isLoading} signUp={signUp} />
+            <Button isLoading={isLoading} signUp={signUp} />
 
             <div className="mt-5 text-sm text-center text-white">
                 By creating an account, you agree to our{' '}
