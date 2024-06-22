@@ -1,11 +1,9 @@
 import { SlideShow } from '@/components/user-profile/user-post/slideshow';
 import { backend } from '@/constants/constants';
-import { REMOVE_FILE } from '@/graphql/mutations/file';
 import { PostFileType } from '@/types/types';
-import { useMutation } from '@apollo/client';
 import { useState } from 'react';
-import { MdDelete } from 'react-icons/md';
 import ReactPlayer from 'react-player';
+import { RemoveFile } from './remove-file';
 
 interface DisplayFilesProps {
     files: PostFileType[];
@@ -14,27 +12,6 @@ interface DisplayFilesProps {
 
 export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId }) => {
     const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
-
-    // Mutations
-    const [removeFile] = useMutation(REMOVE_FILE);
-
-    const handleClickRemove = async (id: string) => {
-        try {
-            await removeFile({
-                variables: {
-                    removeFileId: id,
-                },
-            });
-
-            // Optimistically update the UI
-            setCurrentFiles(currentFiles.filter((file) => file.id !== id));
-        } catch (error) {
-            console.error(error);
-
-            // Revert the UI update if the mutation fails
-            setCurrentFiles(files);
-        }
-    };
 
     return (
         <div
@@ -56,12 +33,14 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     muted
                                     light={false}
                                 />
-                                <div
-                                    className="absolute p-2 rounded-full bottom-5 right-5 cursor-pointer text-xl bg-[#cc00ff] text-black"
-                                    onClick={() => handleClickRemove(file.id)}
-                                >
-                                    <MdDelete />
-                                </div>
+                                {!loggedUserId && (
+                                    <RemoveFile
+                                        file={file}
+                                        files={files}
+                                        currentFiles={currentFiles}
+                                        setCurrentFiles={setCurrentFiles}
+                                    />
+                                )}
                             </div>
                         )}
                         {file.fileType !== 'video/mp4' && (
@@ -74,19 +53,19 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     } object-cover rounded-lg`}
                                 />
                                 {!loggedUserId && (
-                                    <div
-                                        className="absolute p-2 rounded-full bottom-5 right-5 cursor-pointer text-xl bg-[#cc00ff] hover:bg-black text-black hover:text-[#cc00ff] transition-all duration-200"
-                                        onClick={() => handleClickRemove(file.id)}
-                                    >
-                                        <MdDelete />
-                                    </div>
+                                    <RemoveFile
+                                        file={file}
+                                        files={files}
+                                        currentFiles={currentFiles}
+                                        setCurrentFiles={setCurrentFiles}
+                                    />
                                 )}
                             </div>
                         )}
                     </div>
                 ))}
 
-            {currentFiles.length > 4 && <SlideShow files={currentFiles} />}
+            {currentFiles.length > 4 && <SlideShow files={currentFiles} loggedUserId={loggedUserId} />}
         </div>
     );
 };

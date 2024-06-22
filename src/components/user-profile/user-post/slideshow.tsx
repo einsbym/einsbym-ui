@@ -2,29 +2,49 @@ import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
 import React, { useState } from 'react';
 import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
+import { RemoveFile } from './remove-file';
 
 interface SlideShowProps {
     files: PostFileType[];
+    loggedUserId?: string | null | undefined;
 }
 
-export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
+export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => {
+    const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
     const [activeIndex, setActiveIndex] = useState(1);
 
     const handlePrev = () => {
-        setActiveIndex((prevIndex) => (prevIndex === 0 ? files.length - 1 : prevIndex - 1));
+        setActiveIndex((prevIndex) => (prevIndex === 0 ? currentFiles.length - 1 : prevIndex - 1));
     };
 
     const handleNext = () => {
-        setActiveIndex((prevIndex) => (prevIndex === files.length - 1 ? 0 : prevIndex + 1));
+        setActiveIndex((prevIndex) => (prevIndex === currentFiles.length - 1 ? 0 : prevIndex + 1));
     };
 
     return (
-        files.length > 0 && (
+        currentFiles.length > 0 && (
             <div className="relative w-full h-full md:h-[500px]">
                 <div className="relative overflow-hidden rounded-lg md:rounded-none">
-                    {files.map((file, index) => (
-                        <div key={file.id} className={index === activeIndex ? 'flex justify-center items-center' : 'hidden'}>
-                            <img src={backend.storageUrl + file.filename} alt={`Slide ${index + 1}`} className='h-full md:h-[500px]' />
+                    {currentFiles.map((file, index) => (
+                        <div
+                            key={file.id}
+                            className={index === activeIndex ? 'flex justify-center items-center' : 'hidden'}
+                        >
+                            <div className="relative">
+                                <img
+                                    src={backend.storageUrl + file.filename}
+                                    alt={`Slide ${index + 1}`}
+                                    className="h-full md:h-[500px]"
+                                />
+                                {!loggedUserId && (
+                                    <RemoveFile
+                                        file={file}
+                                        files={files}
+                                        currentFiles={currentFiles}
+                                        setCurrentFiles={setCurrentFiles}
+                                    />
+                                )}
+                            </div>
                         </div>
                     ))}
                 </div>
