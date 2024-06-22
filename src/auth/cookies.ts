@@ -4,11 +4,19 @@ import { UserType } from '@/types/types';
 import { cookies } from 'next/headers';
 
 export async function createUserCookie(user: any) {
-    cookies().set('currentUser', JSON.stringify(user));
+    const twoDaysInMilliseconds = 2 * 24 * 60 * 60 * 1000; // Milliseconds in 2 days
+
+    cookies().set('currentUser', JSON.stringify(user), {
+        maxAge: twoDaysInMilliseconds,
+    });
 }
 
 export async function createAccessTokenCookie(token: string) {
-    cookies().set('accessToken', JSON.stringify(token));
+    const twoDaysInMilliseconds = 2 * 24 * 60 * 60 * 1000; // Milliseconds in 2 days
+
+    cookies().set('accessToken', JSON.stringify(token), {
+        maxAge: twoDaysInMilliseconds,
+    });
 }
 
 export async function getAccessTokenFromCookie() {

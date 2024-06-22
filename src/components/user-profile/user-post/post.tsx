@@ -69,7 +69,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                     </p>
 
                     {/* Display files (if any) */}
-                    {props.post.files.length > 0 && <DisplayFiles files={props.post.files} />}
+                    {props.post.files.length > 0 && <DisplayFiles files={props.post.files} loggedUserId={props.loggedUserId} />}
 
                     <div className="flex gap-2 justify-end">
                         <LikeButton

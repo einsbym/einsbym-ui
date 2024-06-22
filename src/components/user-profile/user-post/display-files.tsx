@@ -9,9 +9,10 @@ import ReactPlayer from 'react-player';
 
 interface DisplayFilesProps {
     files: PostFileType[];
+    loggedUserId?: string | null | undefined;
 }
 
-export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files }) => {
+export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId }) => {
     const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
 
     // Mutations
@@ -56,7 +57,7 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files }) => {
                                     light={false}
                                 />
                                 <div
-                                    className="absolute z-10 bottom-5 right-5 cursor-pointer text-xl text-[#cc00ff]"
+                                    className="absolute p-2 rounded-full bottom-5 right-5 cursor-pointer text-xl bg-[#cc00ff] text-black"
                                     onClick={() => handleClickRemove(file.id)}
                                 >
                                     <MdDelete />
@@ -72,12 +73,14 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files }) => {
                                         currentFiles.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
                                     } object-cover rounded-lg`}
                                 />
-                                <div
-                                    className="absolute z-10 bottom-5 right-5 cursor-pointer text-xl text-[#cc00ff]"
-                                    onClick={() => handleClickRemove(file.id)}
-                                >
-                                    <MdDelete />
-                                </div>
+                                {!loggedUserId && (
+                                    <div
+                                        className="absolute p-2 rounded-full bottom-5 right-5 cursor-pointer text-xl bg-[#cc00ff] hover:bg-black text-black hover:text-[#cc00ff] transition-all duration-200"
+                                        onClick={() => handleClickRemove(file.id)}
+                                    >
+                                        <MdDelete />
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
