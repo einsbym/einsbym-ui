@@ -11,7 +11,7 @@ export const Button: React.FC<ButtonProps> = ({ isLoading, signIn }: ButtonProps
         <div className="relative border border-white rounded-lg group overflow-hidden">
             <div className="absolute top-0 left-0 h-full -z-10 w-0 bg-white group-hover:w-full transition-all duration-200"></div>
             <button
-                className="flex gap-2 items-center justify-center w-full text-white group-hover:text-black font-medium text-sm px-5 py-2.5 text-center transition-all duration-200"
+                className="flex gap-2 items-center justify-center w-full text-white group-hover:text-black font-bold text-sm px-5 py-2.5 text-center transition-all duration-200"
                 onClick={(event) => signIn(event.preventDefault)}
                 disabled={isLoading}
             >

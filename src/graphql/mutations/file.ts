@@ -7,3 +7,9 @@ export const CREATE_IMAGE = gql`
         }
     }
 `;
+
+export const REMOVE_FILE = gql`
+    mutation RemoveFile($removeFileId: String!) {
+        removeFile(id: $removeFileId)
+    }
+`;
