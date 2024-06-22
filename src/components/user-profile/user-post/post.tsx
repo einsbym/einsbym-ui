@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
 import Comments from '../comments';
-import PostPopoverMenu from '../post-popover-menu';
 import PublishComment from '../publish-comment';
 import { DisplayFiles } from './display-files';
-import LikeButton from './like-button';
 import { Edit } from './edit';
+import LikeButton from './like-button';
+import PostPopoverMenu from './post-popover-menu';
 
 export default function Post(props: { post: PostType; userId: string; loggedUserId?: string | null }) {
     // States
