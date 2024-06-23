@@ -1,11 +1,11 @@
 import { createAccessTokenCookie, createUserCookie, deleteCookies, getCurrentUserFromCookie } from '@/auth/cookies';
+import { backend } from '@/constants/constants';
+import { SET_TO_OFFLINE } from '@/graphql/mutations/user';
 import { SignInType, UserType } from '@/types/types';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { Dispatch, SetStateAction } from 'react';
 import { SIGN_IN } from './auth';
-import { backend } from '@/constants/constants';
-import { SET_TO_OFFLINE } from '@/graphql/mutations/user';
 
 export class AuthService {
     protected readonly instance: ApolloClient<unknown>;
@@ -80,5 +80,10 @@ export class AuthService {
         } catch (error) {
             return null;
         }
+    };
+
+    invalidate = async (router: AppRouterInstance) => {
+        await deleteCookies();
+        router.push('/auth/signin', { scroll: false });
     };
 }

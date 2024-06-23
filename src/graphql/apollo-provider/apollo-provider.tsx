@@ -38,7 +38,7 @@ function useClient() {
 
                 // Check if the token is expired
                 if (exp < currentTime) {
-                    await new AuthService().signOut(router);
+                    await new AuthService().invalidate(router);
                 }
 
                 return {
