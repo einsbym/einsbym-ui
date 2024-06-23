@@ -57,3 +57,9 @@ export const FIND_ACTIVITIES = gql`
         }
     }
 `;
+
+export const IS_CURRENTLY_ONLINE = gql`
+    query IsCurrentlyOnline($username: String!) {
+        isCurrentlyOnline(username: $username)
+    }
+`;

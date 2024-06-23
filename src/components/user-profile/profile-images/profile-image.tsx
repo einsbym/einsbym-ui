@@ -1,6 +1,8 @@
 import { backend } from '@/constants/constants';
+import { IS_CURRENTLY_ONLINE } from '@/graphql/queries/user';
+import { useQuery } from '@apollo/client';
 import { Dispatch, SetStateAction } from 'react';
-import { FaCamera } from 'react-icons/fa';
+import { FaCamera, FaCircle } from 'react-icons/fa';
 import { LuDot } from 'react-icons/lu';
 
 interface ProfileImageProps {
@@ -20,6 +22,12 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
     loggedUserId,
     setIsChangeProfPicActive,
 }) => {
+    const { data } = useQuery(IS_CURRENTLY_ONLINE, {
+        variables: {
+            username: username,
+        },
+    });
+
     return (
         <div className="absolute -bottom-[13rem] left-1/2 transform -translate-x-1/2 flex items-center justify-center flex-col">
             <div
@@ -42,7 +50,10 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
                 )}
             </div>
             <div className="mt-5 md:mt-2 text-white font-sans text-center font-semibold text-2xl lg:text-3xl w-full">
-                {firstName} {lastName}
+                {firstName} {lastName}{' '}
+                {data && data.isCurrentlyOnline && (
+                    <FaCircle className="ml-2 inline-block animate-ping text-green-500 text-sm" />
+                )}
             </div>
             <div className="w-full text-center text-md font-normal text-gray-400">@{username}</div>
             <div className="flex gap-1 items-center justify-center text-white mt-2 font-sans text-center font-semibold text-md w-full">

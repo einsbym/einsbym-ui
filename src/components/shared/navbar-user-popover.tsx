@@ -36,7 +36,9 @@ export default function NavbarUserPopover(props: SidebarProps) {
     };
 
     const signOut = async () => {
-        await new AuthService().signOut(router);
+        if (props.user) {
+            await new AuthService().signOut(props.user.username, router);
+        }
     };
 
     useEffect(() => {
@@ -76,23 +78,21 @@ export default function NavbarUserPopover(props: SidebarProps) {
                 )}
             </div>
 
-            {isMenuOpen && (
+            {props.user && isMenuOpen && (
                 <div
                     ref={menuRef}
                     className="absolute right-0 p-2 mt-5 w-48 origin-top-right rounded-md z-10 bg-gray-900"
                 >
-                    {props.user && (
-                        <p className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]">
-                            {props.user.firstName} ({props.user.username})
-                        </p>
-                    )}
+                    <p className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]">
+                        {props.user.firstName} ({props.user.username})
+                    </p>
                     <a
                         href="/profile"
                         className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"
                     >
                         <CgProfile /> Your Profile
                     </a>
-                    {props.user && props.user.role === 'admin' && (
+                    {props.user.role === 'admin' && (
                         <a
                             href="/blog/management"
                             className="flex items-center gap-2 p-2 rounded-lg transition-all duration-200 text-sm text-[#cc00ff] hover:bg-[#cc00ff1e]"

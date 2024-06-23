@@ -56,3 +56,9 @@ export const CREATE_USER = gql`
         }
     }
 `;
+
+export const SET_TO_OFFLINE = gql`
+    mutation SetToOffline($username: String!) {
+        setToOffline(username: $username)
+    }
+`;
