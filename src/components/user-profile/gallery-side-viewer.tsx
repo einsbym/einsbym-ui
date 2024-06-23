@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 
@@ -9,11 +9,14 @@ export default function GallerySideViewer(props: {
 }) {
     const viewerRef = useRef<HTMLDivElement>(null);
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (viewerRef.current && !viewerRef.current.contains(event.target as Node)) {
-            props.setIsFileViewerActive(false);
-        }
-    };
+    const handleClickOutside = useCallback(
+        (event: MouseEvent) => {
+            if (viewerRef.current && !viewerRef.current.contains(event.target as Node)) {
+                props.setIsFileViewerActive(false);
+            }
+        },
+        [viewerRef, props],
+    );
 
     useEffect(() => {
         // Add event listener on document click when menu is open
@@ -21,7 +24,7 @@ export default function GallerySideViewer(props: {
 
         // Cleanup function to remove listener on unmount
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [props.isFileViewerActive]);
+    }, [props.isFileViewerActive, handleClickOutside]);
 
     return (
         <div
