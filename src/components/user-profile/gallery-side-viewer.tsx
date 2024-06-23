@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 
@@ -7,8 +7,25 @@ export default function GallerySideViewer(props: {
     setIsFileViewerActive: Dispatch<SetStateAction<boolean>>;
     selectedFile: any;
 }) {
+    const viewerRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (viewerRef.current && !viewerRef.current.contains(event.target as Node)) {
+            props.setIsFileViewerActive(false);
+        }
+    };
+
+    useEffect(() => {
+        // Add event listener on document click when menu is open
+        document.addEventListener('mousedown', handleClickOutside);
+
+        // Cleanup function to remove listener on unmount
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [props.isFileViewerActive]);
+
     return (
         <div
+            ref={viewerRef}
             className={`fixed top-0 right-0 z-40 w-full lg:rounded-l-[2rem] lg:w-1/2 h-screen flex justify-center items-center p-4 overflow-y-auto ${
                 props.isFileViewerActive ? null : 'translate-x-full'
             } transition-transform backdrop-blur-lg bg-opacity-10 z-10 bg-black/30`}
