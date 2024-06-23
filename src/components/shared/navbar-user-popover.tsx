@@ -36,9 +36,7 @@ export default function NavbarUserPopover(props: SidebarProps) {
     };
 
     const signOut = async () => {
-        if (props.user) {
-            await new AuthService().signOut(props.user.username, router);
-        }
+        await new AuthService().signOut(router);
     };
 
     useEffect(() => {

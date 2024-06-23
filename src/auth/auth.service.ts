@@ -68,11 +68,10 @@ export class AuthService {
         }
     };
 
-    signOut = async (username: string, router: AppRouterInstance) => {
+    signOut = async (router: AppRouterInstance) => {
         try {
             await this.instance.mutate({
-                mutation: SET_TO_OFFLINE,
-                variables: { username: username },
+                mutation: SET_TO_OFFLINE
             });
 
             await deleteCookies();
