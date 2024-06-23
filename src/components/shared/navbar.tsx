@@ -13,17 +13,8 @@ const menuItems = [
 ];
 
 export default function Navbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
     const [user, setUser] = useState<UserType | null>();
-
-    const handleMenu = () => {
-        if (isMenuOpen) {
-            setIsMenuOpen(false);
-            return;
-        }
-        setIsMenuOpen(true);
-    };
 
     useEffect(() => {
         new AuthService().getUser(setUser);
@@ -32,9 +23,7 @@ export default function Navbar() {
     return (
         <>
             <nav className="fixed inset-x-0 top-0 w-full z-10">
-                <div className="absolute inset-0 backdrop-blur-md bg-black/30"></div>
-
-                <div className="px-5 lg:px-8">
+                <div className="px-5 lg:px-8 backdrop-blur-md bg-black/30">
                     <div className="relative flex h-16 items-center justify-between">
                         <div className="flex items-center sm:hidden">
                             <button
@@ -73,7 +62,7 @@ export default function Navbar() {
                                 <IoIosNotificationsOutline className='text-xl' />
                             </button>
 
-                            <NavbarUserPopover isMenuOpen={isMenuOpen} handleMenu={handleMenu} user={user || null} />
+                            <NavbarUserPopover user={user || null} />
                         </div>
                     </div>
                 </div>
