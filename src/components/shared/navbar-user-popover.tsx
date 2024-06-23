@@ -1,6 +1,8 @@
 import { AuthService } from '@/auth/auth.service';
 import { backend } from '@/constants/constants';
+import { SET_TO_OFFLINE } from '@/graphql/mutations/user';
 import { UserType } from '@/types/types';
+import { useMutation } from '@apollo/client';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
@@ -20,6 +22,9 @@ export default function NavbarUserPopover(props: SidebarProps) {
     const menuRef = useRef<HTMLDivElement>(null);
     const iconRef = useRef<HTMLButtonElement>(null);
 
+    // Mutations
+    const [setToOffline] = useMutation(SET_TO_OFFLINE);
+
     const handleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
@@ -36,7 +41,12 @@ export default function NavbarUserPopover(props: SidebarProps) {
     };
 
     const signOut = async () => {
-        await new AuthService().signOut(router);
+        try {
+            await setToOffline();
+            await new AuthService().signOut(router);
+        } catch (error) {
+            console.error('Could not sign out:', error);
+        }
     };
 
     useEffect(() => {

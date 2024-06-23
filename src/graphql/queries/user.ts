@@ -63,3 +63,9 @@ export const IS_CURRENTLY_ONLINE = gql`
         isCurrentlyOnline(username: $username)
     }
 `;
+
+export const ONLINE_INSTANCES = gql`
+    query OnlineInstances {
+        onlineInstances
+    }
+`;

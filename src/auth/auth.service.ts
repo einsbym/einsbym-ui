@@ -7,6 +7,7 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 import { Dispatch, SetStateAction } from 'react';
 import { SIGN_IN } from './auth';
 
+
 export class AuthService {
     protected readonly instance: ApolloClient<unknown>;
 
@@ -69,19 +70,6 @@ export class AuthService {
     };
 
     signOut = async (router: AppRouterInstance) => {
-        try {
-            await this.instance.mutate({
-                mutation: SET_TO_OFFLINE
-            });
-
-            await deleteCookies();
-            router.push('/auth/signin', { scroll: false });
-        } catch (error) {
-            return null;
-        }
-    };
-
-    invalidate = async (router: AppRouterInstance) => {
         await deleteCookies();
         router.push('/auth/signin', { scroll: false });
     };
