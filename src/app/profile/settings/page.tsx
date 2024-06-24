@@ -5,8 +5,9 @@ import { createUserCookie } from '@/auth/cookies';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import { UPDATE_USER_VISIBILITY } from '@/graphql/mutations/user';
-import { ONLINE_INSTANCES } from '@/graphql/queries/user';
+import { FIND_ACTIVITIES, ONLINE_INSTANCES } from '@/graphql/queries/user';
 import { UserType } from '@/types/types';
+import { formatDate } from '@/utils/formatted-date';
 import { useMutation, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { MdManageAccounts, MdOutlinePrivacyTip } from 'react-icons/md';
@@ -18,7 +19,8 @@ export default function UserSettings() {
     const [message, setMessage] = useState<string | null>();
 
     // Queries
-    const { data } = useQuery(ONLINE_INSTANCES);
+    const { data: onlineInstances } = useQuery(ONLINE_INSTANCES);
+    const { data: userActivityLog } = useQuery(FIND_ACTIVITIES);
 
     // Mutations
     const [updateUserVisibility] = useMutation(UPDATE_USER_VISIBILITY);
@@ -60,18 +62,30 @@ export default function UserSettings() {
                             <MdManageAccounts className="inline-block" /> Account
                         </h1>
                     </div>
-                    <div className="p-4 h-full rounded-lg shadow-lg bg-gray-900">
+                    <div className="p-4 h-full overflow-y-scroll rounded-lg shadow-lg bg-gray-900">
                         <h1 className="font-bold text-2xl mb-4 text-white">
                             <RxActivityLog className="inline-block" /> Activity
                         </h1>
+                        <ol className="relative border-s ml-5 border-[#cc00ff]">
+                            {userActivityLog &&
+                                userActivityLog.findActivities.map((activity: any) => (
+                                    <li key={activity.id} className="mb-2 ms-4">
+                                        <div className="absolute w-3 h-3 bg-[#cc00ff] rounded-full mt-1.5 -start-1.5 border border-[#cc00ff]"></div>
+                                        <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                                            {formatDate(activity.createdAt)}
+                                        </time>
+                                        <h3 className="text-white">{activity.description}</h3>
+                                    </li>
+                                ))}
+                        </ol>
                     </div>
                     <div className="p-4 h-full rounded-lg shadow-lg bg-gray-900">
                         <h1 className="font-bold text-2xl mb-4 text-white">
                             <MdOutlinePrivacyTip className="inline-block" /> Security
                         </h1>
-                        {data && (
+                        {onlineInstances && (
                             <span className="p-2 bg-green-500/20 text-green-300 rounded-lg">
-                                You are currently connected in <span className="font-bold">{data.onlineInstances}</span>{' '}
+                                You are currently connected in <span className="font-bold">{onlineInstances.onlineInstances}</span>{' '}
                                 different places
                             </span>
                         )}

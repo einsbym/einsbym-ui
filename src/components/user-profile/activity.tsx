@@ -3,7 +3,11 @@ import { formatDate } from '@/utils/formatted-date';
 import { useQuery } from '@apollo/client';
 
 export const Activity: React.FC = () => {
-    const { data, loading } = useQuery(FIND_ACTIVITIES);
+    const { data, loading } = useQuery(FIND_ACTIVITIES, {
+        variables: {
+            take: 5,
+        },
+    });
 
     if (loading) {
         return (
@@ -33,12 +37,12 @@ export const Activity: React.FC = () => {
                         </li>
                     ))}
             </ol>
-            <button
-                type="button"
-                className="w-full mt-2 py-2.5 px-5 text-sm font-medium focus:outline-none rounded-lg border focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700"
+            <a
+                href="/profile/settings"
+                className="block w-full text-center cursor-pointer mt-2 py-2.5 px-5 text-sm font-medium focus:outline-none rounded-lg border focus:ring-4 focus:ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700"
             >
                 View all activities
-            </button>
+            </a>
         </div>
     );
 };
