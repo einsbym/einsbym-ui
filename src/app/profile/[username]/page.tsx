@@ -37,8 +37,10 @@ export default function UserProfile() {
                 variables: { username: params.username },
             });
 
-            setLoggedUser(userFromCookie);
-            setUser(data.findUserByUsername);
+            if (data) {
+                setLoggedUser(userFromCookie);
+                setUser(data.findUserByUsername);
+            }
         }
     }, [params, router, findUserBYUsername]);
 
