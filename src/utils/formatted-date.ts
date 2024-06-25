@@ -2,37 +2,27 @@ export const formatDate = (dateString: string): string => {
     // Parse the date string into a Date object
     const date = new Date(dateString);
 
-    // Define month names
-    const monthNames = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
+    const options: Intl.DateTimeFormatOptions = {
+        timeZone: 'America/Sao_Paulo',
+        year: 'numeric',
+        month: 'long',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    };
 
-    // Get month, day, year, and time components
-    const month = monthNames[date.getUTCMonth()];
-    const day = date.getUTCDate();
-    const year = date.getUTCFullYear();
-    let hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes();
+    // Format parts to combine them into the desired output
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    const parts = formatter.formatToParts(date);
 
-    // Convert 24-hour time to 12-hour time
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const month = parts.find((part) => part.type === 'month')?.value || 'Unknown Month';
+    const day = parts.find((part) => part.type === 'day')?.value || '00';
+    const year = parts.find((part) => part.type === 'year')?.value || '0000';
+    const hour = parts.find((part) => part.type === 'hour')?.value || '00';
+    const minute = parts.find((part) => part.type === 'minute')?.value || '00';
 
-    // Format minutes with leading zero if necessary
-    const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedDate = `${month} ${day}, ${year} - ${hour}h${minute}`;
 
-    // Return the formatted date string
-    return `${month} ${day}, ${year} - ${hours}h${minutesFormatted} ${ampm}`;
+    return formattedDate;
 };
