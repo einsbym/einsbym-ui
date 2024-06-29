@@ -94,7 +94,7 @@ export default function UserProfile() {
                             <Management userId={user.id} loggedUserId={loggedUser.id} />
                         </div>
 
-                        <Gallery userId={user.id} />
+                        <Gallery userId={user.id} loggedUserId={loggedUser.id} />
                     </div>
                 </main>
             </>

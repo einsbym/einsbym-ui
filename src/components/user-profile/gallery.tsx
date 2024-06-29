@@ -9,7 +9,7 @@ import GallerySkeleton from '../skeletons/gallery';
 import GallerySideViewer from './gallery-side-viewer';
 import { Activity } from './activity';
 
-export default function Gallery(props: { userId: string }) {
+export default function Gallery(props: { userId: string, loggedUserId?: string | null }) {
     // States
     const [isFileViewerActive, setIsFileViewerActive] = useState<boolean>(false);
     const [selectedFile, setSelectedFile] = useState<{ url: string; fileExtension: string } | null>();
@@ -73,7 +73,7 @@ export default function Gallery(props: { userId: string }) {
                     ))}
             </div>
 
-            <Activity userId={props.userId} />
+            <Activity userId={props.userId} loggedUserId={props.loggedUserId} />
             
             <GallerySideViewer
                 isFileViewerActive={isFileViewerActive}
