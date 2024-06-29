@@ -2,9 +2,14 @@ import { FIND_ACTIVITIES } from '@/graphql/queries/user';
 import { formatDate } from '@/utils/formatted-date';
 import { useQuery } from '@apollo/client';
 
-export const Activity: React.FC = () => {
+interface ActivityProps {
+    userId: string;
+}
+
+export const Activity: React.FC<ActivityProps> = ({ userId }) => {
     const { data, loading } = useQuery(FIND_ACTIVITIES, {
         variables: {
+            userId: userId,
             take: 5,
         },
     });

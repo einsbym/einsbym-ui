@@ -73,7 +73,7 @@ export default function Gallery(props: { userId: string }) {
                     ))}
             </div>
 
-            <Activity />
+            <Activity userId={props.userId} />
             
             <GallerySideViewer
                 isFileViewerActive={isFileViewerActive}

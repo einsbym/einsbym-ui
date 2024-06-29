@@ -49,8 +49,8 @@ export const FIND_USER_STATS = gql`
 `;
 
 export const FIND_ACTIVITIES = gql`
-    query FindActivities($take: Int) {
-        findActivities(take: $take) {
+    query FindActivities($userId: String, $take: Int) {
+        findActivities(userId: $userId, take: $take) {
             id
             description
             createdAt
