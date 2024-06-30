@@ -36,6 +36,13 @@ export const FIND_BLOG_POST = gql`
                     type
                 }
             }
+            user {
+                id
+                firstName
+                lastName
+                username
+                profilePicture
+            }
             views
             isPublished
             tags

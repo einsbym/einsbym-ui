@@ -2,6 +2,7 @@
 
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
+import { backend } from '@/constants/constants';
 import { FIND_BLOG_POST } from '@/graphql/queries/blog';
 import { BlogPostBlocks } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
@@ -22,7 +23,7 @@ export default function ViewBlogPost() {
     const { data, loading } = useQuery(FIND_BLOG_POST, {
         variables: {
             slug: params.slug,
-        }
+        },
     });
 
     if (loading) {
@@ -38,10 +39,27 @@ export default function ViewBlogPost() {
                         {getElapsedTime(data.findBlogPost.createdAt)}
                     </span>
                     {data.findBlogPost.title && (
-                        <h1 className="text-4xl md:text-6xl lg:text-8xl text-md font-bold mb-5 text-[#cc00ff]">{data.findBlogPost.title}</h1>
+                        <h1 className="text-4xl md:text-6xl lg:text-8xl text-md font-bold mb-5 text-[#cc00ff]">
+                            {data.findBlogPost.title}
+                        </h1>
                     )}
                     {data.findBlogPost.description && (
-                        <p className="mb-2 text-2xl md:text-3xl text-gray-600">{data.findBlogPost.description}</p>
+                        <p className="text-2xl md:text-2xl text-gray-400">{data.findBlogPost.description}</p>
+                    )}
+                    {data.findBlogPost.user && (
+                        <div className="flex items-center justify-start gap-2 my-5">
+                            <img
+                                alt={data.findBlogPost.user.username}
+                                src={backend.storageUrl + data.findBlogPost.user.profilePicture}
+                                className="w-14 h-14 rounded-full object-cover"
+                            />
+                            <div>
+                                <p className="font-bold">
+                                    {data.findBlogPost.user.firstName} {data.findBlogPost.user.lastName}
+                                </p>
+                                <p className="text-sm text-gray-400">@{data.findBlogPost.user.username}</p>
+                            </div>
+                        </div>
                     )}
                     {data.findBlogPost.body.blocks.map((block: BlogPostBlocks) => {
                         if (block.type === 'header') {
