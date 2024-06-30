@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 
 interface TagInputProps {
     tags: string[];
@@ -29,19 +30,26 @@ export const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
 
     return (
         <div>
-            <ul>
-                {tags.map((tag, index) => (
-                    <li key={index}>
-                        {tag} <button onClick={() => removeTag(index)}>x</button>
-                    </li>
-                ))}
-            </ul>
+            {tags.length > 0 && (
+                <div className="w-full grid gap-2 grid-cols-6 my-2">
+                    {tags.map((tag, index) => (
+                        <span
+                            key={index}
+                            className="block relative bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 rounded-lg text-center break-words"
+                        >
+                            {tag} <button className='absolute -top-2 -right-2' onClick={() => removeTag(index)}><IoCloseCircleOutline className='text-lg text-red-300' /></button>
+                        </span>
+                    ))}
+                </div>
+            )}
             <input
+                id="tag-input"
                 type="text"
                 value={inputValue}
                 onChange={handleInputChange}
                 onKeyDown={handleInputKeyDown}
                 placeholder="Enter a tag and press Enter"
+                className="p-5 w-full bg-gray-900 rounded-lg shadow-lg focus:outline-none placeholder:text-gray-600"
             />
         </div>
     );
