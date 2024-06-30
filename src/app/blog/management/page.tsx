@@ -8,6 +8,7 @@ import Navbar from '@/components/shared/navbar';
 import { UserType } from '@/types/types';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
+import { TagInput } from './tags-input';
 
 const TextEditor: any = dynamic((): any => import('./text-editor'), { ssr: false });
 
@@ -20,6 +21,7 @@ export default function Create() {
     const [statusMessage, setStatusMessage] = useState<StatusMessage>();
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
+    const [tags, setTags] = useState<string[]>([]);
     const [data, setData] = useState<any[]>([]);
     const [loggedUser, setLoggedUser] = useState<UserType | null>();
 
@@ -67,11 +69,13 @@ export default function Create() {
                         placeholder="Description"
                         onChange={(event) => setDescription(event.target.value)}
                     />
+                    <TagInput tags={tags} setTags={setTags} />
                     <div className="relative">
                         <div id="editorjs" className="relative mt-2 p-5 bg-gray-900 rounded-lg shadow-lg">
                             <TextEditor
                                 title={title}
                                 description={description}
+                                tags={tags}
                                 setData={setData}
                                 setStatusMessage={setStatusMessage}
                             />

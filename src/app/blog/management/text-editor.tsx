@@ -20,6 +20,7 @@ const editor = new EditorJS({
 export default function TextEditor(props: {
     title: string;
     description: string;
+    tags: string[];
     setData: Dispatch<SetStateAction<any[]>>;
     setStatusMessage: Dispatch<SetStateAction<StatusMessage | undefined>>;
 }) {
@@ -36,7 +37,7 @@ export default function TextEditor(props: {
             formData.append('title', props.title);
             formData.append('file', '');
             formData.append('description', props.description);
-            formData.append('tags', JSON.stringify(['feature', 'implementation', 'test', 'integration', 'editorjs']));
+            formData.append('tags', JSON.stringify(props.tags));
 
             // Save data from Editor.JS
             editor
