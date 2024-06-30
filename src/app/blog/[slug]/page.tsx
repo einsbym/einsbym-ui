@@ -8,6 +8,7 @@ import { BlogPostBlocks } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 
 const headerSizes: any = {
     1: 'text-6xl',
@@ -19,12 +20,20 @@ const headerSizes: any = {
 };
 
 export default function ViewBlogPost() {
+    const [selectedFile, setSelectedFile] = useState<string>();
+    const [isViewerOpen, setIsViewerOpen] = useState<boolean>(false);
+
     const params = useParams<{ slug: string }>();
     const { data, loading } = useQuery(FIND_BLOG_POST, {
         variables: {
             slug: params.slug,
         },
     });
+
+    const openViewer = (file: string) => {
+        setSelectedFile(file);
+        setIsViewerOpen(true);
+    };
 
     if (loading) {
         return <Loading />;
@@ -51,11 +60,14 @@ export default function ViewBlogPost() {
                             <img
                                 alt={data.findBlogPost.user.username}
                                 src={backend.storageUrl + data.findBlogPost.user.profilePicture}
-                                className="w-14 h-14 rounded-full object-cover"
+                                className="w-14 h-14 rounded-full object-cover cursor-pointer"
+                                onClick={() => openViewer(data.findBlogPost.user.profilePicture)}
                             />
                             <div>
-                                <p className="font-bold">
-                                    {data.findBlogPost.user.firstName} {data.findBlogPost.user.lastName}
+                                <p className="font-bold hover:text-[#cc00ff]">
+                                    <a href={`/profile/${data.findBlogPost.user.username}`}>
+                                        {data.findBlogPost.user.firstName} {data.findBlogPost.user.lastName}
+                                    </a>
                                 </p>
                                 <p className="text-sm text-gray-400">@{data.findBlogPost.user.username}</p>
                             </div>
@@ -93,6 +105,19 @@ export default function ViewBlogPost() {
                             </span>
                         ))}
                     </div>
+
+                    {isViewerOpen && selectedFile && (
+                        <div
+                            className="fixed px-2 lg-mx-auto inset-0 flex items-center justify-center backdrop-blur-lg bg-black/30"
+                            onClick={() => setIsViewerOpen(false)}
+                        >
+                            <img
+                                className="h-auto lg:h-5/6 rounded-lg"
+                                src={backend.storageUrl + selectedFile}
+                                alt={selectedFile}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
         </>
