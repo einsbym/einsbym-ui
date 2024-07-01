@@ -5,7 +5,7 @@ import Header from '@editorjs/header';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { TbEyeEdit } from 'react-icons/tb';
-import { StatusMessage } from './page';
+import { StatusMessage } from '../../app/blog/management/page';
 
 const editor = new EditorJS({
     /**

@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
 import { TagInput } from '../../../components/blog/tag-input';
 
-const TextEditor: any = dynamic((): any => import('./text-editor'), { ssr: false });
+const TextEditor: any = dynamic((): any => import('../../../components/blog/text-editor'), { ssr: false });
 
 export interface StatusMessage {
     status: string;

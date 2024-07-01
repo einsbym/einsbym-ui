@@ -59,7 +59,7 @@ export default function ViewBlogPost() {
                         <img
                             src={backend.storageUrl + data.findBlogPost.filename}
                             alt={data.findBlogPost.filename}
-                            className="w-full mb-2"
+                            className="block h-[500px] mb-2 mx-auto"
                         />
                     )}
                     {data.findBlogPost.user && (
