@@ -53,7 +53,14 @@ export default function ViewBlogPost() {
                         </h1>
                     )}
                     {data.findBlogPost.description && (
-                        <p className="text-2xl md:text-2xl text-gray-400">{data.findBlogPost.description}</p>
+                        <p className="text-2xl md:text-2xl text-gray-400 mb-5">{data.findBlogPost.description}</p>
+                    )}
+                    {data.findBlogPost.filename && (
+                        <img
+                            src={backend.storageUrl + data.findBlogPost.filename}
+                            alt={data.findBlogPost.filename}
+                            className="w-full mb-2"
+                        />
                     )}
                     {data.findBlogPost.user && (
                         <div className="flex items-center justify-start gap-2 my-5">

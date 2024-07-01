@@ -37,7 +37,10 @@ export const TagInput: React.FC<TagInputProps> = ({ tags, setTags }) => {
                             key={index}
                             className="block relative bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 rounded-lg text-center break-words"
                         >
-                            {tag} <button className='absolute -top-2 -right-2' onClick={() => removeTag(index)}><IoCloseCircleOutline className='text-lg text-red-300' /></button>
+                            {tag}{' '}
+                            <button className="absolute -top-2 -right-2" onClick={() => removeTag(index)}>
+                                <IoCloseCircleOutline className="text-lg text-red-300" />
+                            </button>
                         </span>
                     ))}
                 </div>

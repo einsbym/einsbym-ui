@@ -18,6 +18,7 @@ const editor = new EditorJS({
 });
 
 export default function TextEditor(props: {
+    file: File;
     title: string;
     description: string;
     tags: string[];
@@ -34,8 +35,8 @@ export default function TextEditor(props: {
             const formData = new FormData();
 
             // Append data
+            formData.append('file', props.file);
             formData.append('title', props.title);
-            formData.append('file', '');
             formData.append('description', props.description);
             formData.append('tags', JSON.stringify(props.tags));
 

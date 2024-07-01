@@ -8,7 +8,7 @@ import Navbar from '@/components/shared/navbar';
 import { UserType } from '@/types/types';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
-import { TagInput } from './tags-input';
+import { TagInput } from '../../../components/blog/tag-input';
 
 const TextEditor: any = dynamic((): any => import('./text-editor'), { ssr: false });
 
@@ -23,7 +23,14 @@ export default function Create() {
     const [description, setDescription] = useState<string>('');
     const [tags, setTags] = useState<string[]>([]);
     const [data, setData] = useState<any[]>([]);
+    const [file, setFile] = useState<File>();
     const [loggedUser, setLoggedUser] = useState<UserType | null>();
+
+    const handleFileChange = (element: HTMLInputElement) => {
+        if (element.files) {
+            setFile(element.files[0]);
+        }
+    };
 
     // Check if the current user is an admin
     const checkUserPrivileges = useCallback(async () => {
@@ -57,6 +64,13 @@ export default function Create() {
             <div className="w-full flex items-center justify-center">
                 <div className="w-1/3 mt-20">
                     <input
+                        className="mb-2 block w-full text-sm rounded-lg cursor-pointer text-gray-600 focus:outline-none bg-gray-900 placeholder-gray-600"
+                        id="fileInput"
+                        type="file"
+                        onChange={(e) => handleFileChange(e.target)}
+                    />
+
+                    <input
                         id="title"
                         className="p-5 w-full bg-gray-900 rounded-lg shadow-lg focus:outline-none placeholder:text-gray-600"
                         type="text"
@@ -73,6 +87,7 @@ export default function Create() {
                     <div className="relative">
                         <div id="editorjs" className="relative mt-2 p-5 bg-gray-900 rounded-lg shadow-lg">
                             <TextEditor
+                                file={file}
                                 title={title}
                                 description={description}
                                 tags={tags}
