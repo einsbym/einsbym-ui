@@ -60,6 +60,7 @@ export default function ViewBlogPost() {
                             src={backend.storageUrl + data.findBlogPost.filename}
                             alt={data.findBlogPost.filename}
                             className="block h-[500px] mb-2 mx-auto"
+                            onClick={() => openViewer(data.findBlogPost.filename)}
                         />
                     )}
                     {data.findBlogPost.user && (
