@@ -12,6 +12,7 @@ interface DisplayFilesProps {
 
 export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId }) => {
     const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     return (
         <div
@@ -21,7 +22,7 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
         >
             {currentFiles.length <= 4 &&
                 currentFiles.map((file) => (
-                    <div key={file.id} className="group relative">
+                    <div key={file.id}>
                         {file.fileType === 'video/mp4' && (
                             <div className="relative w-full rounded-lg">
                                 <ReactPlayer
@@ -44,13 +45,14 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                             </div>
                         )}
                         {file.fileType !== 'video/mp4' && (
-                            <div className="relative">
+                            <div className={`relative ${selectedImage && 'blur-sm'}`}>
                                 <img
                                     alt={file.filename}
                                     src={backend.storageUrl + file.filename}
                                     className={`w-full h-[200px] ${
                                         currentFiles.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
                                     } object-cover rounded-lg`}
+                                    onClick={() => setSelectedImage(file.filename)}
                                 />
                                 {!loggedUserId && (
                                     <RemoveFile
@@ -64,6 +66,19 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                         )}
                     </div>
                 ))}
+
+            {selectedImage && (
+                <div
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+                    onClick={() => setSelectedImage(null)}
+                >
+                    <img
+                        alt={'selectedImage'}
+                        src={backend.storageUrl + selectedImage}
+                        className="w-full rounded-lg shadow-lg"
+                    />
+                </div>
+            )}
 
             {currentFiles.length > 4 && <SlideShow files={currentFiles} loggedUserId={loggedUserId} />}
         </div>
