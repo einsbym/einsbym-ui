@@ -18,17 +18,18 @@ export default function Blog() {
     return (
         <>
             <Navbar />
-            <div className="mt-20 mb-2 ml-5 p-5 w-fit text-8xl bg-[#cc00ff] text-black font-bold uppercase underline-offset-8">
-                Blog
-            </div>
             {data && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-2 p-5">
+                <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-2 p-5">
                     {data.findBlogPosts.map((post: BlogPost) => (
                         <div
                             key={post.id}
                             className="flex gap-4 flex-col bg-gray-900 p-5 rounded-lg shadow-lg border-l-4 border-[#cc00ff] hover:border-gray-900 hover:bg-[#cc00ff] group transition-all duration-200"
                         >
-                            <img src={backend.storageUrl + post.filename} alt={post.filename} className="w-full h-[300px] object-cover" />
+                            <img
+                                src={backend.storageUrl + post.filename}
+                                alt={post.filename}
+                                className="w-full h-[300px] object-cover"
+                            />
                             <div>
                                 <span className="text-sm text-[#cc00ff] group-hover:text-black">
                                     {getElapsedTime(post.createdAt)}
