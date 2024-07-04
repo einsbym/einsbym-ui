@@ -71,7 +71,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                     {/* Display files (if any) */}
                     {props.post.files.length > 0 && <DisplayFiles files={props.post.files} loggedUserId={props.loggedUserId} />}
 
-                    <div className="flex gap-2 justify-end">
+                    <div className="flex mt-2 lg:mt-0 lg:gap-2 justify-evenly lg:justify-end">
                         <LikeButton
                             postId={props.post.id}
                             liked={props.post.likes?.some((like) =>
@@ -81,14 +81,14 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                             likes={props.post.likes}
                         />
                         <button
-                            className="flex items-center gap-2 text-sm lg:bg-gray-900 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
+                            className="flex items-center gap-2 text:lg lg:text-sm lg:bg-gray-900 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                             onClick={() => {
                                 setAreCommentsVisible(!areCommentsVisible);
                             }}
                         >
                             <FaRegCommentAlt size={13} /> {props.post.totalComments}
                         </button>
-                        <button className="flex items-center gap-2 text-sm lg:bg-gray-900 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
+                        <button className="flex items-center gap-2 text:lg lg:text-sm lg:bg-gray-900 text-white rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200">
                             <FaRegShareSquare size={13} /> 0
                         </button>
                     </div>

@@ -52,7 +52,7 @@ const LikeButton = (props: { initialLikes: number; postId: string; liked: boolea
     return (
         <div className="relative">
             <button
-                className="flex items-center gap-2 text-sm lg:bg-transparent text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
+                className="flex items-center gap-2 text:lg lg:text-sm lg:bg-transparent text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
                 onClick={handleLikePost}
                 onMouseEnter={() => setLikesPopoverVisible(true)}
                 onMouseLeave={() => setLikesPopoverVisible(false)}
