@@ -3,26 +3,165 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background: #040D12;
+    --foreground-rgb: 0, 0, 0;
+    --background: #040d12;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-end-rgb: rgb(225, 0, 255);
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-end-rgb: rgb(225, 0, 255);
+    }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: var(--background);
+    color: rgb(var(--foreground-rgb));
+    background: var(--background);
 }
 
-.grid-image {
-  transition: all ease-in-out .3s;
+.animated-shadow {
+    animation: AnimatedShadow 5s ease infinite;
 }
 
-.grid-image:hover {
-  box-shadow: 0px 10px 50px #cc00ff69;
+@keyframes AnimatedShadow {
+    0% {
+        box-shadow: #cc00ff3a 0px 4px 16px, #cc00ff3a 0px 8px 32px;
+    }
+    25% {
+        box-shadow: #cc00ff3a 0px 1px 0px, #cc00ff3a 0px 8px 24px, #cc00ff3a 0px 16px 48px;
+    }
+    50% {
+        box-shadow: #cc00ff3a 0px 8px 24px, #cc00ff3a 0px 16px 56px, #cc00ff3a 0px 24px 80px;
+    }
+    75% {
+        box-shadow: #cc00ff3a 0px 1px 0px, #cc00ff3a 0px 8px 24px, #cc00ff3a 0px 16px 48px;
+    }
+    100% {
+        box-shadow: #cc00ff3a 0px 4px 16px, #cc00ff3a 0px 8px 32px;
+    }
+}
+
+.animated-gradient-bg {
+    background: linear-gradient(334deg, #cc00ff, rgb(165, 10, 126), #9635c3);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimatedGradient 12s ease infinite;
+    -moz-animation: AnimatedGradient 12s ease infinite;
+    animation: AnimatedGradient 12s ease infinite;
+}
+
+@-webkit-keyframes AnimatedGradient {
+    0% {
+        background-position: 18% 0%;
+    }
+    50% {
+        background-position: 83% 100%;
+    }
+    100% {
+        background-position: 18% 0%;
+    }
+}
+@-moz-keyframes AnimatedGradient {
+    0% {
+        background-position: 18% 0%;
+    }
+    50% {
+        background-position: 83% 100%;
+    }
+    100% {
+        background-position: 18% 0%;
+    }
+}
+@keyframes AnimatedGradient {
+    0% {
+        background-position: 18% 0%;
+    }
+    50% {
+        background-position: 83% 100%;
+    }
+    100% {
+        background-position: 18% 0%;
+    }
+}
+
+.loading-more-data {
+    background: linear-gradient(268deg, #9800ff, #d28fff, #d400df);
+    background-size: 600% 600%;
+
+    -webkit-animation: LoadingMoreData 2s ease infinite;
+    animation: LoadingMoreData 2s ease infinite;
+}
+
+@-webkit-keyframes LoadingMoreData {
+    0%{background-position:0% 49%}
+    50%{background-position:100% 52%}
+    100%{background-position:0% 49%}
+}
+@keyframes LoadingMoreData {
+    0%{background-position:0% 49%}
+    50%{background-position:100% 52%}
+    100%{background-position:0% 49%}
+}
+
+.child {
+    opacity: 0; /* Hide children by default */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.parent:hover .child {
+    opacity: 1; /* Show children on hover */
+}
+
+/* prevent browsers from overriding the input field styles when autofilling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    box-shadow: 0 0 0 1000px transparent inset;
+    -webkit-text-fill-color: white;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Editor.js styles */
+
+.ce-inline-toolbar__toggler-and-button-wrapper,
+.ce-conversion-tool,
+.cdx-search-field__input {
+    color: black;
+}
+
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn {
+    color: white;
+}
+
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn:hover {
+    color: black;
+}
+
+.ce-block--selected .ce-block__content {
+    background: rgba(0, 0, 0, 0.089);
+}
+
+.ce-block__content {
+    max-width: none;
+    width: 100%;
+}
+
+.ce-toolbar__content {
+    max-width: none;
+    margin: auto;
+    position: relative;
+}
+
+.ce-toolbar__actions {
+    width: fit-content;
+    right: auto;
+    left: -70px;
+}
+
+.ce-inline-tool-input {
+    color: black;
 }

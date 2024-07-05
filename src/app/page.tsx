@@ -1,82 +1,71 @@
 'use client';
 
-import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
-import { Image } from '@/interfaces/interfaces';
+import { Gallery } from '@/components/homepage/gallery';
+import ButtonGroup from '@/components/shared/button-group';
+import Navbar from '@/components/shared/navbar';
+import GallerySkeleton from '@/components/skeletons/gallery';
+import { FILES } from '@/graphql/queries/file';
+import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { storageUrl } from '../constants/constants';
-import { IMAGES } from '@/graphql/queries/image';
+import { useCallback, useEffect, useState } from 'react';
+import { LoadMore } from '../components/shared/load-more';
 
 export default function Home() {
-    const [images, setImages] = useState<Image[]>([]);
-    const router = useRouter();
-    const {data, loading, error} = useQuery(IMAGES);
+    // States
+    const [files, setFiles] = useState<PostFileType[]>([]);
+    const [page, setPage] = useState<number>(1);
 
-    const viewImage = (image: Image) => {
-        router.push(`/view-image?image=${image.id}`);
-    };
+    // Queries
+    const { data, loading, fetchMore } = useQuery(FILES, {
+        variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page },
+        notifyOnNetworkStatusChange: true,
+    });
 
-    const fetchData = async () => {
-        try {
-            if (data) {
-                setImages(data.images);
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
+    const loadMore = useCallback(async () => {
+        if (data && files.length === 0) {
+            setFiles(data.files);
+            return;
         }
-    };
 
-    useEffect(() => {
-        fetchData();
-    }, [data]);
+        await fetchMore({
+            variables: { fileTypes: ['image/jpeg', 'image/png', 'image/gif'], page: page + 1 },
+            updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                setFiles([...files, ...fetchMoreResult.files]);
+            },
+        });
+        setPage(page + 1);
+    }, [page, fetchMore, files, data]);
 
     return (
         <>
-            <main className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
-                <Navbar />
+            <Navbar />
 
-                {loading && (
-                    <div className="flex flex-wrap gap-2 lg:grid-cols-4">
-                        <div
-                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
-                        ></div>
-                        <div
-                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
-                        ></div>
-                        <div
-                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
-                        ></div>
-                        <div
-                            className={`w-[500px] lg:grow lg:w-[auto] h-[500px] animate-pulse cursor-pointer rounded-lg object-cover bg-gray-100`}
-                        ></div>
-                    </div>
-                )}
+            <ButtonGroup />
 
-                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
-                    {images &&
-                        images.map((image, index) => (
-                            <div key={image.id}>
-                                <img
-                                    className={`grid-image w-[500px] h-[500px] cursor-pointer rounded-lg object-cover`}
-                                    src={storageUrl + image.filename}
-                                    onClick={() => viewImage(image)}
-                                />
-                            </div>
-                        ))}
+            {files.length === 0 && loading && (
+                <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" />
                 </div>
+            )}
 
-                {images.length === 0 && !loading ? (
-                    <div className="flex justify-center">
-                        <div className="text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
-                            There's nothing to show here
-                        </div>
-                    </div>
-                ) : null}
-            </main>
+            <Gallery files={files} />
 
-            <Footer />
+            {files.length > 0 && loading && (
+                <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" margin="mt-2" />
+                </div>
+            )}
+
+            {data && data.files.length !== 0 && <LoadMore loadMore={loadMore} />}
+
+            <div className='w-full h-20 md:hidden lg:hidden'></div>
+
+            {files.length === 0 && !loading && (
+                <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
+                    There&apos;s nothing to show here
+                </div>
+            )}
         </>
     );
 }

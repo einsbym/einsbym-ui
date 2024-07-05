@@ -1,52 +1,56 @@
 'use client';
 
-import Footer from '@/components/footer';
-import Navbar from '@/components/navbar';
-import { User } from '@/interfaces/interfaces';
-import { AuthService } from '@/services/auth-config';
+import { AuthService } from '@/auth/auth.service';
+import Loading from '@/components/shared/loading';
+import Navbar from '@/components/shared/navbar';
+import CoverAndPhoto from '@/components/user-profile/profile-images/cover-and-photo';
+import Management from '@/components/user-profile/user-post/management';
+import { UserType } from '@/types/types';
 import { useEffect, useState } from 'react';
-import UserBioAndPost from './components/user-bio-and-post';
-import UserBlurredCover from './components/user-blurred-cover';
-import UserCoverAndPhoto from './components/user-cover-and-photo';
-import UserGallery from './components/user-gallery';
-import UserGeneralStatistics from './components/user-general-statistics';
+import UserBio from '../../components/user-profile/bio';
+import Gallery from '../../components/user-profile/gallery';
+import GeneralStatistics from '../../components/user-profile/general-statistics';
 
 export default function UserProfile() {
-    const [user, setUser] = useState<User | null>();
+    const [user, setUser] = useState<UserType | null>();
 
     useEffect(() => {
         new AuthService().getUser(setUser);
     }, []);
 
+    if (!user) {
+        return <Loading />;
+    }
+
     return (
         <>
-            <UserBlurredCover coverImage={user?.coverImage || ''} />
+            <Navbar />
 
-            <main className="mx-auto lg:pt-12">
-                <Navbar />
-
+            <main className="mx-auto">
                 {/* User's cover and profile picture */}
-                <UserCoverAndPhoto
-                    id={user?.id || ''}
-                    firstName={user?.firstName || ''}
-                    lastName={user?.lastName || ''}
-                    coverImage={user?.coverImage || ''}
-                    profileImage={user?.profilePicture || ''}
+                <CoverAndPhoto
+                    id={user.id}
+                    firstName={user.firstName}
+                    lastName={user.lastName}
+                    username={user.username}
+                    coverImage={user.coverImage}
+                    profileImage={user.profilePicture}
                 />
 
-                {/* General statistics */}
-                <UserGeneralStatistics />
+                {/* User's stats */}
+                <GeneralStatistics username={user.username} />
 
                 {/* User's content */}
-                <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-5">
+                <div className="grid grid-cols-1 w-11/12 lg:grid-cols-2 gap-4 lg:w-4/5 mx-auto mt-2">
                     <div>
-                        <UserBioAndPost userId={user?.id || ''} bio={user?.bio || ''} />
+                        <UserBio userId={user.id} bio={user.bio} />
+
+                        {/* Publish and view post */}
+                        <Management userId={user.id} />
                     </div>
 
-                    <UserGallery userId={user?.id || ''} />
+                    <Gallery userId={user.id} />
                 </div>
-
-                <Footer />
             </main>
         </>
     );

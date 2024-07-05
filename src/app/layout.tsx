@@ -1,12 +1,15 @@
+import { ApolloWrapper } from '@/graphql/apollo-provider/apollo-provider';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ApolloWrapper } from '@/apollo-provider/apollo-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Einsbym',
+    title: {
+        template: 'Einsbym | %s',
+        default: 'Einsbym',
+    },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
