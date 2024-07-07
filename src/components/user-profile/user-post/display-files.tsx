@@ -3,6 +3,7 @@ import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
 import { useState } from 'react';
 import ReactPlayer from 'react-player';
+import { ImageViewer } from './image-viewer';
 import { RemoveFile } from './remove-file';
 
 interface DisplayFilesProps {
@@ -67,18 +68,7 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                     </div>
                 ))}
 
-            {selectedImage && (
-                <div
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
-                    onClick={() => setSelectedImage(null)}
-                >
-                    <img
-                        alt={'selectedImage'}
-                        src={backend.storageUrl + selectedImage}
-                        className="w-full rounded-lg shadow-lg"
-                    />
-                </div>
-            )}
+            {selectedImage && <ImageViewer selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
 
             {currentFiles.length > 4 && <SlideShow files={currentFiles} loggedUserId={loggedUserId} />}
         </div>
