@@ -2,7 +2,7 @@ import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
 import React, { useState } from 'react';
 import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
-import { RemoveFile } from './remove-file';
+import { FileMenu } from './file-menu';
 
 interface SlideShowProps {
     files: PostFileType[];
@@ -30,20 +30,19 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => 
                             key={file.id}
                             className={index === activeIndex ? 'flex justify-center items-center' : 'hidden'}
                         >
-                            <div className="relative">
+                            <div className="relative group">
                                 <img
                                     src={backend.storageUrl + file.filename}
                                     alt={`Slide ${index + 1}`}
                                     className="h-full md:h-[500px]"
                                 />
-                                {!loggedUserId && (
-                                    <RemoveFile
-                                        file={file}
-                                        files={files}
-                                        currentFiles={currentFiles}
-                                        setCurrentFiles={setCurrentFiles}
-                                    />
-                                )}
+                                <FileMenu
+                                    loggedUserId={loggedUserId}
+                                    file={file}
+                                    files={files}
+                                    currentFiles={currentFiles}
+                                    setCurrentFiles={setCurrentFiles}
+                                />
                             </div>
                         </div>
                     ))}

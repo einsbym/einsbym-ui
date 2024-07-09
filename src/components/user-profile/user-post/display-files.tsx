@@ -36,14 +36,6 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     muted
                                     light={false}
                                 />
-                                {!loggedUserId && (
-                                    <RemoveFile
-                                        file={file}
-                                        files={files}
-                                        currentFiles={currentFiles}
-                                        setCurrentFiles={setCurrentFiles}
-                                    />
-                                )}
                             </div>
                         )}
                         {file.fileType !== 'video/mp4' && (
