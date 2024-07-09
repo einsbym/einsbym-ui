@@ -3,10 +3,9 @@ import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
 import { useState } from 'react';
 import ReactPlayer from 'react-player';
+import { FileMenu } from './file-menu';
 import { ImageViewer } from './image-viewer';
 import { RemoveFile } from './remove-file';
-import { MdDelete } from 'react-icons/md';
-import { BsThreeDots } from 'react-icons/bs';
 
 interface DisplayFilesProps {
     files: PostFileType[];
@@ -16,7 +15,6 @@ interface DisplayFilesProps {
 export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId }) => {
     const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const [displayFileOptions, setDisplayFileOptions] = useState<boolean>(false);
 
     return (
         <div
@@ -59,24 +57,13 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     onClick={() => setSelectedImage(file.filename)}
                                 />
 
-                                {!loggedUserId && displayFileOptions && (
-                                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 p-2 rounded-lg shadow-lg">
-                                        <p>report image</p>
-                                        <p>delete this image</p>
-                                    </div>
-                                )}
-
-                                <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 group-hover:bottom-5 cursor-pointer transition-all duration-300" onClick={() => setDisplayFileOptions(true)}>
-                                    <BsThreeDots className="text-2xl" />
-                                </div>
-                                {!loggedUserId && (
-                                    <RemoveFile
-                                        file={file}
-                                        files={files}
-                                        currentFiles={currentFiles}
-                                        setCurrentFiles={setCurrentFiles}
-                                    />
-                                )}
+                                <FileMenu
+                                    loggedUserId={loggedUserId}
+                                    file={file}
+                                    files={files}
+                                    currentFiles={currentFiles}
+                                    setCurrentFiles={setCurrentFiles}
+                                />
                             </div>
                         )}
                     </div>
