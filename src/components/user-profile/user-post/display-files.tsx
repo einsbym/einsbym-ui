@@ -3,6 +3,7 @@ import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
 import { useState } from 'react';
 import ReactPlayer from 'react-player';
+import { FileMenu } from './file-menu';
 import { ImageViewer } from './image-viewer';
 import { RemoveFile } from './remove-file';
 
@@ -35,18 +36,10 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     muted
                                     light={false}
                                 />
-                                {!loggedUserId && (
-                                    <RemoveFile
-                                        file={file}
-                                        files={files}
-                                        currentFiles={currentFiles}
-                                        setCurrentFiles={setCurrentFiles}
-                                    />
-                                )}
                             </div>
                         )}
                         {file.fileType !== 'video/mp4' && (
-                            <div className={`relative ${selectedImage && 'blur-sm'}`}>
+                            <div className={`relative group overflow-hidden ${selectedImage && 'blur-sm'}`}>
                                 <img
                                     alt={file.filename}
                                     src={backend.storageUrl + file.filename}
@@ -55,14 +48,14 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     } object-cover rounded-lg`}
                                     onClick={() => setSelectedImage(file.filename)}
                                 />
-                                {!loggedUserId && (
-                                    <RemoveFile
-                                        file={file}
-                                        files={files}
-                                        currentFiles={currentFiles}
-                                        setCurrentFiles={setCurrentFiles}
-                                    />
-                                )}
+
+                                <FileMenu
+                                    loggedUserId={loggedUserId}
+                                    file={file}
+                                    files={files}
+                                    currentFiles={currentFiles}
+                                    setCurrentFiles={setCurrentFiles}
+                                />
                             </div>
                         )}
                     </div>
