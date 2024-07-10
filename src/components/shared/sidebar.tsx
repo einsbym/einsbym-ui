@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { FaRegNewspaper, FaVideo } from 'react-icons/fa';
 import { IoIosArrowBack } from 'react-icons/io';
 import { RiGalleryView2 } from 'react-icons/ri';
@@ -9,8 +9,28 @@ interface SidebarProps {
 }
 
 export default function Sidebar(props: SidebarProps) {
+    const viewerRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = useCallback(
+        (event: MouseEvent) => {
+            if (viewerRef.current && !viewerRef.current.contains(event.target as Node)) {
+                props.setIsSidebarActive(false);
+            }
+        },
+        [viewerRef, props],
+    );
+
+    useEffect(() => {
+        // Add event listener on document click when menu is open
+        document.addEventListener('mousedown', handleClickOutside);
+
+        // Cleanup function to remove listener on unmount
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [props.isSidebarActive, handleClickOutside]);
+    
     return (
         <div
+            ref={viewerRef}
             id="drawer-navigation"
             className={`fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto ${
                 props.isSidebarActive ? null : '-translate-x-full'
