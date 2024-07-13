@@ -18,7 +18,7 @@ export const Gallery: React.FC<GalleryProps> = ({ files }) => {
     };
 
     return (
-        <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
             {files.map((file) => (
                 <div key={file.id} className="relative">
                     <img
