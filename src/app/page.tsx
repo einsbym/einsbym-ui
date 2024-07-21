@@ -1,13 +1,12 @@
 'use client';
 
 import { Gallery } from '@/components/homepage/gallery';
-import ButtonGroup from '@/components/shared/button-group';
 import Navbar from '@/components/shared/navbar';
 import GallerySkeleton from '@/components/skeletons/gallery';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { LoadMore } from '../components/shared/load-more';
 
 export default function Home() {
@@ -57,7 +56,7 @@ export default function Home() {
 
             {data && data.files.length !== 0 && <LoadMore loadMore={loadMore} />}
 
-            <div className='w-full h-20 md:hidden lg:hidden'></div>
+            <div className="w-full h-20 md:hidden lg:hidden"></div>
 
             {files.length === 0 && !loading && (
                 <div className="mx-auto text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
