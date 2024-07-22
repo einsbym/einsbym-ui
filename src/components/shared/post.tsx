@@ -26,7 +26,7 @@ export default function Post(props: { postId: string }) {
 
     if (post) {
         return (
-            <div className="mt-2 lg:mt-0 w-full lg:w-2/6 lg:h-4/5 px-5">
+            <div className="mt-2 lg:mt-0 w-full lg:w-2/6 lg:h-4/5 px-5 lg:overflow-hidden lg:overflow-y-scroll">
                 <div className="relative w-full text-sm rounded-lg shadow-lg text-white bg-black p-3">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-base font-semibold leading-none text-white">

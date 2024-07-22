@@ -34,8 +34,8 @@ export default function Videos() {
         <>
             <Navbar />
 
-            <div className="flex flex-col lg:flex-row items-center justify-center h-screen">
-                <div className="relative px-5 lg:px-0 lg:h-4/5 shadow-xl">
+            <div className="flex flex-col lg:flex-row items-center justify-center lg:h-screen">
+                <div className="relative px-5 lg:px-0 lg:h-4/5 shadow-xl mt-20 lg:mt-0">
                     <img
                         src={backend.storageUrl + file.filename}
                         alt={file.filename}
