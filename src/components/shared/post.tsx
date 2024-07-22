@@ -5,6 +5,7 @@ import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import Comments from './comments';
+import { IsUserCurrentlyOnline } from './is-user-currently-online';
 
 export default function Post(props: { postId: string }) {
     // States
@@ -39,6 +40,7 @@ export default function Post(props: { postId: string }) {
                             <div className="flex flex-col">
                                 <span>
                                     {post.user.firstName} {post.user.lastName}
+                                    <IsUserCurrentlyOnline username={post.user.username} />
                                 </span>
                                 <span className="hover:underline text-sm font-normal text-gray-400">
                                     @{post.user.username}
