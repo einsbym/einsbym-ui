@@ -4,7 +4,7 @@ import { PostType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import Comments from './comments';
+import Comments from '../videos/comments';
 
 export default function Post(props: { postId: string }) {
     // States
@@ -25,7 +25,7 @@ export default function Post(props: { postId: string }) {
 
     if (post) {
         return (
-            <div className="w-2/6 h-screen pt-20 px-5">
+            <div className="w-2/6 h-4/5 px-5">
                 <div className="relative w-full text-sm rounded-lg shadow-lg text-white bg-black p-3">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-base font-semibold leading-none text-white">
@@ -40,7 +40,9 @@ export default function Post(props: { postId: string }) {
                                 <span>
                                     {post.user.firstName} {post.user.lastName}
                                 </span>
-                                <span className="hover:underline text-sm font-normal text-gray-400">@{post.user.username}</span>
+                                <span className="hover:underline text-sm font-normal text-gray-400">
+                                    @{post.user.username}
+                                </span>
                             </div>
                         </div>
                         <div>

@@ -2,7 +2,7 @@
 
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
-import Post from '@/components/videos/post';
+import Post from '@/components/shared/post';
 import { backend } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
