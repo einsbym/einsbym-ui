@@ -4,7 +4,7 @@ import { PostType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import Comments from '../videos/comments';
+import Comments from './comments';
 
 export default function Post(props: { postId: string }) {
     // States
@@ -25,11 +25,11 @@ export default function Post(props: { postId: string }) {
 
     if (post) {
         return (
-            <div className="w-2/6 h-4/5 px-5">
+            <div className="mt-2 lg:mt-0 w-full lg:w-2/6 lg:h-4/5 px-5">
                 <div className="relative w-full text-sm rounded-lg shadow-lg text-white bg-black p-3">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2 text-base font-semibold leading-none text-white">
-                            <a href={`profile/${post.user.username}`}>
+                            <a href={`/profile/${post.user.username}`}>
                                 <img
                                     className="w-10 h-10 rounded-full object-cover"
                                     src={backend.storageUrl + post.user.profilePicture}
