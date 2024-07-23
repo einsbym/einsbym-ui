@@ -5,7 +5,6 @@ import { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { FileMenu } from './file-menu';
 import { ImageViewer } from './image-viewer';
-import { RemoveFile } from './remove-file';
 
 interface DisplayFilesProps {
     files: PostFileType[];
@@ -46,7 +45,6 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     className={`w-full h-[200px] ${
                                         currentFiles.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
                                     } object-cover rounded-lg`}
-                                    onClick={() => setSelectedImage(file.filename)}
                                 />
 
                                 <FileMenu
@@ -55,6 +53,7 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     files={files}
                                     currentFiles={currentFiles}
                                     setCurrentFiles={setCurrentFiles}
+                                    setSelectedImage={setSelectedImage}
                                 />
                             </div>
                         )}
