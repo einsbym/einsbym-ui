@@ -7,6 +7,8 @@ import { FIND_BLOG_POSTS } from '@/graphql/queries/blog';
 import { BlogPost } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function Blog() {
     const { data, loading } = useQuery(FIND_BLOG_POSTS);
@@ -44,15 +46,19 @@ export default function Blog() {
                                 {post.description && (
                                     <p className="text-white group-hover:text-black">{post.description}</p>
                                 )}
-                                <div className="mt-5 w-full overflow-x-scroll flex gap-2">
-                                    {post.tags.map((tag: string) => (
-                                        <span
-                                            key={tag}
-                                            className="bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 rounded-lg text-center text-nowrap"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
+                                <div className="mt-5 w-full overflow-x-hidden">
+                                    <PerfectScrollbar>
+                                        <div className="flex gap-2">
+                                            {post.tags.map((tag: string) => (
+                                                <div
+                                                    key={tag}
+                                                    className="bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 w-fit rounded-lg text-center text-nowrap"
+                                                >
+                                                    {tag}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </PerfectScrollbar>
                                 </div>
                             </div>
                         </div>
