@@ -5,6 +5,7 @@ const protectedRoutes = [
     /^\/profile(?:\/.*)?$/, // Matches /profile and any sub-paths like /profile/settings
     /^\/videos$/, // Matches /videos
     /^\/blog\/management$/, // Matches /blog and any sub-paths like /blog/management
+    /^\/view-image(?:\/.*)?$/, // Matches /view-image and any sub-paths
 ];
 const authRoutes = ['/auth/signin'];
 const publicRoutes = ['/', '/about', '/blog'];
