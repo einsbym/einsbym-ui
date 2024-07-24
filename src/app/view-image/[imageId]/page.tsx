@@ -32,6 +32,8 @@ export default function Videos() {
 
     return (
         <>
+            <title>Einsbym - View image</title>
+
             <Navbar />
 
             <div className="flex flex-col lg:flex-row items-center justify-center lg:h-screen">

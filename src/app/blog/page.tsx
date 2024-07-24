@@ -7,6 +7,7 @@ import { FIND_BLOG_POSTS } from '@/graphql/queries/blog';
 import { BlogPost } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
+import Head from 'next/head';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
@@ -19,7 +20,10 @@ export default function Blog() {
 
     return (
         <>
+            <title>Blog</title>
+
             <Navbar />
+
             {data && (
                 <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-2 p-5">
                     {data.findBlogPosts.map((post: BlogPost) => (

@@ -60,7 +60,10 @@ export default function Create() {
 
     return (
         <>
+            <title>Management | Blog</title>
+
             <Navbar />
+
             <div className="w-full flex items-center justify-center">
                 <div className="w-1/3 mt-20">
                     <input

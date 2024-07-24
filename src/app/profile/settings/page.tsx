@@ -23,11 +23,14 @@ export default function UserSettings() {
 
     return (
         <>
+            <title>{`Settings | ${user.username}`}</title>
+
             <Navbar />
+
             <main className="flex px-4 items-center justify-center w-full h-screen">
                 <div className="h-3/4 flex-grow gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                     <Account />
-                    
+
                     <Activity />
 
                     <Security />

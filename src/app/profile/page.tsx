@@ -24,6 +24,8 @@ export default function UserProfile() {
 
     return (
         <>
+            <title>{`Profile | ${user.username}`}</title>
+
             <Navbar />
 
             <main className="mx-auto">

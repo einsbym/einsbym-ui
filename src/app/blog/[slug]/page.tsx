@@ -41,7 +41,10 @@ export default function ViewBlogPost() {
 
     return (
         <>
+            <title>{`${data.findBlogPost.title} | Blog`}</title>
+
             <Navbar />
+
             {data && (
                 <div className="w-11/12 md:w-1/2 mx-auto mt-20 mb-5">
                     <span className="text-sm text-[#cc00ff] group-hover:text-black">

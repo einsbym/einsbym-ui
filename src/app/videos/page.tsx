@@ -63,6 +63,8 @@ export default function Videos() {
 
     return (
         <>
+            <title>Videos</title>
+
             <Navbar />
 
             {files &&

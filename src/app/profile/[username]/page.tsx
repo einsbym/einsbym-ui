@@ -68,6 +68,8 @@ export default function UserProfile() {
         user &&
         loggedUser && (
             <>
+                <title>{`Profile | ${user.username}`}</title>
+
                 <Navbar />
 
                 <main className="mx-auto">
