@@ -1,7 +1,7 @@
 import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
 import React, { useState } from 'react';
-import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { FileMenu } from './file-menu';
 
 interface SlideShowProps {
@@ -73,21 +73,17 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => 
                 </div>
                 <button
                     type="button"
-                    className="absolute top-0 start-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                    className="absolute lg:opacity-0 hover:lg:opacity-100 top-0 start-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none transition-opacity duration-300"
                     onClick={handlePrev}
                 >
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-focus:ring-4 group-focus:ring-[#cc00ff]/70 group-focus:outline-none">
-                        <IoIosArrowDropleft className="text-xl text-[#cc00ff]" />
-                    </span>
+                    <FaArrowLeft className="text-[#cc00ff]" />
                 </button>
                 <button
                     type="button"
-                    className="absolute top-0 end-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                    className="absolute lg:opacity-0 hover:lg:opacity-100 top-0 end-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none transition-opacity duration-300"
                     onClick={handleNext}
                 >
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#cc00ff]/20 group-focus:ring-4 group-focus:ring-[#cc00ff]/70 group-focus:outline-none">
-                        <IoIosArrowDropright className="text-xl text-[#cc00ff]" />
-                    </span>
+                    <FaArrowRight className="text-[#cc00ff]" />
                 </button>
             </div>
         )
