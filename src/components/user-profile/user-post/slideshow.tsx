@@ -24,11 +24,13 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => 
     return (
         currentFiles.length > 0 && (
             <div className="relative w-full h-full md:h-[500px]">
-                <div className="relative overflow-hidden rounded-lg md:rounded-none">
+                <div className="flex justify-center overflow-hidden rounded-lg md:rounded-none">
                     {currentFiles.map((file, index) => (
                         <div
                             key={file.id}
-                            className={index === activeIndex ? 'flex justify-center items-center' : 'hidden'}
+                            className={`flex justify-center transition-opacity duration-500 transform ${
+                                index === activeIndex ? 'opacity-100' : 'opacity-0 w-0'
+                            }`}
                         >
                             <div className="relative group">
                                 <img
@@ -44,7 +46,9 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => 
                                     setCurrentFiles={setCurrentFiles}
                                 />
                             </div>
-                            <div className="absolute bottom-2 right-2 p-2 rounded-md bg-[#cc00ff]/20 text-[#cc00ff]">
+                            <div
+                                className={`${index === activeIndex ? 'absolute bottom-2 right-2 p-2 rounded-md bg-[#cc00ff]/20 text-[#cc00ff]' : 'hidden'}`}
+                            >
                                 {index + 1}/{currentFiles.length}
                             </div>
                         </div>
