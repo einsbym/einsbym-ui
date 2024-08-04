@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface LoadMoreProps {
     loadMore: any;
@@ -36,5 +36,5 @@ export const LoadMore: React.FC<LoadMoreProps> = ({ loadMore }) => {
         };
     }, [loadMore]);
 
-    return <div ref={observerRef} className='h-[100px] lg:h-[50px]' />;
+    return <div ref={observerRef} className="h-[100px] lg:h-[50px]" />;
 };
