@@ -44,6 +44,9 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => 
                                     setCurrentFiles={setCurrentFiles}
                                 />
                             </div>
+                            <div className="absolute bottom-2 right-2 p-2 rounded-md bg-[#cc00ff]/20 text-[#cc00ff]">
+                                {index + 1}/{currentFiles.length}
+                            </div>
                         </div>
                     ))}
                 </div>
