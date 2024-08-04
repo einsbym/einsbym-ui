@@ -70,7 +70,7 @@ export default function Posts(props: { userId: string; publishedPostId: string; 
 
             {data && data.findPostsByUser.length === 0 && (
                 <div className="mx-auto my-5 flex items-center gap-1 text-[#cc00ff] bg-[#cc00ff1e] p-2 w-fit rounded-lg">
-                    Looks like there's no more stuff to show
+                    Looks like there&apos;s no more stuff to show
                 </div>
             )}
 
