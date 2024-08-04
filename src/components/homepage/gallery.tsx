@@ -20,7 +20,7 @@ export const Gallery: React.FC<GalleryProps> = ({ files, loading }) => {
 
             <div className="mt-20 overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
                 {files.map((file) => (
-                    <a key={file.id} href={`/view-image/${file.id}`} target="_blank" rel="noopener noreferrer">
+                    <a key={file.id} href={`/view-image/${file.id}`}>
                         <div className="relative">
                             <img
                                 alt={file.filename}

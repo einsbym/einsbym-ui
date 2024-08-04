@@ -35,7 +35,7 @@ export const RemoveFile: React.FC<RemoveFileProps> = ({ file, files, currentFile
 
     return (
         <div
-            className="flex items-center justify-center gap-2 p-2 rounded-lg cursor-pointer hover:bg-red-950/60 text-red-300"
+            className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer hover:bg-red-950/60 text-red-300"
             onClick={() => handleClickRemove(file.id)}
         >
             <MdDelete /> remove image
