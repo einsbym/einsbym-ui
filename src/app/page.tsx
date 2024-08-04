@@ -2,7 +2,6 @@
 
 import { Gallery } from '@/components/homepage/gallery';
 import Navbar from '@/components/shared/navbar';
-import GallerySkeleton from '@/components/skeletons/gallery';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
@@ -40,19 +39,7 @@ export default function Home() {
         <>
             <Navbar />
 
-            {files.length === 0 && loading && (
-                <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" />
-                </div>
-            )}
-
-            <Gallery files={files} />
-
-            {files.length > 0 && loading && (
-                <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-                    <GallerySkeleton items={4} width="w-full" height="h-[500px]" margin="mt-2" />
-                </div>
-            )}
+            <Gallery files={files} loading={loading} />
 
             {data && data.files.length !== 0 && <LoadMore loadMore={loadMore} />}
 
