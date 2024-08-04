@@ -12,12 +12,15 @@ interface SlideShowProps {
 export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => {
     const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
     const [activeIndex, setActiveIndex] = useState(1);
+    const [direction, setDirection] = useState('next');
 
     const handlePrev = () => {
+        setDirection('next');
         setActiveIndex((prevIndex) => (prevIndex === 0 ? currentFiles.length - 1 : prevIndex - 1));
     };
 
     const handleNext = () => {
+        setDirection('prev');
         setActiveIndex((prevIndex) => (prevIndex === currentFiles.length - 1 ? 0 : prevIndex + 1));
     };
 
@@ -25,34 +28,48 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => 
         currentFiles.length > 0 && (
             <div className="relative w-full h-full md:h-[500px]">
                 <div className="flex justify-center overflow-hidden rounded-lg md:rounded-none">
-                    {currentFiles.map((file, index) => (
-                        <div
-                            key={file.id}
-                            className={`flex justify-center transition-opacity duration-500 transform ${
-                                index === activeIndex ? 'opacity-100' : 'opacity-0 w-0'
-                            }`}
-                        >
-                            <div className="relative group">
-                                <img
-                                    src={backend.storageUrl + file.filename}
-                                    alt={`Slide ${index + 1}`}
-                                    className="h-full md:h-[500px]"
-                                />
-                                <FileMenu
-                                    loggedUserId={loggedUserId}
-                                    file={file}
-                                    files={files}
-                                    currentFiles={currentFiles}
-                                    setCurrentFiles={setCurrentFiles}
-                                />
-                            </div>
+                    {currentFiles.map((file, index) => {
+                        let positionClass = 'translate-x-full w-0';
+
+                        if (index === activeIndex) {
+                            positionClass = 'translate-x-0 lg:w-full';
+                        } else if (index === (activeIndex - 1 + currentFiles.length) % currentFiles.length) {
+                            positionClass = direction === 'next' ? '-translate-x-full w-0' : 'translate-x-full w-0';
+                        }
+
+                        return (
                             <div
-                                className={`${index === activeIndex ? 'absolute bottom-2 right-2 p-2 rounded-md bg-[#cc00ff]/20 text-[#cc00ff]' : 'hidden'}`}
+                                key={file.id}
+                                className={`flex justify-center items-center transition-all ease-out duration-500 ${positionClass}`}
                             >
-                                {index + 1}/{currentFiles.length}
+                                <div className="relative group">
+                                    <img
+                                        src={backend.storageUrl + file.filename}
+                                        alt={`Slide ${index + 1}`}
+                                        className="h-full md:h-[500px]"
+                                    />
+                                    {index === activeIndex && (
+                                        <FileMenu
+                                            loggedUserId={loggedUserId}
+                                            file={file}
+                                            files={files}
+                                            currentFiles={currentFiles}
+                                            setCurrentFiles={setCurrentFiles}
+                                        />
+                                    )}
+                                </div>
+                                <div
+                                    className={`${
+                                        index === activeIndex
+                                            ? 'absolute bottom-2 right-2 p-2 rounded-md bg-[#cc00ff]/20 text-[#cc00ff]'
+                                            : 'hidden'
+                                    }`}
+                                >
+                                    {index + 1}/{currentFiles.length}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
                 <button
                     type="button"
