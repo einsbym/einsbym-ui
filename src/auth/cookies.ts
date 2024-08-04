@@ -37,7 +37,15 @@ export async function getCurrentUserFromCookie() {
     return null;
 }
 
+export async function getLastAccessedUrl() {
+    const cookieStore = cookies();
+    const lastAccessedUrl = cookieStore.get('lastAccessedUrl');
+
+    return lastAccessedUrl;
+}
+
 export async function deleteCookies() {
     cookies().delete('currentUser');
     cookies().delete('accessToken');
+    cookies().delete('lastAccessedUrl');
 }

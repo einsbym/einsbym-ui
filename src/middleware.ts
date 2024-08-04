@@ -18,7 +18,10 @@ export function middleware(request: NextRequest) {
 
     if (isProtectedRoute && (!currentUser || Date.now() > JSON.parse(currentUser).expiredAt)) {
         request.cookies.delete('currentUser');
+
         const response = NextResponse.redirect(new URL('/auth/signin', request.url));
+
+        response.cookies.set({ name: 'lastAccessedUrl', value: request.nextUrl.pathname });
         response.cookies.delete('currentUser');
 
         return response;
