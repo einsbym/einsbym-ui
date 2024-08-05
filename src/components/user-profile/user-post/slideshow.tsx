@@ -11,7 +11,7 @@ interface SlideShowProps {
 
 export const SlideShow: React.FC<SlideShowProps> = ({ files, loggedUserId }) => {
     const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
-    const [activeIndex, setActiveIndex] = useState(1);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [direction, setDirection] = useState('next');
 
     const handlePrev = () => {

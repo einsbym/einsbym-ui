@@ -38,7 +38,7 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                             </div>
                         )}
                         {file.fileType !== 'video/mp4' && (
-                            <div className={`relative group overflow-hidden ${selectedImage && 'blur-sm'}`}>
+                            <div className={`relative group overflow-hidden`}>
                                 <img
                                     alt={file.filename}
                                     src={backend.storageUrl + file.filename}
@@ -60,7 +60,7 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                     </div>
                 ))}
 
-            {selectedImage && <ImageViewer selectedImage={selectedImage} setSelectedImage={setSelectedImage} />}
+            <ImageViewer selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
 
             {currentFiles.length > 4 && <SlideShow files={currentFiles} loggedUserId={loggedUserId} />}
         </div>
