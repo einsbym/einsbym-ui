@@ -1,6 +1,6 @@
 import { backend } from '@/constants/constants';
 import { Dispatch, SetStateAction } from 'react';
-import { IoMdClose } from 'react-icons/io';
+import { IoIosArrowDown, IoMdClose } from 'react-icons/io';
 
 interface ImageViewerProps {
     selectedImage: string | null;
@@ -16,8 +16,8 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ selectedImage, setSele
         >
             {selectedImage && (
                 <>
-                    <IoMdClose
-                        className="absolute top-5 right-5 bg-[#cc00ff1e] text-[#cc00ff] hover:bg-[#cc00ff] hover:text-black rounded-full cursor-pointer text-2xl transition-all duration-200"
+                    <IoIosArrowDown
+                        className="absolute top-5 right-5 bg-[#cc00ff1e] text-[#cc00ff] hover:bg-[#cc00ff] hover:text-black rounded-full cursor-pointer text-3xl transition-all duration-200"
                         onClick={() => setSelectedImage(null)}
                     />
                     <img

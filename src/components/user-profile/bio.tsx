@@ -56,13 +56,15 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
             {/* User's bio */}
             <div className="flex items-center justify-between mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">
                 About{' '}
-                <FaRegEdit
-                    className="cursor-pointer text-base hover:text-[#cc00ff]"
-                    onClick={() => {
-                        !props.loggedUserId ? setIsEditBioActive(true) : null;
-                        setCurrentBio(props.bio);
-                    }}
-                />
+                {!props.loggedUserId && (
+                    <FaRegEdit
+                        className="cursor-pointer text-base hover:text-[#cc00ff]"
+                        onClick={() => {
+                            setIsEditBioActive(true);
+                            setCurrentBio(props.bio);
+                        }}
+                    />
+                )}
             </div>
             <div className="relative block w-full p-6 rounded-lg shadow bg-gray-900 hover:bg-gray-800">
                 <p className="font-normal text-gray-400">{updatedBio || props.bio}</p>
