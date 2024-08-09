@@ -11,7 +11,7 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
-const headerSizes: any = {
+const headerSizes: { [key: string]: string } = {
     1: 'text-6xl',
     2: 'text-5xl',
     3: 'text-4xl',
