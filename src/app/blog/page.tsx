@@ -1,5 +1,6 @@
 'use client';
 
+import { BlogTags } from '@/components/blog/blog-tags';
 import Loading from '@/components/shared/loading';
 import Navbar from '@/components/shared/navbar';
 import { backend } from '@/constants/constants';
@@ -7,9 +8,6 @@ import { FIND_BLOG_POSTS } from '@/graphql/queries/blog';
 import { BlogPost } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useQuery } from '@apollo/client';
-import Head from 'next/head';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function Blog() {
     const { data, loading } = useQuery(FIND_BLOG_POSTS);
@@ -50,20 +48,8 @@ export default function Blog() {
                                 {post.description && (
                                     <p className="text-white group-hover:text-black">{post.description}</p>
                                 )}
-                                <div className="mt-5 w-full overflow-x-hidden">
-                                    <PerfectScrollbar>
-                                        <div className="flex gap-2">
-                                            {post.tags.map((tag: string) => (
-                                                <div
-                                                    key={tag}
-                                                    className="bg-[#cc00ff3a] group-hover:bg-black text-[#cc00ff] p-1 px-2 w-fit rounded-lg text-center text-nowrap"
-                                                >
-                                                    {tag}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </PerfectScrollbar>
-                                </div>
+
+                                <BlogTags tags={post.tags} />
                             </div>
                         </div>
                     ))}
