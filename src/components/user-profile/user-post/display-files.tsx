@@ -42,9 +42,9 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                 <img
                                     alt={file.filename}
                                     src={backend.storageUrl + file.filename}
-                                    className={`w-full h-[200px] ${
-                                        currentFiles.length > 4 ? 'lg:h-[200px]' : 'lg:h-[500px]'
-                                    } object-cover rounded-lg`}
+                                    className={`mx-auto ${
+                                        currentFiles.length !== 1 && 'h-[200px] lg:h-[500px] w-full object-cover'
+                                    } rounded-lg`}
                                 />
 
                                 <FileMenu
