@@ -79,6 +79,8 @@ export default function Posts(props: { userId: string; publishedPostId: string; 
                     Hey! It&apos;s time to post something <FcLike />
                 </div>
             )}
+
+            <div className="lg:h-20 lg:w-full"></div>
         </>
     );
 }
