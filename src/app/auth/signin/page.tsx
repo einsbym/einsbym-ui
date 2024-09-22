@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FeaturedImage } from '../../../components/auth/signin/featured-image';
 import { Form } from '../../../components/auth/signin/form';
+import { Switch } from '@mantine/core';
 
 export default function Login() {
     const [signinInput, setSigninInput] = useState<SignInType>({ email: '', password: '' });
@@ -34,7 +35,7 @@ export default function Login() {
                             <h1 className="text-2xl text-[#cc00ff] font-bold">Hi!</h1>
                             <p className="mt-2 text-white">Please sign in to your account.</p>
                         </div>
-                        
+
                         <Form
                             errorMessage={errorMessage}
                             isLoading={isLoading}
@@ -42,6 +43,8 @@ export default function Login() {
                             setSigninInput={setSigninInput}
                             signIn={signIn}
                         />
+
+                        <Switch defaultChecked color="grape" label="I agree with privacy terms" />
                     </div>
                 </div>
             </div>
