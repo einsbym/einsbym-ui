@@ -3,6 +3,7 @@ import { PostFileType } from '@/types/types';
 import { Carousel } from '@mantine/carousel';
 import '@mantine/carousel/styles.css';
 import React from 'react';
+import { Image } from '@mantine/core';
 
 interface SlideShowProps {
     files: PostFileType[];
@@ -16,13 +17,7 @@ export const SlideShow: React.FC<SlideShowProps> = ({ files }) => {
                 {files.map((file, index) => {
                     return (
                         <Carousel.Slide key={file.id}>
-                            <div className={`flex justify-center items-center`}>
-                                <img
-                                    src={backend.storageUrl + file.filename}
-                                    alt={`Slide ${index + 1}`}
-                                    className="h-full md:h-[500px]"
-                                />
-                            </div>
+                            <Image src={backend.storageUrl + file.filename} alt={`Slide ${index + 1}`} />
                         </Carousel.Slide>
                     );
                 })}
