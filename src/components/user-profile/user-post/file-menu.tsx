@@ -1,8 +1,8 @@
 import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
-import { Image, Modal, ScrollArea } from '@mantine/core';
+import { Button, Image, Menu, Modal, rem, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoIosFlag, IoMdClose } from 'react-icons/io';
 import { MdImageSearch } from 'react-icons/md';
@@ -18,32 +18,22 @@ interface FileMenuProps {
 }
 
 export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, currentFiles, setCurrentFiles }) => {
-    const [displayFileOptions, setDisplayFileOptions] = useState<boolean>(false);
     const [opened, { open, close }] = useDisclosure(false);
-
-    const viewImage = () => {
-        setDisplayFileOptions(!displayFileOptions);
-        open();
-    };
-
-    const closeFileOptions = () => {
-        setDisplayFileOptions(!displayFileOptions);
-    };
 
     return (
         <>
-            {displayFileOptions && (
-                <div className="absolute z-10 w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 p-2 text-sm rounded-lg shadow-lg">
-                    <div
-                        className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                        onClick={viewImage}
+            <Menu position="top" withArrow>
+                <Menu.Dropdown>
+                    <Menu.Item
+                        leftSection={<MdImageSearch style={{ width: rem(14), height: rem(14) }} />}
+                        onClick={open}
                     >
-                        <MdImageSearch /> view image
-                    </div>
+                        view image
+                    </Menu.Item>
 
-                    <div className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer text-[#cc00ff] hover:bg-[#cc00ff1e]">
-                        <IoIosFlag /> report image
-                    </div>
+                    <Menu.Item leftSection={<IoIosFlag style={{ width: rem(14), height: rem(14) }} />}>
+                        report image
+                    </Menu.Item>
 
                     {!loggedUserId && (
                         <RemoveFile
@@ -54,21 +44,19 @@ export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, c
                         />
                     )}
 
-                    <div
-                        className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                        onClick={closeFileOptions}
-                    >
-                        <IoMdClose /> close
-                    </div>
-                </div>
-            )}
+                    <Menu.Item leftSection={<IoMdClose style={{ width: rem(14), height: rem(14) }} />}>close</Menu.Item>
+                </Menu.Dropdown>
 
-            <div
-                className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 group-hover:bottom-2 group-hover:lg:bottom-5 cursor-pointer transition-all duration-300"
-                onClick={closeFileOptions}
-            >
-                <BsThreeDots className="text-2xl" />
-            </div>
+                <Menu.Target>
+                    <Button
+                        variant="transparent"
+                        color="white"
+                        className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 group-hover:bottom-2 group-hover:lg:bottom-5 transition-all duration-300"
+                    >
+                        <BsThreeDots className="text-2xl" />
+                    </Button>
+                </Menu.Target>
+            </Menu>
 
             <Modal
                 opened={opened}
