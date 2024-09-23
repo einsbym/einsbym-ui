@@ -14,11 +14,11 @@ interface RemoveFileProps {
 
 export const RemoveFile: React.FC<RemoveFileProps> = ({ file, files, currentFiles, setCurrentFiles }) => {
     // Mutations
-    const [removeFile] = useMutation(REMOVE_FILE);
+    const [removeFileMutation] = useMutation(REMOVE_FILE);
 
-    const handleClickRemove = async (id: string) => {
+    const removeFile = async (id: string) => {
         try {
-            await removeFile({
+            await removeFileMutation({
                 variables: {
                     removeFileId: id,
                 },
@@ -37,7 +37,7 @@ export const RemoveFile: React.FC<RemoveFileProps> = ({ file, files, currentFile
     return (
         <Menu.Item
             leftSection={<MdDelete style={{ width: rem(14), height: rem(14) }} />}
-            onClick={() => handleClickRemove(file.id)}
+            onClick={() => removeFile(file.id)}
             color="#f03e3e"
             variant="light"
         >

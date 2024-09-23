@@ -31,7 +31,11 @@ export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, c
                         view image
                     </Menu.Item>
 
-                    <Menu.Item leftSection={<IoIosFlag style={{ width: rem(14), height: rem(14) }} />}>
+                    <Menu.Item
+                        leftSection={<IoIosFlag style={{ width: rem(14), height: rem(14) }} />}
+                        variant="light"
+                        color="yellow"
+                    >
                         report image
                     </Menu.Item>
 
@@ -51,7 +55,12 @@ export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, c
                     <Button
                         variant="transparent"
                         color="white"
-                        className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 group-hover:bottom-2 group-hover:lg:bottom-5 transition-all duration-300"
+                        py={1}
+                        px={3}
+                        pos="absolute"
+                        left={0}
+                        right={0}
+                        bottom={2}
                     >
                         <BsThreeDots className="text-2xl" />
                     </Button>
