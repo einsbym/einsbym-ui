@@ -5,12 +5,13 @@ import { Button, Modal, Textarea } from '@mantine/core';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface EditPostProps {
+    isEditModalOpen: boolean;
     post: PostType;
     setIsEditModalOpen: Dispatch<SetStateAction<boolean>>;
     setPost: Dispatch<SetStateAction<PostType | undefined>>;
 }
 
-export const EditPost: React.FC<EditPostProps> = ({ post, setIsEditModalOpen, setPost }) => {
+export const EditPost: React.FC<EditPostProps> = ({ isEditModalOpen, setIsEditModalOpen, post, setPost }) => {
     const [updatedText, setUpdatedText] = useState<string>();
 
     // Mutations
@@ -30,14 +31,13 @@ export const EditPost: React.FC<EditPostProps> = ({ post, setIsEditModalOpen, se
             });
 
             setPost(data.updatePost);
-            setIsEditModalOpen(false);
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <Modal opened={true} onClose={() => setIsEditModalOpen(false)} title="Edit this post" centered>
+        <Modal opened={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit this post" centered>
             <Textarea
                 placeholder="Write your thoughts here..."
                 defaultValue={post.postText}

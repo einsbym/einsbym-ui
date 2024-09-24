@@ -29,9 +29,12 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                     />
                 </a>
                 <div className="relative flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-900">
-                    {isEditModalOpen && (
-                        <EditPost post={props.post} setIsEditModalOpen={setIsEditModalOpen} setPost={setPost} />
-                    )}
+                    <EditPost
+                        isEditModalOpen={isEditModalOpen}
+                        setIsEditModalOpen={setIsEditModalOpen}
+                        post={props.post}
+                        setPost={setPost}
+                    />
 
                     <div className="relative flex justify-between items-center">
                         <div>
