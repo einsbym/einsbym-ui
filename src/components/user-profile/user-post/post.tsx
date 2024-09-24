@@ -6,7 +6,7 @@ import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
 import Comments from '../comments';
 import PublishComment from '../publish-comment';
 import { DisplayFiles } from './display-files';
-import { Edit } from './edit';
+import { EditPost } from './edit';
 import LikeButton from './like-button';
 import PostPopoverMenu from './post-popover-menu';
 
@@ -30,7 +30,7 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                 </a>
                 <div className="relative flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-900">
                     {isEditModalOpen && (
-                        <Edit post={props.post} setIsEditModalOpen={setIsEditModalOpen} setPost={setPost} />
+                        <EditPost post={props.post} setIsEditModalOpen={setIsEditModalOpen} setPost={setPost} />
                     )}
 
                     <div className="relative flex justify-between items-center">

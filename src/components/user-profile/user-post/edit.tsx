@@ -1,15 +1,16 @@
 import { UPDATE_POST } from '@/graphql/mutations/post';
 import { PostType } from '@/types/types';
 import { useMutation } from '@apollo/client';
+import { Button, Modal, Textarea } from '@mantine/core';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-interface EditProps {
+interface EditPostProps {
     post: PostType;
     setIsEditModalOpen: Dispatch<SetStateAction<boolean>>;
     setPost: Dispatch<SetStateAction<PostType | undefined>>;
 }
 
-export const Edit: React.FC<EditProps> = ({ post, setIsEditModalOpen, setPost }) => {
+export const EditPost: React.FC<EditPostProps> = ({ post, setIsEditModalOpen, setPost }) => {
     const [updatedText, setUpdatedText] = useState<string>();
 
     // Mutations
@@ -36,33 +37,15 @@ export const Edit: React.FC<EditProps> = ({ post, setIsEditModalOpen, setPost })
     };
 
     return (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80%] bg-gray-900 z-30 rounded-lg shadow-lg p-5">
-            <form>
-                <textarea
-                    id="bio"
-                    name="bio"
-                    className="resize-y rounded-md w-full bg-transparent placeholder-gray-400 text-white outline-none"
-                    placeholder="Write your thoughts here..."
-                    defaultValue={post.postText}
-                    onChange={(e) => setUpdatedText(e.target.value)}
-                />
-                <div className="flex gap-2 mt-2 w-full">
-                    <button
-                        type="button"
-                        onClick={() => setIsEditModalOpen(false)}
-                        className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
-                    >
-                        cancel
-                    </button>
-                    <button
-                        type="button"
-                        className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
-                        onClick={save}
-                    >
-                        save
-                    </button>
-                </div>
-            </form>
-        </div>
+        <Modal opened={true} onClose={() => setIsEditModalOpen(false)} title="Edit this post" centered>
+            <Textarea
+                placeholder="Write your thoughts here..."
+                defaultValue={post.postText}
+                onChange={(e) => setUpdatedText(e.target.value)}
+            />
+            <Button type="button" mt={10} w="100%" variant="light" onClick={save}>
+                save
+            </Button>
+        </Modal>
     );
 };
