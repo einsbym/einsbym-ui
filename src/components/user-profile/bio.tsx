@@ -53,19 +53,20 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
             <div className="flex items-center justify-between mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">
                 About{' '}
                 {!props.loggedUserId && (
-                    <Popover position="bottom" width={300} radius={8} withArrow shadow="md">
+                    <Popover position="bottom" width={300} radius={8} withArrow shadow="xl">
                         <Popover.Target>
                             <Button variant="transparent" color="white" p={0}>
                                 <FaRegEdit className="text-base hover:text-[#cc00ff]" />
                             </Button>
                         </Popover.Target>
-                        <Popover.Dropdown>
+                        <Popover.Dropdown style={{ backgroundColor: 'rgb(17 24 39)', borderColor: '#cc00ff' }}>
                             <Textarea
+                                variant="unstyled"
                                 placeholder="Write your bio here..."
                                 defaultValue={updatedBio || props.bio}
                                 onChange={(event) => setBio(event.target.value)}
+                                autosize
                             />
-
                             <Button
                                 type="button"
                                 mt={10}

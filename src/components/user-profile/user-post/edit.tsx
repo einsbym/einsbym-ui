@@ -39,6 +39,7 @@ export const EditPost: React.FC<EditPostProps> = ({ isEditModalOpen, setIsEditMo
     return (
         <Modal opened={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit this post" centered>
             <Textarea
+                variant="unstyled"
                 placeholder="Write your thoughts here..."
                 defaultValue={post.postText}
                 onChange={(e) => setUpdatedText(e.target.value)}
