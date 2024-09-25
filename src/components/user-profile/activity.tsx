@@ -46,7 +46,7 @@ export const Activity: React.FC<ActivityProps> = ({ userId, loggedUserId }) => {
             </ol>
             {!loggedUserId && (
                 <Anchor href="/profile/settings">
-                    <Button mt={10} w="100%" variant="light">
+                    <Button mt={10} w="100%" color="#cc00ff" variant="light">
                         View all activities
                     </Button>
                 </Anchor>

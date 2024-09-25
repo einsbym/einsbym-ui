@@ -2,14 +2,13 @@ import { createUserCookie } from '@/auth/cookies';
 import { UPDATE_BIO } from '@/graphql/mutations/user';
 import { ME } from '@/graphql/queries/user';
 import { useLazyQuery, useMutation } from '@apollo/client';
+import { Button, Popover, Textarea } from '@mantine/core';
 import { useState } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 
 export default function UserBio(props: { userId: string; bio: string; loggedUserId?: string | null }) {
     // States
-    const [isEditBioActive, setIsEditBioActive] = useState<boolean>(false);
     const [bio, setBio] = useState<string>();
-    const [currentBio, setCurrentBio] = useState<string>();
     const [updatedBio, setUpdatedBio] = useState<string>();
 
     // Queries
@@ -37,14 +36,11 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
                 }
 
                 setUpdatedBio(data.updateBio.bio);
-                setCurrentBio(data.updateBio.bio);
 
                 // Update user cookie with the new data
                 await getMe({ variables: { id: props.userId } }).then(async (result) => {
                     await createUserCookie(result.data.me);
                 });
-
-                setIsEditBioActive(false);
             }
         } catch (error) {
             console.error(error);
@@ -57,51 +53,38 @@ export default function UserBio(props: { userId: string; bio: string; loggedUser
             <div className="flex items-center justify-between mb-2 text-lg lg:text-2xl font-bold tracking-tight text-white">
                 About{' '}
                 {!props.loggedUserId && (
-                    <FaRegEdit
-                        className="cursor-pointer text-base hover:text-[#cc00ff]"
-                        onClick={() => {
-                            setIsEditBioActive(true);
-                            setCurrentBio(props.bio);
-                        }}
-                    />
+                    <Popover position="bottom" width={300} radius={8} withArrow shadow="md">
+                        <Popover.Target>
+                            <Button variant="transparent" color="white" p={0}>
+                                <FaRegEdit className="text-base hover:text-[#cc00ff]" />
+                            </Button>
+                        </Popover.Target>
+                        <Popover.Dropdown>
+                            <Textarea
+                                placeholder="Write your bio here..."
+                                defaultValue={updatedBio || props.bio}
+                                onChange={(event) => setBio(event.target.value)}
+                            />
+
+                            <Button
+                                type="button"
+                                mt={10}
+                                w="100%"
+                                color="#cc00ff"
+                                variant="light"
+                                onClick={(event) => {
+                                    handleSave(event);
+                                }}
+                            >
+                                save
+                            </Button>
+                        </Popover.Dropdown>
+                    </Popover>
                 )}
             </div>
             <div className="relative block w-full p-6 rounded-lg shadow bg-gray-900 hover:bg-gray-800">
                 <p className="font-normal text-gray-400">{updatedBio || props.bio}</p>
             </div>
-
-            {isEditBioActive && (
-                <div className={`mt-2 rounded-lg w-full p-5 bg-gray-900`}>
-                    <form>
-                        <textarea
-                            id="bio"
-                            name="bio"
-                            className="resize-y rounded-md w-full bg-transparent placeholder-gray-400 text-white outline-none"
-                            placeholder="Write your thoughts here..."
-                            defaultValue={currentBio}
-                            onChange={(event) => setBio(event.target.value)}
-                        />
-                        <div className="flex gap-2 justify-end mt-2 w-full">
-                            <button
-                                type="button"
-                                onClick={() => setIsEditBioActive(false)}
-                                className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
-                            >
-                                cancel
-                            </button>
-                            <button
-                                type="submit"
-                                onClick={(event) => {
-                                    handleSave(event);
-                                }}
-                                className="w-full border-2 border-[#cc00ff] disabled:border-gray-800 text-[#cc00ff] disabled:text-gray-800 hover:text-black lowercase rounded-lg shadow-lg text-center py-1 hover:bg-[#cc00ff] disabled:hover:bg-transparent transition-all duration-200"
-                            >
-                                save
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            )}
         </>
     );
 }

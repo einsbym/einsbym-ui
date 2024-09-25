@@ -43,7 +43,7 @@ export const EditPost: React.FC<EditPostProps> = ({ isEditModalOpen, setIsEditMo
                 defaultValue={post.postText}
                 onChange={(e) => setUpdatedText(e.target.value)}
             />
-            <Button type="button" mt={10} w="100%" variant="light" onClick={save}>
+            <Button type="button" mt={10} w="100%" color="#cc00ff" variant="light" onClick={save}>
                 save
             </Button>
         </Modal>
