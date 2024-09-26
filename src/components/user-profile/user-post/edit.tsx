@@ -37,7 +37,22 @@ export const EditPost: React.FC<EditPostProps> = ({ isEditModalOpen, setIsEditMo
     };
 
     return (
-        <Modal opened={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit this post" centered>
+        <Modal
+            styles={{
+                body: {
+                    backgroundColor: 'rgb(17 24 39)',
+                    borderColor: '#cc00ff',
+                },
+                header: {
+                    backgroundColor: 'rgb(17 24 39)',
+                },
+            }}
+            radius={8}
+            opened={isEditModalOpen}
+            onClose={() => setIsEditModalOpen(false)}
+            title="Edit this post"
+            centered
+        >
             <Textarea
                 variant="unstyled"
                 placeholder="Write your thoughts here..."
