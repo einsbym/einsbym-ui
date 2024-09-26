@@ -22,11 +22,23 @@ export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, c
 
     return (
         <>
-            <Menu position="top" withArrow>
+            <Menu
+                styles={{
+                    dropdown: {
+                        backgroundColor: 'rgb(17 24 39)',
+                        border: 'none',
+                    },
+                }}
+                radius={8}
+                position="top"
+                withArrow
+            >
                 <Menu.Dropdown>
                     <Menu.Item
                         leftSection={<MdImageSearch style={{ width: rem(14), height: rem(14) }} />}
                         onClick={open}
+                        color="#cc00ff"
+                        variant="light"
                     >
                         view image
                     </Menu.Item>
@@ -48,7 +60,13 @@ export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, c
                         />
                     )}
 
-                    <Menu.Item leftSection={<IoMdClose style={{ width: rem(14), height: rem(14) }} />}>close</Menu.Item>
+                    <Menu.Item
+                        color="#cc00ff"
+                        variant="light"
+                        leftSection={<IoMdClose style={{ width: rem(14), height: rem(14) }} />}
+                    >
+                        close
+                    </Menu.Item>
                 </Menu.Dropdown>
 
                 <Menu.Target>
@@ -76,6 +94,16 @@ export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, c
                     backgroundOpacity: 0.55,
                     blur: 3,
                 }}
+                styles={{
+                    body: {
+                        backgroundColor: 'rgb(17 24 39)',
+                        borderColor: '#cc00ff',
+                    },
+                    header: {
+                        backgroundColor: 'rgb(17 24 39)',
+                    },
+                }}
+                radius={8}
                 scrollAreaComponent={ScrollArea.Autosize}
                 size="xl"
             >
