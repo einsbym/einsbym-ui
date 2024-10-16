@@ -1,13 +1,15 @@
 import { LIKE_POST, UNLIKE_POST } from '@/graphql/mutations/post';
 import { UserType } from '@/types/types';
 import { useMutation } from '@apollo/client';
+import { Popover, Text } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const LikeButton = (props: { initialLikes: number; postId: string; liked: boolean; likes: UserType[] }) => {
     const [likes, setLikes] = useState<number>(props.initialLikes);
     const [liked, setLiked] = useState<boolean>(props.liked);
-    const [likesPopoverVisible, setLikesPopoverVisible] = useState<boolean>(false);
+    const [opened, { close, open }] = useDisclosure(false);
 
     // Mutations
     const [likePost] = useMutation(LIKE_POST);
@@ -50,34 +52,27 @@ const LikeButton = (props: { initialLikes: number; postId: string; liked: boolea
     };
 
     return (
-        <div className="relative">
-            <button
-                className="flex items-center gap-2 text:lg lg:text-sm lg:bg-transparent text-white lg:rounded-full lg:p-2 lg:hover:bg-gray-200 lg:hover:text-black lg:transition lg:duration-200"
-                onClick={handleLikePost}
-                onMouseEnter={() => setLikesPopoverVisible(true)}
-                onMouseLeave={() => setLikesPopoverVisible(false)}
-            >
-                {liked ? <FaHeart size={13} /> : <FaRegHeart size={13} />} {likes}
-            </button>
+        <Popover width={200} position="bottom" withArrow shadow="md" opened={opened}>
+            <Popover.Target>
+                <button
+                    className="flex items-center gap-2 text:lg lg:text-sm lg:bg-transparent text-red-500 lg:rounded-full lg:p-2 lg:hover:bg-red-500/30 lg:transition lg:duration-200"
+                    onClick={handleLikePost}
+                    onMouseEnter={open}
+                    onMouseLeave={close}
+                >
+                    {liked ? <FaHeart size={13} /> : <FaRegHeart size={13} />} {likes}
+                </button>
+            </Popover.Target>
 
-            <div
-                id="popover-top"
-                className={
-                    likesPopoverVisible
-                        ? 'absolute top-10 inline-block z-10 w-20 lg:w-40 break-words text-sm text-white rounded-lg shadow-sm shadow-black bg-gray-900'
-                        : 'hidden'
-                }
-            >
-                <div className="px-3 py-2">
-                    {props.likes.map((user) => (
-                        <p key={user.id}>
-                            <a href={`/profile/${user.username}`}>{user.username}</a>
-                        </p>
-                    ))}
-                    {props.likes.length === 0 && <p className="text-center">no likes</p>}
-                </div>
-            </div>
-        </div>
+            <Popover.Dropdown style={{ pointerEvents: 'none', backgroundColor: 'rgb(17 24 39)', border: '0px' }}>
+                {props.likes.map((user) => (
+                    <Text key={user.id}>
+                        <a href={`/profile/${user.username}`}>{user.username}</a>
+                    </Text>
+                ))}
+                {props.likes.length === 0 && <Text className="text-center">no likes</Text>}
+            </Popover.Dropdown>
+        </Popover>
     );
 };
 

@@ -6,7 +6,6 @@ import {
     getLastAccessedUrl,
 } from '@/auth/cookies';
 import { backend } from '@/constants/constants';
-import { SET_TO_OFFLINE } from '@/graphql/mutations/user';
 import { SignInType, UserType } from '@/types/types';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
