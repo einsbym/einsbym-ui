@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import localeEn from 'dayjs/locale/en';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { convertUTCToBrazilianTime } from './get-current-local-time';
 
 // Extend dayjs with the relativeTime plugin
 dayjs.extend(relativeTime);
@@ -11,8 +12,10 @@ const getElapsedTime = (date: Date) => {
 
     // Function to update the time ago message
     const updateTimeAgo = () => {
-        const now = dayjs();
-        const postDate = dayjs(date);
+        const utcDate = new Date(date);
+        const localDate = convertUTCToBrazilianTime(utcDate.toUTCString());
+        const postDate = dayjs(localDate);
+
         timeAgo = postDate.fromNow();
     };
 

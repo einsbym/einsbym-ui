@@ -1,6 +1,7 @@
+import { convertUTCToBrazilianTime } from './get-current-local-time';
+
 export const formatDate = (dateString: string): string => {
-    // Parse the date string into a Date object
-    const date = new Date(dateString);
+    const date = convertUTCToBrazilianTime(dateString);
 
     const options: Intl.DateTimeFormatOptions = {
         timeZone: 'America/Sao_Paulo',
