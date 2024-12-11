@@ -2,19 +2,17 @@ import { backend } from '@/constants/constants';
 import { PostType } from '@/types/types';
 import getElapsedTime from '@/utils/elapsed-time';
 import { useState } from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaRegCommentAlt, FaRegShareSquare } from 'react-icons/fa';
 import Comments from '../comments';
 import PublishComment from '../publish-comment';
 import { DisplayFiles } from './display-files';
-import { Edit } from './edit';
+import { EditPost } from './edit';
 import LikeButton from './like-button';
 import PostPopoverMenu from './post-popover-menu';
 
 export default function Post(props: { post: PostType; userId: string; loggedUserId?: string | null }) {
     // States
     const [publishedCommentId, setPublishedCommentId] = useState<string>('');
-    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const [areCommentsVisible, setAreCommentsVisible] = useState(false);
     const [removed, setRemoved] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -31,9 +29,12 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                     />
                 </a>
                 <div className="relative flex flex-col w-full break-words p-4 rounded-e-xl rounded-es-xl bg-gray-900">
-                    {isEditModalOpen && (
-                        <Edit post={props.post} setIsEditModalOpen={setIsEditModalOpen} setPost={setPost} />
-                    )}
+                    <EditPost
+                        isEditModalOpen={isEditModalOpen}
+                        setIsEditModalOpen={setIsEditModalOpen}
+                        post={props.post}
+                        setPost={setPost}
+                    />
 
                     <div className="relative flex justify-between items-center">
                         <div>
@@ -43,33 +44,27 @@ export default function Post(props: { post: PostType; userId: string; loggedUser
                             <span className="ml-2 text-[12px] lg:text-sm font-normal text-gray-400">
                                 {getElapsedTime(props.post.createdAt)}{' '}
                                 {props.post.createdAt !== props.post.updatedAt && (
-                                    <span className="font-bold" title={getElapsedTime(props.post.updatedAt)}>· edited</span>
+                                    <span className="font-bold" title={getElapsedTime(props.post.updatedAt)}>
+                                        · edited
+                                    </span>
                                 )}
                             </span>
                         </div>
-                        <button
-                            className="text-white hover:text-[#cc00ff]"
-                            type="button"
-                            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-                        >
-                            <BsThreeDotsVertical />
-                        </button>
-                        {isPopoverOpen && (
-                            <PostPopoverMenu
-                                postId={props.post.id}
-                                loggedUserId={props.loggedUserId}
-                                setRemoved={setRemoved}
-                                setIsEditModalOpen={setIsEditModalOpen}
-                                setIsPopoverOpen={setIsPopoverOpen}
-                            />
-                        )}
+                        <PostPopoverMenu
+                            postId={props.post.id}
+                            loggedUserId={props.loggedUserId}
+                            setRemoved={setRemoved}
+                            setIsEditModalOpen={setIsEditModalOpen}
+                        />
                     </div>
                     <p className="text-sm font-normal py-2.5 text-white">
                         {(post && post.postText) || props.post.postText}
                     </p>
 
                     {/* Display files (if any) */}
-                    {props.post.files.length > 0 && <DisplayFiles files={props.post.files} loggedUserId={props.loggedUserId} />}
+                    {props.post.files.length > 0 && (
+                        <DisplayFiles files={props.post.files} loggedUserId={props.loggedUserId} />
+                    )}
 
                     <div className="flex mt-2 lg:mt-0 lg:gap-2 justify-evenly lg:justify-end">
                         <LikeButton

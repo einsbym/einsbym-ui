@@ -1,16 +1,37 @@
 import { REMOVE_POST } from '@/graphql/mutations/post';
 import { useMutation } from '@apollo/client';
+import { Button, Menu, rem } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
 import { AiOutlineLoading } from 'react-icons/ai';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FaRegEdit } from 'react-icons/fa';
+import { IoIosFlag, IoMdClose } from 'react-icons/io';
 import { MdDelete, MdOutlinePrivacyTip } from 'react-icons/md';
+
+const MenuButton = () => {
+    return (
+        <Menu.Target>
+            <Button
+                variant="transparent"
+                color="white"
+                fz="lg"
+                p={0}
+                pos="absolute"
+                right={0}
+                top={0}
+                className="hover:text-[#e100ff]"
+            >
+                <BsThreeDotsVertical />
+            </Button>
+        </Menu.Target>
+    );
+};
 
 export default function PostPopoverMenu(props: {
     postId: string;
     loggedUserId?: string | null;
     setRemoved: Dispatch<SetStateAction<boolean>>;
     setIsEditModalOpen: Dispatch<SetStateAction<boolean>>;
-    setIsPopoverOpen: Dispatch<SetStateAction<boolean>>;
 }) {
     // Mutations
     const [removePost, { loading }] = useMutation(REMOVE_POST);
@@ -24,7 +45,7 @@ export default function PostPopoverMenu(props: {
             });
 
             if (errors) {
-                throw new Error('Error when attempting to like the post.');
+                throw new Error(errors[0].message);
             }
 
             props.setRemoved(true);
@@ -36,48 +57,86 @@ export default function PostPopoverMenu(props: {
     return (
         <>
             {!props.loggedUserId && (
-                <div className="absolute right-0 mt-40 origin-top-right divide-y divide-gray-100 rounded-lg shadow-md shadow-black w-44 z-10 bg-gray-900">
-                    <ul className="p-2 text-sm text-gray-200">
-                        <li
-                            className="flex gap-1 items-center rounded-lg p-2 text-[#cc00ff] hover:bg-[#cc00ff1e] cursor-pointer"
-                            onClick={() => {
-                                props.setIsEditModalOpen(true);
-                                props.setIsPopoverOpen(false);
-                            }}
+                <Menu
+                    styles={{
+                        dropdown: {
+                            backgroundColor: 'rgb(17 24 39)',
+                            border: 'none',
+                        },
+                    }}
+                    radius={8}
+                    position="bottom"
+                    withArrow
+                >
+                    <Menu.Dropdown>
+                        <Menu.Item
+                            leftSection={<FaRegEdit style={{ width: rem(14), height: rem(14) }} />}
+                            onClick={() => props.setIsEditModalOpen(true)}
+                            color="#cc00ff"
+                            variant="light"
                         >
-                            <FaRegEdit className="text-lg" /> edit
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="flex gap-1 items-center rounded-lg p-2 text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                            >
-                                <MdOutlinePrivacyTip className="text-lg" /> change visibility
-                            </a>
-                        </li>
-                        <li
-                            className="flex gap-1 items-center rounded-lg p-2 hover:bg-red-950/60 text-red-300 cursor-pointer"
+                            edit
+                        </Menu.Item>
+                        <Menu.Item
+                            color="#cc00ff"
+                            variant="light"
+                            leftSection={<MdOutlinePrivacyTip style={{ width: rem(14), height: rem(14) }} />}
+                        >
+                            change visibility
+                        </Menu.Item>
+                        <Menu.Item
+                            leftSection={
+                                loading ? (
+                                    <AiOutlineLoading
+                                        style={{ width: rem(14), height: rem(14) }}
+                                        className="animate-spin fill-red-300"
+                                    />
+                                ) : (
+                                    <MdDelete style={{ width: rem(14), height: rem(14) }} />
+                                )
+                            }
                             onClick={handleRemovePost}
+                            color="#f03e3e"
+                            variant="light"
+                            disabled={loading}
                         >
-                            <MdDelete className="text-lg" /> delete
-                            {loading && (
-                                <AiOutlineLoading className="text-sm text-transparent animate-spin fill-red-300" />
-                            )}
-                        </li>
-                    </ul>
-                </div>
+                            delete
+                        </Menu.Item>
+                        <Menu.Item
+                            color="#cc00ff"
+                            variant="light"
+                            leftSection={<IoMdClose style={{ width: rem(14), height: rem(14) }} />}
+                        >
+                            close
+                        </Menu.Item>
+                    </Menu.Dropdown>
+                    <MenuButton />
+                </Menu>
             )}
 
             {props.loggedUserId && (
-                <div className="absolute right-0 mt-20 origin-top-right divide-y divide-gray-100 rounded-lg shadow-md shadow-black w-44 z-10 bg-gray-900">
-                    <ul className="py-2 text-sm text-gray-200">
-                        <li>
-                            <a href="#" className="block px-4 py-2 text-[#cc00ff] hover:bg-[#cc00ff1e]">
-                                report post
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <Menu
+                    styles={{
+                        dropdown: {
+                            backgroundColor: 'rgb(17 24 39)',
+                            border: 'none',
+                        },
+                    }}
+                    radius={8}
+                    position="bottom"
+                    withArrow
+                >
+                    <Menu.Dropdown>
+                        <Menu.Item
+                            leftSection={<IoIosFlag style={{ width: rem(14), height: rem(14) }} />}
+                            variant="light"
+                            color="yellow"
+                        >
+                            report post
+                        </Menu.Item>
+                    </Menu.Dropdown>
+                    <MenuButton />
+                </Menu>
             )}
         </>
     );

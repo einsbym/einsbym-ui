@@ -4,7 +4,6 @@ import { PostFileType } from '@/types/types';
 import { useState } from 'react';
 import ReactPlayer from 'react-player';
 import { FileMenu } from './file-menu';
-import { ImageViewer } from './image-viewer';
 
 interface DisplayFilesProps {
     files: PostFileType[];
@@ -13,7 +12,6 @@ interface DisplayFilesProps {
 
 export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId }) => {
     const [currentFiles, setCurrentFiles] = useState<PostFileType[]>(files);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     return (
         <div
@@ -53,14 +51,11 @@ export const DisplayFiles: React.FC<DisplayFilesProps> = ({ files, loggedUserId 
                                     files={files}
                                     currentFiles={currentFiles}
                                     setCurrentFiles={setCurrentFiles}
-                                    setSelectedImage={setSelectedImage}
                                 />
                             </div>
                         )}
                     </div>
                 ))}
-
-            <ImageViewer selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
 
             {currentFiles.length > 4 && <SlideShow files={currentFiles} loggedUserId={loggedUserId} />}
         </div>

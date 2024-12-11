@@ -34,7 +34,7 @@ export default function Login() {
                             <h1 className="text-2xl text-[#cc00ff] font-bold">Hi!</h1>
                             <p className="mt-2 text-white">Please sign in to your account.</p>
                         </div>
-                        
+
                         <Form
                             errorMessage={errorMessage}
                             isLoading={isLoading}

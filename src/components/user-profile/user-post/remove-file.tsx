@@ -1,6 +1,7 @@
 import { REMOVE_FILE } from '@/graphql/mutations/file';
 import { PostFileType } from '@/types/types';
 import { useMutation } from '@apollo/client';
+import { Menu, rem } from '@mantine/core';
 import { Dispatch, SetStateAction } from 'react';
 import { MdDelete } from 'react-icons/md';
 
@@ -13,11 +14,11 @@ interface RemoveFileProps {
 
 export const RemoveFile: React.FC<RemoveFileProps> = ({ file, files, currentFiles, setCurrentFiles }) => {
     // Mutations
-    const [removeFile] = useMutation(REMOVE_FILE);
+    const [removeFileMutation] = useMutation(REMOVE_FILE);
 
-    const handleClickRemove = async (id: string) => {
+    const removeFile = async (id: string) => {
         try {
-            await removeFile({
+            await removeFileMutation({
                 variables: {
                     removeFileId: id,
                 },
@@ -34,11 +35,13 @@ export const RemoveFile: React.FC<RemoveFileProps> = ({ file, files, currentFile
     };
 
     return (
-        <div
-            className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer hover:bg-red-950/60 text-red-300"
-            onClick={() => handleClickRemove(file.id)}
+        <Menu.Item
+            leftSection={<MdDelete style={{ width: rem(14), height: rem(14) }} />}
+            onClick={() => removeFile(file.id)}
+            color="#f03e3e"
+            variant="light"
         >
-            <MdDelete /> remove image
-        </div>
+            remove image
+        </Menu.Item>
     );
 };

@@ -7,8 +7,9 @@ import { backend } from '@/constants/constants';
 import { FILES } from '@/graphql/queries/file';
 import { PostFileType } from '@/types/types';
 import { useQuery } from '@apollo/client';
+import { Carousel } from '@mantine/carousel';
+import '@mantine/carousel/styles.css';
 import { useCallback, useEffect, useState } from 'react';
-import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 
 export default function Videos() {
@@ -30,9 +31,8 @@ export default function Videos() {
 
         await fetchMore({
             variables: { fileTypes: ['video/mp4'], page: page - 1, limit: 1 },
-            updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
-                setFiles(fetchMoreResult.files);
+            updateQuery: ({ fetchMoreResult }) => {
+                if (fetchMoreResult.files.length > 0) setFiles(fetchMoreResult.files);
             },
         });
         setPage(page - 1);
@@ -42,15 +42,14 @@ export default function Videos() {
     const loadNext = useCallback(async () => {
         await fetchMore({
             variables: { fileTypes: ['video/mp4'], page: page + 1, limit: 1 },
-            updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
-                setFiles(fetchMoreResult.files);
+            updateQuery: ({ fetchMoreResult }) => {
+                if (fetchMoreResult.files.length > 0) setFiles(fetchMoreResult.files);
             },
         });
         setPage(page + 1);
     }, [page, fetchMore]);
 
-    // useEffect to load images initially
+    // useEffect to load files initially
     useEffect(() => {
         if (data && files.length === 0) {
             setFiles(data.files);
@@ -66,42 +65,25 @@ export default function Videos() {
             <title>Videos</title>
 
             <Navbar />
-
-            {files &&
-                files.map((file) => (
-                    <div key={file.id} className="flex items-center justify-center h-screen">
-                        <div className="relative w-4/5 h-full">
-                            <ReactPlayer
-                                width="100%"
-                                height="100%"
-                                url={backend.storageUrl + file.filename}
-                                playing
-                                muted
-                                loop
-                                light={false}
-                            />
-                            {data.files.length > 0 && (
-                                <button
-                                    className="absolute top-2/4 right-5 text-[3em] text-[#cc00ff] hover:text-white rounded-full transition-all duration-200 animated-shadow"
-                                    type="button"
-                                    onClick={loadNext}
-                                >
-                                    <IoIosArrowDroprightCircle />
-                                </button>
-                            )}
-                            {files.length !== 0 && page > 1 && (
-                                <button
-                                    className="absolute top-2/4 left-5 text-[3em] text-[#cc00ff] hover:text-white rounded-full transition-all duration-200 animated-shadow"
-                                    type="button"
-                                    onClick={loadPrevious}
-                                >
-                                    <IoIosArrowDropleftCircle />
-                                </button>
-                            )}
+            <Carousel orientation="horizontal" onNextSlide={loadNext} onPreviousSlide={loadPrevious}>
+                {files &&
+                    files.map((file) => (
+                        <div key={file.id} className="flex items-center justify-center h-screen">
+                            <div className="relative w-4/5 h-full">
+                                <ReactPlayer
+                                    width="100%"
+                                    height="100%"
+                                    url={backend.storageUrl + file.filename}
+                                    playing
+                                    muted
+                                    loop
+                                    light={false}
+                                />
+                            </div>
+                            <Post postId={file.post.id} />
                         </div>
-                        <Post postId={file.post.id} />
-                    </div>
-                ))}
+                    ))}
+            </Carousel>
         </>
     );
 }

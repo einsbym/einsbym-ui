@@ -1,9 +1,12 @@
+import { backend } from '@/constants/constants';
 import { PostFileType } from '@/types/types';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Button, Image, Menu, Modal, rem, ScrollArea } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { Dispatch, SetStateAction } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
-import { RemoveFile } from './remove-file';
 import { IoIosFlag, IoMdClose } from 'react-icons/io';
 import { MdImageSearch } from 'react-icons/md';
+import { RemoveFile } from './remove-file';
 
 interface FileMenuProps {
     loggedUserId: string | null | undefined;
@@ -14,40 +17,40 @@ interface FileMenuProps {
     setSelectedImage?: Dispatch<SetStateAction<string | null>>;
 }
 
-export const FileMenu: React.FC<FileMenuProps> = ({
-    loggedUserId,
-    file,
-    files,
-    currentFiles,
-    setCurrentFiles,
-    setSelectedImage,
-}) => {
-    const [displayFileOptions, setDisplayFileOptions] = useState<boolean>(false);
-
-    const viewImage = () => {
-        setDisplayFileOptions(!displayFileOptions);
-        setSelectedImage && setSelectedImage(file.filename);
-    };
-
-    const handleClick = () => {
-        setDisplayFileOptions(!displayFileOptions);
-    };
+export const FileMenu: React.FC<FileMenuProps> = ({ loggedUserId, file, files, currentFiles, setCurrentFiles }) => {
+    const [opened, { open, close }] = useDisclosure(false);
 
     return (
         <>
-            {displayFileOptions && (
-                <div className="absolute z-10 w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 p-2 text-sm rounded-lg shadow-lg">
-                    {setSelectedImage && (
-                        <div
-                            className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                            onClick={viewImage}
-                        >
-                            <MdImageSearch /> view image
-                        </div>
-                    )}
-                    <div className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer text-[#cc00ff] hover:bg-[#cc00ff1e]">
-                        <IoIosFlag /> report image
-                    </div>
+            <Menu
+                styles={{
+                    dropdown: {
+                        backgroundColor: 'rgb(17 24 39)',
+                        border: 'none',
+                    },
+                }}
+                radius={8}
+                position="top"
+                withArrow
+            >
+                <Menu.Dropdown>
+                    <Menu.Item
+                        leftSection={<MdImageSearch style={{ width: rem(14), height: rem(14) }} />}
+                        onClick={open}
+                        color="#cc00ff"
+                        variant="light"
+                    >
+                        view image
+                    </Menu.Item>
+
+                    <Menu.Item
+                        leftSection={<IoIosFlag style={{ width: rem(14), height: rem(14) }} />}
+                        variant="light"
+                        color="yellow"
+                    >
+                        report image
+                    </Menu.Item>
+
                     {!loggedUserId && (
                         <RemoveFile
                             file={file}
@@ -56,21 +59,60 @@ export const FileMenu: React.FC<FileMenuProps> = ({
                             setCurrentFiles={setCurrentFiles}
                         />
                     )}
-                    <div
-                        className="flex items-center justify-start gap-2 p-2 rounded-lg cursor-pointer text-[#cc00ff] hover:bg-[#cc00ff1e]"
-                        onClick={handleClick}
-                    >
-                        <IoMdClose /> close
-                    </div>
-                </div>
-            )}
 
-            <div
-                className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 group-hover:bottom-2 group-hover:lg:bottom-5 cursor-pointer transition-all duration-300"
-                onClick={handleClick}
+                    <Menu.Item
+                        color="#cc00ff"
+                        variant="light"
+                        leftSection={<IoMdClose style={{ width: rem(14), height: rem(14) }} />}
+                    >
+                        close
+                    </Menu.Item>
+                </Menu.Dropdown>
+
+                <Menu.Target>
+                    <Button
+                        variant="transparent"
+                        color="white"
+                        py={1}
+                        px={3}
+                        pos="absolute"
+                        left={0}
+                        right={0}
+                        bottom={2}
+                    >
+                        <BsThreeDots className="text-2xl" />
+                    </Button>
+                </Menu.Target>
+            </Menu>
+
+            <Modal
+                opened={opened}
+                onClose={close}
+                title="View Image"
+                centered
+                overlayProps={{
+                    backgroundOpacity: 0.55,
+                    blur: 3,
+                }}
+                styles={{
+                    body: {
+                        backgroundColor: 'rgb(17 24 39)',
+                        borderColor: '#cc00ff',
+                    },
+                    header: {
+                        backgroundColor: 'rgb(17 24 39)',
+                    },
+                }}
+                radius={8}
+                scrollAreaComponent={ScrollArea.Autosize}
+                size="xl"
             >
-                <BsThreeDots className="text-2xl" />
-            </div>
+                <Image
+                    alt={'selectedImage'}
+                    src={backend.storageUrl + file.filename}
+                    className="lg:h-full rounded-lg shadow-lg"
+                />
+            </Modal>
         </>
     );
 };

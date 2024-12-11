@@ -23,7 +23,7 @@ export default function Navbar() {
     return (
         <>
             <nav className="fixed inset-x-0 top-0 w-full z-10">
-                <div className="px-5 lg:px-8 backdrop-blur-md bg-black/30">
+                <div className="px-5 lg:px-8 backdrop-blur-lg bg-black/60">
                     <div className="relative flex h-16 items-center justify-between">
                         <div className="flex items-center sm:hidden">
                             <button
@@ -55,11 +55,8 @@ export default function Navbar() {
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
-                            <button
-                                type="button"
-                                className="rounded-full bg-[#cc00ff1e] p-2 text-[#cc00ff]"
-                            >
-                                <IoIosNotificationsOutline className='text-xl' />
+                            <button type="button" className="rounded-full bg-[#cc00ff1e] p-2 text-[#cc00ff]">
+                                <IoIosNotificationsOutline className="text-xl" />
                             </button>
 
                             <NavbarUserPopover user={user || null} />

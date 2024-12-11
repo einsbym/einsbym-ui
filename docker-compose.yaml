@@ -1,0 +1,12 @@
+services:
+  einsbym-ui:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: einsbym-ui
+    environment:
+      NEXT_PUBLIC_STORAGE_URL: http://192.168.255.107:9000/einsbym/
+      NEXT_PUBLIC_API_URL: http://192.168.255.107:8888
+      NEXT_PUBLIC_APP_VERSION: "1.0.0"
+    ports:
+      - 80:3000

@@ -1,0 +1,9 @@
+.github
+
+.next
+node_modules
+
+.env.local
+.env.local.template
+
+*.md
